@@ -32,10 +32,11 @@ function loadIcons() {
 	'use strict';
 	
 	let htmlStr = '<script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>';
-	
-	// add all the created css to the document
     $("head").append(htmlStr);
+    
 }
+
+
 
 function injectCss() {
     'use strict';
@@ -297,6 +298,7 @@ function injectCss() {
 }
 
 
+
 function interpretLists() {
     'use strict';
 
@@ -338,8 +340,10 @@ function createListButtons() {
 	let htmlStr = "";
 	
 	
+    // LABELS TOGGLE
 	// Use to...
-	// - Show labels normally
+    // - Show according to list settings
+	// - Show labels normally (Trello default)
 	// - Show labels as coloured bar on side
 	// - Hide labels
 	htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-tag'></i></span></a>";	
@@ -347,31 +351,40 @@ function createListButtons() {
 	// - Overides this
 	
 	// User visibility always hidden unless global list size settings turned off
+    // TO DO: What is this talking about?
 	
+    // DUE DATES TOGGLE
 	// Use to...
-	// - Show due dates normally
+    // - Show according to list settings
+	// - Show due dates normally (Trello default)
 	// - Show colour & icon only for due soon and overdue
 	// - Hide due dates
 	htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-clock'></i></span></a>";
 	// Global button...
 	// - Overides this
 	
+    // DETAILS TOGGLE
 	// Use to...
-	// - Show any badges other than due dates and users, and checklists normally
+    // - Show according to list settings
+	// - Show any badges other than due dates and users, and checklists normally (Trello default)
 	// - Hide any badges other than due dates and users, and display checklists as progress bars
 	// - Hide any badges and checklists other than due dates and users
 	htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-comment-alt'></i></span></a>";
+    // Global button...
+	// - Overides this only if list is not set to shrink ????
 	
+    // IMAGES TOGGLE
 	// Use to..
-	// - Show inline image previews
+	// - Show inline image previews (Trello default)
 	// - Reduce images previews to a small horizontal bar
 	// - Hide image previews
 	htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-image'></i></span></a>";
 	// Global button...
 	// - Overides this only if list is not set to shrink ????
 	
+    // LIST APPEARANCE TOGGLE
 	// Use to...
-	// - Show lists normally
+	// - Show lists normally (Trello default)
 	// - Shrink list
 	// - Shrink list and darken
 	// - Shrink list and fade
@@ -383,6 +396,7 @@ function createListButtons() {
 	
 	
 	// apply as button set that appears to right of 3 dots in list when clicked
+    
 	
 }
 
