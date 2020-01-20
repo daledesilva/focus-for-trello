@@ -484,43 +484,12 @@
         let htmlStr = "";
 
 
-        // Use to...
-        // - Show labels normally
-        // - Show as customised in list
-        // - Hide labels
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-tag'></i></span></a>";
+        htmlStr += "	<a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>";
+        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-save'></i></span></a>"; // check-circle
+        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-plus-square'></i></span></a>";
+        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-backspace'></i></span></a>";
 
-        // Use to...
-        // - Show users assigned to cards normally
-        // - Show as customised in list
-        // - Hide users assigned to cards
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-portrait'></i></span></a>";
-
-        // Use to...
-        // - Show due dates normally
-        // - Show as customised in list
-        // - Hide due dates
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-clock'></i></span></a>";
-
-        // Use to...
-        // - Show any badges other than due dates and users, and checklists normally
-        // - Show as customised in list
-        // - Hide any badges and checklists other than due dates and users
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-comment-alt'></i></span></a>";
-
-        // Use to..
-        // - Show inline image previews normally
-        // - Show as customised in list
-        // - Hide image previews
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-image'></i></span></a>";
-
-        // Use to...
-        // - Show lists in original size, colours, visibility, and cards in original settings also
-        // - Show lists in custom size, colours, and visibility, and cards with custom lists settings
-        // - Show lists in custom size and colours, but original visibility, and cards with custom lists settings
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fab fa-trello'></i></span></a>";
-        htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-poll fa-rotate-180'></i></span></a>";
-
+        
 
 
         // find the standard Trell board header and the div that holds all buttons that float to the right
