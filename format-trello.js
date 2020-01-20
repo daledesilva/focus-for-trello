@@ -84,7 +84,8 @@
         customCss += "   position: absolute;";
         customCss += "   top: 0;";
         customCss += "   left: 0;";
-        customCss += "   padding-left: 4px;";
+        customCss += "   z-index: 10;";
+        //customCss += "   padding-left: 4px;";
         customCss += "}";
         
         
@@ -92,7 +93,9 @@
         customCss += ".ft_pop-over-header-btn {";
         customCss += "    color: #6b778c;";
         customCss += "    padding: 10px 6px;";
-        customCss += "    z-index: 2;";
+        customCss += "}";
+        customCss += ".ft_pop-over-header-btn.left-most {";
+        customCss += "    padding-left: 10px;";
         customCss += "}";
 
 
@@ -378,7 +381,7 @@
         // - Show labels normally (Trello default)
         // - Show labels as coloured bar on side
         // - Hide labels
-        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-tag'></i></a>";
+        htmlStr += "<a href='#' class='ft_pop-over-header-btn left-most icon-sm'><i class='fas fa-tag'></i></a>";
         // Global button...
         // - Overides this
 
