@@ -99,103 +99,201 @@
         customCss += "    padding-left: 10px;";
         customCss += "}";
 
+        
+        
+        
+        
+        //////////////////////
+        // Affect Lists
+        
+        
+        // LIST WIDTHS
+        //////////////
+        
+        // narrow
+        customCss += ".ft_list-width_narrow {";
+        customCss += "   width: 150px !important;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-width_narrow .js-list-name-input {";
+        customCss += "   font-size: 0.7em;";
+        customCss += "   height: 40px;";
+        customCss += "   line-height: 1.3em;";
+        customCss += "}";
+        // TO DO: Does this double up on the above?
+        customCss += ".ft_list-width_narrow .js-card-name {";
+        customCss += "   font-size: 0.7em;";
+        customCss += "   line-height: 1.3em;";
+        customCss += "}";
+        // shrink add new card text
+        customCss += ".ft_list-width_narrow .js-open-card-composer {";
+        customCss += "   font-size: 0.7em;";
+        customCss += "}";
+         // shrink labels
+        customCss += ".ft_list-width_narrow .js-card-labels {";
+        customCss += "   overflow: hidden;";
+        customCss += "   font-size: 0.7em;";
+        customCss += "}";
+        // shrink badges and due dates
+        customCss += ".ft_list-width_narrow .badge-text {";
+        customCss += "   overflow: hidden;";
+        customCss += "   font-size: 0.7em;";
+        customCss += "}";
+        
+        
 
+        
+        // LIST COLORS
+        //////////////
+        
+        // dark
+        customCss += ".ft_list-bg_dark .list {";
+        customCss += "   background-color: #666;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-bg_dark .js-list-name-input {";
+        customCss += "   color: #eee;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-bg_dark .js-card-details {";
+        customCss += "   background-color: #777;";
+        customCss += "}";
+        // edit card titles
+        customCss += ".ft_list-bg_dark .js-card-name {";
+        customCss += "   color: #ccc;";
+        customCss += "}";
+        
+        
+        // medium
+        customCss += ".ft_list-bg_medium .list {";
+        customCss += "   background-color: #dfe3e6;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-bg_medium .js-list-name-input {";
+        customCss += "   color: #ddd;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-bg_medium .js-card-details {";
+        customCss += "   background-color: #eee;";
+        customCss += "}";
+        
+        
+        // see-through
+        customCss += ".ft_list-bg_clear .list {";
+        customCss += "   background: none;";
+        customCss += "}";
+        //
+        customCss += ".ft_list-bg_clear .list-card {";
+        customCss += "   opacity: 0.4;";
+        customCss += "}";
+        // edit card titles
+        customCss += ".ft_list-bg_clear .js-card-name {";
+        customCss += "   color: #444;";
+        customCss += "}";
+        // head text
+        customCss += ".ft_list-bg_clear .js-list-name-input {";
+        customCss += "   color: #ddd;";
+        customCss += "}";
 
-
+        
+        
+        
+        
+        
 
         //////////////////////
         // Affect Goal Lists
 
-        // shrink lists
-        customCss += ".future {";
-        customCss += "   width: 150px !important;";
-        //customCss += "   opacity: 0.8 !important;";
-        customCss += "}";
+                // shrink lists
+                customCss += ".future {";
+                customCss += "   width: 150px !important;";
+                //customCss += "   opacity: 0.8 !important;";
+                customCss += "}";
 
-        // edit list color
-        customCss += ".future .list {";
-        //customCss += "   background-color: #a3b6c5;";
-        customCss += "   background-color: #dfe3e6;";
-        customCss += "}";
+                // edit list color
+                customCss += ".future .list {";
+                //customCss += "   background-color: #a3b6c5;";
+                customCss += "   background-color: #dfe3e6;";
+                customCss += "}";
 
-        // shrink head text
-        customCss += ".future .js-list-name-input {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   height: 40px;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "   color: #ddd;";
-        customCss += "}";
+                // shrink head text
+                customCss += ".future .js-list-name-input {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   height: 40px;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "   color: #ddd;";
+                customCss += "}";
 
-        // edit card color
-        customCss += ".future .js-card-details {";
-     //   customCss += "   background-color: #bacbd7;";
-        customCss += "   background-color: #eee;";
-        customCss += "}";
+                // edit card color
+                customCss += ".future .js-card-details {";
+             //   customCss += "   background-color: #bacbd7;";
+                customCss += "   background-color: #eee;";
+                customCss += "}";
 
-        // edit card titles
-        customCss += ".future .js-card-name {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "}";
+                // edit card titles
+                customCss += ".future .js-card-name {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "}";
 
-        // shrink add new card text
-        customCss += ".future .js-open-card-composer {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink add new card text
+                customCss += ".future .js-open-card-composer {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
-        // shrink labels
-        customCss += ".abandoned .js-card-labels {";
-        customCss += "   overflow: hidden;";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink labels
+                customCss += ".abandoned .js-card-labels {";
+                customCss += "   overflow: hidden;";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
-        // shrink badges and due dates
-        customCss += ".abandoned .badge-text {";
-        customCss += "   overflow: hidden;";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink badges and due dates
+                customCss += ".abandoned .badge-text {";
+                customCss += "   overflow: hidden;";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
 
         ////////////////////////
         // Affect Done Lists
 
-        // shrink lists
-        customCss += ".done {";
-        customCss += "   width: 150px !important;";
-        //customCss += "   opacity: 0.8 !important;";
-        customCss += "}";
+                // shrink lists
+                customCss += ".done {";
+                customCss += "   width: 150px !important;";
+                //customCss += "   opacity: 0.8 !important;";
+                customCss += "}";
 
-        // edit list color
-        customCss += ".done .list {";
-        //customCss += "   background-color: #a3c3a8;";
-        customCss += "   background-color: #666;";
-        customCss += "}";
+                // edit list color
+                customCss += ".done .list {";
+                //customCss += "   background-color: #a3c3a8;";
+                customCss += "   background-color: #666;";
+                customCss += "}";
 
-        // shrink head text
-        customCss += ".done .js-list-name-input {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   height: 40px;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "   color: #eee;";
-        customCss += "}";
+                // shrink head text
+                customCss += ".done .js-list-name-input {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   height: 40px;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "   color: #eee;";
+                customCss += "}";
 
-        // edit card color
-        customCss += ".done .js-card-details {";
-        //customCss += "   background-color: #bbd7ba;";
-        customCss += "   background-color: #777;";
-        customCss += "}";
+                // edit card color
+                customCss += ".done .js-card-details {";
+                //customCss += "   background-color: #bbd7ba;";
+                customCss += "   background-color: #777;";
+                customCss += "}";
 
-        // edit card titles
-        customCss += ".done .js-card-name {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "   color: #ccc;";
-        customCss += "}";
+                // edit card titles
+                customCss += ".done .js-card-name {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "   color: #ccc;";
+                customCss += "}";
 
-        // shrink add new card text
-        customCss += ".done .js-open-card-composer {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink add new card text
+                customCss += ".done .js-open-card-composer {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
         // hide users assigned to the cards
         customCss += ".done .js-list-card-members {";
@@ -217,62 +315,62 @@
         //////////////////////////
         // Affect Brain Dump List
 
-        // shrink lists
-        customCss += ".brain-dump {";
-        customCss += "   width: 150px !important;";
-        customCss += "}";
+                // shrink lists
+                customCss += ".brain-dump {";
+                customCss += "   width: 150px !important;";
+                customCss += "}";
 
-        // edit list color
-        customCss += ".brain-dump .list {";
-        customCss += "   background: none;";
-        customCss += "}";
+                // edit list color
+                customCss += ".brain-dump .list {";
+                customCss += "   background: none;";
+                customCss += "}";
 
-        // shrink head text
-        customCss += ".brain-dump .js-list-name-input {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   height: 40px;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "   color: #ddd;";
-        customCss += "}";
+                // shrink head text
+                customCss += ".brain-dump .js-list-name-input {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   height: 40px;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "   color: #ddd;";
+                customCss += "}";
 
-        // edit card color
-        customCss += ".brain-dump .list-card {";
-        customCss += "   opacity: 0.4;";
-        customCss += "}";
+                // edit card color
+                customCss += ".brain-dump .list-card {";
+                customCss += "   opacity: 0.4;";
+                customCss += "}";
 
-        // edit card titles
-        customCss += ".brain-dump .js-card-name {";
-        customCss += "   color: #444;";
-        customCss += "   font-size: 0.7em;";
-        customCss += "   line-height: 1.3em;";
-        customCss += "}";
+                // edit card titles
+                customCss += ".brain-dump .js-card-name {";
+                customCss += "   color: #444;";
+                customCss += "   font-size: 0.7em;";
+                customCss += "   line-height: 1.3em;";
+                customCss += "}";
 
-        // shrink add new card text
-        customCss += ".brain-dump .js-open-card-composer {";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink add new card text
+                customCss += ".brain-dump .js-open-card-composer {";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
-        // shrink labels
-        customCss += ".abandoned .js-card-labels {";
-        customCss += "   overflow: hidden;";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink labels
+                customCss += ".abandoned .js-card-labels {";
+                customCss += "   overflow: hidden;";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
-        // shrink badges and due dates
-        customCss += ".abandoned .badge-text {";
-        customCss += "   overflow: hidden;";
-        customCss += "   font-size: 0.7em;";
-        customCss += "}";
+                // shrink badges and due dates
+                customCss += ".abandoned .badge-text {";
+                customCss += "   overflow: hidden;";
+                customCss += "   font-size: 0.7em;";
+                customCss += "}";
 
 
 
         //////////////////////////
         // Affect Abandon List
 
-        // shrink lists
-        customCss += ".abandoned {";
-        customCss += "   width: 150px !important;";
-        customCss += "}";
+                // shrink lists
+                customCss += ".abandoned {";
+                customCss += "   width: 150px !important;";
+                customCss += "}";
 
         // edit list color
         customCss += ".abandoned .list {";
@@ -485,7 +583,18 @@
     function createHeaderButtons() {
         'use strict';
         console.log('attempting to create header buttons');
+        
+        
+        
+        let $rightHeader = $latestMutations.find(".mod-right").first();
+        // Bail if the right header isn't present in anything that's modified
+        if($rightHeader.length == 0) {
+            console.log("right header not found.");
+            return;
+        }
 
+        
+        
         let htmlStr = "";
 
 
@@ -499,10 +608,10 @@
 
         // find the standard Trell board header and the div that holds all buttons that float to the right
         // put in the new button
-        let $rightSideHeader = $(".mod-right"); // .board-header-btns
-        $rightSideHeader.prepend(htmlStr);
+        //let $rightSideHeader = $(".mod-right"); // .board-header-btns
+        $rightHeader.prepend(htmlStr);
 
-        console.log($rightSideHeader);
+        console.log($rightHeader);
         console.log('header buttons created');
     }
 
@@ -567,7 +676,7 @@
         console.log("Delayed page Initialisation");
 
         // only on initial page load (which can be the Trello home page and not again)
-        createHeaderButtons();
+        
         
         // and everything else that needs to run on any page update
         delayedPageChangeAdjustments();
@@ -580,6 +689,7 @@
     function immediatePageAdjustments() {
         interpretLists();
         createListButtons();
+        createHeaderButtons();
     }
 
     // On any page update, do anything that can happen a split second later
