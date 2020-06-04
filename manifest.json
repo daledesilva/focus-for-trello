@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Format Trello",
+    "version": "0.1.0",
+    "description": "Pimp out your Trello for better usability",
+    "short_name": "Skinner",
+    "permissions": ["activeTab", "declarativeContent", "tabs", "storage"],
+    "content_scripts": [
+      {
+        "matches": ["https://trello.com/b/*"],
+        "css": ["override.css"],
+        "js": [ "jquery.min.js", "override.js"]
+      }
+    ],
+    "browser_action": {
+      "default_icon": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png"
+      }
+    }
+   }
