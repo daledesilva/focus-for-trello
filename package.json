@@ -1,10 +1,12 @@
 {
-  "name": "development",
-  "version": "1.0.0",
-  "description": "",
+  "name": "trello-skinner",
+  "version": "0.1.0",
+  "description": "Trell Skinner",
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/.bin/webpack --mode=development --watch",
+    "build": "node_modules/.bin/webpack --mode=production && gulp bundle"
   },
   "repository": {
     "type": "git",
@@ -13,5 +15,27 @@
   "author": "Dale de Silva",
   "license": "ISC",
   "homepage": "https://bitbucket.org/DaleDeSilva/format-trello#readme",
-  "dependencies": {}
+  "__comment1__": "The below browserslist version was arbrarily chosen",
+  "browserslist": [
+    "chrome > 60"
+  ],
+  "dependencies": {
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.0.2",
+    "css-loader": "^3.6.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.26.8",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
 }

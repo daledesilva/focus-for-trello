@@ -1,0 +1,375 @@
+
+
+
+
+/* TODO: create buttons to shrink and expand any list*/
+       /* TODO: create separate buttons to also show/hide: labels, users, and badges*/
+       /* TODO: button to hide image previews*/
+       .list-card-cover {
+          height: 0px !important;
+       }
+       /* TODO: Card cover height should be 0 and javascript should check if there is actually an image in there and increase it to 1px*/
+
+       /* absolutely position rollover preview of card image (left or right depending on where mouse is*/
+
+       /* All options should use browser memory to remember how you last left each one*/
+
+       /* TODO: create an upcoming filter as well as the done filter (like "goals", or "upcoming", or "potential")*/
+       /* can you tell it to search for multiple? - to help when one of your boards suits "goal" but another is better with "potential"*/
+
+       /* TODO: create global button to hide upcoming lists entirely*/
+       /* TODO: create global button to hide done lists entirely*/
+
+       /* TODO: ability to turn on progress bars for cards (collapse checklists or stack)*/
+
+       /* TODO: create an abanded/ditched filter*/
+
+       /* TODO: Animation that can be turned on and off (for transitions from normal states to custom and when custom switches are pressed, etc.*/
+
+       /* TODO: Shrink labels to 2 pixels in shrunken lists*/
+       /* TODO: Shrink label text too*/
+
+       /* Add class for shrunken lists so they can be styled together (across type)*/
+
+
+
+
+
+
+
+       /*/////////////////////*/
+       /* Affect List Buttons*/
+       .ft_list-btn-group {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 10;
+       /*   padding-left: 4px;*/
+       }
+
+
+
+       .ft_pop-over-header-btn {
+           color: #6b778c;
+           padding: 10px 6px;
+       }
+       .ft_pop-over-header-btn.left-most {
+           padding-left: 10px;
+       }
+
+       
+       
+       
+       
+       /*////////////////////*/
+       /* Affect Lists*/
+       
+       
+       /* LIST WIDTHS*/
+       /*////////////*/
+       
+       /* narrow*/
+       .ft_list-width_narrow {
+          width: 150px !important;
+       }
+       /**/
+       .ft_list-width_narrow .js-list-name-input {
+          font-size: 0.7em;
+          height: 40px;
+          line-height: 1.3em;
+       }
+       /* TO DO: Does this double up on the above?*/
+       .ft_list-width_narrow .js-card-name {
+          font-size: 0.7em;
+          line-height: 1.3em;
+       }
+       /* shrink add new card text*/
+       .ft_list-width_narrow .js-open-card-composer {
+          font-size: 0.7em;
+       }
+        /* shrink labels*/
+       .ft_list-width_narrow .js-card-labels {
+          overflow: hidden;
+          font-size: 0.7em;
+       }
+       /* shrink badges and due dates*/
+       .ft_list-width_narrow .badge-text {
+          overflow: hidden;
+          font-size: 0.7em;
+       }
+       
+       
+
+       
+       /* LIST COLORS*/
+       /*////////////*/
+       
+       /* dark*/
+       .ft_list-bg_dark .list {
+          background-color: #666;
+       }
+       /**/
+       .ft_list-bg_dark .js-list-name-input {
+          color: #eee;
+       }
+       /**/
+       .ft_list-bg_dark .js-card-details {
+          background-color: #777;
+       }
+       /* edit card titles*/
+       .ft_list-bg_dark .js-card-name {
+          color: #ccc;
+       }
+       
+       
+       /* medium*/
+       .ft_list-bg_medium .list {
+          background-color: #dfe3e6;
+       }
+       /**/
+       .ft_list-bg_medium .js-list-name-input {
+          color: #ddd;
+       }
+       /**/
+       .ft_list-bg_medium .js-card-details {
+          background-color: #eee;
+       }
+       
+       
+       /* see-through*/
+       .ft_list-bg_clear .list {
+          background: none;
+       }
+       /**/
+       .ft_list-bg_clear .list-card {
+          opacity: 0.4;
+       }
+       /* edit card titles*/
+       .ft_list-bg_clear .js-card-name {
+          color: #444;
+       }
+       /* head text*/
+       .ft_list-bg_clear .js-list-name-input {
+          color: #ddd;
+       }
+
+       
+       
+       
+       
+       
+
+       /*////////////////////*/
+       /* Affect Goal Lists*/
+
+               /* shrink lists*/
+               .future {
+                  width: 150px !important;
+               /*   opacity: 0.8 !important;*/
+               }
+
+               /* edit list color*/
+               .future .list {
+               /*   background-color: #a3b6c5;*/
+                  background-color: #dfe3e6;
+               }
+
+               /* shrink head text*/
+               .future .js-list-name-input {
+                  font-size: 0.7em;
+                  height: 40px;
+                  line-height: 1.3em;
+                  color: #ddd;
+               }
+
+               /* edit card color*/
+               .future .js-card-details {
+            /*      background-color: #bacbd7;*/
+                  background-color: #eee;
+               }
+
+               /* edit card titles*/
+               .future .js-card-name {
+                  font-size: 0.7em;
+                  line-height: 1.3em;
+               }
+
+               /* shrink add new card text*/
+               .future .js-open-card-composer {
+                  font-size: 0.7em;
+               }
+
+               /* shrink labels*/
+               .abandoned .js-card-labels {
+                  overflow: hidden;
+                  font-size: 0.7em;
+               }
+
+               /* shrink badges and due dates*/
+               .abandoned .badge-text {
+                  overflow: hidden;
+                  font-size: 0.7em;
+               }
+
+
+       /*//////////////////////*/
+       /* Affect Done Lists*/
+
+               /* shrink lists*/
+               .done {
+                  width: 150px !important;
+               /*   opacity: 0.8 !important;*/
+               }
+
+               /* edit list color*/
+               .done .list {
+               /*   background-color: #a3c3a8;*/
+                  background-color: #666;
+               }
+
+               /* shrink head text*/
+               .done .js-list-name-input {
+                  font-size: 0.7em;
+                  height: 40px;
+                  line-height: 1.3em;
+                  color: #eee;
+               }
+
+               /* edit card color*/
+               .done .js-card-details {
+               /*   background-color: #bbd7ba;*/
+                  background-color: #777;
+               }
+
+               /* edit card titles*/
+               .done .js-card-name {
+                  font-size: 0.7em;
+                  line-height: 1.3em;
+                  color: #ccc;
+               }
+
+               /* shrink add new card text*/
+               .done .js-open-card-composer {
+                  font-size: 0.7em;
+               }
+
+       /* hide users assigned to the cards*/
+       .done .js-list-card-members {
+          display: none;
+       }
+
+       /* hide labels*/
+       .done .js-card-labels {
+          display: none;
+       }
+
+       /* hide badges and due dates*/
+       .done .badges {
+          display: none;
+       }
+
+
+
+       /*////////////////////////*/
+       /* Affect Brain Dump List*/
+
+               /* shrink lists*/
+               .brain-dump {
+                  width: 150px !important;
+               }
+
+               /* edit list color*/
+               .brain-dump .list {
+                  background: none;
+               }
+
+               /* shrink head text*/
+               .brain-dump .js-list-name-input {
+                  font-size: 0.7em;
+                  height: 40px;
+                  line-height: 1.3em;
+                  color: #ddd;
+               }
+
+               /* edit card color*/
+               .brain-dump .list-card {
+                  opacity: 0.4;
+               }
+
+               /* edit card titles*/
+               .brain-dump .js-card-name {
+                  color: #444;
+                  font-size: 0.7em;
+                  line-height: 1.3em;
+               }
+
+               /* shrink add new card text*/
+               .brain-dump .js-open-card-composer {
+                  font-size: 0.7em;
+               }
+
+               /* shrink labels*/
+               .abandoned .js-card-labels {
+                  overflow: hidden;
+                  font-size: 0.7em;
+               }
+
+               /* shrink badges and due dates*/
+               .abandoned .badge-text {
+                  overflow: hidden;
+                  font-size: 0.7em;
+               }
+
+
+
+       /*////////////////////////*/
+       /* Affect Abandon List*/
+
+               /* shrink lists*/
+               .abandoned {
+                  width: 150px !important;
+               }
+
+       /* edit list color*/
+       .abandoned .list {
+          background: none;
+       }
+
+       /* shrink head text*/
+       .abandoned .js-list-name-input {
+          font-size: 0.7em;
+          height: 40px;
+          line-height: 1.3em;
+          color: #ddd;
+       }
+
+       /* edit card color*/
+       .abandoned .list-card {
+          background-color: #111;
+          opacity: 0.4;
+       }
+
+       /* edit card titles*/
+       .abandoned .js-card-name {
+          color: #888;
+          font-size: 0.7em;
+          line-height: 1.3em;
+       }
+
+       /* shrink add new card text*/
+       .abandoned .js-open-card-composer {
+          font-size: 0.7em;
+       }
+
+       /* shrink labels*/
+       .abandoned .js-card-labels .card-label {
+          overflow: hidden;
+          font-size: 0.7em;
+       }
+
+       /* shrink badges and due dates*/
+       .abandoned .badge-text {
+          overflow: hidden;
+          font-size: 0.7em;
+       }
+       
