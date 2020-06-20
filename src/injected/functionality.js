@@ -1,4 +1,17 @@
+import dom, { Fragment } from 'jsx-render';
+// ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn't handle undefineds" and stops execution.
+// Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
+
+// custom components
+import { Tooltip } from "../components/tooltip"
+
 import "./style.scss";
+
+
+const plugin = {
+    slug: "skinner"
+}
+
 
 // var $ = require( "jquery" );
 
@@ -34,6 +47,7 @@ import "./style.scss";
    var pageChangeTimeOutID;
    var pageStartTimerID;
    var $latestMutations = $("body");
+   
 
 
 
@@ -41,8 +55,8 @@ import "./style.scss";
    function loadIcons() {
        'use strict';
 
-       let htmlStr = '<script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>';
-       $("head").append(htmlStr);
+       let iconJsx = <script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>
+       $("head").append(iconJsx);
 
    }
 
@@ -116,10 +130,10 @@ import "./style.scss";
 
 
 
-       let htmlStr = "";
+       let jsxArr = [];
 
 
-       htmlStr += "<div class='ft_list-btn-group'>";
+       
 
        //htmlStr += "	<a class='list-immediate-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-cog'></i></span></a>";
 
@@ -132,9 +146,21 @@ import "./style.scss";
             // - Show labels normally (Trello default)
             // - Show labels as coloured bar on side
             // - Hide labels
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn left-most icon-sm' title='cycle label appearance'><i class='fas fa-tag'></i></a>";
+            jsxArr.push(
+                <Tooltip title='cycle label appearance' tag="a">
+                    <a
+                        href='#'
+                        id={ plugin.slug + "_label-btn" }
+                        class='ft_pop-over-header-btn left-most icon-sm'
+                    >
+                        <i class='fas fa-tag'/>
+                    </a>
+                </Tooltip>
+            );
             // Global button...
             // - Overides this
+
+           
 
             // User visibility always hidden unless global list size settings turned off
             // TO DO: What is this talking about?
@@ -145,7 +171,9 @@ import "./style.scss";
             // - Show due dates normally (Trello default)
             // - Show colour & icon only for due soon and overdue
             // - Hide due dates
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>";
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>
+            );
             // Global button...
             // - Overides this
 
@@ -155,7 +183,9 @@ import "./style.scss";
             // - Show any badges other than due dates and users, and checklists normally (Trello default)
             // - Hide any badges other than due dates and users, and display checklists as progress bars
             // - Hide any badges and checklists other than due dates and users
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>";
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>
+            );
             // Global button...
             // - Overides this only if list is not set to shrink ????
 
@@ -164,7 +194,9 @@ import "./style.scss";
             // - Show inline image previews (Trello default)
             // - Reduce images previews to a small horizontal bar
             // - Hide image previews
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>";
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>
+            );
             // Global button...
             // - Overides this only if list is not set to shrink ????
 
@@ -175,14 +207,18 @@ import "./style.scss";
             // - Shrink list and darken
             // - Shrink list and fade
             //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>";
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>
+            );
             // Global button...
             // - Overides all these
 
             // LIST VISIBILITY BUTTON
             // Use to...
             // - Hide/Unhide list
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>";  // eye-slash
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>
+            );  // eye-slash
 
 
 
@@ -192,24 +228,21 @@ import "./style.scss";
             // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that's not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
             // - Copy text based settings string?
             // - Paste text based settings string?
-            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>";
+            jsxArr.push(
+                <a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>
+            );
 
 
-       htmlStr += "</div>"; //ft_list-btn-group
-
-       // apply as button set that appears to right of 3 dots in list when clicked
-
-
-
-
-
-       //let $listExtrasMenus = $(".list-header-extras-menu"); // .board-header-btns
-       //$listExtrasMenus.prepend(htmlStr);
 
 
        // remove text from list settings header
        $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
-       $listSettings.prepend(htmlStr);
+
+        $listSettings.prepend(
+            <div class='ft_list-btn-group'>
+                { jsxArr }
+            </div>
+        );
 
 
    }
@@ -218,40 +251,59 @@ import "./style.scss";
 
 
 
-   function createHeaderButtons() {
-       'use strict';
-       console.log('attempting to create header buttons');
-       
-       
-       
-       let $rightHeader = $latestMutations.find(".mod-right").first();
-       // Bail if the right header isn't present in anything that's modified
-       if($rightHeader.length == 0) {
-           console.log("right header not found.");
-           return;
-       }
-
-       
-       
-       let htmlStr = "";
-
-
-       htmlStr += "	<a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>";
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>"; // check-circle
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>";
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>";
+   
 
 
 
 
-       // find the standard Trell board header and the div that holds all buttons that float to the right
-       // put in the new button
-       //let $rightSideHeader = $(".mod-right"); // .board-header-btns
-       $rightHeader.prepend(htmlStr);
 
-       console.log($rightHeader);
-       console.log('header buttons created');
-   }
+
+
+
+
+
+    function createFloatingButton() {
+        'use strict';
+        console.log('attempting to floating button');
+
+
+
+        let $rightHeader = $latestMutations.find(".mod-right").first();
+        // Bail if the right header isn't present in anything that's modified
+        if($rightHeader.length == 0) {
+            console.log("right header not found.");
+            return;
+        }
+
+
+        // TO DO: Add button to hide all extraneous trello Headers, etc, and other function
+
+        let floatingButton = (
+            <Fragment>
+                <a class='board-header-btn board-header-btn-without-icon' href='#'>
+                    <span class='board-header-btn-text'>Re-Format</span>
+                </a>
+                <a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>
+                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>
+                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>
+                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>
+            </Fragment>
+        );
+
+
+
+        // find the standard Trello board header and the div that holds all buttons that float to the right
+        // put in the new button
+        //let $rightSideHeader = $(".mod-right"); // .board-header-btns
+        $rightHeader.prepend(floatingButton);
+
+        console.log($rightHeader);
+        console.log('floating button created');
+    }
+
+
+
+
 
 
 
@@ -323,12 +375,13 @@ import "./style.scss";
 
 
 
-   // On any page update, do anything that needs to happen immediately (no visual discrepancy)
-   function immediatePageAdjustments() {
-       interpretLists();
-       createListButtons();
-       createHeaderButtons();
-   }
+    // On any page update, do anything that needs to happen immediately (no visual discrepancy)
+    function immediatePageAdjustments() {
+        interpretLists();
+        createListButtons();
+        //    createHeaderButtons();
+        createFloatingButton();
+    }
 
    // On any page update, do anything that can happen a split second later
    function delayedPageChangeAdjustments() {

@@ -10970,6 +10970,327 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/jsx-render/lib/JSXComponent.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/jsx-render/lib/JSXComponent.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _synteticEvents = _interopRequireDefault(__webpack_require__(/*! ./synteticEvents */ "./node_modules/jsx-render/lib/synteticEvents.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var JSXComponent =
+/*#__PURE__*/
+function () {
+  function JSXComponent() {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, JSXComponent);
+
+    this.props = props;
+    this.render = this.render.bind(this);
+    this.ref = this.ref.bind(this, props);
+  } // eslint-disable-next-line
+
+
+  _createClass(JSXComponent, [{
+    key: "ref",
+    value: function ref(node, props) {
+      var events = Object.keys(props).filter(function (prop) {
+        return _synteticEvents.default.includes(prop);
+      });
+      events.forEach(function (synteticEvent) {
+        var event = synteticEvent.replace(/^on/, '').toLowerCase();
+        node.addEventListener(event, props[synteticEvent]);
+      });
+    } // eslint-disable-next-line
+
+  }, {
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return JSXComponent;
+}();
+
+var _default = JSXComponent;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/jsx-render/lib/dom.js":
+/*!********************************************!*\
+  !*** ./node_modules/jsx-render/lib/dom.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.portalCreator = exports.Fragment = exports.default = void 0;
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/jsx-render/lib/utils.js");
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * The tag name and create an html together with the attributes
+ *
+ * @param  {String} tagName name as string, e.g. 'div', 'span', 'svg'
+ * @param  {Object} attrs html attributes e.g. data-, width, src
+ * @param  {Array} children html nodes from inside de elements
+ * @return {HTMLElement} html node with attrs
+ */
+function createElements(tagName, attrs, children) {
+  var element = (0, _utils.isSVG)(tagName) ? document.createElementNS('http://www.w3.org/2000/svg', tagName) : document.createElement(tagName); // one or multiple will be evaluated to append as string or HTMLElement
+
+  var fragment = (0, _utils.createFragmentFrom)(children);
+  element.appendChild(fragment);
+  Object.keys(attrs || {}).forEach(function (prop) {
+    if (prop === 'style') {
+      // e.g. origin: <element style={{ prop: value }} />
+      element.style.cssText = (0, _utils.objectToStyleString)(attrs[prop]);
+    } else if (prop === 'ref' && typeof attrs.ref === 'function') {
+      attrs.ref(element, attrs);
+    } else if (prop === 'className') {
+      element.setAttribute('class', attrs[prop]);
+    } else if (prop === 'xlinkHref') {
+      element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop]);
+    } else if (prop === 'dangerouslySetInnerHTML') {
+      // eslint-disable-next-line no-underscore-dangle
+      element.innerHTML = attrs[prop].__html;
+    } else {
+      // any other prop will be set as attribute
+      element.setAttribute(prop, attrs[prop]);
+    }
+  });
+  return element;
+}
+/**
+ * The JSXTag will be unwrapped returning the html
+ *
+ * @param  {Function} JSXTag name as string, e.g. 'div', 'span', 'svg'
+ * @param  {Object} elementProps custom jsx attributes e.g. fn, strings
+ * @param  {Array} children html nodes from inside de elements
+ *
+ * @return {Function} returns de 'dom' (fn) executed, leaving the HTMLElement
+ *
+ * JSXTag:  function Comp(props) {
+ *   return dom("span", null, props.num);
+ * }
+ */
+
+
+function composeToFunction(JSXTag, elementProps, children) {
+  var props = Object.assign({}, JSXTag.defaultProps || {}, elementProps, {
+    children: children
+  });
+  var bridge = JSXTag.prototype.render ? new JSXTag(props).render : JSXTag;
+  var result = bridge(props);
+
+  switch (result) {
+    case 'FRAGMENT':
+      return (0, _utils.createFragmentFrom)(children);
+    // Portals are useful to render modals
+    // allow render on a different element than the parent of the chain
+    // and leave a comment instead
+
+    case 'PORTAL':
+      bridge.target.appendChild((0, _utils.createFragmentFrom)(children));
+      return document.createComment('Portal Used');
+
+    default:
+      return result;
+  }
+}
+
+function dom(element, attrs) {
+  for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    children[_key - 2] = arguments[_key];
+  }
+
+  // Custom Components will be functions
+  if (typeof element === 'function') {
+    // e.g. const CustomTag = ({ w }) => <span width={w} />
+    // will be used
+    // e.g. <CustomTag w={1} />
+    // becomes: CustomTag({ w: 1})
+    return composeToFunction(element, attrs, children);
+  } // regular html components will be strings to create the elements
+  // this is handled by the babel plugins
+
+
+  if (typeof element === 'string') {
+    return createElements(element, attrs, children);
+  }
+
+  return console.error("jsx-render does not handle ".concat(typeof tag === "undefined" ? "undefined" : _typeof(tag)));
+}
+
+var _default = dom;
+exports.default = _default;
+
+var Fragment = function Fragment() {
+  return 'FRAGMENT';
+};
+
+exports.Fragment = Fragment;
+
+var portalCreator = function portalCreator(node) {
+  function Portal() {
+    return 'PORTAL';
+  }
+
+  Portal.target = document.body;
+
+  if (node && node.nodeType === Node.ELEMENT_NODE) {
+    Portal.target = node;
+  }
+
+  return Portal;
+};
+
+exports.portalCreator = portalCreator;
+
+/***/ }),
+
+/***/ "./node_modules/jsx-render/lib/synteticEvents.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/jsx-render/lib/synteticEvents.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var MOUSE_EVENTS = ['onClick', 'onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+var TOUCH_EVENTS = ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
+var KEYBOARD_EVENTS = ['onKeyDown', 'onKeyPress', 'onKeyUp'];
+var FOCUS_EVENTS = ['onFocus', 'onBlur'];
+var FORM_EVENTS = ['onChange', 'onInput', 'onInvalid', 'onSubmit'];
+var UI_EVENTS = ['onScroll'];
+var IMAGE_EVENTS = ['onLoad', 'onError'];
+var synteticEvents = MOUSE_EVENTS.concat(TOUCH_EVENTS, KEYBOARD_EVENTS, FOCUS_EVENTS, FORM_EVENTS, UI_EVENTS, IMAGE_EVENTS);
+var _default = synteticEvents;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/jsx-render/lib/utils.js":
+/*!**********************************************!*\
+  !*** ./node_modules/jsx-render/lib/utils.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isSVG = isSVG;
+exports.objectToStyleString = objectToStyleString;
+exports.createFragmentFrom = createFragmentFrom;
+
+function isSVG(element) {
+  var patt = new RegExp("^".concat(element, "$"), 'i');
+  var SVGTags = ['path', 'svg', 'use', 'g'];
+  return SVGTags.some(function (tag) {
+    return patt.test(tag);
+  });
+}
+
+function objectToStyleString(styles) {
+  return Object.keys(styles).map(function (prop) {
+    return "".concat(prop, ": ").concat(styles[prop]);
+  }).join(';');
+}
+
+function createFragmentFrom(children) {
+  // fragments will help later to append multiple children to the initial node
+  var fragment = document.createDocumentFragment();
+
+  function processDOMNodes(child) {
+    if (child instanceof HTMLElement || child instanceof SVGElement || child instanceof Comment || child instanceof DocumentFragment) {
+      fragment.appendChild(child);
+    } else if (typeof child === 'string' || typeof child === 'number') {
+      var textnode = document.createTextNode(child);
+      fragment.appendChild(textnode);
+    } else if (child instanceof Array) {
+      child.forEach(processDOMNodes);
+    } else if (child === false || child === null) {// expression evaluated as false e.g. {false && <Elem />}
+      // expression evaluated as false e.g. {null && <Elem />}
+    } else if (true) {
+      // later other things could not be HTMLElement nor strings
+      console.log(child, 'is not appendable');
+    }
+  }
+
+  children.forEach(processDOMNodes);
+  return fragment;
+}
+
+/***/ }),
+
+/***/ "./src/components/tooltip.js":
+/*!***********************************!*\
+  !*** ./src/components/tooltip.js ***!
+  \***********************************/
+/*! exports provided: default, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jsx-render */ "./node_modules/jsx-render/lib/dom.js");
+/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jsx_render__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsx-render/lib/JSXComponent */ "./node_modules/jsx-render/lib/JSXComponent.js");
+/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class Tooltip extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default.a {
+  render(props) {
+    //return <span baz={props.baz} qux={this.props.qux} />
+    return jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+      className: "test",
+      title: props.title
+    }, this.props.children);
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Tooltip);
+
+
+/***/ }),
+
 /***/ "./src/injected/functionality.js":
 /*!***************************************!*\
   !*** ./src/injected/functionality.js ***!
@@ -10979,9 +11300,20 @@ return jQuery;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_0__);
- // var $ = require( "jquery" );
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jsx-render */ "./node_modules/jsx-render/lib/dom.js");
+/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jsx_render__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/tooltip */ "./src/components/tooltip.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
+ // ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn't handle undefineds" and stops execution.
+// Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
+// custom components
+
+
+
+const plugin = {
+  slug: "skinner"
+}; // var $ = require( "jquery" );
 // ==UserScript==
 // @name         Format Trello
 // @namespace    http://tampermonkey.net/
@@ -11009,8 +11341,11 @@ var $latestMutations = $("body");
 function loadIcons() {
   'use strict';
 
-  let htmlStr = '<script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>';
-  $("head").append(htmlStr);
+  let iconJsx = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("script", {
+    src: "https://kit.fontawesome.com/c0535646a5.js",
+    crossorigin: "anonymous"
+  });
+  $("head").append(iconJsx);
 }
 
 function injectCss() {
@@ -11052,8 +11387,7 @@ function createListButtons() {
   }
 
   console.log("Adjusting list settings.");
-  let htmlStr = "";
-  htmlStr += "<div class='ft_list-btn-group'>"; //htmlStr += "	<a class='list-immediate-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-cog'></i></span></a>";
+  let jsxArr = []; //htmlStr += "	<a class='list-immediate-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-cog'></i></span></a>";
   // LABELS TOGGLE
   // Use to...
   // - Show according to list settings
@@ -11061,7 +11395,16 @@ function createListButtons() {
   // - Show labels as coloured bar on side
   // - Hide labels
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn left-most icon-sm' title='cycle label appearance'><i class='fas fa-tag'></i></a>"; // Global button...
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
+    title: "cycle label appearance",
+    tag: "a"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    id: plugin.slug + "_label-btn",
+    class: "ft_pop-over-header-btn left-most icon-sm"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-tag"
+  })))); // Global button...
   // - Overides this
   // User visibility always hidden unless global list size settings turned off
   // TO DO: What is this talking about?
@@ -11072,7 +11415,13 @@ function createListButtons() {
   // - Show colour & icon only for due soon and overdue
   // - Hide due dates
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>"; // Global button...
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "cycle due date appearance"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-clock"
+  }))); // Global button...
   // - Overides this
   // DETAILS TOGGLE
   // Use to...
@@ -11081,7 +11430,13 @@ function createListButtons() {
   // - Hide any badges other than due dates and users, and display checklists as progress bars
   // - Hide any badges and checklists other than due dates and users
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>"; // Global button...
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "cycle details appearance"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-comment-alt"
+  }))); // Global button...
   // - Overides this only if list is not set to shrink ????
   // IMAGES TOGGLE
   // Use to..
@@ -11089,7 +11444,13 @@ function createListButtons() {
   // - Reduce images previews to a small horizontal bar
   // - Hide image previews
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>"; // Global button...
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "cycle images appearance"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-image"
+  }))); // Global button...
   // - Overides this only if list is not set to shrink ????
   // LIST APPEARANCE TOGGLE
   // Use to...
@@ -11099,54 +11460,99 @@ function createListButtons() {
   // - Shrink list and fade
   //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>"; // Global button...
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "cycle whole list appearance"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-poll fa-rotate-180"
+  }))); // Global button...
   // - Overides all these
   // LIST VISIBILITY BUTTON
   // Use to...
   // - Hide/Unhide list
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>"; // eye-slash
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "cycle list visibility"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-eye"
+  }))); // eye-slash
   // LIST SETTINGS BUTTON
   // Use to...
   // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that's not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
   // - Copy text based settings string?
   // - Paste text based settings string?
 
-  htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>";
-  htmlStr += "</div>"; //ft_list-btn-group
-  // apply as button set that appears to right of 3 dots in list when clicked
-  //let $listExtrasMenus = $(".list-header-extras-menu"); // .board-header-btns
-  //$listExtrasMenus.prepend(htmlStr);
-  // remove text from list settings header
+  jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    class: "ft_pop-over-header-btn icon-sm",
+    title: "adjust list control"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-cog"
+  }))); // remove text from list settings header
 
   $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
 
-  $listSettings.prepend(htmlStr);
+  $listSettings.prepend(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: "ft_list-btn-group"
+  }, jsxArr));
 }
 
-function createHeaderButtons() {
+function createFloatingButton() {
   'use strict';
 
-  console.log('attempting to create header buttons');
+  console.log('attempting to floating button');
   let $rightHeader = $latestMutations.find(".mod-right").first(); // Bail if the right header isn't present in anything that's modified
 
   if ($rightHeader.length == 0) {
     console.log("right header not found.");
     return;
-  }
+  } // TO DO: Add button to hide all extraneous trello Headers, etc, and other function
 
-  let htmlStr = "";
-  htmlStr += "	<a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>";
-  htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>"; // check-circle
 
-  htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>";
-  htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>"; // find the standard Trell board header and the div that holds all buttons that float to the right
+  let floatingButton = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(jsx_render__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    class: "board-header-btn board-header-btn-without-icon",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+    class: "board-header-btn-text"
+  }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    class: "board-header-btn board-header-btn-without-icon",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+    class: "board-header-btn-text"
+  }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    class: "board-header-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+    class: "icon-sm board-header-btn-icon",
+    title: "Save all list settings as view"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-save"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    class: "board-header-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+    class: "icon-sm board-header-btn-icon",
+    title: "Create new view"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-plus-square"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    class: "board-header-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
+    class: "icon-sm board-header-btn-icon",
+    title: "Clear unsaved settings"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    class: "fas fa-backspace"
+  })))); // find the standard Trello board header and the div that holds all buttons that float to the right
   // put in the new button
   //let $rightSideHeader = $(".mod-right"); // .board-header-btns
 
-  $rightHeader.prepend(htmlStr);
+  $rightHeader.prepend(floatingButton);
   console.log($rightHeader);
-  console.log('header buttons created');
+  console.log('floating button created');
 }
 
 function startPageChangeObserver() {
@@ -11193,8 +11599,9 @@ function delayedPageInitialisation() {
 
 function immediatePageAdjustments() {
   interpretLists();
-  createListButtons();
-  createHeaderButtons();
+  createListButtons(); //    createHeaderButtons();
+
+  createFloatingButton();
 } // On any page update, do anything that can happen a split second later
 
 
