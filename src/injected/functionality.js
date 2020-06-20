@@ -126,75 +126,73 @@ import "./style.scss";
 
 
 
-       // LABELS TOGGLE
-       // Use to...
-       // - Show according to list settings
-       // - Show labels normally (Trello default)
-       // - Show labels as coloured bar on side
-       // - Hide labels
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn left-most icon-sm'><i class='fas fa-tag'></i></a>";
-       // Global button...
-       // - Overides this
+            // LABELS TOGGLE
+            // Use to...
+            // - Show according to list settings
+            // - Show labels normally (Trello default)
+            // - Show labels as coloured bar on side
+            // - Hide labels
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn left-most icon-sm' title='cycle label appearance'><i class='fas fa-tag'></i></a>";
+            // Global button...
+            // - Overides this
 
-       // User visibility always hidden unless global list size settings turned off
-       // TO DO: What is this talking about?
+            // User visibility always hidden unless global list size settings turned off
+            // TO DO: What is this talking about?
 
-       // DUE DATES TOGGLE
-       // Use to...
-       // - Show according to list settings
-       // - Show due dates normally (Trello default)
-       // - Show colour & icon only for due soon and overdue
-       // - Hide due dates
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-clock'></i></a>";
-       // Global button...
-       // - Overides this
+            // DUE DATES TOGGLE
+            // Use to...
+            // - Show according to list settings
+            // - Show due dates normally (Trello default)
+            // - Show colour & icon only for due soon and overdue
+            // - Hide due dates
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>";
+            // Global button...
+            // - Overides this
 
-       // DETAILS TOGGLE
-       // Use to...
-       // - Show according to list settings
-       // - Show any badges other than due dates and users, and checklists normally (Trello default)
-       // - Hide any badges other than due dates and users, and display checklists as progress bars
-       // - Hide any badges and checklists other than due dates and users
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-comment-alt'></i></a>";
-       // Global button...
-       // - Overides this only if list is not set to shrink ????
+            // DETAILS TOGGLE
+            // Use to...
+            // - Show according to list settings
+            // - Show any badges other than due dates and users, and checklists normally (Trello default)
+            // - Hide any badges other than due dates and users, and display checklists as progress bars
+            // - Hide any badges and checklists other than due dates and users
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>";
+            // Global button...
+            // - Overides this only if list is not set to shrink ????
 
-       // IMAGES TOGGLE
-       // Use to..
-       // - Show inline image previews (Trello default)
-       // - Reduce images previews to a small horizontal bar
-       // - Hide image previews
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-image'></i></a>";
-       // Global button...
-       // - Overides this only if list is not set to shrink ????
+            // IMAGES TOGGLE
+            // Use to..
+            // - Show inline image previews (Trello default)
+            // - Reduce images previews to a small horizontal bar
+            // - Hide image previews
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>";
+            // Global button...
+            // - Overides this only if list is not set to shrink ????
 
-       // LIST APPEARANCE TOGGLE
-       // Use to...
-       // - Show lists normally (Trello default)
-       // - Shrink list
-       // - Shrink list and darken
-       // - Shrink list and fade
-//        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-poll fa-rotate-180'></i></a>";
-       // Global button...
-       // - Overides all these
+            // LIST APPEARANCE TOGGLE
+            // Use to...
+            // - Show lists normally (Trello default)
+            // - Shrink list
+            // - Shrink list and darken
+            // - Shrink list and fade
+            //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>";
+            // Global button...
+            // - Overides all these
 
-
-
-
-       // LIST SETTINGS BUTTON
-       // Use to...
-       // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that's not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
-       // - Copy text based settings string?
-       // - Paste text based settings string?
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-cog'></i></a>";
-
-       // LIST VISIBILITY BUTTON
-       // Use to...
-       // - Hide/Unhide list
-       htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fas fa-eye'></i></a>";  // eye-slash
+            // LIST VISIBILITY BUTTON
+            // Use to...
+            // - Hide/Unhide list
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>";  // eye-slash
 
 
+
+
+            // LIST SETTINGS BUTTON
+            // Use to...
+            // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that's not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
+            // - Copy text based settings string?
+            // - Paste text based settings string?
+            htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>";
 
 
        htmlStr += "</div>"; //ft_list-btn-group
@@ -239,9 +237,9 @@ import "./style.scss";
 
 
        htmlStr += "	<a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>";
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-save'></i></span></a>"; // check-circle
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-plus-square'></i></span></a>";
-       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-backspace'></i></span></a>";
+       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>"; // check-circle
+       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>";
+       htmlStr += "	<a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>";
 
 
 
