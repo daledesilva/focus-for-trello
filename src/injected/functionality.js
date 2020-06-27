@@ -135,7 +135,7 @@ const plugin = {
 
        
 
-       //htmlStr += "	<a class='list-immediate-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-cog'></i></span></a>";
+       //htmlStr += "	<a className='list-immediate-btn' href='#'><span className='icon-sm board-header-btn-icon'><i className='fas fa-cog'></i></span></a>";
 
 
 
@@ -151,9 +151,9 @@ const plugin = {
                     <a
                         href='#'
                         id={ plugin.slug + "_label-btn" }
-                        class='ft_pop-over-header-btn left-most icon-sm'
+                        className='ft_pop-over-header-btn left-most icon-sm'
                     >
-                        <i class='fas fa-tag'/>
+                        <i className='fas fa-tag'/>
                     </a>
                 </Tooltip>
             );
@@ -172,7 +172,7 @@ const plugin = {
             // - Show colour & icon only for due soon and overdue
             // - Hide due dates
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i className='fas fa-clock'></i></a>
             );
             // Global button...
             // - Overides this
@@ -184,7 +184,7 @@ const plugin = {
             // - Hide any badges other than due dates and users, and display checklists as progress bars
             // - Hide any badges and checklists other than due dates and users
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i className='fas fa-comment-alt'></i></a>
             );
             // Global button...
             // - Overides this only if list is not set to shrink ????
@@ -195,7 +195,7 @@ const plugin = {
             // - Reduce images previews to a small horizontal bar
             // - Hide image previews
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i className='fas fa-image'></i></a>
             );
             // Global button...
             // - Overides this only if list is not set to shrink ????
@@ -206,9 +206,9 @@ const plugin = {
             // - Shrink list
             // - Shrink list and darken
             // - Shrink list and fade
-            //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
+            //        htmlStr += "<a href='#' className='ft_pop-over-header-btn icon-sm'><i className='fab fa-trello'></i></a>";
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i className='fas fa-poll fa-rotate-180'></i></a>
             );
             // Global button...
             // - Overides all these
@@ -217,7 +217,7 @@ const plugin = {
             // Use to...
             // - Hide/Unhide list
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i className='fas fa-eye'></i></a>
             );  // eye-slash
 
 
@@ -229,7 +229,7 @@ const plugin = {
             // - Copy text based settings string?
             // - Paste text based settings string?
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='adjust list control'><i className='fas fa-cog'></i></a>
             );
 
 
@@ -239,7 +239,7 @@ const plugin = {
        $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
 
         $listSettings.prepend(
-            <div class='ft_list-btn-group'>
+            <div className='ft_list-btn-group'>
                 { jsxArr }
             </div>
         );
@@ -280,13 +280,13 @@ const plugin = {
 
         let floatingButton = (
             <Fragment>
-                <a class='board-header-btn board-header-btn-without-icon' href='#'>
-                    <span class='board-header-btn-text'>Re-Format</span>
+                <a className='board-header-btn board-header-btn-without-icon' href='#'>
+                    <span className='board-header-btn-text'>Re-Format</span>
                 </a>
-                <a class='board-header-btn board-header-btn-without-icon' href='#'><span class='board-header-btn-text'>Re-Format</span></a>
-                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>
-                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>
-                <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>
+                <a className='board-header-btn board-header-btn-without-icon' href='#'><span className='board-header-btn-text'>Re-Format</span></a>
+                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Save all list settings as view'><i className='fas fa-save'></i></span></a>
+                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Create new view'><i className='fas fa-plus-square'></i></span></a>
+                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i className='fas fa-backspace'></i></span></a>
             </Fragment>
         );
 

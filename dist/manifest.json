@@ -1,9 +1,14 @@
 {
     "manifest_version": 2,
-    "name": "Format Trello",
+    "name": "Focus (for Trello)",
     "version": "0.1.0",
-    "description": "Pimp out your Trello for better usability",
-    "short_name": "Skinner",
+    "version_name": "Pre-alpha",
+    "description": "Visually streamline your Trello boards on a list by list basis.",
+    "short_name": "Focus",
+
+    "author": "Dale de Silva",
+    "homepage_url": "http://www.ublik-om.net",
+
     "permissions": ["activeTab", "declarativeContent", "tabs", "storage"],
     "content_scripts": [
       {

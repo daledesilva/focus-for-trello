@@ -11387,7 +11387,7 @@ function createListButtons() {
   }
 
   console.log("Adjusting list settings.");
-  let jsxArr = []; //htmlStr += "	<a class='list-immediate-btn' href='#'><span class='icon-sm board-header-btn-icon'><i class='fas fa-cog'></i></span></a>";
+  let jsxArr = []; //htmlStr += "	<a className='list-immediate-btn' href='#'><span className='icon-sm board-header-btn-icon'><i className='fas fa-cog'></i></span></a>";
   // LABELS TOGGLE
   // Use to...
   // - Show according to list settings
@@ -11401,9 +11401,9 @@ function createListButtons() {
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
     id: plugin.slug + "_label-btn",
-    class: "ft_pop-over-header-btn left-most icon-sm"
+    className: "ft_pop-over-header-btn left-most icon-sm"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-tag"
+    className: "fas fa-tag"
   })))); // Global button...
   // - Overides this
   // User visibility always hidden unless global list size settings turned off
@@ -11417,10 +11417,10 @@ function createListButtons() {
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "cycle due date appearance"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-clock"
+    className: "fas fa-clock"
   }))); // Global button...
   // - Overides this
   // DETAILS TOGGLE
@@ -11432,10 +11432,10 @@ function createListButtons() {
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "cycle details appearance"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-comment-alt"
+    className: "fas fa-comment-alt"
   }))); // Global button...
   // - Overides this only if list is not set to shrink ????
   // IMAGES TOGGLE
@@ -11446,10 +11446,10 @@ function createListButtons() {
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "cycle images appearance"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-image"
+    className: "fas fa-image"
   }))); // Global button...
   // - Overides this only if list is not set to shrink ????
   // LIST APPEARANCE TOGGLE
@@ -11458,14 +11458,14 @@ function createListButtons() {
   // - Shrink list
   // - Shrink list and darken
   // - Shrink list and fade
-  //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
+  //        htmlStr += "<a href='#' className='ft_pop-over-header-btn icon-sm'><i className='fab fa-trello'></i></a>";
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "cycle whole list appearance"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-poll fa-rotate-180"
+    className: "fas fa-poll fa-rotate-180"
   }))); // Global button...
   // - Overides all these
   // LIST VISIBILITY BUTTON
@@ -11474,10 +11474,10 @@ function createListButtons() {
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "cycle list visibility"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-eye"
+    className: "fas fa-eye"
   }))); // eye-slash
   // LIST SETTINGS BUTTON
   // Use to...
@@ -11487,16 +11487,16 @@ function createListButtons() {
 
   jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    class: "ft_pop-over-header-btn icon-sm",
+    className: "ft_pop-over-header-btn icon-sm",
     title: "adjust list control"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-cog"
+    className: "fas fa-cog"
   }))); // remove text from list settings header
 
   $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
 
   $listSettings.prepend(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: "ft_list-btn-group"
+    className: "ft_list-btn-group"
   }, jsxArr));
 }
 
@@ -11513,39 +11513,39 @@ function createFloatingButton() {
 
 
   let floatingButton = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(jsx_render__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    class: "board-header-btn board-header-btn-without-icon",
+    className: "board-header-btn board-header-btn-without-icon",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    class: "board-header-btn-text"
+    className: "board-header-btn-text"
   }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    class: "board-header-btn board-header-btn-without-icon",
+    className: "board-header-btn board-header-btn-without-icon",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    class: "board-header-btn-text"
+    className: "board-header-btn-text"
   }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    class: "board-header-btn",
+    className: "board-header-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    class: "icon-sm board-header-btn-icon",
+    className: "icon-sm board-header-btn-icon",
     title: "Save all list settings as view"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-save"
+    className: "fas fa-save"
   }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    class: "board-header-btn",
+    className: "board-header-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    class: "icon-sm board-header-btn-icon",
+    className: "icon-sm board-header-btn-icon",
     title: "Create new view"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-plus-square"
+    className: "fas fa-plus-square"
   }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    class: "board-header-btn",
+    className: "board-header-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    class: "icon-sm board-header-btn-icon",
+    className: "icon-sm board-header-btn-icon",
     title: "Clear unsaved settings"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    class: "fas fa-backspace"
+    className: "fas fa-backspace"
   })))); // find the standard Trello board header and the div that holds all buttons that float to the right
   // put in the new button
   //let $rightSideHeader = $(".mod-right"); // .board-header-btns
