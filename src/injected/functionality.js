@@ -1,16 +1,14 @@
-import dom, { Fragment } from 'jsx-render';
-// ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn't handle undefineds" and stops execution.
+import dom, { Fragment } from "jsx-render";
+// ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn"t handle undefineds" and stops execution.
 // Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
 
 // custom components
-import { Tooltip } from "../components/tooltip"
+import ListButtons from "../components/list-buttons"
 
 import "./style.scss";
+import {Tooltip} from "../components/tooltip";
 
-
-const plugin = {
-    slug: "skinner"
-}
+import {plugin} from "../metadata";
 
 
 // var $ = require( "jquery" );
@@ -53,7 +51,7 @@ const plugin = {
 
 
    function loadIcons() {
-       'use strict';
+       "use strict";
 
        let iconJsx = <script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>
        $("head").append(iconJsx);
@@ -63,7 +61,7 @@ const plugin = {
 
 
    function injectCss() {
-       'use strict';
+       "use strict";
 
        let customCss = "";
 
@@ -81,7 +79,7 @@ const plugin = {
 
    var lastInterpreted = null;
    function interpretLists() {
-       'use strict';
+       "use strict";
 
        //console.log("Restyling lists");
 
@@ -114,135 +112,19 @@ const plugin = {
 
 
    function createListButtons() {
-       'use strict';
+       "use strict";
 
 
        let $listSettings = $latestMutations.find(".pop-over-header").first();
-       // Bail if the list settings popup isn't present
+       // Bail if the list settings popup isn"t present
        if($listSettings.length == 0) {
            //console.log("list settings popup not found.");
            return;
        }
-       console.log("Adjusting list settings.");
 
 
 
-
-
-
-       let jsxArr = [];
-
-
-       
-
-       //htmlStr += "	<a className='list-immediate-btn' href='#'><span className='icon-sm board-header-btn-icon'><i className='fas fa-cog'></i></span></a>";
-
-
-
-
-            // LABELS TOGGLE
-            // Use to...
-            // - Show according to list settings
-            // - Show labels normally (Trello default)
-            // - Show labels as coloured bar on side
-            // - Hide labels
-            jsxArr.push(
-                <Tooltip title='cycle label appearance' tag="a">
-                    <a
-                        href='#'
-                        id={ plugin.slug + "_label-btn" }
-                        className='ft_pop-over-header-btn left-most icon-sm'
-                    >
-                        <i className='fas fa-tag'/>
-                    </a>
-                </Tooltip>
-            );
-            // Global button...
-            // - Overides this
-
-           
-
-            // User visibility always hidden unless global list size settings turned off
-            // TO DO: What is this talking about?
-
-            // DUE DATES TOGGLE
-            // Use to...
-            // - Show according to list settings
-            // - Show due dates normally (Trello default)
-            // - Show colour & icon only for due soon and overdue
-            // - Hide due dates
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i className='fas fa-clock'></i></a>
-            );
-            // Global button...
-            // - Overides this
-
-            // DETAILS TOGGLE
-            // Use to...
-            // - Show according to list settings
-            // - Show any badges other than due dates and users, and checklists normally (Trello default)
-            // - Hide any badges other than due dates and users, and display checklists as progress bars
-            // - Hide any badges and checklists other than due dates and users
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i className='fas fa-comment-alt'></i></a>
-            );
-            // Global button...
-            // - Overides this only if list is not set to shrink ????
-
-            // IMAGES TOGGLE
-            // Use to..
-            // - Show inline image previews (Trello default)
-            // - Reduce images previews to a small horizontal bar
-            // - Hide image previews
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i className='fas fa-image'></i></a>
-            );
-            // Global button...
-            // - Overides this only if list is not set to shrink ????
-
-            // LIST APPEARANCE TOGGLE
-            // Use to...
-            // - Show lists normally (Trello default)
-            // - Shrink list
-            // - Shrink list and darken
-            // - Shrink list and fade
-            //        htmlStr += "<a href='#' className='ft_pop-over-header-btn icon-sm'><i className='fab fa-trello'></i></a>";
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i className='fas fa-poll fa-rotate-180'></i></a>
-            );
-            // Global button...
-            // - Overides all these
-
-            // LIST VISIBILITY BUTTON
-            // Use to...
-            // - Hide/Unhide list
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i className='fas fa-eye'></i></a>
-            );  // eye-slash
-
-
-
-
-            // LIST SETTINGS BUTTON
-            // Use to...
-            // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that's not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
-            // - Copy text based settings string?
-            // - Paste text based settings string?
-            jsxArr.push(
-                <a href='#' className='ft_pop-over-header-btn icon-sm' title='adjust list control'><i className='fas fa-cog'></i></a>
-            );
-
-
-
-
-       // remove text from list settings header
-       $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
-
-        $listSettings.prepend(
-            <div className='ft_list-btn-group'>
-                { jsxArr }
-            </div>
-        );
+       $listSettings.prepend( <ListButtons $listReference={$listSettings} /> );
 
 
    }
@@ -263,15 +145,15 @@ const plugin = {
 
 
     function createFloatingButton() {
-        'use strict';
-        console.log('attempting to floating button');
+        "use strict";
+        // console.log("attempting to floating button");
 
 
 
         let $rightHeader = $latestMutations.find(".mod-right").first();
-        // Bail if the right header isn't present in anything that's modified
+        // Bail if the right header isn"t present in anything that"s modified
         if($rightHeader.length == 0) {
-            console.log("right header not found.");
+            //console.log("right header not found.");
             return;
         }
 
@@ -280,13 +162,13 @@ const plugin = {
 
         let floatingButton = (
             <Fragment>
-                <a className='board-header-btn board-header-btn-without-icon' href='#'>
-                    <span className='board-header-btn-text'>Re-Format</span>
+                <a className="board-header-btn board-header-btn-without-icon" href="#">
+                    <span className="board-header-btn-text">Re-Format</span>
                 </a>
-                <a className='board-header-btn board-header-btn-without-icon' href='#'><span className='board-header-btn-text'>Re-Format</span></a>
-                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Save all list settings as view'><i className='fas fa-save'></i></span></a>
-                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Create new view'><i className='fas fa-plus-square'></i></span></a>
-                <a className='board-header-btn' href='#'><span className='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i className='fas fa-backspace'></i></span></a>
+                <a className="board-header-btn board-header-btn-without-icon" href="#"><span className="board-header-btn-text">Re-Format</span></a>
+                <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Save all list settings as view"><i className="fas fa-save"></i></span></a>
+                <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Create new view"><i className="fas fa-plus-square"></i></span></a>
+                <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Clear unsaved settings"><i className="fas fa-backspace"></i></span></a>
             </Fragment>
         );
 
@@ -297,8 +179,8 @@ const plugin = {
         //let $rightSideHeader = $(".mod-right"); // .board-header-btns
         $rightHeader.prepend(floatingButton);
 
-        console.log($rightHeader);
-        console.log('floating button created');
+        // console.log($rightHeader);
+        // console.log("floating button created");
     }
 
 

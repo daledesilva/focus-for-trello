@@ -1,6 +1,8 @@
 import dom from 'jsx-render';
 import JSXComponent from 'jsx-render/lib/JSXComponent'
 
+import {plugin} from "../metadata";
+
 class Tooltip extends JSXComponent {
 
   render(props) {
