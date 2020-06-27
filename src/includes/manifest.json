@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Format Trello",
+    "name": "Focus",
     "version": "0.1.0",
-    "description": "Pimp out your Trello for better usability",
+    "description": "Focus (for Trello). A browser plugoin to bring focus and efficiency to your Trello boards.",
     "short_name": "Skinner",
     "permissions": ["activeTab", "declarativeContent", "tabs", "storage"],
     "content_scripts": [

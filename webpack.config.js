@@ -41,28 +41,17 @@ module.exports = (env, argv) => {
         module: {
 			rules: [
 				{
-					test: /\.js$/,
+					test: /\.(js|jsx)$/,
 					exclude: /node_modules/,
 					use: {
                         loader: "babel-loader", 
                         options: {
                             plugins: [
                                 "@babel/plugin-proposal-class-properties",                      // transpiles es6 to es5
-                                "@babel/plugin-syntax-jsx",                                     // Allow parsing of JSX
-                                ["@babel/plugin-transform-react-jsx", { "pragma": "dom" }]      // turns JSX into react function calls
                             ],
 							presets: [
-								"@babel/preset-env", // transpiles es6 and other latest javascript to cross-platform es5
-								// [
-								// 	"@babel/preset-react",
-								// 	{
-								// 		// these make sure JSX is converted into a wp.element (wrapper for React) command instead of a React command directly
-								// 		pragma: "wp.element.createElement",
-								// 		pragmaFrag: "wp.element.Fragment",
-								// 		// applies development mode for React based on mode arguement passed through in package script
-								// 		development: isDevelopment()
-								// 	}
-								// ]
+								"@babel/preset-env",                                            // transpiles es6 and other latest javascript to cross-platform es5
+								"@babel/preset-react"
 							]
 							// automatically uses browserlist from package.json too
 						}

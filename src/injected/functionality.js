@@ -1,9 +1,10 @@
-import dom, { Fragment } from 'jsx-render';
-// ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn't handle undefineds" and stops execution.
-// Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
+// import dom, { Fragment } from 'jsx-render';
+
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 // custom components
-import { Tooltip } from "../components/tooltip"
+// import { Tooltip } from "../components/tooltip"
 
 import "./style.scss";
 
@@ -115,15 +116,15 @@ const plugin = {
 
    function createListButtons() {
        'use strict';
+       console.log("creating list buttons");
 
 
        let $listSettings = $latestMutations.find(".pop-over-header").first();
        // Bail if the list settings popup isn't present
        if($listSettings.length == 0) {
-           //console.log("list settings popup not found.");
+           console.log("list settings popup not found.");
            return;
        }
-       console.log("Adjusting list settings.");
 
 
 
@@ -146,17 +147,17 @@ const plugin = {
             // - Show labels normally (Trello default)
             // - Show labels as coloured bar on side
             // - Hide labels
-            jsxArr.push(
-                <Tooltip title='cycle label appearance' tag="a">
-                    <a
-                        href='#'
-                        id={ plugin.slug + "_label-btn" }
-                        class='ft_pop-over-header-btn left-most icon-sm'
-                    >
-                        <i class='fas fa-tag'/>
-                    </a>
-                </Tooltip>
-            );
+                                                                                // jsxArr.push(
+                                                                                //     <Tooltip title='cycle label appearance' tag="a">
+                                                                                //         <a
+                                                                                //             href='#'
+                                                                                //             id={ plugin.slug + "_label-btn" }
+                                                                                //             class='ft_pop-over-header-btn left-most icon-sm'
+                                                                                //         >
+                                                                                //             <i class='fas fa-tag'/>
+                                                                                //         </a>
+                                                                                //     </Tooltip>
+                                                                                // );
             // Global button...
             // - Overides this
 
@@ -172,7 +173,7 @@ const plugin = {
             // - Show colour & icon only for due soon and overdue
             // - Hide due dates
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle due date appearance'><i class='fas fa-clock'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle due date appearance' key="2"><i className='fas fa-clock'></i></a>
             );
             // Global button...
             // - Overides this
@@ -184,7 +185,7 @@ const plugin = {
             // - Hide any badges other than due dates and users, and display checklists as progress bars
             // - Hide any badges and checklists other than due dates and users
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle details appearance'><i class='fas fa-comment-alt'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle details appearance' key="3"><i className='fas fa-comment-alt'></i></a>
             );
             // Global button...
             // - Overides this only if list is not set to shrink ????
@@ -195,7 +196,7 @@ const plugin = {
             // - Reduce images previews to a small horizontal bar
             // - Hide image previews
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle images appearance'><i class='fas fa-image'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle images appearance' key="4"><i className='fas fa-image'></i></a>
             );
             // Global button...
             // - Overides this only if list is not set to shrink ????
@@ -206,9 +207,9 @@ const plugin = {
             // - Shrink list
             // - Shrink list and darken
             // - Shrink list and fade
-            //        htmlStr += "<a href='#' class='ft_pop-over-header-btn icon-sm'><i class='fab fa-trello'></i></a>";
+            //        htmlStr += "<a href='#' className='ft_pop-over-header-btn icon-sm'><i className='fab fa-trello'></i></a>";
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance'><i class='fas fa-poll fa-rotate-180'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle whole list appearance' key="5"><i className='fas fa-poll fa-rotate-180'></i></a>
             );
             // Global button...
             // - Overides all these
@@ -217,7 +218,7 @@ const plugin = {
             // Use to...
             // - Hide/Unhide list
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='cycle list visibility'><i class='fas fa-eye'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='cycle list visibility' key="6"><i className='fas fa-eye'></i></a>
             );  // eye-slash
 
 
@@ -229,20 +230,23 @@ const plugin = {
             // - Copy text based settings string?
             // - Paste text based settings string?
             jsxArr.push(
-                <a href='#' class='ft_pop-over-header-btn icon-sm' title='adjust list control'><i class='fas fa-cog'></i></a>
+                <a href='#' className='ft_pop-over-header-btn icon-sm' title='adjust list control' key="7"><i className='fas fa-cog'></i></a>
             );
 
 
-
+                console.log("1");
 
        // remove text from list settings header
        $listSettings.find(".pop-over-header-title").html("."); // TO DO: This is visible, need to put in a blank so the header line stays visible without adding anything new.
 
+       // ERROR: This doesn't work. Jquery doesn't seem to know what to do with JSX when using react (but does when not using react if JSX-render is installed)
         $listSettings.prepend(
-            <div class='ft_list-btn-group'>
-                { jsxArr }
+            <div className='ft_list-btn-group'>
+                 { jsxArr }
             </div>
         );
+
+        console.log("2");
 
 
    }
@@ -264,7 +268,7 @@ const plugin = {
 
     function createFloatingButton() {
         'use strict';
-        console.log('attempting to floating button');
+        console.log('attempting to create floating button');
 
 
 
@@ -279,7 +283,7 @@ const plugin = {
         // TO DO: Add button to hide all extraneous trello Headers, etc, and other function
 
         let floatingButton = (
-            <Fragment>
+            <>
                 <a class='board-header-btn board-header-btn-without-icon' href='#'>
                     <span class='board-header-btn-text'>Re-Format</span>
                 </a>
@@ -287,7 +291,7 @@ const plugin = {
                 <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Save all list settings as view'><i class='fas fa-save'></i></span></a>
                 <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Create new view'><i class='fas fa-plus-square'></i></span></a>
                 <a class='board-header-btn' href='#'><span class='icon-sm board-header-btn-icon' title='Clear unsaved settings'><i class='fas fa-backspace'></i></span></a>
-            </Fragment>
+            </>
         );
 
 
@@ -380,7 +384,7 @@ const plugin = {
         interpretLists();
         createListButtons();
         //    createHeaderButtons();
-        createFloatingButton();
+        // createFloatingButton();
     }
 
    // On any page update, do anything that can happen a split second later

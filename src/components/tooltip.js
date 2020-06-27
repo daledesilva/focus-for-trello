@@ -1,5 +1,4 @@
-import dom from 'jsx-render';
-import JSXComponent from 'jsx-render/lib/JSXComponent'
+
 
 class Tooltip extends JSXComponent {
 
