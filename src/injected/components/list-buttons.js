@@ -2,9 +2,9 @@ import dom, { Fragment } from "jsx-render";
 import JSXComponent from 'jsx-render/lib/JSXComponent'
 
 // custom components
-import { Tooltip } from "./tooltip"
+import { Tooltip } from "../../components/tooltip"
 
-import {plugin} from "../metadata";
+import { plugin } from "../../metadata";
 
 
 
@@ -159,12 +159,17 @@ class ListButtons extends JSXComponent {
                 <i className="fas fa-cog"/>
             </a>
         </Tooltip>
+
+        // Popup should contain:
+        // - fade checkbox (or value);
+        // - colour overide
     );
 
 
 
     // Remove text from list settings header to make clean background for buttons
-    props.$listReference.find(".pop-over-header-title").html("."); // TO DO: This period is visible, need to put in a blank so the header line stays visible without adding anything new.
+    // replace with space so that headre doesn't collapse
+    props.$listReference.find(".pop-over-header-title").html("&nbsp;");
 
 
     

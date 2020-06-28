@@ -11258,155 +11258,6 @@ function createFragmentFrom(children) {
 
 /***/ }),
 
-/***/ "./src/components/list-buttons.js":
-/*!****************************************!*\
-  !*** ./src/components/list-buttons.js ***!
-  \****************************************/
-/*! exports provided: default, ListButtons */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListButtons", function() { return ListButtons; });
-/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jsx-render */ "./node_modules/jsx-render/lib/dom.js");
-/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jsx_render__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsx-render/lib/JSXComponent */ "./node_modules/jsx-render/lib/JSXComponent.js");
-/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip */ "./src/components/tooltip.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
-
- // custom components
-
-
-
-
-class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default.a {
-  render(props) {
-    let jsxArr = []; // LABELS TOGGLE
-    // Use to...
-    // - Show according to list settings
-    // - Show labels normally (Trello default)
-    // - Show labels as coloured bar on side
-    // - Hide labels
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle label appearance",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: "ft_pop-over-header-btn left-most icon-sm"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-tag"
-    })))); // DUE DATES TOGGLE
-    // Use to...
-    // - Show according to list settings
-    // - Show due dates normally (Trello default)
-    // - Show colour & icon only for due soon and overdue
-    // - Hide due dates
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle due date appearance",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-clock"
-    })))); // DETAILS TOGGLE
-    // Use to...
-    // - Show according to list settings
-    // - Show any badges other than due dates and users, and checklists normally (Trello default)
-    // - Hide any badges other than due dates and users, and display checklists as progress bars
-    // - Hide any badges and checklists other than due dates and users
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle details appearance",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-comment-alt"
-    })))); // IMAGES TOGGLE
-    // Use to..
-    // - Show inline image previews (Trello default)
-    // - Reduce images previews to a small horizontal bar
-    // - Hide image previews
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle images appearance",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-image"
-    })))); // LIST APPEARANCE TOGGLE
-    // Use to...
-    // - Show lists normally (Trello default)
-    // - Shrink list
-    // - Shrink list and darken
-    // - Shrink list and fade
-    //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle whole list appearance",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-poll fa-rotate-180"
-    })))); // LIST VISIBILITY BUTTON
-    // Use to...
-    // - Hide/Unhide list
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle list visibility",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-eye"
-    })))); // eye-slash
-    // LIST SETTINGS BUTTON
-    // Use to...
-    // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that"s not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
-    // - Copy text based settings string?
-    // - Paste text based settings string?
-
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "adjust list control",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-cog"
-    })))); // Remove text from list settings header to make clean background for buttons
-
-    props.$listReference.find(".pop-over-header-title").html("."); // TO DO: This period is visible, need to put in a blank so the header line stays visible without adding anything new.
-
-    return jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-      className: "ft_list-btn-group"
-    }, jsxArr);
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (ListButtons);
-
-
-/***/ }),
-
 /***/ "./src/components/tooltip.js":
 /*!***********************************!*\
   !*** ./src/components/tooltip.js ***!
@@ -11442,6 +11293,158 @@ class Tooltip extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___d
 
 /***/ }),
 
+/***/ "./src/injected/components/list-buttons.js":
+/*!*************************************************!*\
+  !*** ./src/injected/components/list-buttons.js ***!
+  \*************************************************/
+/*! exports provided: default, ListButtons */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListButtons", function() { return ListButtons; });
+/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jsx-render */ "./node_modules/jsx-render/lib/dom.js");
+/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jsx_render__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsx-render/lib/JSXComponent */ "./node_modules/jsx-render/lib/JSXComponent.js");
+/* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/tooltip */ "./src/components/tooltip.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../metadata */ "./src/metadata.js");
+
+ // custom components
+
+
+
+
+class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default.a {
+  render(props) {
+    let jsxArr = []; // LABELS TOGGLE
+    // Use to...
+    // - Show according to list settings
+    // - Show labels normally (Trello default)
+    // - Show labels as coloured bar on side
+    // - Hide labels
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle label appearance",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: "ft_pop-over-header-btn left-most icon-sm"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-tag"
+    })))); // DUE DATES TOGGLE
+    // Use to...
+    // - Show according to list settings
+    // - Show due dates normally (Trello default)
+    // - Show colour & icon only for due soon and overdue
+    // - Hide due dates
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle due date appearance",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-clock"
+    })))); // DETAILS TOGGLE
+    // Use to...
+    // - Show according to list settings
+    // - Show any badges other than due dates and users, and checklists normally (Trello default)
+    // - Hide any badges other than due dates and users, and display checklists as progress bars
+    // - Hide any badges and checklists other than due dates and users
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle details appearance",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-comment-alt"
+    })))); // IMAGES TOGGLE
+    // Use to..
+    // - Show inline image previews (Trello default)
+    // - Reduce images previews to a small horizontal bar
+    // - Hide image previews
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle images appearance",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-image"
+    })))); // LIST APPEARANCE TOGGLE
+    // Use to...
+    // - Show lists normally (Trello default)
+    // - Shrink list
+    // - Shrink list and darken
+    // - Shrink list and fade
+    //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle whole list appearance",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-poll fa-rotate-180"
+    })))); // LIST VISIBILITY BUTTON
+    // Use to...
+    // - Hide/Unhide list
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle list visibility",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-eye"
+    })))); // eye-slash
+    // LIST SETTINGS BUTTON
+    // Use to...
+    // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that"s not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
+    // - Copy text based settings string?
+    // - Paste text based settings string?
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "adjust list control",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-cog"
+    }))) // Popup should contain:
+    // - fade checkbox (or value);
+    // - colour overide
+    ); // Remove text from list settings header to make clean background for buttons
+    // replace with space so that headre doesn't collapse
+
+    props.$listReference.find(".pop-over-header-title").html("&nbsp;");
+    return jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+      className: "ft_list-btn-group"
+    }, jsxArr);
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (ListButtons);
+
+
+/***/ }),
+
 /***/ "./src/injected/functionality.js":
 /*!***************************************!*\
   !*** ./src/injected/functionality.js ***!
@@ -11453,10 +11456,10 @@ class Tooltip extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___d
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jsx-render */ "./node_modules/jsx-render/lib/dom.js");
 /* harmony import */ var jsx_render__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jsx_render__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_list_buttons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/list-buttons */ "./src/components/list-buttons.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/tooltip */ "./src/components/tooltip.js");
+/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/tooltip */ "./src/components/tooltip.js");
+/* harmony import */ var _components_list_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/list-buttons */ "./src/injected/components/list-buttons.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
  // ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn"t handle undefineds" and stops execution.
 // Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
@@ -11465,52 +11468,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // var $ = require( "jquery" );
-// ==UserScript==
-// @name         Format Trello
-// @namespace    http://tampermonkey.net/
-// @version      0.22
-// @description
-// @author       Dale de Silva www.ublik-om.net
-// @match        https://trello.com/*
-// @grant        none
-// ==/UserScript==
-// Notes about development
-//////////////////////////
-// This script uses jquery annotation but doesn't "require" jquery as Trello already does.
-//////////////////////////
-
-/*
-19/09/2019
-- Adjustments to page change observer so that it fires immediately when started.
-- Change to @match property to include all of Trello as clicking into a board doesn't cause a recheck for scripts unless you manually refresh
-*/
+ // Global variables
+//
 
 var pageChangeTimeOutID;
-var pageStartTimerID;
-var $latestMutations = $("body");
-
-function loadIcons() {
-  "use strict";
-
-  let iconJsx = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("script", {
-    src: "https://kit.fontawesome.com/c0535646a5.js",
-    crossorigin: "anonymous"
-  });
-  $("head").append(iconJsx);
-}
-
-function injectCss() {
-  "use strict";
-
-  let customCss = ""; // add all the created css to the document
-  //$("head").append("<style type='text/css'>" + customCss + "</style>");
-}
-
-var lastInterpreted = null;
+var $latestMutations = $("body"); // Adjust the appearance of any list on the page
+//
 
 function interpretLists() {
-  "use strict"; //console.log("Restyling lists");
+  "use strict";
 
   $latestMutations.find(".list-header h2").each(function () {
     let $title = $(this);
@@ -11526,25 +11492,26 @@ function interpretLists() {
       $title.closest(".js-list").addClass("brain-dump");
     }
   });
-}
+} // Place Focus list settings buttons in the header of any open list context menu
+//
+
 
 function createListButtons() {
   "use strict";
 
   let $listSettings = $latestMutations.find(".pop-over-header").first(); // Bail if the list settings popup isn"t present
 
-  if ($listSettings.length == 0) {
-    //console.log("list settings popup not found.");
-    return;
-  }
+  if ($listSettings.length == 0) return; // add custom Focus buttons to list settings menu
 
-  $listSettings.prepend(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  $listSettings.prepend(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_2__["ListButtons"], {
     $listReference: $listSettings
   }));
-}
+} // Create the main settings button that switches visual layouts
+//
 
-function createFloatingButton() {
-  "use strict"; // console.log("attempting to floating button");
+
+function createFocusSwitchButton() {
+  "use strict";
 
   let $rightHeader = $latestMutations.find(".mod-right").first(); // Bail if the right header isn"t present in anything that"s modified
 
@@ -11594,7 +11561,9 @@ function createFloatingButton() {
 
   $rightHeader.prepend(floatingButton); // console.log($rightHeader);
   // console.log("floating button created");
-}
+} // Starts an observer that runs two functions when changes occur on the page
+//
+
 
 function startPageChangeObserver() {
   var pageChangeObserver = new MutationObserver(function (mutations) {
@@ -11616,46 +11585,51 @@ function startPageChangeObserver() {
     childList: true,
     subtree: true
   });
-} // Actions that need to be run on page initialisation
-
-
-function immediatePageInitialisation() {
-  console.log("Immediate page Initialisation"); // only on initial page load (which can be the Trello home page and not again)
-
-  loadIcons();
-  injectCss();
-  startPageChangeObserver(); // and everything else that needs to run on any page update
-
-  immediatePageAdjustments();
-} // Actions that need to be run on page initialisation
-
-
-function delayedPageInitialisation() {
-  console.log("Delayed page Initialisation"); // only on initial page load (which can be the Trello home page and not again)
-  // and everything else that needs to run on any page update
-
-  delayedPageChangeAdjustments();
-} // On any page update, do anything that needs to happen immediately (no visual discrepancy)
+} // Runs immediately whenever anything on the page changes.
+// Only put things in here that:
+// - Must be re-run any time the page changes.
+// - Is visible immediately and thus will call visual discrepancy if delayed.
 
 
 function immediatePageAdjustments() {
-  interpretLists();
-  createListButtons(); //    createHeaderButtons();
+  interpretLists(); // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
+  // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding mulktiple event listeners to them.
 
-  createFloatingButton();
-} // On any page update, do anything that can happen a split second later
+  createListButtons();
+} // Runs a split second after anything on the page changes.
+// Put things in here that:
+// - Must be re-run any time the page changes.
+// - Isn't immediately visible (ie, hidden in a menu)
 
 
-function delayedPageChangeAdjustments() {} // TODO: create button to allow you to change titles that are searched for, colours, maybe add more titles to search for?
-// fade checkbox (or value);
-// colour overide
-// TODO: actions should be rerun based on mutation observer (or drop listener)
-// on page load
+function delayedPageChangeAdjustments() {} // Actions that need to be run only once on the page
+// Runs immediately whenever anything on the page changes.
+
+
+function immediatePageInitialisation() {
+  console.log("Immediate page Initialisation"); // load icons
+
+  let iconJsx = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("script", {
+    src: "https://kit.fontawesome.com/c0535646a5.js",
+    crossorigin: "anonymous"
+  });
+  $("head").append(iconJsx);
+  startPageChangeObserver();
+  immediatePageAdjustments();
+} // Actions that need to be run only once on the page
+// Runs a split second after anything on the page changes.
+
+
+function delayedPageInitialisation() {
+  console.log("Delayed page Initialisation");
+  createFocusSwitchButton();
+  delayedPageChangeAdjustments();
+} // on page load, start watching for page changes
 
 
 $(function () {
   immediatePageInitialisation();
-  pageStartTimerID = window.setTimeout(delayedPageInitialisation, 3000);
+  pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
