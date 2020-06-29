@@ -20,6 +20,11 @@ var $latestMutations = $("body");
 
 
 
+// from saved board settings
+var headerAppearance = 0;
+
+
+
 
 
 
@@ -71,7 +76,7 @@ function createListButtons() {
     if($listSettings.length == 0)    return;
 
     // add custom Focus buttons to list settings menu
-    $listSettings.prepend( <ListButtons $listReference={$listSettings} /> );
+    $listSettings.append( <ListButtons $listReference={$listSettings} /> );
 
 }
 
@@ -96,38 +101,272 @@ function createFocusSwitchButton() {
 
 
 
-    let $rightHeader = $latestMutations.find(".mod-right").first();
-    // Bail if the right header isn"t present in anything that"s modified
-    if($rightHeader.length == 0) {
-        //console.log("right header not found.");
-        return;
-    }
+    let $body = $("body");
 
 
-    // TO DO: Add button to hide all extraneous trello Headers, etc, and other function
+    
 
-    let floatingButton = (
-        <Fragment>
-            <a className="board-header-btn board-header-btn-without-icon" href="#">
-                <span className="board-header-btn-text">Re-Format</span>
-            </a>
-            <a className="board-header-btn board-header-btn-without-icon" href="#"><span className="board-header-btn-text">Re-Format</span></a>
-            <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Save all list settings as view"><i className="fas fa-save"></i></span></a>
-            <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Create new view"><i className="fas fa-plus-square"></i></span></a>
-            <a className="board-header-btn" href="#"><span className="icon-sm board-header-btn-icon" title="Clear unsaved settings"><i className="fas fa-backspace"></i></span></a>
-        </Fragment>
+
+    let switchFocusContainer = (
+        <div id={ plugin.slug + "_switch-focus-container" }>
+
+
+            {/* Presets */}
+
+            <div class={[
+                plugin.slug + "_preset-container",
+                plugin.slug + "_unsaved"
+            ].join(" ")}>
+
+                <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                    <i className="fas fa-trash"></i>
+                </a>
+                <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    <i className="fas fa-save"></i>
+                </a>
+                <a className={ plugin.slug + "_preset-btn" } href="#">
+                    Unsaved Preset
+                </a>
+            </div>
+
+            <div class={[
+                plugin.slug + "_preset-container",
+                plugin.slug + "_active",
+            ].join(" ")}>
+
+                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                    <i className="fas fa-trash"></i>
+                </a> */}
+                {/* Reset replaces trash */}
+                <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                    <i className="fas fa-undo-alt"></i>
+                </a>
+                <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    <i className="fas fa-save"></i>
+                </a>
+                <a className={ plugin.slug + "_preset-btn" } href="#">
+                    Current Iteration
+                </a>
+            </div>
+
+            <div class={ plugin.slug + "_preset-container" }>
+                {/* Delete only shows when hovered over */}
+                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                    <i className="fas fa-trash"></i>
+                </a>
+                <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    <i className="fas fa-save"></i>
+                </a> */}
+                <a className={ plugin.slug + "_preset-btn" } href="#">
+                    Upcoming Iterations
+                </a>
+            </div>
+
+            <div class={[
+                plugin.slug + "_preset-container"
+            ].join(" ")}>
+                {/* Save and reset appear if the preset has been temporarily change */}
+                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                    <i className="fas fa-trash"></i>
+                </a> */}
+                {/* Reset replaces trash */}
+                <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                    <i className="fas fa-undo-alt"></i>
+                </a>
+                <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    <i className="fas fa-save"></i>
+                </a>
+                <a className={ plugin.slug + "_preset-btn" } href="#">
+                    Current Iteration
+                </a>
+            </div>
+
+            <div class={ plugin.slug + "_preset-container" }>
+                {/* Delete only shows when hovered over */}
+                <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                    <i className="fas fa-trash"></i>
+                </a>
+                {/* <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    <i className="fas fa-save"></i>
+                </a> */}
+                <a className={ plugin.slug + "_preset-btn" } href="#">
+                    Past Iterations
+                </a>
+            </div>
+
+
+
+
+            {/* Settings and header switch buttons */}
+
+            <Tooltip title="Setup actions" >
+                <a
+                    href="#"
+                    id={ plugin.slug + "_setup-actions-btn" }
+                >
+                    <i className="fas fa-cog"/>
+                </a>
+            </Tooltip>
+
+            <Tooltip title="Switch header" >
+                <a
+                    href="#"
+                    id={ plugin.slug + "_switch-header-btn" }
+                >
+                    <i className="fas fa-sync-alt"/>
+                </a>
+            </Tooltip>
+
+
+
+
+
+
+            {/* Main button */}
+
+            <Tooltip title="Switch focus" tag="a">
+                <a
+                    href="#"
+                    id={ plugin.slug + "_switch-focus-btn" }
+                >
+                    <i className="fas fa-sync-alt"/>
+                </a>
+            </Tooltip>
+
+        </div>
     );
 
 
 
-    // find the standard Trello board header and the div that holds all buttons that float to the right
-    // put in the new button
-    //let $rightSideHeader = $(".mod-right"); // .board-header-btns
-    $rightHeader.prepend(floatingButton);
+    let $switchFocusContainer = $(switchFocusContainer);
+    $body.prepend($switchFocusContainer);
 
-    // console.log($rightHeader);
-    // console.log("floating button created");
+    
+
+    // MOUSEOVERS
+    /////////////
+    $switchFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
+
+    // LEFT CLICK ACTIONS
+    /////////////////////
+    $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
+    $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
+
+    // RIGHT CLICK ACTIONS
+    //////////////////////
+    $("#" + plugin.slug + "_switch-focus-btn" ).bind("contextmenu", function(e) {
+        $switchFocusContainer.toggleClass( plugin.slug + "_open" );
+        return false; // return false to stop the context menu appearing
+    });
+
+
 }
+
+
+
+function switchFocus() {
+    console.log("switching focus");
+}
+
+function addSelected() {
+    console.log("show hover state");
+}
+
+function switchHeader () {
+
+
+    function hideCurrentBoardLeftHeader() {
+        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_collapse" );
+        $(".js-star-board").addClass( plugin.slug + "_trello-ui_collapse" );
+        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_collapse" );
+        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_collapse" );
+        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_collapse" );
+    }
+
+    function hideCurrentBoardWholeHeader() {
+        $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
+        // Add padding
+        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
+    }
+
+    function hideGeneralTrelloHeader() {
+        $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_collapse" );
+    }
+
+    function hideAllHeaders() {
+        hideCurrentBoardWholeHeader();
+        hideGeneralTrelloHeader();
+        // Add padding
+        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
+    }
+
+
+
+    // Unhide all headers
+    /////////////////////
+    // Current board left header
+    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_collapse" );
+    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_collapse" );
+    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_collapse" );
+    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_collapse" );
+    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_collapse" );
+    // Current board whole header
+    $(".js-board-header").removeClass( plugin.slug + "_trello-ui_collapse" );
+    // General Trello header
+    $("#surface").find("div").first().removeClass( plugin.slug + "_trello-ui_collapse" );
+    // Remove padding
+    $("#board").removeClass( plugin.slug + "_trello-ui_header-padding" );
+    
+    headerAppearance++;
+    headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
+
+    switch(headerAppearance) {
+
+        case 1:     hideCurrentBoardLeftHeader();
+                    break;
+
+        case 2:     hideCurrentBoardLeftHeader();
+                    hideGeneralTrelloHeader();
+                    break;
+                    
+        case 3:     hideAllHeaders();
+                    break;
+
+        case 4:     hideCurrentBoardWholeHeader();
+                    break;
+        
+        default:    break;
+
+    }
+
+    
+
+    
+
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -249,5 +488,5 @@ function delayedPageInitialisation() {
 // on page load, start watching for page changes
 $(function() {
     immediatePageInitialisation();
-    pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
+    var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
 });

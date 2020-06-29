@@ -11472,7 +11472,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 var pageChangeTimeOutID;
-var $latestMutations = $("body"); // Adjust the appearance of any list on the page
+var $latestMutations = $("body"); // from saved board settings
+
+var headerAppearance = 0; // Adjust the appearance of any list on the page
 //
 
 function interpretLists() {
@@ -11503,7 +11505,7 @@ function createListButtons() {
 
   if ($listSettings.length == 0) return; // add custom Focus buttons to list settings menu
 
-  $listSettings.prepend(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_2__["ListButtons"], {
+  $listSettings.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_2__["ListButtons"], {
     $listReference: $listSettings
   }));
 } // Create the main settings button that switches visual layouts
@@ -11513,54 +11515,181 @@ function createListButtons() {
 function createFocusSwitchButton() {
   "use strict";
 
-  let $rightHeader = $latestMutations.find(".mod-right").first(); // Bail if the right header isn"t present in anything that"s modified
-
-  if ($rightHeader.length == 0) {
-    //console.log("right header not found.");
-    return;
-  } // TO DO: Add button to hide all extraneous trello Headers, etc, and other function
-
-
-  let floatingButton = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(jsx_render__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: "board-header-btn board-header-btn-without-icon",
+  let $body = $("body");
+  let switchFocusContainer = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-container"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_unsaved"].join(" ")
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_delete-preset-btn",
     href: "#"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    className: "board-header-btn-text"
-  }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: "board-header-btn board-header-btn-without-icon",
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-trash"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
     href: "#"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    className: "board-header-btn-text"
-  }, "Re-Format")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: "board-header-btn",
-    href: "#"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    className: "icon-sm board-header-btn-icon",
-    title: "Save all list settings as view"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
-  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: "board-header-btn",
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    className: "icon-sm board-header-btn-icon",
-    title: "Create new view"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    className: "fas fa-plus-square"
-  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: "board-header-btn",
+  }, "Unsaved Preset")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_active"].join(" ")
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("span", {
-    className: "icon-sm board-header-btn-icon",
-    title: "Clear unsaved settings"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-    className: "fas fa-backspace"
-  })))); // find the standard Trello board header and the div that holds all buttons that float to the right
-  // put in the new button
-  //let $rightSideHeader = $(".mod-right"); // .board-header-btns
+    className: "fas fa-undo-alt"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-save"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    href: "#"
+  }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    href: "#"
+  }, "Upcoming Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"].join(" ")
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_clear-preset-changes-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-undo-alt"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-save"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    href: "#"
+  }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    class: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_delete-preset-btn",
+    href: "#"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-trash"
+  })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    href: "#"
+  }, "Past Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
+    title: "Setup actions"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_setup-actions-btn"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-cog"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
+    title: "Switch header"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-header-btn"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-sync-alt"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
+    title: "Switch focus",
+    tag: "a"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+    href: "#",
+    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-sync-alt"
+  }))));
+  let $switchFocusContainer = $(switchFocusContainer);
+  $body.prepend($switchFocusContainer); // MOUSEOVERS
+  /////////////
 
-  $rightHeader.prepend(floatingButton); // console.log($rightHeader);
-  // console.log("floating button created");
+  $switchFocusContainer.find("." + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container").mouseover(addSelected); // LEFT CLICK ACTIONS
+  /////////////////////
+
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
+  //////////////////////
+
+  $("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
+    $switchFocusContainer.toggleClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_open");
+    return false; // return false to stop the context menu appearing
+  });
+}
+
+function switchFocus() {
+  console.log("switching focus");
+}
+
+function addSelected() {
+  console.log("show hover state");
+}
+
+function switchHeader() {
+  function hideCurrentBoardLeftHeader() {
+    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  }
+
+  function hideCurrentBoardWholeHeader() {
+    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Add padding
+
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+  }
+
+  function hideGeneralTrelloHeader() {
+    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  }
+
+  function hideAllHeaders() {
+    hideCurrentBoardWholeHeader();
+    hideGeneralTrelloHeader(); // Add padding
+
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+  } // Unhide all headers
+  /////////////////////
+  // Current board left header
+
+
+  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
+
+  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
+
+  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
+
+  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+  headerAppearance++;
+  headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
+
+  switch (headerAppearance) {
+    case 1:
+      hideCurrentBoardLeftHeader();
+      break;
+
+    case 2:
+      hideCurrentBoardLeftHeader();
+      hideGeneralTrelloHeader();
+      break;
+
+    case 3:
+      hideAllHeaders();
+      break;
+
+    case 4:
+      hideCurrentBoardWholeHeader();
+      break;
+
+    default:
+      break;
+  }
 } // Starts an observer that runs two functions when changes occur on the page
 //
 
@@ -11629,7 +11758,7 @@ function delayedPageInitialisation() {
 
 $(function () {
   immediatePageInitialisation();
-  pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
+  var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

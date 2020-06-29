@@ -1,3 +1,249 @@
+@use '../metadata.scss' as *;
+
+$small-width-breakpoint: 1000px;
+$small-height-breakpoint: 900px;
+
+$tiny-width-breakpoint: 500px;
+$tiny-height-breakpoint: 400px;
+
+$feature-color: #007acc;
+
+
+
+
+
+
+##{$plugin_slug}_switch-focus-container {
+  
+   // PLACEMENT
+   ////////////
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   margin-right: 2%;
+   margin-bottom: 30px;
+
+   z-index: 3000;
+
+   text-align: right;
+
+
+
+
+   ##{$plugin_slug}_switch-focus-btn {
+
+      // STYLING
+      //////////
+      color: #fff;
+      background-color: #000;
+      border-radius: 50%;
+
+      // SIZING
+      /////////
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      @media (max-width: $small-width-breakpoint), (max-height: $small-height-breakpoint) {
+         // if it's below this width OR below this height
+         width: 80px;
+         height: 80px;
+      }
+      @media (max-width: $tiny-width-breakpoint), (max-height: $tiny-height-breakpoint) {
+         // if it's below this width OR below this height
+         width: 50px;
+         height: 50px;
+      }
+
+      position: relative;
+
+      i {
+         font-size: 40px;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translateX(-50%) translateY(-50%);
+      }
+   }
+
+
+
+   ##{$plugin_slug}_setup-actions-btn {
+
+      // start closed
+      visibility: hidden;
+
+      // STYLING
+      //////////
+      color: #fff;
+      background-color: #000;
+      border-radius: 50%;
+
+      // SPACING
+      margin-right: 5px;
+
+      // SIZING
+      /////////
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      @media (max-width: $small-width-breakpoint), (max-height: $small-height-breakpoint) {
+         // if it's below this width OR below this height
+         // width: 30px;
+         // height: 30px;
+      }
+      @media (max-width: $tiny-width-breakpoint), (max-height: $tiny-height-breakpoint) {
+         // if it's below this width OR below this height
+         // width: 50px;
+         // height: 50px;
+      }
+
+      position: relative;
+
+      i {
+         font-size: 20px;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translateX(-50%) translateY(-50%);
+      }
+   }
+
+
+
+
+   ##{$plugin_slug}_switch-header-btn {
+
+      // start closed
+      visibility: hidden;
+
+      // STYLING
+      //////////
+      color: #fff;
+      background-color: #000;
+      border-radius: 50%;
+
+      // SPACING
+      margin-right: 10px;
+
+      // SIZING
+      /////////
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      @media (max-width: $small-width-breakpoint), (max-height: $small-height-breakpoint) {
+         // if it's below this width OR below this height
+         // width: 30px;
+         // height: 30px;
+      }
+      @media (max-width: $tiny-width-breakpoint), (max-height: $tiny-height-breakpoint) {
+         // if it's below this width OR below this height
+         // width: 50px;
+         // height: 50px;
+      }
+
+      position: relative;
+
+      i {
+         font-size: 25px;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translateX(-50%) translateY(-50%);
+      }
+   }
+
+
+
+
+
+
+   .#{$plugin_slug}_preset-container {
+
+      margin: 1em 0;
+
+      // start closed
+      visibility: hidden;
+      
+      &:last-of-type {
+         margin-bottom: 2em;
+      }
+
+      &.#{$plugin_slug}_active {
+
+         a {
+            color: #fff;
+            background-color: $feature-color;
+         }
+         
+      }
+
+      &.#{$plugin_slug}_unsaved {
+         opacity: 0.4;
+      }
+
+
+      a {
+         color: inherit;
+         text-decoration: none;
+
+         color: #fff;
+         background-color: #000;
+         border-radius: 1em;
+
+         padding: 0.3em 1em;
+         margin-left: 3px;
+
+         &:active {
+            color: inherit;
+            background-color: inherit;
+         }
+         &:hover {
+            color: #000;
+            background-color: #fff;
+         }
+
+      }
+
+            
+   }
+
+
+   &.#{$plugin_slug}_open {
+
+      ##{$plugin_slug}_setup-actions-btn,
+      ##{$plugin_slug}_switch-header-btn,
+      .#{$plugin_slug}_preset-container
+      {
+         visibility: visible;
+      }
+
+   }
+
+
+  
+}
+
+
+
+
+
+
+
+
+.#{$plugin_slug}_trello-ui_collapse {
+   display: none !important;
+}
+
+// when all headers are hidden
+.#{$plugin_slug}_trello-ui_header-padding {
+   padding-top: 10px;
+}
+
+
+
+
+
+
 
 
 

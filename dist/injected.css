@@ -1,3 +1,121 @@
+#focus_switch-focus-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 2%;
+  margin-bottom: 30px;
+  z-index: 3000;
+  text-align: right;
+}
+#focus_switch-focus-container #focus_switch-focus-btn {
+  color: #fff;
+  background-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+@media (max-width: 1000px), (max-height: 900px) {
+  #focus_switch-focus-container #focus_switch-focus-btn {
+    width: 80px;
+    height: 80px;
+  }
+}
+@media (max-width: 500px), (max-height: 400px) {
+  #focus_switch-focus-container #focus_switch-focus-btn {
+    width: 50px;
+    height: 50px;
+  }
+}
+#focus_switch-focus-container #focus_switch-focus-btn i {
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+#focus_switch-focus-container #focus_setup-actions-btn {
+  visibility: hidden;
+  color: #fff;
+  background-color: #000;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+#focus_switch-focus-container #focus_setup-actions-btn i {
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+#focus_switch-focus-container #focus_switch-header-btn {
+  visibility: hidden;
+  color: #fff;
+  background-color: #000;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+#focus_switch-focus-container #focus_switch-header-btn i {
+  font-size: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+#focus_switch-focus-container .focus_preset-container {
+  margin: 1em 0;
+  visibility: hidden;
+}
+#focus_switch-focus-container .focus_preset-container:last-of-type {
+  margin-bottom: 2em;
+}
+#focus_switch-focus-container .focus_preset-container.focus_active a {
+  color: #fff;
+  background-color: #007acc;
+}
+#focus_switch-focus-container .focus_preset-container.focus_unsaved {
+  opacity: 0.4;
+}
+#focus_switch-focus-container .focus_preset-container a {
+  color: inherit;
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  border-radius: 1em;
+  padding: 0.3em 1em;
+  margin-left: 3px;
+}
+#focus_switch-focus-container .focus_preset-container a:active {
+  color: inherit;
+  background-color: inherit;
+}
+#focus_switch-focus-container .focus_preset-container a:hover {
+  color: #000;
+  background-color: #fff;
+}
+#focus_switch-focus-container.focus_open #focus_setup-actions-btn,
+#focus_switch-focus-container.focus_open #focus_switch-header-btn,
+#focus_switch-focus-container.focus_open .focus_preset-container {
+  visibility: visible;
+}
+
+.focus_trello-ui_collapse {
+  display: none !important;
+}
+
+.focus_trello-ui_header-padding {
+  padding-top: 10px;
+}
+
 /* TODO: create buttons to shrink and expand any list*/
 /* TODO: create separate buttons to also show/hide: labels, users, and badges*/
 /* TODO: button to hide image previews*/
