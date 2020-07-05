@@ -318,46 +318,50 @@ $feature-color: #007acc;
 // LIST APPEARANCE
 //////////////////
 
-      // Narrow
-      /////////
-      .ft_list-size_narrow {
-         width: 150px !important;
+
+      @mixin list-sizing-adjustments($width, $font-size) {
+      
+         width: #{$width} !important;
 
           // Shrink list title
          .js-list-name-input {
-            font-size: 0.7em;
-            // height: 40px;
-            // line-height: 1.3em;
+            font-size: #{$font-size};
             height: 1em;
-            color: #ddd;
          }
          // Shrink card titles
          .js-card-name {
-            font-size: 0.7em;
+            font-size: #{$font-size};
             line-height: 1.3em;
          }
          // Shrink card labels
          .js-card-labels {
             overflow: hidden;
-            font-size: 0.7em;
+            font-size: #{$font-size};
             .card-label { font-size: inherit }
          }
          // Shrink card badges and due dates
          .badge-text {
             overflow: hidden;
-            font-size: 0.7em;
+            font-size: #{$font-size};
          }
          // Shrink add new card input
          .js-open-card-composer {
-            font-size: 0.7em;
+            font-size: #{$font-size};
          }
          .card-composer {
-            font-size: 0.7em;
+            font-size: #{$font-size};
             * { font-size: inherit; }
          }
 
-      
+      }
 
+
+
+
+      // Narrow
+      /////////
+      .ft_list-size_narrow {
+         @include list-sizing-adjustments(150px, 0.7em);
       }
 
 
@@ -382,64 +386,87 @@ $feature-color: #007acc;
 
 
 
-      .ft_list-color_subtle {
+      @mixin list-colour-adjustments(
+         $card-fg-color: ignore,
+         $card-bg-color: ignore,
+         $list-fg-color: ignore,
+         $list-bg-color: ignore,
+         $card-opacity: ignore,
+         $list-is-transparent: false
+      ) {
 
-         .list { background-color: #dfe3e6; }
-         .js-list-name-input { color: #ddd; }
-         .js-card-details { background-color: #eee; }
-
-      }
-
-      .ft_list-color_dark {
-
-         $light-fg-color: #eee;
-         $dark-fg-color: rgb(204, 204, 204);
-         $light-bg-color: #777;
-         $dark-bg-color: #666;
-
-         .js-list-content { background-color: $dark-bg-color; }
-         .js-card-details { background-color: $light-bg-color; }
+         .js-list-content {
+            background-color: #{$list-bg-color};
+            @if $list-is-transparent { background: none; }
+         }
+         .list-card {
+            opacity: #{$card-opacity};
+            .js-card-details { background-color: #{$card-bg-color} }
+         }
 
          .js-list-header {
-            color: $light-fg-color;
+            color: #{$card-fg-color};
+            .js-list-name-input:not(.is-editing) { color: inherit !important; }
             .list-header-extras {
                color: inherit !important;
                * { color: inherit !important; }
             }
          }
-         .js-card-name { color: $dark-fg-color; }
+         .js-card-name { color: #{$list-fg-color}; }
          .js-badges {
-            color: $light-fg-color;
+            color: #{$card-fg-color};
             * { color: inherit !important; }
             .js-due-date-badge { background-color: unset }
          }
          .card-composer-container {
-            color: $dark-fg-color;
+            color: #{$list-fg-color};
             * { color: inherit !important; }
          }
          .card-composer .cc-controls {
-            color: $dark-fg-color;
+            color: #{$list-fg-color};
             .js-cancel { color: inherit !important; }
             .js-cc-menu { color: inherit !important; }
          }
       }
+
+
+
+
+      .ft_list-color_subtle {
+         @include list-colour-adjustments()
+      }
+
+      .ft_list-color_subtle-and-clear {
+
+         @include list-colour-adjustments(
+               $list-is-transparent: true,
+               $card-opacity: 0.4,
+         )
+
+      }
       
-      .ft_list-color_clear {
+      .ft_list-color_dark {
+         @include list-colour-adjustments(
+            $card-fg-color: #eee,
+            $card-bg-color: #777,
+            $list-fg-color: rgb(204, 204, 204),
+            $list-bg-color: #666,
+         )
+      }
 
-         .list { background: none; }
-         .list-card { opacity: 0.4; }
-         .js-list-name-input { color: #ddd; } // Head text
-         .js-card-name { color: #444; } // Card titles
+      
+      .ft_list-color_dark-and-clear {
+
+         @include list-colour-adjustments(
+               $card-fg-color: #bbb,
+               $card-bg-color: rgb(17, 17, 17),
+               $list-fg-color: rgb(204, 204, 204),
+               $list-is-transparent: true,
+               $card-opacity: 0.4,
+         )
 
       }
 
-      .ft_card-color_dark {
-         background-color: rgb(17, 17, 17);
-      }
-
-      //.ft_card-color_light {
-         // no change
-      //}
 
 
 

@@ -56,14 +56,14 @@ function interpretLists() {
 
         } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_clear")
+                                        .addClass("ft_list-color_dark-and-clear")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden");
 
         } else if( titleText.indexOf("DUMP") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_clear")
+                                        .addClass("ft_list-color_subtle-and-clear")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden");

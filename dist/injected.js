@@ -11489,9 +11489,9 @@ function interpretLists() {
     } else if (titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0) {
       $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     } else if (titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     } else if (titleText.indexOf("DUMP") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     }
   });
 } // Place Focus list settings buttons in the header of any open list context menu
