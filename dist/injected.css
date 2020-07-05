@@ -155,305 +155,131 @@
   padding-left: 10px;
 }
 
-/*////////////////////*/
-/* Affect Lists*/
-/* LIST WIDTHS*/
-/*////////////*/
-/* narrow*/
-.ft_list-width_narrow {
+.ft_list-size_narrow {
   width: 150px !important;
 }
-
-/**/
-.ft_list-width_narrow .js-list-name-input {
+.ft_list-size_narrow .js-list-name-input {
   font-size: 0.7em;
-  height: 40px;
-  line-height: 1.3em;
-}
-
-/* TO DO: Does this double up on the above?*/
-.ft_list-width_narrow .js-card-name {
-  font-size: 0.7em;
-  line-height: 1.3em;
-}
-
-/* shrink add new card text*/
-.ft_list-width_narrow .js-open-card-composer {
-  font-size: 0.7em;
-}
-
-/* shrink labels*/
-.ft_list-width_narrow .js-card-labels {
-  overflow: hidden;
-  font-size: 0.7em;
-}
-
-/* shrink badges and due dates*/
-.ft_list-width_narrow .badge-text {
-  overflow: hidden;
-  font-size: 0.7em;
-}
-
-/* LIST COLORS*/
-/*////////////*/
-/* dark*/
-.ft_list-bg_dark .list {
-  background-color: #666;
-}
-
-/**/
-.ft_list-bg_dark .js-list-name-input {
-  color: #eee;
-}
-
-/**/
-.ft_list-bg_dark .js-card-details {
-  background-color: #777;
-}
-
-/* edit card titles*/
-.ft_list-bg_dark .js-card-name {
-  color: #ccc;
-}
-
-/* medium*/
-.ft_list-bg_medium .list {
-  background-color: #dfe3e6;
-}
-
-/**/
-.ft_list-bg_medium .js-list-name-input {
+  height: 1em;
   color: #ddd;
 }
+.ft_list-size_narrow .js-card-name {
+  font-size: 0.7em;
+  line-height: 1.3em;
+}
+.ft_list-size_narrow .js-card-labels {
+  overflow: hidden;
+  font-size: 0.7em;
+}
+.ft_list-size_narrow .js-card-labels .card-label {
+  font-size: inherit;
+}
+.ft_list-size_narrow .badge-text {
+  overflow: hidden;
+  font-size: 0.7em;
+}
+.ft_list-size_narrow .js-open-card-composer {
+  font-size: 0.7em;
+}
+.ft_list-size_narrow .card-composer {
+  font-size: 0.7em;
+}
+.ft_list-size_narrow .card-composer * {
+  font-size: inherit;
+}
 
-/**/
-.ft_list-bg_medium .js-card-details {
+.ft_list-size_wide {
+  width: 1000px;
+  /* make proper multiple of card width and allow customising */
+}
+.ft_list-size_wide .list-card {
+  display: inline-block;
+  margin-left: 10px;
+}
+.ft_list-size_wide .list-card:first-of-type {
+  margin-left: 0;
+}
+
+.ft_list-color_subtle .list {
+  background-color: #dfe3e6;
+}
+.ft_list-color_subtle .js-list-name-input {
+  color: #ddd;
+}
+.ft_list-color_subtle .js-card-details {
   background-color: #eee;
 }
 
-/* see-through*/
-.ft_list-bg_clear .list {
-  background: none;
-}
-
-/**/
-.ft_list-bg_clear .list-card {
-  opacity: 0.4;
-}
-
-/* edit card titles*/
-.ft_list-bg_clear .js-card-name {
-  color: #444;
-}
-
-/* head text*/
-.ft_list-bg_clear .js-list-name-input {
-  color: #ddd;
-}
-
-/*////////////////////*/
-/* Affect Goal Lists*/
-/* shrink lists*/
-.future {
-  width: 150px !important;
-  /*   opacity: 0.8 !important;*/
-}
-
-/* edit list color*/
-.future .list {
-  /*   background-color: #a3b6c5;*/
-  background-color: #dfe3e6;
-}
-
-/* shrink head text*/
-.future .js-list-name-input {
-  font-size: 0.7em;
-  height: 40px;
-  line-height: 1.3em;
-  color: #ddd;
-}
-
-/* edit card color*/
-.future .js-card-details {
-  /*      background-color: #bacbd7;*/
-  background-color: #eee;
-}
-
-/* edit card titles*/
-.future .js-card-name {
-  font-size: 0.7em;
-  line-height: 1.3em;
-}
-
-/* shrink add new card text*/
-.future .js-open-card-composer {
-  font-size: 0.7em;
-}
-
-/* shrink labels*/
-.abandoned .js-card-labels {
-  overflow: hidden;
-  font-size: 0.7em;
-}
-
-/* shrink badges and due dates*/
-.abandoned .badge-text {
-  overflow: hidden;
-  font-size: 0.7em;
-}
-
-/*//////////////////////*/
-/* Affect Done Lists*/
-/* shrink lists*/
-.done {
-  width: 150px !important;
-  /*   opacity: 0.8 !important;*/
-}
-
-/* edit list color*/
-.done .list {
-  /*   background-color: #a3c3a8;*/
+.ft_list-color_dark .js-list-content {
   background-color: #666;
 }
-
-/* shrink head text*/
-.done .js-list-name-input {
-  font-size: 0.7em;
-  height: 40px;
-  line-height: 1.3em;
-  color: #eee;
-}
-
-/* edit card color*/
-.done .js-card-details {
-  /*   background-color: #bbd7ba;*/
+.ft_list-color_dark .js-card-details {
   background-color: #777;
 }
-
-/* edit card titles*/
-.done .js-card-name {
-  font-size: 0.7em;
-  line-height: 1.3em;
-  color: #ccc;
+.ft_list-color_dark .js-list-header {
+  color: #eee;
+}
+.ft_list-color_dark .js-list-header .list-header-extras {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-list-header .list-header-extras * {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-card-name {
+  color: #cccccc;
+}
+.ft_list-color_dark .js-badges {
+  color: #eee;
+}
+.ft_list-color_dark .js-badges * {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-badges .js-due-date-badge {
+  background-color: unset;
+}
+.ft_list-color_dark .card-composer-container {
+  color: #cccccc;
+}
+.ft_list-color_dark .card-composer-container * {
+  color: inherit !important;
+}
+.ft_list-color_dark .card-composer .cc-controls {
+  color: #cccccc;
+}
+.ft_list-color_dark .card-composer .cc-controls .js-cancel {
+  color: inherit !important;
+}
+.ft_list-color_dark .card-composer .cc-controls .js-cc-menu {
+  color: inherit !important;
 }
 
-/* shrink add new card text*/
-.done .js-open-card-composer {
-  font-size: 0.7em;
-}
-
-/* hide users assigned to the cards*/
-.done .js-list-card-members {
-  display: none;
-}
-
-/* hide labels*/
-.done .js-card-labels {
-  display: none;
-}
-
-/* hide badges and due dates*/
-.done .badges {
-  display: none;
-}
-
-/*////////////////////////*/
-/* Affect Brain Dump List*/
-/* shrink lists*/
-.brain-dump {
-  width: 150px !important;
-}
-
-/* edit list color*/
-.brain-dump .list {
+.ft_list-color_clear .list {
   background: none;
 }
-
-/* shrink head text*/
-.brain-dump .js-list-name-input {
-  font-size: 0.7em;
-  height: 40px;
-  line-height: 1.3em;
-  color: #ddd;
-}
-
-/* edit card color*/
-.brain-dump .list-card {
+.ft_list-color_clear .list-card {
   opacity: 0.4;
 }
-
-/* edit card titles*/
-.brain-dump .js-card-name {
+.ft_list-color_clear .js-list-name-input {
+  color: #ddd;
+}
+.ft_list-color_clear .js-card-name {
   color: #444;
-  font-size: 0.7em;
-  line-height: 1.3em;
 }
 
-/* shrink add new card text*/
-.brain-dump .js-open-card-composer {
-  font-size: 0.7em;
+.ft_card-color_dark {
+  background-color: #111111;
 }
 
-/* shrink labels*/
-.abandoned .js-card-labels {
-  overflow: hidden;
-  font-size: 0.7em;
+.ft_card-labels_hidden .js-card-labels {
+  display: none;
 }
 
-/* shrink badges and due dates*/
-.abandoned .badge-text {
-  overflow: hidden;
-  font-size: 0.7em;
+.ft_card-badges_hidden .badges {
+  display: none;
 }
 
-/*////////////////////////*/
-/* Affect Abandon List*/
-/* shrink lists*/
-.abandoned {
-  width: 150px !important;
-}
-
-/* edit list color*/
-.abandoned .list {
-  background: none;
-}
-
-/* shrink head text*/
-.abandoned .js-list-name-input {
-  font-size: 0.7em;
-  height: 40px;
-  line-height: 1.3em;
-  color: #ddd;
-}
-
-/* edit card color*/
-.abandoned .list-card {
-  background-color: #111;
-  opacity: 0.4;
-}
-
-/* edit card titles*/
-.abandoned .js-card-name {
-  color: #888;
-  font-size: 0.7em;
-  line-height: 1.3em;
-}
-
-/* shrink add new card text*/
-.abandoned .js-open-card-composer {
-  font-size: 0.7em;
-}
-
-/* shrink labels*/
-.abandoned .js-card-labels .card-label {
-  overflow: hidden;
-  font-size: 0.7em;
-}
-
-/* shrink badges and due dates*/
-.abandoned .badge-text {
-  overflow: hidden;
-  font-size: 0.7em;
+.ft_card-details_hidden .js-list-card-members {
+  display: none;
 }
 
 /*# sourceMappingURL=injected.css.map*/

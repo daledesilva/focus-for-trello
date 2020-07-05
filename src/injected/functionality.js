@@ -41,16 +41,32 @@ function interpretLists() {
         let titleText = $title.text().toUpperCase();
 
         if( titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
-            $title.closest(".js-list").addClass("done");
+            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+                                        .addClass("ft_list-color_dark")
+                                        .addClass("ft_card-labels_hidden")
+                                        .addClass("ft_card-badges_hidden")
+                                        .addClass("ft_card-details_hidden");
 
         } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
-            $title.closest(".js-list").addClass("future");
+            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+                                        .addClass("ft_list-color_subtle")
+                                        .addClass("ft_card-labels_hidden")
+                                        .addClass("ft_card-badges_hidden")
+                                        .addClass("ft_card-details_hidden");
 
         } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
-            $title.closest(".js-list").addClass("abandoned");
+            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+                                        .addClass("ft_list-color_clear")
+                                        .addClass("ft_card-labels_hidden")
+                                        .addClass("ft_card-badges_hidden")
+                                        .addClass("ft_card-details_hidden");
 
         } else if( titleText.indexOf("DUMP") >= 0 ) {
-            $title.closest(".js-list").addClass("brain-dump");
+            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+                                        .addClass("ft_list-color_clear")
+                                        .addClass("ft_card-labels_hidden")
+                                        .addClass("ft_card-badges_hidden")
+                                        .addClass("ft_card-details_hidden");
 
         }
 
