@@ -251,9 +251,7 @@ $feature-color: #007acc;
 /* TODO: create buttons to shrink and expand any list*/
 /* TODO: create separate buttons to also show/hide: labels, users, and badges*/
 /* TODO: button to hide image previews*/
-.list-card-cover {
-   height: 0px !important;
-}
+
 /* TODO: Card cover height should be 0 and javascript should check if there is actually an image in there and increase it to 1px*/
 
 /* absolutely position rollover preview of card image (left or right depending on where mouse is*/
@@ -509,4 +507,18 @@ $feature-color: #007acc;
 
 
 
+/////////////////////////
+// CARD IMAGES APPEARANCE
+/////////////////////////
 
+      .ft_card-images_minimised {
+         .list-card-cover {
+            height: 3px !important;
+         }
+      }
+
+      .ft_card-images_hidden {
+         .list-card-cover {
+            height: 0px !important;
+         }
+      }

@@ -30,6 +30,134 @@ var headerAppearance = 0;
 
 
 
+
+
+
+const labelOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-labels_default",
+        isCyclable: true
+    },
+    {
+        name: "Hide card labels",
+        class: "ft_card-labels_hidden",
+        isCyclable: true
+    },
+]
+const badgeOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-badges_default",
+        isCyclable: true
+    },
+    {
+        name: "Hide card badges",
+        class: "ft_card-badges_hidden",
+        isCyclable: true
+    },
+]
+const detailOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-details_default",
+        isCyclable: true
+    },
+    {
+        name: "Hide card details",
+        class: "ft_card-details_hidden",
+        isCyclable: true
+    },
+]
+const imageOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-color_default",
+        isCyclable: true
+    },
+    {
+        name: "Minimise images",
+        class: "ft_list-color_default",
+        isCyclable: true
+    },
+    {
+        name: "Hide images",
+        class: "ft_list-color_default",
+        isCyclable: true
+    },
+]
+const sizeOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-size_default",
+        isCyclable: true
+    },
+    {
+        name: "Narrow list",
+        class: "ft_list-size_narrow",
+        isCyclable: true
+    },
+    {
+        name: "Wide list",
+        class: "ft_list-size_wide-1",
+        isCyclable: true
+    },
+    {
+        name: "Extra wide list",
+        class: "ft_list-size_wide-2",
+        isCyclable: true
+    },
+    {
+        name: "Ultra wide list",
+        class: "ft_list-size_wide-2",
+        isCyclable: true
+    }
+]
+const colorOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-color_default",
+        isCyclable: true
+    },
+    {
+        name: "Dark list",
+        class: "ft_list-color_dark",
+        isCyclable: true
+    },
+    {
+        name: "Light list",
+        class: "ft_list-color_light",
+        isCyclable: true
+    },
+    {
+        name: "Subtle list",
+        class: "ft_list-color_subtle",
+        isCyclable: true
+    },
+    {
+        name: "Dark & transparent list",
+        class: "ft_list-color_dark",
+        isCyclable: true
+    },
+    {
+        name: "Light & transparent list",
+        class: "ft_list-color_light",
+        isCyclable: true
+    },
+    {
+        name: "Subtle & transparent list",
+        class: "ft_list-color_subtle",
+        isCyclable: true
+    }
+]
+
+
+
+
+
+
+
+
 // Adjust the appearance of any list on the page
 //
 function interpretLists() {
@@ -45,28 +173,32 @@ function interpretLists() {
                                         .addClass("ft_list-color_dark")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden");
+                                        .addClass("ft_card-details_hidden")
+                                        .addClass("ft_card-images_hidden");
 
         } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
                                         .addClass("ft_list-color_subtle")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden");
+                                        .addClass("ft_card-details_hidden")
+                                        .addClass("ft_card-images_minimised");
 
         } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
                                         .addClass("ft_list-color_dark-and-clear")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden");
+                                        .addClass("ft_card-details_hidden")
+                                        .addClass("ft_card-images_hidden");
 
         } else if( titleText.indexOf("DUMP") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
                                         .addClass("ft_list-color_subtle-and-clear")
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden");
+                                        .addClass("ft_card-details_hidden")
+                                        .addClass("ft_card-images_minimised");
 
         }
 
