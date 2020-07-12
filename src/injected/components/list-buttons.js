@@ -167,12 +167,6 @@ class ListButtons extends JSXComponent {
 
 
 
-    // Remove text from list settings header to make clean background for buttons
-    // replace with space so that headre doesn't collapse
-    props.$listReference.find(".pop-over-header-title").html("&nbsp;");
-
-
-    
 
     return (
         <div className="ft_list-btn-group">

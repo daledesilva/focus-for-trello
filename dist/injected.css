@@ -135,10 +135,6 @@
 /*/////////////////////*/
 /* Affect List Buttons*/
 .ft_list-btn-group {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
   /*   padding-left: 4px;*/
 }
 
@@ -184,7 +180,7 @@
 }
 
 .ft_list-size_wide {
-  width: 1000px;
+  width: 1000px !important;
   /* make proper multiple of card width and allow customising */
 }
 .ft_list-size_wide .list-card {
@@ -200,8 +196,6 @@
 }
 .ft_list-color_subtle .list-card {
   opacity: ignore;
-}
-.ft_list-color_subtle .list-card .js-card-details {
   background-color: ignore;
 }
 .ft_list-color_subtle .js-list-header {
@@ -250,8 +244,6 @@
 }
 .ft_list-color_subtle-and-clear .list-card {
   opacity: 0.4;
-}
-.ft_list-color_subtle-and-clear .list-card .js-card-details {
   background-color: ignore;
 }
 .ft_list-color_subtle-and-clear .js-list-header {
@@ -295,13 +287,11 @@
 }
 
 .ft_list-color_dark .js-list-content {
-  background-color: #666;
+  background-color: rgba(70, 70, 70, 0.9);
 }
 .ft_list-color_dark .list-card {
   opacity: ignore;
-}
-.ft_list-color_dark .list-card .js-card-details {
-  background-color: #777;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .ft_list-color_dark .js-list-header {
   color: #eee;
@@ -349,8 +339,6 @@
 }
 .ft_list-color_dark-and-clear .list-card {
   opacity: 0.4;
-}
-.ft_list-color_dark-and-clear .list-card .js-card-details {
   background-color: #111111;
 }
 .ft_list-color_dark-and-clear .js-list-header {

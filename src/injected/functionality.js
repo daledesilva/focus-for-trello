@@ -13,6 +13,170 @@ import {plugin} from "../metadata";
 
 
 
+
+
+
+
+
+
+
+
+
+// Available list appearance options
+////////////////////////////////////
+
+const labelOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-labels_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Hide card labels",
+        class: "ft_card-labels_hidden",
+        isActiveWhenCycling: true
+    },
+]
+const badgeOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-badges_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Hide card badges",
+        class: "ft_card-badges_hidden",
+        isActiveWhenCycling: true
+    },
+]
+const detailOptions = [
+    {
+        name: "Trello default",
+        class: "ft_card-details_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Hide card details",
+        class: "ft_card-details_hidden",
+        isActiveWhenCycling: true
+    },
+]
+const imageOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-color_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Minimise images",
+        class: "ft_list-color_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Hide images",
+        class: "ft_list-color_default",
+        isActiveWhenCycling: true
+    },
+]
+const sizeOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-size_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Narrow list",
+        class: "ft_list-size_narrow",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Wide list",
+        class: "ft_list-size_wide-1",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Extra wide list",
+        class: "ft_list-size_wide-2",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Ultra wide list",
+        class: "ft_list-size_wide-2",
+        isActiveWhenCycling: true
+    }
+]
+const colorOptions = [
+    {
+        name: "Trello default",
+        class: "ft_list-color_default",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Dark list",
+        class: "ft_list-color_dark",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Light list",
+        class: "ft_list-color_light",
+        isActiveWhenCycling: true
+    },
+    {
+        name: "Subtle list",
+        class: "ft_list-color_subtle",
+        isActiveWhenCycling: true
+    },
+    // {
+    //     name: "Dark & transparent list",
+    //     class: "ft_list-color_dark",
+    //     isActiveWhenCycling: true
+    // },
+    // {
+    //     name: "Light & transparent list",
+    //     class: "ft_list-color_light",
+    //     isActiveWhenCycling: true
+    // },
+    // {
+    //     name: "Subtle & transparent list",
+    //     class: "ft_list-color_subtle",
+    //     isActiveWhenCycling: true
+    // }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+// Enumerators
+//////////////
+
+const HEADER_SETTINGS = {
+    DEFAULT: "default",
+    HIDE_LEFT_BOARD_HEADER: "hide left board header",
+    SHOW_RIGHT_BOARD_HEADER: "show right board header",
+    HIDE_ALL: "hide all",
+    SHOW_TRELLO_HEADER: "show trello header"
+}
+
+const MATCH_METHODS = {
+    EXACT: "exact",
+    CONTAINS: "contains"
+}
+
+
+
+
+
+
+
+
 // Global variables
 //
 var pageChangeTimeOutID;
@@ -33,123 +197,130 @@ var headerAppearance = 0;
 
 
 
-const labelOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-labels_default",
-        isCyclable: true
-    },
-    {
-        name: "Hide card labels",
-        class: "ft_card-labels_hidden",
-        isCyclable: true
-    },
-]
-const badgeOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-badges_default",
-        isCyclable: true
-    },
-    {
-        name: "Hide card badges",
-        class: "ft_card-badges_hidden",
-        isCyclable: true
-    },
-]
-const detailOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-details_default",
-        isCyclable: true
-    },
-    {
-        name: "Hide card details",
-        class: "ft_card-details_hidden",
-        isCyclable: true
-    },
-]
-const imageOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-color_default",
-        isCyclable: true
-    },
-    {
-        name: "Minimise images",
-        class: "ft_list-color_default",
-        isCyclable: true
-    },
-    {
-        name: "Hide images",
-        class: "ft_list-color_default",
-        isCyclable: true
-    },
-]
-const sizeOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-size_default",
-        isCyclable: true
-    },
-    {
-        name: "Narrow list",
-        class: "ft_list-size_narrow",
-        isCyclable: true
-    },
-    {
-        name: "Wide list",
-        class: "ft_list-size_wide-1",
-        isCyclable: true
-    },
-    {
-        name: "Extra wide list",
-        class: "ft_list-size_wide-2",
-        isCyclable: true
-    },
-    {
-        name: "Ultra wide list",
-        class: "ft_list-size_wide-2",
-        isCyclable: true
+
+
+
+
+
+
+
+
+
+
+
+// Global
+// var globalSettings = {
+
+//     listPresets: [
+//         {
+//             presetName: "List preset name",
+//             enabled: true,
+//             classes: ["CSS name of each class to apply"],
+//             customSettings: {} // a place for any customisations if made possible
+//         }
+        
+//     ]
+
+// }
+
+
+// Each board
+var boardSettings = {
+
+    boardName: "The name of the board",
+    boardUrl: "The URL of the board",
+
+    boardPresets: [
+        { // Board preset 1
+
+            presetName: "Board preset name",
+            isActiveWhenCycling: true,
+            
+            headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+
+            listSettings: [
+                { // A list's settings
+                    listId: "DONE,FINISHED,COMPLETE", // It's name
+                    matchMethod: "EXACT | CONTAINS",
+                    presetId: "The ID of a global preset to apply (optional)",
+                    classes: ["CSS name of each class to apply"],
+                    customSettings: {} // a place for any customisations if made possible
+                },
+                { // A list's settings
+
+                }
+            ]
+
+        },
+        { // Board preset 2
+        
+        }
+
+    ]
+
+}
+
+
+
+function displayConsoleWarning(text) {
+    console.log( "WARNING: " + text );
+}
+
+
+
+
+function listNameMatchesId(listName, listId, matchMethod, ) {
+    if(matchMethod == MATCH_METHODS.EXACT) {
+        return listName == listId;
+
+    } else if(matchMethod == MATCH_METHODS.CONTAINS) {
+        return listName.indexOf(listId) >= 0;
+
+    } else {
+        displayConsoleWarning("The match method defined doesn't exist");
     }
-]
-const colorOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-color_default",
-        isCyclable: true
-    },
-    {
-        name: "Dark list",
-        class: "ft_list-color_dark",
-        isCyclable: true
-    },
-    {
-        name: "Light list",
-        class: "ft_list-color_light",
-        isCyclable: true
-    },
-    {
-        name: "Subtle list",
-        class: "ft_list-color_subtle",
-        isCyclable: true
-    },
-    {
-        name: "Dark & transparent list",
-        class: "ft_list-color_dark",
-        isCyclable: true
-    },
-    {
-        name: "Light & transparent list",
-        class: "ft_list-color_light",
-        isCyclable: true
-    },
-    {
-        name: "Subtle & transparent list",
-        class: "ft_list-color_subtle",
-        isCyclable: true
+}
+
+
+
+function getOptionAfter(currentOptionClass, optionSet) {
+    
+    // Find the current item in the optionSet
+    let currentIndex = null;
+    //
+    for(let index = 0; index < optionSet.length; index++) {
+        let option = optionSet[index];
+
+        if(currentOptionClass == option.class) {
+            currentIndex = index;
+            break;
+        }       
+    };
+    //
+    if(currentIndex == null) {
+        displayConsoleWarning("Can't iterate to next option because the current option's class isn't found. Jumping to first option instead.");
+        currentIndex = 0;
     }
-]
+
+    // Go to next item in line and loop around if necessary
+    let nextIndex = (currentIndex + 1) % optionSet.length;
+
+    return optionSet[nextIndex];
+}
+
+
+
+function getContainingList($element) {
+    return $element.closest(".js-list");
+}
+
+
+function cycleOptionInList(optionSet, $list) {
+
+}
+
+
+
 
 
 
@@ -168,6 +339,10 @@ function interpretLists() {
         let $title = $(this);
         let titleText = $title.text().toUpperCase();
 
+        // if( titleText.indexOf("YEAR") >= 0 ) {
+        //     $title.closest(".js-list")  .addClass("ft_list-size_wide");
+
+        // } else
         if( titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
                                         .addClass("ft_list-color_dark")
@@ -218,13 +393,17 @@ function interpretLists() {
 function createListButtons() {
     "use strict";
 
-    let $listSettings = $latestMutations.find(".pop-over-header").first();
-
-    // Bail if the list settings popup isn"t present
-    if($listSettings.length == 0)    return;
+    // The mutation won't include ".pop-over" or be it, so we have to check for somethign inside
+    let $popoverHeaderTitle = $latestMutations.find(".pop-over-header-title").first();
+    // Bail if a list settings popup isn"t present
+    if($popoverHeaderTitle.length == 0)   return;
+    // Bail if the popover isn't a list settings context menu
+    if( $popoverHeaderTitle.text() != "List Actions" )   return;
 
     // add custom Focus buttons to list settings menu
-    $listSettings.append( <ListButtons $listReference={$listSettings} /> );
+    let $listContent = $latestMutations.find(".js-pop-over-content div div").first();
+    $listContent.append( <hr/> );
+    $listContent.append( <ListButtons/> );
 
 }
 
@@ -636,5 +815,5 @@ function delayedPageInitialisation() {
 // on page load, start watching for page changes
 $(function() {
     immediatePageInitialisation();
-    var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
+    var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);  
 });

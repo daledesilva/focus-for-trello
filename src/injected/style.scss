@@ -284,10 +284,10 @@ $feature-color: #007acc;
 /*/////////////////////*/
 /* Affect List Buttons*/
 .ft_list-btn-group {
-   position: absolute;
-   top: 0;
-   left: 0;
-   z-index: 10;
+   // position: absolute;
+   // top: 0;
+   // left: 0;
+   // z-index: 10;
 /*   padding-left: 4px;*/
 }
 
@@ -366,7 +366,7 @@ $feature-color: #007acc;
       // Wide
       /////////
       .ft_list-size_wide {
-         width: 1000px; /* make proper multiple of card width and allow customising */
+         width: 1000px !important; /* make proper multiple of card width and allow customising */
 
          .list-card {
             display: inline-block;
@@ -399,7 +399,7 @@ $feature-color: #007acc;
          }
          .list-card {
             opacity: #{$card-opacity};
-            .js-card-details { background-color: #{$card-bg-color} }
+            background-color: #{$card-bg-color}
          }
 
          .js-list-header {
@@ -446,9 +446,9 @@ $feature-color: #007acc;
       .ft_list-color_dark {
          @include list-colour-adjustments(
             $card-fg-color: #eee,
-            $card-bg-color: #777,
+            $card-bg-color: rgba(255, 255, 255, 0.1),
             $list-fg-color: rgb(204, 204, 204),
-            $list-bg-color: #666,
+            $list-bg-color: rgba(70, 70, 70, 0.9),
          )
       }
 
