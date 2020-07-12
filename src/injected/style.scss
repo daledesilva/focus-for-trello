@@ -312,12 +312,15 @@ $feature-color: #007acc;
 
 
 
-//////////////////
-// LIST APPEARANCE
-//////////////////
+////////////
+// LIST SIZE
+////////////
 
 
-      @mixin list-sizing-adjustments($width, $font-size) {
+      @mixin list-sizing-adjustments(
+         $width: ignore,
+         $font-size: ignore
+      ) {
       
          width: #{$width} !important;
 
@@ -359,21 +362,55 @@ $feature-color: #007acc;
       // Narrow
       /////////
       .ft_list-size_narrow {
-         @include list-sizing-adjustments(150px, 0.7em);
+         @include list-sizing-adjustments(
+            $width: 150px,
+            $font-size: 0.7em
+         );
       }
 
 
-      // Wide
+      // Wide 1
       /////////
-      .ft_list-size_wide {
-         width: 1000px !important; /* make proper multiple of card width and allow customising */
+      .ft_list-size_wide-1 {
+         @include list-sizing-adjustments(
+            $width: 500px,
+         );
 
+         // TO DO: Should this be incorporated in the mixin?
          .list-card {
             display: inline-block;
             margin-left: 10px;
             &:first-of-type { margin-left: 0; }
          }
          
+      }
+
+      // Wide 2
+      /////////
+      .ft_list-size_wide-2 {
+         @include list-sizing-adjustments(
+            $width: 1000px,
+         );
+
+         .list-card {
+            display: inline-block;
+            margin-left: 10px;
+            &:first-of-type { margin-left: 0; }
+         }
+      }
+
+      // Wide 3
+      /////////
+      .ft_list-size_wide-3 {
+         @include list-sizing-adjustments(
+            $width: 1500px,
+         );
+
+         .list-card {
+            display: inline-block;
+            margin-left: 10px;
+            &:first-of-type { margin-left: 0; }
+         }
       }
 
 

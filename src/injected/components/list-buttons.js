@@ -4,17 +4,19 @@ import JSXComponent from 'jsx-render/lib/JSXComponent'
 // custom components
 import { Tooltip } from "../../components/tooltip"
 
-import { plugin } from "../../metadata";
+import { OPTIONS } from "../user-options";
+
+import {plugin} from "../../metadata";
+import {devWarning} from "../generic-helpers";
+import { cycleOptionInList, $getActiveList } from "../helpers";
 
 
 
 class ListButtons extends JSXComponent {
 
 
-
   render(props) {
       
-
 
 
     let jsxArr = [];
@@ -30,8 +32,13 @@ class ListButtons extends JSXComponent {
         <Tooltip title="cycle label appearance" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_labels-btn" }
                 className="ft_pop-over-header-btn left-most icon-sm"
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.LABELS, $getActiveList() );
+                }}
             >
                 <i className="fas fa-tag"/>
             </a>
@@ -49,10 +56,15 @@ class ListButtons extends JSXComponent {
         <Tooltip title="cycle due date appearance" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_dates-btn" }
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    //cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+                }}
             >
                 <i className="fas fa-clock"/>
             </a>
@@ -70,10 +82,15 @@ class ListButtons extends JSXComponent {
         <Tooltip title="cycle details appearance" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_details-btn" }
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+                }}
             >
                 <i className="fas fa-comment-alt"/>
             </a>
@@ -90,10 +107,15 @@ class ListButtons extends JSXComponent {
         <Tooltip title="cycle images appearance" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_images-btn" }
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.IMAGES, $getActiveList() );
+                }}
             >
                 <i className="fas fa-image"/>
             </a>
@@ -109,13 +131,18 @@ class ListButtons extends JSXComponent {
     // - Shrink list and fade
     //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
     jsxArr.push(
-        <Tooltip title="cycle whole list appearance" tag="a">
+        <Tooltip title="cycle list size" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_size-btn" }
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+                }}
             >
                 <i className="fas fa-poll fa-rotate-180"/>
             </a>
@@ -125,15 +152,20 @@ class ListButtons extends JSXComponent {
 
     // LIST VISIBILITY BUTTON
     // Use to...
-    // - Hide/Unhide list
+    // - Hide/collapse/Unhide list
     jsxArr.push(
         <Tooltip title="cycle list visibility" tag="a">
             <a
                 href="#"
-                id={ plugin.slug + "_label-btn" }
+                id={ plugin.slug + "_visibility-btn" }
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.VISIBILITY, $getActiveList() );
+                }}
             >
                 <i className="fas fa-eye"/>
             </a>
@@ -155,6 +187,11 @@ class ListButtons extends JSXComponent {
                 className={[    "ft_pop-over-header-btn",
                                 "icon-sm"
                             ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+                }}
             >
                 <i className="fas fa-cog"/>
             </a>

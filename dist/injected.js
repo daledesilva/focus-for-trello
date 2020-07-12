@@ -11308,9 +11308,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsx-render/lib/JSXComponent */ "./node_modules/jsx-render/lib/JSXComponent.js");
 /* harmony import */ var jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/tooltip */ "./src/components/tooltip.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../metadata */ "./src/metadata.js");
+/* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../user-options */ "./src/injected/user-options.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../metadata */ "./src/metadata.js");
+/* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../generic-helpers */ "./src/injected/generic-helpers.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers */ "./src/injected/helpers.js");
 
  // custom components
+
+
+
 
 
 
@@ -11329,8 +11335,13 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: "ft_pop-over-header-btn left-most icon-sm"
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_labels-btn",
+      className: "ft_pop-over-header-btn left-most icon-sm",
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.LABELS, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-tag"
     })))); // DUE DATES TOGGLE
@@ -11345,8 +11356,12 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_dates-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {//cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-clock"
     })))); // DETAILS TOGGLE
@@ -11361,8 +11376,13 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_details-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.DETAILS, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-comment-alt"
     })))); // IMAGES TOGGLE
@@ -11376,8 +11396,13 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_images-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.IMAGES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-image"
     })))); // LIST APPEARANCE TOGGLE
@@ -11389,25 +11414,35 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
     //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "cycle whole list appearance",
+      title: "cycle list size",
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_size-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.SIZES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-poll fa-rotate-180"
     })))); // LIST VISIBILITY BUTTON
     // Use to...
-    // - Hide/Unhide list
+    // - Hide/collapse/Unhide list
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
       title: "cycle list visibility",
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_visibility-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.VISIBILITY, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-eye"
     })))); // eye-slash
@@ -11422,8 +11457,13 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       tag: "a"
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
       href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" ")
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_label-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.SIZES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-cog"
     }))) // Popup should contain:
@@ -11457,7 +11497,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_list_buttons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/list-buttons */ "./src/injected/components/list-buttons.js");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
+/* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user-options */ "./src/injected/user-options.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
+/* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./helpers */ "./src/injected/helpers.js");
  // ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn"t handle undefineds" and stops execution.
 // Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
 // custom components
@@ -11465,111 +11508,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // Available list appearance options
-////////////////////////////////////
 
-const labelOptions = [{
-  name: "Trello default",
-  class: "ft_card-labels_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Hide card labels",
-  class: "ft_card-labels_hidden",
-  isActiveWhenCycling: true
-}];
-const badgeOptions = [{
-  name: "Trello default",
-  class: "ft_card-badges_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Hide card badges",
-  class: "ft_card-badges_hidden",
-  isActiveWhenCycling: true
-}];
-const detailOptions = [{
-  name: "Trello default",
-  class: "ft_card-details_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Hide card details",
-  class: "ft_card-details_hidden",
-  isActiveWhenCycling: true
-}];
-const imageOptions = [{
-  name: "Trello default",
-  class: "ft_list-color_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Minimise images",
-  class: "ft_list-color_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Hide images",
-  class: "ft_list-color_default",
-  isActiveWhenCycling: true
-}];
-const sizeOptions = [{
-  name: "Trello default",
-  class: "ft_list-size_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Narrow list",
-  class: "ft_list-size_narrow",
-  isActiveWhenCycling: true
-}, {
-  name: "Wide list",
-  class: "ft_list-size_wide-1",
-  isActiveWhenCycling: true
-}, {
-  name: "Extra wide list",
-  class: "ft_list-size_wide-2",
-  isActiveWhenCycling: true
-}, {
-  name: "Ultra wide list",
-  class: "ft_list-size_wide-2",
-  isActiveWhenCycling: true
-}];
-const colorOptions = [{
-  name: "Trello default",
-  class: "ft_list-color_default",
-  isActiveWhenCycling: true
-}, {
-  name: "Dark list",
-  class: "ft_list-color_dark",
-  isActiveWhenCycling: true
-}, {
-  name: "Light list",
-  class: "ft_list-color_light",
-  isActiveWhenCycling: true
-}, {
-  name: "Subtle list",
-  class: "ft_list-color_subtle",
-  isActiveWhenCycling: true
-} // {
-//     name: "Dark & transparent list",
-//     class: "ft_list-color_dark",
-//     isActiveWhenCycling: true
-// },
-// {
-//     name: "Light & transparent list",
-//     class: "ft_list-color_light",
-//     isActiveWhenCycling: true
-// },
-// {
-//     name: "Subtle & transparent list",
-//     class: "ft_list-color_subtle",
-//     isActiveWhenCycling: true
-// }
-]; // Enumerators
-//////////////
 
-const HEADER_SETTINGS = {
-  DEFAULT: "default",
-  HIDE_LEFT_BOARD_HEADER: "hide left board header",
-  SHOW_RIGHT_BOARD_HEADER: "show right board header",
-  HIDE_ALL: "hide all",
-  SHOW_TRELLO_HEADER: "show trello header"
-};
+
+ // Internal Enumerators
+///////////////////////
+
 const MATCH_METHODS = {
   EXACT: "exact",
   CONTAINS: "contains"
@@ -11613,54 +11557,8 @@ var boardSettings = {
     }]
   }, {// Board preset 2
   }]
-};
-
-function displayConsoleWarning(text) {
-  console.log("WARNING: " + text);
-}
-
-function listNameMatchesId(listName, listId, matchMethod) {
-  if (matchMethod == MATCH_METHODS.EXACT) {
-    return listName == listId;
-  } else if (matchMethod == MATCH_METHODS.CONTAINS) {
-    return listName.indexOf(listId) >= 0;
-  } else {
-    displayConsoleWarning("The match method defined doesn't exist");
-  }
-}
-
-function getOptionAfter(currentOptionClass, optionSet) {
-  // Find the current item in the optionSet
-  let currentIndex = null; //
-
-  for (let index = 0; index < optionSet.length; index++) {
-    let option = optionSet[index];
-
-    if (currentOptionClass == option.class) {
-      currentIndex = index;
-      break;
-    }
-  }
-
-  ; //
-
-  if (currentIndex == null) {
-    displayConsoleWarning("Can't iterate to next option because the current option's class isn't found. Jumping to first option instead.");
-    currentIndex = 0;
-  } // Go to next item in line and loop around if necessary
-
-
-  let nextIndex = (currentIndex + 1) % optionSet.length;
-  return optionSet[nextIndex];
-}
-
-function getContainingList($element) {
-  return $element.closest(".js-list");
-}
-
-function cycleOptionInList(optionSet, $list) {} // Adjust the appearance of any list on the page
+}; // Adjust the appearance of any list on the page
 //
-
 
 function interpretLists() {
   "use strict";
@@ -11697,6 +11595,14 @@ function createListButtons() {
   let $listContent = $latestMutations.find(".js-pop-over-content div div").first();
   $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("hr", null));
   $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_2__["ListButtons"], null));
+}
+
+function createEventsToRememberUserActions() {
+  "use strict"; // add an event to every list menu button
+
+  $(".js-open-list-menu").click(e => {
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_7__["setActiveList"])($(e.target).closest(".js-list"));
+  });
 } // Create the main settings button that switches visual layouts
 //
 
@@ -11706,79 +11612,79 @@ function createFocusSwitchButton() {
 
   let $body = $("body");
   let switchFocusContainer = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-container"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-focus-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_unsaved"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_unsaved"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_delete-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_delete-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-trash"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Unsaved Preset")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_active"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_active"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_clear-preset-changes-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-undo-alt"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"
+    class: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Upcoming Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_clear-preset-changes-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-undo-alt"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container"
+    class: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_delete-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_delete-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-trash"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Past Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
     title: "Setup actions"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_setup-actions-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_setup-actions-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-cog"
   }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
     title: "Switch header"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-header-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-header-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
   }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_1__["Tooltip"], {
@@ -11786,7 +11692,7 @@ function createFocusSwitchButton() {
     tag: "a"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-focus-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
   }))));
@@ -11794,15 +11700,15 @@ function createFocusSwitchButton() {
   $body.prepend($switchFocusContainer); // MOUSEOVERS
   /////////////
 
-  $switchFocusContainer.find("." + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_preset-container").mouseover(addSelected); // LEFT CLICK ACTIONS
+  $switchFocusContainer.find("." + _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_preset-container").mouseover(addSelected); // LEFT CLICK ACTIONS
   /////////////////////
 
-  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
-  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
   //////////////////////
 
-  $("#" + _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
-    $switchFocusContainer.toggleClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_open");
+  $("#" + _metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
+    $switchFocusContainer.toggleClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_open");
     return false; // return false to stop the context menu appearing
   });
 }
@@ -11817,44 +11723,44 @@ function addSelected() {
 
 function switchHeader() {
   function hideCurrentBoardLeftHeader() {
-    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
   }
 
   function hideCurrentBoardWholeHeader() {
-    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Add padding
+    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse"); // Add padding
 
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_header-padding");
   }
 
   function hideGeneralTrelloHeader() {
-    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
+    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
   }
 
   function hideAllHeaders() {
     hideCurrentBoardWholeHeader();
     hideGeneralTrelloHeader(); // Add padding
 
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_header-padding");
   } // Unhide all headers
   /////////////////////
   // Current board left header
 
 
-  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
+  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
 
-  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
+  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
 
-  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
+  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
 
-  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_trello-ui_header-padding");
+  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_5__["plugin"].slug + "_trello-ui_header-padding");
   headerAppearance++;
   headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
 
@@ -11940,6 +11846,7 @@ function immediatePageInitialisation() {
 
 function delayedPageInitialisation() {
   console.log("Delayed page Initialisation");
+  createEventsToRememberUserActions();
   createFocusSwitchButton();
   delayedPageChangeAdjustments();
 } // on page load, start watching for page changes
@@ -11953,6 +11860,178 @@ $(function () {
 
 /***/ }),
 
+/***/ "./src/injected/generic-helpers.js":
+/*!*****************************************!*\
+  !*** ./src/injected/generic-helpers.js ***!
+  \*****************************************/
+/*! exports provided: devWarning */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "devWarning", function() { return devWarning; });
+function devWarning(text) {
+  // display a warning in the console
+  console.log("WARNING: " + text);
+}
+
+/***/ }),
+
+/***/ "./src/injected/helpers.js":
+/*!*********************************!*\
+  !*** ./src/injected/helpers.js ***!
+  \*********************************/
+/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveList", function() { return setActiveList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$getActiveList", function() { return $getActiveList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listNameMatchesId", function() { return listNameMatchesId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOptionAfterThis", function() { return getOptionAfterThis; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getListsNextOptionInSet", function() { return getListsNextOptionInSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextOptionInSet", function() { return getNextOptionInSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getContainingList", function() { return getContainingList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
+/* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
+
+var $activeList;
+function setActiveList($list) {
+  $activeList = $list;
+}
+function $getActiveList() {
+  return $activeList;
+}
+function listNameMatchesId(listName, listId, matchMethod) {
+  if (matchMethod == MATCH_METHODS.EXACT) {
+    return listName == listId;
+  } else if (matchMethod == MATCH_METHODS.CONTAINS) {
+    return listName.indexOf(listId) >= 0;
+  } else {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("The match method defined doesn't exist");
+  }
+} // for when you know the class that represents the current option
+
+function getOptionAfterThis(currentOptionId, optionSet) {
+  // Find the current item in the optionSet
+  let currentIndex; //
+
+  for (let index = 0; index < optionSet.length; index++) {
+    let option = optionSet[index];
+
+    if (currentOptionId == option.class) {
+      currentIndex = index;
+      break;
+    }
+  }
+
+  ; //
+
+  if (currentIndex == undefined) {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("Can't iterate to next option because the current option's class isn't found. Jumping to first option instead.");
+    currentIndex = 0;
+  } // Go to next item in line and loop around if necessary
+
+
+  let nextIndex = (currentIndex + 1) % optionSet.length;
+  return optionSet[nextIndex];
+}
+
+function getListsCurrentOptionInSetAsIndex($list, optionSet) {
+  let currentIndex; // Find the current item in the optionSet
+
+  for (let index = 0; index < optionSet.length; index++) {
+    let option = optionSet[index];
+
+    if ($list.hasClass(option.class)) {
+      currentIndex = index;
+      break;
+    }
+  }
+
+  ;
+
+  if (currentIndex == undefined) {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("Can't iterate to next option because the current option's class isn't found. Jumping to first custom option instead.");
+    currentIndex = 0; // setting to default option first, then increment
+  }
+
+  return currentIndex;
+}
+
+function getNextOptionIndex(currentOptionIndex, optionSet) {
+  return (currentOptionIndex + 1) % optionSet.length;
+} // for when you don't know the class the represents the current option but you know the list
+
+
+function getListsNextOptionInSet($list, optionSet) {
+  let currentIndex;
+  let nextIndex; // Find the current item in the optionSet
+
+  for (let index = 0; index < optionSet.length; index++) {
+    let option = optionSet[index];
+
+    if ($list.hasClass(option.class)) {
+      currentIndex = index;
+      break;
+    }
+  }
+
+  ;
+
+  if (currentIndex == undefined) {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("Can't iterate to next option because the current option's class isn't found. Jumping to first custom option instead.");
+    currentIndex = 0; // setting to default option first, then increment
+  } // Go to next item in line and loop around if necessary
+
+
+  nextIndex = (currentIndex + 1) % optionSet.length;
+  return optionSet[nextIndex];
+}
+function getNextOptionInSet(currentClass, optionSet) {
+  let currentIndex;
+  let nextIndex; // Find the current item in the optionSet
+
+  for (let index = 0; index < optionSet.length; index++) {
+    let option = optionSet[index];
+
+    if (currentClass == option.class) {
+      currentIndex = index;
+      break;
+    }
+  }
+
+  ;
+
+  if (currentIndex == undefined) {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("Can't iterate to next option because the current option's class isn't found. Jumping to first custom option instead.");
+    currentIndex = 0; // setting to default option first, then increment
+  } // Go to next item in line and loop around if necessary
+
+
+  nextIndex = (currentIndex + 1) % optionSet.length;
+  return optionSet[nextIndex];
+}
+function getContainingList(id) {
+  console.log(id);
+  console.log($("#" + id).closest(".js-list"));
+  return $("#" + id).closest(".js-list"); //return $element.closest(".js-list");
+}
+function cycleOptionInList(optionSet, $list) {
+  // TO DO: This can all be done more efficiently with indices
+  let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
+  let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
+  let currentOption = optionSet[currentOptionIndex];
+  let nextOption = optionSet[nextOptionIndex]; // visually set options
+
+  $list.removeClass(currentOption.class);
+  $list.addClass(nextOption.class); // save options
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./src/injected/style.scss":
 /*!*********************************!*\
   !*** ./src/injected/style.scss ***!
@@ -11961,6 +12040,152 @@ $(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/injected/user-options.js":
+/*!**************************************!*\
+  !*** ./src/injected/user-options.js ***!
+  \**************************************/
+/*! exports provided: OPTIONS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPTIONS", function() { return OPTIONS; });
+// Available list appearance options
+////////////////////////////////////
+const OPTIONS = {
+  HEADER: [{
+    name: "Trello default",
+    class: "ft_header-hide_none",
+    isActiveWhenCycling: true
+  }, {
+    name: "Hide left side of board header",
+    class: "ft_header-hide_left-board-side",
+    isActiveWhenCycling: true
+  }, {
+    name: "Hide all but right side of board header",
+    class: "ft_header-hide_all-but-right-board-side",
+    isActiveWhenCycling: true
+  }, {
+    name: "Hide all",
+    class: "ft_header_all",
+    isActiveWhenCycling: true
+  }, {
+    name: "Hide all but trello header",
+    class: "ft_header_all-but-trello",
+    isActiveWhenCycling: true
+  }],
+  LISTS: {
+    LABELS: [{
+      name: "Trello default",
+      class: "ft_card-labels_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Hide card labels",
+      class: "ft_card-labels_hidden",
+      isActiveWhenCycling: true
+    }],
+    BADGES: [{
+      name: "Trello default",
+      class: "ft_card-badges_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Hide card badges",
+      class: "ft_card-badges_hidden",
+      isActiveWhenCycling: true
+    }],
+    DETAILS: [{
+      name: "Trello default",
+      class: "ft_card-details_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Hide card details",
+      class: "ft_card-details_hidden",
+      isActiveWhenCycling: true
+    }],
+    IMAGES: [{
+      name: "Trello default",
+      class: "ft_list-images_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Minimise images",
+      class: "ft_list-images_minimised",
+      isActiveWhenCycling: true
+    }, {
+      name: "Hide images",
+      class: "ft_list-images_hidden",
+      isActiveWhenCycling: true
+    }],
+    SIZES: [{
+      name: "Trello default",
+      class: "ft_list-size_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Narrow list",
+      class: "ft_list-size_narrow",
+      isActiveWhenCycling: true
+    }, {
+      name: "Wide list",
+      class: "ft_list-size_wide-1",
+      isActiveWhenCycling: true
+    }, {
+      name: "Extra wide list",
+      class: "ft_list-size_wide-2",
+      isActiveWhenCycling: true
+    }, {
+      name: "Ultra wide list",
+      class: "ft_list-size_wide-3",
+      isActiveWhenCycling: true
+    }],
+    COLORS: [{
+      name: "Trello default",
+      class: "ft_list-color_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Dark list",
+      class: "ft_list-color_dark",
+      isActiveWhenCycling: true
+    }, {
+      name: "Light list",
+      class: "ft_list-color_light",
+      isActiveWhenCycling: true
+    }, {
+      name: "Subtle list",
+      class: "ft_list-color_subtle",
+      isActiveWhenCycling: true
+    } // {
+    //     name: "Dark & transparent list",
+    //     class: "ft_list-color_dark",
+    //     isActiveWhenCycling: true
+    // },
+    // {
+    //     name: "Light & transparent list",
+    //     class: "ft_list-color_light",
+    //     isActiveWhenCycling: true
+    // },
+    // {
+    //     name: "Subtle & transparent list",
+    //     class: "ft_list-color_subtle",
+    //     isActiveWhenCycling: true
+    // }
+    ],
+    VISIBILITY: [{
+      name: "Trello default",
+      class: "ft_list-visible_default",
+      isActiveWhenCycling: true
+    }, {
+      name: "Collapsed",
+      class: "ft_list-visible_collapsed",
+      isActiveWhenCycling: true
+    }, {
+      name: "Wide list",
+      class: "ft_list-visible_hidden",
+      isActiveWhenCycling: true
+    }]
+  }
+};
 
 /***/ }),
 

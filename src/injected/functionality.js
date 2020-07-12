@@ -7,8 +7,11 @@ import {Tooltip} from "../components/tooltip";
 import {ListButtons} from "./components/list-buttons"
 
 import "./style.scss";
+import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
+import {devWarning} from "./generic-helpers";
+import {setActiveList} from "./helpers";
 
 
 
@@ -22,148 +25,14 @@ import {plugin} from "../metadata";
 
 
 
-// Available list appearance options
-////////////////////////////////////
-
-const labelOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-labels_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Hide card labels",
-        class: "ft_card-labels_hidden",
-        isActiveWhenCycling: true
-    },
-]
-const badgeOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-badges_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Hide card badges",
-        class: "ft_card-badges_hidden",
-        isActiveWhenCycling: true
-    },
-]
-const detailOptions = [
-    {
-        name: "Trello default",
-        class: "ft_card-details_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Hide card details",
-        class: "ft_card-details_hidden",
-        isActiveWhenCycling: true
-    },
-]
-const imageOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-color_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Minimise images",
-        class: "ft_list-color_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Hide images",
-        class: "ft_list-color_default",
-        isActiveWhenCycling: true
-    },
-]
-const sizeOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-size_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Narrow list",
-        class: "ft_list-size_narrow",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Wide list",
-        class: "ft_list-size_wide-1",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Extra wide list",
-        class: "ft_list-size_wide-2",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Ultra wide list",
-        class: "ft_list-size_wide-2",
-        isActiveWhenCycling: true
-    }
-]
-const colorOptions = [
-    {
-        name: "Trello default",
-        class: "ft_list-color_default",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Dark list",
-        class: "ft_list-color_dark",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Light list",
-        class: "ft_list-color_light",
-        isActiveWhenCycling: true
-    },
-    {
-        name: "Subtle list",
-        class: "ft_list-color_subtle",
-        isActiveWhenCycling: true
-    },
-    // {
-    //     name: "Dark & transparent list",
-    //     class: "ft_list-color_dark",
-    //     isActiveWhenCycling: true
-    // },
-    // {
-    //     name: "Light & transparent list",
-    //     class: "ft_list-color_light",
-    //     isActiveWhenCycling: true
-    // },
-    // {
-    //     name: "Subtle & transparent list",
-    //     class: "ft_list-color_subtle",
-    //     isActiveWhenCycling: true
-    // }
-]
 
 
 
 
 
+// Internal Enumerators
+///////////////////////
 
-
-
-
-
-
-
-// Enumerators
-//////////////
-
-const HEADER_SETTINGS = {
-    DEFAULT: "default",
-    HIDE_LEFT_BOARD_HEADER: "hide left board header",
-    SHOW_RIGHT_BOARD_HEADER: "show right board header",
-    HIDE_ALL: "hide all",
-    SHOW_TRELLO_HEADER: "show trello header"
-}
 
 const MATCH_METHODS = {
     EXACT: "exact",
@@ -224,6 +93,7 @@ var headerAppearance = 0;
 // }
 
 
+
 // Each board
 var boardSettings = {
 
@@ -259,68 +129,6 @@ var boardSettings = {
     ]
 
 }
-
-
-
-function displayConsoleWarning(text) {
-    console.log( "WARNING: " + text );
-}
-
-
-
-
-function listNameMatchesId(listName, listId, matchMethod, ) {
-    if(matchMethod == MATCH_METHODS.EXACT) {
-        return listName == listId;
-
-    } else if(matchMethod == MATCH_METHODS.CONTAINS) {
-        return listName.indexOf(listId) >= 0;
-
-    } else {
-        displayConsoleWarning("The match method defined doesn't exist");
-    }
-}
-
-
-
-function getOptionAfter(currentOptionClass, optionSet) {
-    
-    // Find the current item in the optionSet
-    let currentIndex = null;
-    //
-    for(let index = 0; index < optionSet.length; index++) {
-        let option = optionSet[index];
-
-        if(currentOptionClass == option.class) {
-            currentIndex = index;
-            break;
-        }       
-    };
-    //
-    if(currentIndex == null) {
-        displayConsoleWarning("Can't iterate to next option because the current option's class isn't found. Jumping to first option instead.");
-        currentIndex = 0;
-    }
-
-    // Go to next item in line and loop around if necessary
-    let nextIndex = (currentIndex + 1) % optionSet.length;
-
-    return optionSet[nextIndex];
-}
-
-
-
-function getContainingList($element) {
-    return $element.closest(".js-list");
-}
-
-
-function cycleOptionInList(optionSet, $list) {
-
-}
-
-
-
 
 
 
@@ -416,7 +224,14 @@ function createListButtons() {
 
 
 
+function createEventsToRememberUserActions() {
+    "use strict";
 
+    // add an event to every list menu button
+    $(".js-open-list-menu").click( (e) => {
+        setActiveList( $(e.target).closest(".js-list") );
+    });
+}
 
 
 
@@ -800,8 +615,8 @@ function immediatePageInitialisation() {
 function delayedPageInitialisation() {
     console.log("Delayed page Initialisation");       
 
+    createEventsToRememberUserActions();
     createFocusSwitchButton();
-    
     delayedPageChangeAdjustments();
 
 }
