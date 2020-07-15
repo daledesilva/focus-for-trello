@@ -167,6 +167,15 @@ export function cycleOptionInList(optionSet, $list) {
     let currentOption = optionSet[ currentOptionIndex ]
     let nextOption = optionSet[ nextOptionIndex ];
 
+    console.log("currentOption:");
+    console.log(currentOption);
+
+    console.log("nextOptions:");
+    console.log(nextOption);
+
+    console.log("$list:");
+    console.log($list);
+
     // visually set options
     $list.removeClass(currentOption.class);
     $list.addClass(nextOption.class);

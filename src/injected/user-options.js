@@ -80,17 +80,17 @@ export const OPTIONS = {
         IMAGES: [
             {
                 name: "Trello default",
-                class: "ft_list-images_default",
+                class: "ft_card-images_default",
                 isActiveWhenCycling: true
             },
             {
                 name: "Minimise images",
-                class: "ft_list-images_minimised",
+                class: "ft_card-images_minimised",
                 isActiveWhenCycling: true
             },
             {
                 name: "Hide images",
-                class: "ft_list-images_hidden",
+                class: "ft_card-images_hidden",
                 isActiveWhenCycling: true
             },
         ],
@@ -135,25 +135,27 @@ export const OPTIONS = {
                 isActiveWhenCycling: true
             },
             {
-                name: "Light list",
-                class: "ft_list-color_light",
+                name: "Default & transparent list",
+                class: "ft_list-color_default-and-clear",
                 isActiveWhenCycling: true
             },
             {
-                name: "Subtle list",
-                class: "ft_list-color_subtle",
+                name: "Dark & transparent list",
+                class: "ft_list-color_dark-and-clear",
                 isActiveWhenCycling: true
             },
             // {
-            //     name: "Dark & transparent list",
-            //     class: "ft_list-color_dark",
-            //     isActiveWhenCycling: true
-            // },
-            // {
-            //     name: "Light & transparent list",
+            //     name: "Light list",
             //     class: "ft_list-color_light",
             //     isActiveWhenCycling: true
             // },
+            // {
+            //     name: "Subtle list",
+            //     class: "ft_list-color_subtle",
+            //     isActiveWhenCycling: true
+            // },
+            // 
+            
             // {
             //     name: "Subtle & transparent list",
             //     class: "ft_list-color_subtle",
@@ -168,12 +170,12 @@ export const OPTIONS = {
                 isActiveWhenCycling: true
             },
             {
-                name: "Collapsed",
+                name: "Collapse list",
                 class: "ft_list-visible_collapsed",
                 isActiveWhenCycling: true
             },
             {
-                name: "Wide list",
+                name: "Hide list",
                 class: "ft_list-visible_hidden",
                 isActiveWhenCycling: true
             },

@@ -11360,16 +11360,12 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
       ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
       ,
-      onClick: () => {//cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.BADGES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-clock"
-    })))); // DETAILS TOGGLE
-    // Use to...
-    // - Show according to list settings
-    // - Show any badges other than due dates and users, and checklists normally (Trello default)
-    // - Hide any badges other than due dates and users, and display checklists as progress bars
-    // - Hide any badges and checklists other than due dates and users
+      className: "fas fa-window-maximize fa-rotate-180"
+    }), " "))); // DETAILS TOGGLE
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
       title: "cycle details appearance",
@@ -11384,12 +11380,8 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
         Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.DETAILS, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-comment-alt"
+      className: "fas fa-user-circle"
     })))); // IMAGES TOGGLE
-    // Use to..
-    // - Show inline image previews (Trello default)
-    // - Reduce images previews to a small horizontal bar
-    // - Hide image previews
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
       title: "cycle images appearance",
@@ -11405,13 +11397,8 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
       className: "fas fa-image"
-    })))); // LIST APPEARANCE TOGGLE
-    // Use to...
-    // - Show lists normally (Trello default)
-    // - Shrink list
-    // - Shrink list and darken
-    // - Shrink list and fade
-    //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
+    })))); // LIST SIZE TOGGLE
+    ///////////////////
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
       title: "cycle list size",
@@ -11426,10 +11413,25 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
         Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.SIZES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-poll fa-rotate-180"
+      className: "fas fa-expand-alt"
+    })))); // LIST COLOR TOGGLE
+    ////////////////////
+
+    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
+      title: "cycle list colour",
+      tag: "a"
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+      href: "#",
+      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_size-btn",
+      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
+      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+      ,
+      onClick: () => {
+        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.COLORS, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
+      }
+    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+      className: "fas fa-fill-drip"
     })))); // LIST VISIBILITY BUTTON
-    // Use to...
-    // - Hide/collapse/Unhide list
 
     jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
       title: "cycle list visibility",
@@ -11444,7 +11446,7 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
         Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.VISIBILITY, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-eye"
+      className: "fas fa-low-vision"
     })))); // eye-slash
     // LIST SETTINGS BUTTON
     // Use to...
@@ -11465,7 +11467,7 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
         Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.SIZES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
       }
     }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-cog"
+      className: "fas fa-cogs"
     }))) // Popup should contain:
     // - fade checkbox (or value);
     // - colour overide
@@ -11570,13 +11572,13 @@ function interpretLists() {
     // } else
 
     if (titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden").addClass("ft_card-images_hidden");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     } else if (titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden").addClass("ft_card-images_minimised");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     } else if (titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden").addClass("ft_card-images_hidden");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     } else if (titleText.indexOf("DUMP") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden").addClass("ft_card-images_minimised");
+      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
     }
   });
 } // Place Focus list settings buttons in the header of any open list context menu
@@ -12023,7 +12025,13 @@ function cycleOptionInList(optionSet, $list) {
   let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
   let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
   let currentOption = optionSet[currentOptionIndex];
-  let nextOption = optionSet[nextOptionIndex]; // visually set options
+  let nextOption = optionSet[nextOptionIndex];
+  console.log("currentOption:");
+  console.log(currentOption);
+  console.log("nextOptions:");
+  console.log(nextOption);
+  console.log("$list:");
+  console.log($list); // visually set options
 
   $list.removeClass(currentOption.class);
   $list.addClass(nextOption.class); // save options
@@ -12107,15 +12115,15 @@ const OPTIONS = {
     }],
     IMAGES: [{
       name: "Trello default",
-      class: "ft_list-images_default",
+      class: "ft_card-images_default",
       isActiveWhenCycling: true
     }, {
       name: "Minimise images",
-      class: "ft_list-images_minimised",
+      class: "ft_card-images_minimised",
       isActiveWhenCycling: true
     }, {
       name: "Hide images",
-      class: "ft_list-images_hidden",
+      class: "ft_card-images_hidden",
       isActiveWhenCycling: true
     }],
     SIZES: [{
@@ -12148,23 +12156,24 @@ const OPTIONS = {
       class: "ft_list-color_dark",
       isActiveWhenCycling: true
     }, {
-      name: "Light list",
-      class: "ft_list-color_light",
+      name: "Default & transparent list",
+      class: "ft_list-color_default-and-clear",
       isActiveWhenCycling: true
     }, {
-      name: "Subtle list",
-      class: "ft_list-color_subtle",
+      name: "Dark & transparent list",
+      class: "ft_list-color_dark-and-clear",
       isActiveWhenCycling: true
     } // {
-    //     name: "Dark & transparent list",
-    //     class: "ft_list-color_dark",
-    //     isActiveWhenCycling: true
-    // },
-    // {
-    //     name: "Light & transparent list",
+    //     name: "Light list",
     //     class: "ft_list-color_light",
     //     isActiveWhenCycling: true
     // },
+    // {
+    //     name: "Subtle list",
+    //     class: "ft_list-color_subtle",
+    //     isActiveWhenCycling: true
+    // },
+    // 
     // {
     //     name: "Subtle & transparent list",
     //     class: "ft_list-color_subtle",
@@ -12176,11 +12185,11 @@ const OPTIONS = {
       class: "ft_list-visible_default",
       isActiveWhenCycling: true
     }, {
-      name: "Collapsed",
+      name: "Collapse list",
       class: "ft_list-visible_collapsed",
       isActiveWhenCycling: true
     }, {
-      name: "Wide list",
+      name: "Hide list",
       class: "ft_list-visible_hidden",
       isActiveWhenCycling: true
     }]

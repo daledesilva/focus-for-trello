@@ -157,7 +157,6 @@ function interpretLists() {
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden")
-                                        .addClass("ft_card-images_hidden");
 
         } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
@@ -165,7 +164,6 @@ function interpretLists() {
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden")
-                                        .addClass("ft_card-images_minimised");
 
         } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
@@ -173,7 +171,6 @@ function interpretLists() {
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden")
-                                        .addClass("ft_card-images_hidden");
 
         } else if( titleText.indexOf("DUMP") >= 0 ) {
             $title.closest(".js-list")  .addClass("ft_list-size_narrow")
@@ -181,7 +178,6 @@ function interpretLists() {
                                         .addClass("ft_card-labels_hidden")
                                         .addClass("ft_card-badges_hidden")
                                         .addClass("ft_card-details_hidden")
-                                        .addClass("ft_card-images_minimised");
 
         }
 

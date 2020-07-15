@@ -296,145 +296,54 @@
   margin-left: 0;
 }
 
-.ft_list-color_subtle .js-list-content {
-  background-color: ignore;
-}
-.ft_list-color_subtle .list-card {
-  opacity: ignore;
-  background-color: ignore;
-}
-.ft_list-color_subtle .js-list-header {
-  color: ignore;
-}
-.ft_list-color_subtle .js-list-header .js-list-name-input:not(.is-editing) {
-  color: inherit !important;
-}
-.ft_list-color_subtle .js-list-header .list-header-extras {
-  color: inherit !important;
-}
-.ft_list-color_subtle .js-list-header .list-header-extras * {
-  color: inherit !important;
-}
-.ft_list-color_subtle .js-card-name {
-  color: ignore;
-}
-.ft_list-color_subtle .js-badges {
-  color: ignore;
-}
-.ft_list-color_subtle .js-badges * {
-  color: inherit !important;
-}
-.ft_list-color_subtle .js-badges .js-due-date-badge {
-  background-color: unset;
-}
-.ft_list-color_subtle .card-composer-container {
-  color: ignore;
-}
-.ft_list-color_subtle .card-composer-container * {
-  color: inherit !important;
-}
-.ft_list-color_subtle .card-composer .cc-controls {
-  color: ignore;
-}
-.ft_list-color_subtle .card-composer .cc-controls .js-cancel {
-  color: inherit !important;
-}
-.ft_list-color_subtle .card-composer .cc-controls .js-cc-menu {
-  color: inherit !important;
-}
-
-.ft_list-color_subtle-and-clear .js-list-content {
-  background-color: ignore;
-  background: none;
-}
-.ft_list-color_subtle-and-clear .list-card {
-  opacity: 0.4;
-  background-color: ignore;
-}
-.ft_list-color_subtle-and-clear .js-list-header {
-  color: ignore;
-}
-.ft_list-color_subtle-and-clear .js-list-header .js-list-name-input:not(.is-editing) {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .js-list-header .list-header-extras {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .js-list-header .list-header-extras * {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .js-card-name {
-  color: ignore;
-}
-.ft_list-color_subtle-and-clear .js-badges {
-  color: ignore;
-}
-.ft_list-color_subtle-and-clear .js-badges * {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .js-badges .js-due-date-badge {
-  background-color: unset;
-}
-.ft_list-color_subtle-and-clear .card-composer-container {
-  color: ignore;
-}
-.ft_list-color_subtle-and-clear .card-composer-container * {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .card-composer .cc-controls {
-  color: ignore;
-}
-.ft_list-color_subtle-and-clear .card-composer .cc-controls .js-cancel {
-  color: inherit !important;
-}
-.ft_list-color_subtle-and-clear .card-composer .cc-controls .js-cc-menu {
-  color: inherit !important;
-}
-
 .ft_list-color_dark .js-list-content {
   background-color: rgba(70, 70, 70, 0.9);
 }
-.ft_list-color_dark .list-card {
+.ft_list-color_dark .js-list-content .js-list-header {
+  color: #ddd;
+}
+.ft_list-color_dark .js-list-content .js-list-header .js-list-name-input:not(.is-editing) {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-list-content .js-list-header .list-header-extras {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-list-content .js-list-header .list-header-extras * {
+  color: inherit !important;
+}
+.ft_list-color_dark .js-list-content .list-card {
   opacity: ignore;
   background-color: rgba(255, 255, 255, 0.1);
 }
-.ft_list-color_dark .js-list-header {
-  color: #eee;
+.ft_list-color_dark .js-list-content .list-card .js-card-name {
+  color: #ccc;
 }
-.ft_list-color_dark .js-list-header .js-list-name-input:not(.is-editing) {
+.ft_list-color_dark .js-list-content .list-card .js-badges {
+  color: #ccc;
+}
+.ft_list-color_dark .js-list-content .list-card .js-badges * {
   color: inherit !important;
 }
-.ft_list-color_dark .js-list-header .list-header-extras {
-  color: inherit !important;
-}
-.ft_list-color_dark .js-list-header .list-header-extras * {
-  color: inherit !important;
-}
-.ft_list-color_dark .js-card-name {
-  color: #cccccc;
-}
-.ft_list-color_dark .js-badges {
-  color: #eee;
-}
-.ft_list-color_dark .js-badges * {
-  color: inherit !important;
-}
-.ft_list-color_dark .js-badges .js-due-date-badge {
+.ft_list-color_dark .js-list-content .list-card .js-badges .js-due-date-badge {
   background-color: unset;
 }
-.ft_list-color_dark .card-composer-container {
-  color: #cccccc;
+.ft_list-color_dark .js-list-content .card-composer .js-composer {
+  color: #ccc;
+  background-color: rgba(255, 255, 255, 0.1);
 }
-.ft_list-color_dark .card-composer-container * {
+.ft_list-color_dark .js-list-content .card-composer .cc-controls {
+  color: #ddd;
+}
+.ft_list-color_dark .js-list-content .card-composer .cc-controls .js-cancel {
   color: inherit !important;
 }
-.ft_list-color_dark .card-composer .cc-controls {
-  color: #cccccc;
-}
-.ft_list-color_dark .card-composer .cc-controls .js-cancel {
+.ft_list-color_dark .js-list-content .card-composer .cc-controls .js-cc-menu {
   color: inherit !important;
 }
-.ft_list-color_dark .card-composer .cc-controls .js-cc-menu {
+.ft_list-color_dark .js-list-content .card-composer-container {
+  color: #ddd;
+}
+.ft_list-color_dark .js-list-content .card-composer-container * {
   color: inherit !important;
 }
 
@@ -442,47 +351,103 @@
   background-color: ignore;
   background: none;
 }
-.ft_list-color_dark-and-clear .list-card {
-  opacity: 0.4;
-  background-color: #111111;
+.ft_list-color_dark-and-clear .js-list-content .js-list-header {
+  color: #ddd;
 }
-.ft_list-color_dark-and-clear .js-list-header {
-  color: #bbb;
-}
-.ft_list-color_dark-and-clear .js-list-header .js-list-name-input:not(.is-editing) {
+.ft_list-color_dark-and-clear .js-list-content .js-list-header .js-list-name-input:not(.is-editing) {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .js-list-header .list-header-extras {
+.ft_list-color_dark-and-clear .js-list-content .js-list-header .list-header-extras {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .js-list-header .list-header-extras * {
+.ft_list-color_dark-and-clear .js-list-content .js-list-header .list-header-extras * {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .js-card-name {
-  color: #cccccc;
+.ft_list-color_dark-and-clear .js-list-content .list-card {
+  opacity: ignore;
+  background-color: rgba(1, 1, 1, 0.3);
 }
-.ft_list-color_dark-and-clear .js-badges {
-  color: #bbb;
+.ft_list-color_dark-and-clear .js-list-content .list-card .js-card-name {
+  color: #ccc;
 }
-.ft_list-color_dark-and-clear .js-badges * {
+.ft_list-color_dark-and-clear .js-list-content .list-card .js-badges {
+  color: #ccc;
+}
+.ft_list-color_dark-and-clear .js-list-content .list-card .js-badges * {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .js-badges .js-due-date-badge {
+.ft_list-color_dark-and-clear .js-list-content .list-card .js-badges .js-due-date-badge {
   background-color: unset;
 }
-.ft_list-color_dark-and-clear .card-composer-container {
-  color: #cccccc;
+.ft_list-color_dark-and-clear .js-list-content .card-composer .js-composer {
+  color: #ccc;
+  background-color: rgba(1, 1, 1, 0.3);
 }
-.ft_list-color_dark-and-clear .card-composer-container * {
+.ft_list-color_dark-and-clear .js-list-content .card-composer .cc-controls {
+  color: #ddd;
+}
+.ft_list-color_dark-and-clear .js-list-content .card-composer .cc-controls .js-cancel {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .card-composer .cc-controls {
-  color: #cccccc;
-}
-.ft_list-color_dark-and-clear .card-composer .cc-controls .js-cancel {
+.ft_list-color_dark-and-clear .js-list-content .card-composer .cc-controls .js-cc-menu {
   color: inherit !important;
 }
-.ft_list-color_dark-and-clear .card-composer .cc-controls .js-cc-menu {
+.ft_list-color_dark-and-clear .js-list-content .card-composer-container {
+  color: #ddd;
+}
+.ft_list-color_dark-and-clear .js-list-content .card-composer-container * {
+  color: inherit !important;
+}
+
+.ft_list-color_default-and-clear .js-list-content {
+  background-color: ignore;
+  background: none;
+}
+.ft_list-color_default-and-clear .js-list-content .js-list-header {
+  color: #ddd;
+}
+.ft_list-color_default-and-clear .js-list-content .js-list-header .js-list-name-input:not(.is-editing) {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .js-list-header .list-header-extras {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .js-list-header .list-header-extras * {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .list-card {
+  opacity: ignore;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.ft_list-color_default-and-clear .js-list-content .list-card .js-card-name {
+  color: #000;
+}
+.ft_list-color_default-and-clear .js-list-content .list-card .js-badges {
+  color: #000;
+}
+.ft_list-color_default-and-clear .js-list-content .list-card .js-badges * {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .list-card .js-badges .js-due-date-badge {
+  background-color: unset;
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer .js-composer {
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer .cc-controls {
+  color: #ddd;
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer .cc-controls .js-cancel {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer .cc-controls .js-cc-menu {
+  color: inherit !important;
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer-container {
+  color: #ddd;
+}
+.ft_list-color_default-and-clear .js-list-content .card-composer-container * {
   color: inherit !important;
 }
 
@@ -498,7 +463,7 @@
   display: none;
 }
 
-.ft_card-images_minimised .list-card-cover {
+.ft_card-images_minimised .list-card-cover.is-covered {
   height: 3px !important;
 }
 

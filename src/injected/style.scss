@@ -421,7 +421,7 @@ $feature-color: #007acc;
 
 
 
-      @mixin list-colour-adjustments(
+      @mixin list-color-adjustments(
          $card-fg-color: ignore,
          $card-bg-color: ignore,
          $list-fg-color: ignore,
@@ -433,73 +433,94 @@ $feature-color: #007acc;
          .js-list-content {
             background-color: #{$list-bg-color};
             @if $list-is-transparent { background: none; }
-         }
-         .list-card {
-            opacity: #{$card-opacity};
-            background-color: #{$card-bg-color}
-         }
 
-         .js-list-header {
-            color: #{$card-fg-color};
-            .js-list-name-input:not(.is-editing) { color: inherit !important; }
-            .list-header-extras {
-               color: inherit !important;
+            .js-list-header {
+               color: #{$list-fg-color};
+               .js-list-name-input:not(.is-editing) { color: inherit !important; }
+               .list-header-extras {
+                  color: inherit !important;
+                  * { color: inherit !important; }
+               }
+            }
+
+            .list-card {
+               opacity: #{$card-opacity};
+               background-color: #{$card-bg-color};
+   
+               .js-card-name {
+                  color: #{$card-fg-color};
+               }
+               .js-badges {
+                  color: #{$card-fg-color};
+                  * { color: inherit !important; }
+                  .js-due-date-badge { background-color: unset }
+               }
+            }
+            
+            .card-composer {
+               .js-composer {
+                  color: #{$card-fg-color};
+                  background-color: #{$card-bg-color};
+               }
+               .cc-controls {
+                  color: #{$list-fg-color};
+                  .js-cancel { color: inherit !important; }
+                  .js-cc-menu { color: inherit !important; }
+               }
+            }
+            .card-composer-container {
+               color: #{$list-fg-color};
                * { color: inherit !important; }
             }
+
          }
-         .js-card-name { color: #{$list-fg-color}; }
-         .js-badges {
-            color: #{$card-fg-color};
-            * { color: inherit !important; }
-            .js-due-date-badge { background-color: unset }
-         }
-         .card-composer-container {
-            color: #{$list-fg-color};
-            * { color: inherit !important; }
-         }
-         .card-composer .cc-controls {
-            color: #{$list-fg-color};
-            .js-cancel { color: inherit !important; }
-            .js-cc-menu { color: inherit !important; }
-         }
+         
       }
 
 
 
 
-      .ft_list-color_subtle {
-         @include list-colour-adjustments()
-      }
+      // .ft_list-color_subtle {
+      //    @include list-color-adjustments()
+      // }
 
-      .ft_list-color_subtle-and-clear {
+      // .ft_list-color_subtle-and-clear {
 
-         @include list-colour-adjustments(
-               $list-is-transparent: true,
-               $card-opacity: 0.4,
-         )
+      //    @include list-color-adjustments(
+      //          $list-is-transparent: true,
+      //          $card-opacity: 0.4,
+      //    )
 
-      }
+      // }
       
       .ft_list-color_dark {
-         @include list-colour-adjustments(
-            $card-fg-color: #eee,
+         @include list-color-adjustments(
+            $card-fg-color: #ccc,
             $card-bg-color: rgba(255, 255, 255, 0.1),
-            $list-fg-color: rgb(204, 204, 204),
+            $list-fg-color: #ddd,
             $list-bg-color: rgba(70, 70, 70, 0.9),
          )
       }
 
       
       .ft_list-color_dark-and-clear {
-
-         @include list-colour-adjustments(
-               $card-fg-color: #bbb,
-               $card-bg-color: rgb(17, 17, 17),
-               $list-fg-color: rgb(204, 204, 204),
+         @include list-color-adjustments(
+               $card-fg-color: #ccc,
+               $card-bg-color: rgb(1, 1, 1, 0.3),
+               $list-fg-color: #ddd,
                $list-is-transparent: true,
-               $card-opacity: 0.4,
+               // $card-opacity: 0.4,
          )
+      }
 
+      .ft_list-color_default-and-clear {
+         @include list-color-adjustments(
+               $card-fg-color: #000,
+               $card-bg-color: rgb(255, 255, 255, 0.4),
+               $list-fg-color: #ddd,
+               $list-is-transparent: true,
+               // $card-opacity: 0.4,
+         )
       }
 
 
@@ -549,7 +570,7 @@ $feature-color: #007acc;
 /////////////////////////
 
       .ft_card-images_minimised {
-         .list-card-cover {
+         .list-card-cover.is-covered { // .is-covered seems to indicate it is showing an image. Including this means we don't increase the height of a card that wasn't showing an image anyway
             height: 3px !important;
          }
       }

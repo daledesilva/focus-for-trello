@@ -63,21 +63,16 @@ class ListButtons extends JSXComponent {
 
                 ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
                 onClick={ () => {
-                    //cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+                    cycleOptionInList( OPTIONS.LISTS.BADGES, $getActiveList() );
                 }}
             >
-                <i className="fas fa-clock"/>
+                <i className="fas fa-window-maximize fa-rotate-180"/> {/* fa-clock */}
             </a>
         </Tooltip>
     );
 
 
     // DETAILS TOGGLE
-    // Use to...
-    // - Show according to list settings
-    // - Show any badges other than due dates and users, and checklists normally (Trello default)
-    // - Hide any badges other than due dates and users, and display checklists as progress bars
-    // - Hide any badges and checklists other than due dates and users
     jsxArr.push(
         <Tooltip title="cycle details appearance" tag="a">
             <a
@@ -92,17 +87,13 @@ class ListButtons extends JSXComponent {
                     cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
                 }}
             >
-                <i className="fas fa-comment-alt"/>
+                <i className="fas fa-user-circle"/>
             </a>
         </Tooltip>
     );
     
 
     // IMAGES TOGGLE
-    // Use to..
-    // - Show inline image previews (Trello default)
-    // - Reduce images previews to a small horizontal bar
-    // - Hide image previews
     jsxArr.push(
         <Tooltip title="cycle images appearance" tag="a">
             <a
@@ -121,15 +112,13 @@ class ListButtons extends JSXComponent {
             </a>
         </Tooltip>
     );
+
+
+    
     
 
-    // LIST APPEARANCE TOGGLE
-    // Use to...
-    // - Show lists normally (Trello default)
-    // - Shrink list
-    // - Shrink list and darken
-    // - Shrink list and fade
-    //        htmlStr += "<a href="#" className="ft_pop-over-header-btn icon-sm"><i className="fab fa-trello"></i></a>";
+    // LIST SIZE TOGGLE
+    ///////////////////
     jsxArr.push(
         <Tooltip title="cycle list size" tag="a">
             <a
@@ -144,15 +133,38 @@ class ListButtons extends JSXComponent {
                     cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
                 }}
             >
-                <i className="fas fa-poll fa-rotate-180"/>
+                <i className="fas fa-expand-alt"/>
+                {/* fa-poll fa-rotate-180 */}
             </a>
         </Tooltip>
     );
+
+
+
+    // LIST COLOR TOGGLE
+    ////////////////////
+    jsxArr.push(
+        <Tooltip title="cycle list colour" tag="a">
+            <a
+                href="#"
+                id={ plugin.slug + "_size-btn" }
+                className={[    "ft_pop-over-header-btn",
+                                "icon-sm"
+                            ].join(" ")}
+
+                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+                onClick={ () => {
+                    cycleOptionInList( OPTIONS.LISTS.COLORS, $getActiveList() );
+                }}
+            >
+                <i className="fas fa-fill-drip"/>
+            </a>
+        </Tooltip>
+    );
+
     
 
     // LIST VISIBILITY BUTTON
-    // Use to...
-    // - Hide/collapse/Unhide list
     jsxArr.push(
         <Tooltip title="cycle list visibility" tag="a">
             <a
@@ -167,7 +179,7 @@ class ListButtons extends JSXComponent {
                     cycleOptionInList( OPTIONS.LISTS.VISIBILITY, $getActiveList() );
                 }}
             >
-                <i className="fas fa-eye"/>
+                <i className="fas fa-low-vision"/>
             </a>
         </Tooltip>
     );
@@ -193,7 +205,7 @@ class ListButtons extends JSXComponent {
                     cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
                 }}
             >
-                <i className="fas fa-cog"/>
+                <i className="fas fa-cogs"/>
             </a>
         </Tooltip>
 
