@@ -109,17 +109,17 @@ export const OPTIONS = {
             {
                 name: "Wide list",
                 class: "ft_list-size_wide-1",
-                isActiveWhenCycling: true
+                isActiveWhenCycling: true,
             },
             {
                 name: "Extra wide list",
                 class: "ft_list-size_wide-2",
-                isActiveWhenCycling: true
+                isActiveWhenCycling: true,
             },
             {
                 name: "Ultra wide list",
                 class: "ft_list-size_wide-3",
-                isActiveWhenCycling: true
+                isActiveWhenCycling: true,
             }
         ],
 

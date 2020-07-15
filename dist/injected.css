@@ -154,146 +154,137 @@
   font-size: 0.7em;
   height: 1em;
 }
-.ft_list-size_narrow .js-card-name {
+.ft_list-size_narrow .list-cards .list-card .js-card-name {
   font-size: 0.7em;
   line-height: 1.3em;
 }
-.ft_list-size_narrow .js-card-labels {
+.ft_list-size_narrow .list-cards .list-card .js-card-labels {
   overflow: hidden;
   font-size: 0.7em;
 }
-.ft_list-size_narrow .js-card-labels .card-label {
+.ft_list-size_narrow .list-cards .list-card .js-card-labels .card-label {
   font-size: inherit;
 }
-.ft_list-size_narrow .badge-text {
+.ft_list-size_narrow .list-cards .list-card .badge-text {
   overflow: hidden;
   font-size: 0.7em;
+}
+.ft_list-size_narrow .list-cards .card-composer {
+  font-size: 0.7em;
+}
+.ft_list-size_narrow .list-cards .card-composer * {
+  font-size: inherit;
 }
 .ft_list-size_narrow .js-open-card-composer {
   font-size: 0.7em;
 }
-.ft_list-size_narrow .card-composer {
-  font-size: 0.7em;
-}
-.ft_list-size_narrow .card-composer * {
-  font-size: inherit;
-}
 
 .ft_list-size_wide-1 {
   width: 500px !important;
+  --layout-is-masonry: true;
 }
 .ft_list-size_wide-1 .js-list-name-input {
   font-size: ignore;
   height: 1em;
 }
-.ft_list-size_wide-1 .js-card-name {
+.ft_list-size_wide-1 .list-cards .list-card {
+  width: 233px;
+}
+.ft_list-size_wide-1 .list-cards .list-card .js-card-name {
   font-size: ignore;
   line-height: 1.3em;
 }
-.ft_list-size_wide-1 .js-card-labels {
+.ft_list-size_wide-1 .list-cards .list-card .js-card-labels {
   overflow: hidden;
   font-size: ignore;
 }
-.ft_list-size_wide-1 .js-card-labels .card-label {
+.ft_list-size_wide-1 .list-cards .list-card .js-card-labels .card-label {
   font-size: inherit;
 }
-.ft_list-size_wide-1 .badge-text {
+.ft_list-size_wide-1 .list-cards .list-card .badge-text {
   overflow: hidden;
   font-size: ignore;
+}
+.ft_list-size_wide-1 .list-cards .card-composer {
+  font-size: ignore;
+}
+.ft_list-size_wide-1 .list-cards .card-composer * {
+  font-size: inherit;
 }
 .ft_list-size_wide-1 .js-open-card-composer {
   font-size: ignore;
 }
-.ft_list-size_wide-1 .card-composer {
-  font-size: ignore;
-}
-.ft_list-size_wide-1 .card-composer * {
-  font-size: inherit;
-}
-.ft_list-size_wide-1 .list-card {
-  display: inline-block;
-  margin-left: 10px;
-}
-.ft_list-size_wide-1 .list-card:first-of-type {
-  margin-left: 0;
-}
 
 .ft_list-size_wide-2 {
   width: 1000px !important;
+  --layout-is-masonry: true;
 }
 .ft_list-size_wide-2 .js-list-name-input {
   font-size: ignore;
   height: 1em;
 }
-.ft_list-size_wide-2 .js-card-name {
+.ft_list-size_wide-2 .list-cards .list-card {
+  width: 188.4px;
+}
+.ft_list-size_wide-2 .list-cards .list-card .js-card-name {
   font-size: ignore;
   line-height: 1.3em;
 }
-.ft_list-size_wide-2 .js-card-labels {
+.ft_list-size_wide-2 .list-cards .list-card .js-card-labels {
   overflow: hidden;
   font-size: ignore;
 }
-.ft_list-size_wide-2 .js-card-labels .card-label {
+.ft_list-size_wide-2 .list-cards .list-card .js-card-labels .card-label {
   font-size: inherit;
 }
-.ft_list-size_wide-2 .badge-text {
+.ft_list-size_wide-2 .list-cards .list-card .badge-text {
   overflow: hidden;
   font-size: ignore;
+}
+.ft_list-size_wide-2 .list-cards .card-composer {
+  font-size: ignore;
+}
+.ft_list-size_wide-2 .list-cards .card-composer * {
+  font-size: inherit;
 }
 .ft_list-size_wide-2 .js-open-card-composer {
   font-size: ignore;
 }
-.ft_list-size_wide-2 .card-composer {
-  font-size: ignore;
-}
-.ft_list-size_wide-2 .card-composer * {
-  font-size: inherit;
-}
-.ft_list-size_wide-2 .list-card {
-  display: inline-block;
-  margin-left: 10px;
-}
-.ft_list-size_wide-2 .list-card:first-of-type {
-  margin-left: 0;
-}
 
 .ft_list-size_wide-3 {
   width: 1500px !important;
+  --layout-is-masonry: true;
 }
 .ft_list-size_wide-3 .js-list-name-input {
   font-size: ignore;
   height: 1em;
 }
-.ft_list-size_wide-3 .js-card-name {
+.ft_list-size_wide-3 .list-cards .list-card {
+  width: 177.25px;
+}
+.ft_list-size_wide-3 .list-cards .list-card .js-card-name {
   font-size: ignore;
   line-height: 1.3em;
 }
-.ft_list-size_wide-3 .js-card-labels {
+.ft_list-size_wide-3 .list-cards .list-card .js-card-labels {
   overflow: hidden;
   font-size: ignore;
 }
-.ft_list-size_wide-3 .js-card-labels .card-label {
+.ft_list-size_wide-3 .list-cards .list-card .js-card-labels .card-label {
   font-size: inherit;
 }
-.ft_list-size_wide-3 .badge-text {
+.ft_list-size_wide-3 .list-cards .list-card .badge-text {
   overflow: hidden;
   font-size: ignore;
+}
+.ft_list-size_wide-3 .list-cards .card-composer {
+  font-size: ignore;
+}
+.ft_list-size_wide-3 .list-cards .card-composer * {
+  font-size: inherit;
 }
 .ft_list-size_wide-3 .js-open-card-composer {
   font-size: ignore;
-}
-.ft_list-size_wide-3 .card-composer {
-  font-size: ignore;
-}
-.ft_list-size_wide-3 .card-composer * {
-  font-size: inherit;
-}
-.ft_list-size_wide-3 .list-card {
-  display: inline-block;
-  margin-left: 10px;
-}
-.ft_list-size_wide-3 .list-card:first-of-type {
-  margin-left: 0;
 }
 
 .ft_list-color_dark .js-list-content {

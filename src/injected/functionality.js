@@ -1,6 +1,10 @@
 import dom, { Fragment } from "jsx-render";
-// ISSUE: Using a capital F on Fragments and the same when using the tag allows VS code to show link when ctrl-hovering, however, chrome reports "jsx-render doesn"t handle undefineds" and stops execution.
-// Using lowercase prevents that error but VS Code then doesn't show ctrl-hover tooltip.
+import jQueryBridget from 'jquery-bridget';
+import Masonry from "masonry-layout"
+
+// make Masonry a jQuery plugin
+jQueryBridget( 'masonry', Masonry, $ );
+
 
 // custom components
 import {Tooltip} from "../components/tooltip";
@@ -186,7 +190,53 @@ function interpretLists() {
 
 
 
+
+    // apply masonry
+    let requiresMasonry = false;
+    let $lists = $(".js-list");
+    $lists.filter(function() {
+        let $list = $(this);
+
+        // TO DO: This runs too often, how can I limit it?
+
+        var $masonryListFlag = $(this).css("--layout-is-masonry");
+
+        if ( $masonryListFlag && $masonryListFlag.indexOf("true") >= 0 ) {
+
+            let $container = $list.find(".list-cards");
+            $container.addClass("grid");
+
+            $container.find(".list-card").addClass("grid-item");
+
+            requiresMasonry = true;
+        }
+        
+        
+    })
+
+    if( requiresMasonry ) {
+        
+        //$lists.filter(".grid").masonry({ // doesn't seem to work :(
+        $(".grid").masonry({
+            itemSelector: ".grid-item",
+            gutter: 8,
+        });      
+
+    } else {
+        
+        // TO DO: Need to remobe masonry when it's no long er needed on a list
+        
+        // $lists.not("grid").masonry('destroy');
+
+    }
+
+
+
 }
+
+
+
+
 
 
 

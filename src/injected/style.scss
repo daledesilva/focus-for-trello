@@ -318,40 +318,61 @@ $feature-color: #007acc;
 
 
       @mixin list-sizing-adjustments(
-         $width: ignore,
-         $font-size: ignore
+         $list-width: ignore,
+         // $card-width: ignore,
+         $font-size: ignore,
+         $layout-is-masonry: false,
+         $number-of-columns: ignore,
       ) {
       
-         width: #{$width} !important;
+         width: #{$list-width} !important;
+         @if $layout-is-masonry { --layout-is-masonry: true; }
 
-          // Shrink list title
+         // Shrink list title
          .js-list-name-input {
             font-size: #{$font-size};
             height: 1em;
          }
-         // Shrink card titles
-         .js-card-name {
-            font-size: #{$font-size};
-            line-height: 1.3em;
-         }
-         // Shrink card labels
-         .js-card-labels {
-            overflow: hidden;
-            font-size: #{$font-size};
-            .card-label { font-size: inherit }
-         }
-         // Shrink card badges and due dates
-         .badge-text {
-            overflow: hidden;
-            font-size: #{$font-size};
+
+         .list-cards {
+
+            .list-card {
+               @if $layout-is-masonry {
+                  $scrollbar-width: 10px; // scrollbars appearing causes masonry to constantly recalculate
+                  $list-padding: 16px;
+                  width: ( ($list-width - $scrollbar-width - $list-padding) - ( ($number-of-columns - 1) * 8 ) ) / $number-of-columns;
+               }
+               // else
+               // width: #{$card-width} !important;
+               
+
+               // Shrink card titles
+               .js-card-name {
+                  font-size: #{$font-size};
+                  line-height: 1.3em;
+               }
+               // Shrink card labels
+               .js-card-labels {
+                  overflow: hidden;
+                  font-size: #{$font-size};
+                  .card-label { font-size: inherit }
+               }
+               // Shrink card badges and due dates
+               .badge-text {
+                  overflow: hidden;
+                  font-size: #{$font-size};
+               }   
+
+            }
+
+            .card-composer {
+               font-size: #{$font-size};
+               * { font-size: inherit; }
+            }
          }
          // Shrink add new card input
          .js-open-card-composer {
             font-size: #{$font-size};
-         }
-         .card-composer {
-            font-size: #{$font-size};
-            * { font-size: inherit; }
          }
 
       }
@@ -363,7 +384,7 @@ $feature-color: #007acc;
       /////////
       .ft_list-size_narrow {
          @include list-sizing-adjustments(
-            $width: 150px,
+            $list-width: 150px,
             $font-size: 0.7em
          );
       }
@@ -373,15 +394,17 @@ $feature-color: #007acc;
       /////////
       .ft_list-size_wide-1 {
          @include list-sizing-adjustments(
-            $width: 500px,
+            $list-width: 500px,
+            $layout-is-masonry: true,
+            $number-of-columns: 2,
          );
 
          // TO DO: Should this be incorporated in the mixin?
-         .list-card {
-            display: inline-block;
-            margin-left: 10px;
-            &:first-of-type { margin-left: 0; }
-         }
+         // .list-card {
+         //    display: inline-block;
+         //    margin-left: 10px;
+         //    &:first-of-type { margin-left: 0; }
+         // }
          
       }
 
@@ -389,28 +412,32 @@ $feature-color: #007acc;
       /////////
       .ft_list-size_wide-2 {
          @include list-sizing-adjustments(
-            $width: 1000px,
+            $list-width: 1000px,
+            $layout-is-masonry: true,
+            $number-of-columns: 5,
          );
 
-         .list-card {
-            display: inline-block;
-            margin-left: 10px;
-            &:first-of-type { margin-left: 0; }
-         }
+         // .list-card {
+         //    display: inline-block;
+         //    margin-left: 10px;
+         //    &:first-of-type { margin-left: 0; }
+         // }
       }
 
       // Wide 3
       /////////
       .ft_list-size_wide-3 {
          @include list-sizing-adjustments(
-            $width: 1500px,
+            $list-width: 1500px,
+            $layout-is-masonry: true,
+            $number-of-columns: 8,
          );
 
-         .list-card {
-            display: inline-block;
-            margin-left: 10px;
-            &:first-of-type { margin-left: 0; }
-         }
+         // .list-card {
+         //    display: inline-block;
+         //    margin-left: 10px;
+         //    &:first-of-type { margin-left: 0; }
+         // }
       }
 
 

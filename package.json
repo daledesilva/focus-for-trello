@@ -20,7 +20,9 @@
     "chrome > 60"
   ],
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "jquery-bridget": "^2.0.1",
+    "masonry-layout": "^4.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
