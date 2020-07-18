@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
 
         entry: {
             injected: "./src/injected/functionality.js",
-            //popup: "./src/popup/functionality.js",
+            background: "./src/background/background.js",
 		},
 		output: {
 			filename: "[name].js"

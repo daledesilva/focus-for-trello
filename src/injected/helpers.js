@@ -1,4 +1,4 @@
-import {devWarning} from "./generic-helpers";
+import { userConsoleNote, devWarning } from "./generic-helpers";
 
 
 var $activeList;
@@ -167,14 +167,141 @@ export function cycleOptionInList(optionSet, $list) {
     let currentOption = optionSet[ currentOptionIndex ]
     let nextOption = optionSet[ nextOptionIndex ];
 
-    // visually set options
-    $list.removeClass(currentOption.class);
-    $list.addClass(nextOption.class);
+    
 
-    // save options
+    visualizeListOption({
+        $list: $list,
+        newClass: nextOption.class,
+        oldClass: currentOption.class
+    })
+    
+
+    saveListOption({
+        $list: $list,
+        newClass: nextOption.class,
+    })
 
 }
 
 
 
 
+
+
+var boardUrl;
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+
+        console.log("URL RECEIVED: " + request.url);
+
+        if(request.url)     boardUrl = request.url;
+   
+    }
+);
+
+
+
+
+
+
+function getBoardName() {
+    return  $(".js-board-editing-target").text();
+}
+
+function getBoardId() {
+
+    // remove board name from end of URL so it's consistent if name changes
+    let id = boardUrl.substr( 0, boardUrl.lastIndexOf("/") );
+    return id;
+
+}
+
+function getListId(props) {
+    const { $list } = props;
+
+    // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
+    // Or, compare with position and card number, etc. so that it van be relinked (silently?) here if broken.
+
+    return  $list.find(".js-list-name-input").text();
+}
+
+
+
+
+
+export function visualizeListOption(props) {
+    const {$list, newClass, oldClass} = props
+
+    $list.addClass(newClass);
+    if(oldClass) $list.removeClass(oldClass);
+
+}
+
+
+
+
+
+export function saveListOption(props) {
+    const {$list, newClass} = props
+
+    let boardName = getBoardName();
+    let boardId = getBoardId();
+
+    let listName = getListId({ $list });
+    
+
+
+    // chrome.storage.sync.set({'value': theValue}, function() {
+    //     // Notify that we saved.
+    //     message('Settings saved');
+    // });
+
+
+
+
+    userConsoleNote( "Saving '" + listName + "' list in board '" + boardName + "'" );
+    userConsoleNote( "Board ID: " + boardId );
+
+}
+
+
+
+
+
+
+// Each board
+var boardSettings = {
+
+    boardName: "The name of the board",
+    boardUrl: "The URL of the board",
+
+    boardPresets: [
+        { // Board preset 1
+
+            presetName: "Board preset name",
+            isActiveWhenCycling: true,
+            
+            headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+
+            listSettings: [
+                { // A list's settings
+                    listId: "DONE,FINISHED,COMPLETE", // It's name
+                    matchMethod: "EXACT | CONTAINS",
+                    presetId: "The ID of a global preset to apply (optional)",
+                    classes: ["CSS name of each class to apply"],
+                    customSettings: {} // a place for any customisations if made possible
+                },
+                { // A list's settings
+
+                }
+            ]
+
+        },
+        { // Board preset 2
+        
+        }
+
+    ]
+
+}

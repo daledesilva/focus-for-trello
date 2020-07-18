@@ -14049,30 +14049,7 @@ var headerAppearance = 0; // Global
 //         }
 //     ]
 // }
-// Each board
-
-var boardSettings = {
-  boardName: "The name of the board",
-  boardUrl: "The URL of the board",
-  boardPresets: [{
-    // Board preset 1
-    presetName: "Board preset name",
-    isActiveWhenCycling: true,
-    headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-    listSettings: [{
-      // A list's settings
-      listId: "DONE,FINISHED,COMPLETE",
-      // It's name
-      matchMethod: "EXACT | CONTAINS",
-      presetId: "The ID of a global preset to apply (optional)",
-      classes: ["CSS name of each class to apply"],
-      customSettings: {} // a place for any customisations if made possible
-
-    }, {// A list's settings
-    }]
-  }, {// Board preset 2
-  }]
-}; // Adjust the appearance of any list on the page
+// Adjust the appearance of any list on the page
 //
 
 function interpretLists() {
@@ -14404,15 +14381,20 @@ $(function () {
 /*!*****************************************!*\
   !*** ./src/injected/generic-helpers.js ***!
   \*****************************************/
-/*! exports provided: devWarning */
+/*! exports provided: devWarning, userConsoleNote */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "devWarning", function() { return devWarning; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userConsoleNote", function() { return userConsoleNote; });
 function devWarning(text) {
   // display a warning in the console
   console.log("WARNING: " + text);
+}
+function userConsoleNote(text) {
+  // display a warning in the console
+  console.log("Focus Trello action: " + text);
 }
 
 /***/ }),
@@ -14421,7 +14403,7 @@ function devWarning(text) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList */
+/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14434,6 +14416,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextOptionInSet", function() { return getNextOptionInSet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getContainingList", function() { return getContainingList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
 /* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
 
 var $activeList;
@@ -14563,11 +14547,91 @@ function cycleOptionInList(optionSet, $list) {
   let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
   let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
   let currentOption = optionSet[currentOptionIndex];
-  let nextOption = optionSet[nextOptionIndex]; // visually set options
-
-  $list.removeClass(currentOption.class);
-  $list.addClass(nextOption.class); // save options
+  let nextOption = optionSet[nextOptionIndex];
+  visualizeListOption({
+    $list: $list,
+    newClass: nextOption.class,
+    oldClass: currentOption.class
+  });
+  saveListOption({
+    $list: $list,
+    newClass: nextOption.class
+  });
 }
+var boardUrl;
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log("URL RECEIVED: " + request.url);
+  if (request.url) boardUrl = request.url;
+});
+
+function getBoardName() {
+  return $(".js-board-editing-target").text();
+}
+
+function getBoardId() {
+  // remove board name from end of URL so it's consistent if name changes
+  let id = boardUrl.substr(0, boardUrl.lastIndexOf("/"));
+  return id;
+}
+
+function getListId(props) {
+  const {
+    $list
+  } = props; // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
+  // Or, compare with position and card number, etc. so that it van be relinked (silently?) here if broken.
+
+  return $list.find(".js-list-name-input").text();
+}
+
+function visualizeListOption(props) {
+  const {
+    $list,
+    newClass,
+    oldClass
+  } = props;
+  $list.addClass(newClass);
+  if (oldClass) $list.removeClass(oldClass);
+}
+function saveListOption(props) {
+  const {
+    $list,
+    newClass
+  } = props;
+  let boardName = getBoardName();
+  let boardId = getBoardId();
+  let listName = getListId({
+    $list
+  }); // chrome.storage.sync.set({'value': theValue}, function() {
+  //     // Notify that we saved.
+  //     message('Settings saved');
+  // });
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Saving '" + listName + "' list in board '" + boardName + "'");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board ID: " + boardId);
+} // Each board
+
+var boardSettings = {
+  boardName: "The name of the board",
+  boardUrl: "The URL of the board",
+  boardPresets: [{
+    // Board preset 1
+    presetName: "Board preset name",
+    isActiveWhenCycling: true,
+    headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+    listSettings: [{
+      // A list's settings
+      listId: "DONE,FINISHED,COMPLETE",
+      // It's name
+      matchMethod: "EXACT | CONTAINS",
+      presetId: "The ID of a global preset to apply (optional)",
+      classes: ["CSS name of each class to apply"],
+      customSettings: {} // a place for any customisations if made possible
+
+    }, {// A list's settings
+    }]
+  }, {// Board preset 2
+  }]
+};
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

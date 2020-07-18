@@ -9,7 +9,16 @@
     "author": "Dale de Silva",
     "homepage_url": "http://www.ublik-om.net",
 
-    "permissions": ["activeTab", "declarativeContent", "tabs", "storage"],
+    "permissions": [
+      "activeTab",
+      "declarativeContent",
+      "tabs",
+      "storage"
+    ],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
     "content_scripts": [
       {
         "matches": ["https://trello.com/b/*"],

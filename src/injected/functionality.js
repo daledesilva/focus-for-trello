@@ -98,41 +98,7 @@ var headerAppearance = 0;
 
 
 
-// Each board
-var boardSettings = {
 
-    boardName: "The name of the board",
-    boardUrl: "The URL of the board",
-
-    boardPresets: [
-        { // Board preset 1
-
-            presetName: "Board preset name",
-            isActiveWhenCycling: true,
-            
-            headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-
-            listSettings: [
-                { // A list's settings
-                    listId: "DONE,FINISHED,COMPLETE", // It's name
-                    matchMethod: "EXACT | CONTAINS",
-                    presetId: "The ID of a global preset to apply (optional)",
-                    classes: ["CSS name of each class to apply"],
-                    customSettings: {} // a place for any customisations if made possible
-                },
-                { // A list's settings
-
-                }
-            ]
-
-        },
-        { // Board preset 2
-        
-        }
-
-    ]
-
-}
 
 
 
