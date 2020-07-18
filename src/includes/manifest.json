@@ -13,6 +13,7 @@
       "activeTab",
       "declarativeContent",
       "tabs",
+      "webNavigation",
       "storage"
     ],
     "background": {
@@ -21,7 +22,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["https://trello.com/b/*"],
+        "matches": ["*://*.trello.com/b/*"],
         "css": ["injected.css"],
         "js": [ "injected.js"]
       }

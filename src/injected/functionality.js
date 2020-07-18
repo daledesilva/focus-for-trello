@@ -15,7 +15,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import {setActiveList} from "./helpers";
+import { setActiveList, fetchAndStoreUrl } from "./helpers";
 
 
 
@@ -586,7 +586,7 @@ function immediatePageAdjustments() {
     interpretLists();
 
     // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
-    // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding mulktiple event listeners to them.
+    // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
     createListButtons();
 }
 
@@ -595,7 +595,9 @@ function immediatePageAdjustments() {
 // - Must be re-run any time the page changes.
 // - Isn't immediately visible (ie, hidden in a menu)
 function delayedPageChangeAdjustments() {
-    
+
+    createEventsToRememberUserActions();
+
 }
 
 
@@ -627,7 +629,6 @@ function immediatePageInitialisation() {
 function delayedPageInitialisation() {
     console.log("Delayed page Initialisation");       
 
-    createEventsToRememberUserActions();
     createFocusSwitchButton();
     delayedPageChangeAdjustments();
 
@@ -642,5 +643,5 @@ function delayedPageInitialisation() {
 // on page load, start watching for page changes
 $(function() {
     immediatePageInitialisation();
-    var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);  
+    var pageStartTimerID = window.setTimeout(delayedPageInitialisation, 2000);
 });

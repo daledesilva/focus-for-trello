@@ -2,9 +2,46 @@ import { userConsoleNote, devWarning } from "./generic-helpers";
 
 
 var $activeList;
+var boardSettings;
+var presetId = 0;
+
+
+
+
+
+// Listeners to update variables
+////////////////////////////////
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+
+        console.log("Received an board updated:");
+        console.log(request);
+
+        if(request.url) {
+
+            boardSetttings.url = request.url;
+            fetchAndStoreBoardSettings( getBoardId(boardSetttings.url) );
+
+        }
+    }
+);
+
+
+
+
+
+////////////////////////////////
+
+
+
+
+
+
 
 
 export function setActiveList($list) {
+    console.log("SETTING THE ACTIVE LIST: " + getListId($list) );
     $activeList = $list;
 }
 
@@ -179,6 +216,7 @@ export function cycleOptionInList(optionSet, $list) {
     saveListOption({
         $list: $list,
         newClass: nextOption.class,
+        oldClass: currentOption.class
     })
 
 }
@@ -188,17 +226,9 @@ export function cycleOptionInList(optionSet, $list) {
 
 
 
-var boardUrl;
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
 
-        console.log("URL RECEIVED: " + request.url);
 
-        if(request.url)     boardUrl = request.url;
-   
-    }
-);
 
 
 
@@ -212,13 +242,12 @@ function getBoardName() {
 function getBoardId() {
 
     // remove board name from end of URL so it's consistent if name changes
-    let id = boardUrl.substr( 0, boardUrl.lastIndexOf("/") );
+    let id = boardSettings.boardUrl.substr( 0, boardSettings.boardUrl.lastIndexOf("/") );
     return id;
 
 }
 
-function getListId(props) {
-    const { $list } = props;
+function getListId($list) {
 
     // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
     // Or, compare with position and card number, etc. so that it van be relinked (silently?) here if broken.
@@ -243,13 +272,31 @@ export function visualizeListOption(props) {
 
 
 export function saveListOption(props) {
-    const {$list, newClass} = props
+    const {$list, newClass, oldClass} = props
 
-    let boardName = getBoardName();
-    let boardId = getBoardId();
+    // let boardName = getBoardName();
+    // let boardId = getBoardId();
 
-    let listName = getListId({ $list });
+    // let listId = getListId($list);
     
+    // presetId = 0;
+    
+
+    // let listSettings = getListSettings($list); 
+    
+
+    
+    // PLANNING
+    // Each function like this should be able to assume that the board settings exist and the current board preset exists.
+    // Just remove the old class from the boardSettings variable (figure it out the old class if not passed in), and then add in the new class.
+    // Then send the boardSettings variable to localStorage without touching anything else.
+
+    // So this function shouldn't do much different to the visualizeListOption function...
+    // Apart from having to local storage after.
+    // getListSettings will simply return the list settings (assuming anything general already exists but checking the lists settings themselves have been created -creating them if not)
+
+
+
 
 
     // chrome.storage.sync.set({'value': theValue}, function() {
@@ -258,13 +305,67 @@ export function saveListOption(props) {
     // });
 
 
-
-
     userConsoleNote( "Saving '" + listName + "' list in board '" + boardName + "'" );
     userConsoleNote( "Board ID: " + boardId );
 
 }
 
+
+
+
+// function getListSettings($list) {
+
+//     let boardPreset = getBoardPreset();
+
+//     boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
+//     = {
+//         listText: getListName($list), // It's name or part thereof
+//         matchMethod: "EXACT", //"EXACT | CONTAINS",
+//         //presetId: "The ID of a global preset to apply (optional)",
+//         classes: ["CSS name of each class to apply"],
+//         customSettings: {} // a place for any customisations if made possible
+//     },
+
+// }
+
+
+
+// function getBoardPreset() {
+//     let boardSettings = getBoardSettings();
+
+//     if(boardSettings.boardPresets == undefined ) {
+//         boardSettings.boardPresets[presetId] = initBoardPreset();
+//     };
+
+//     return boardSettings.boardPresets[presetId];
+// }
+
+// function getBoardSettings() {
+
+//     if(boardSettings == undefined ) {
+//         devWarning("BoardSettings not created. Cannot get List Settings");
+//         return;
+//     };
+
+//     return boardSettings;
+
+// }
+
+
+
+
+
+
+export function fetchAndStoreBoardSettings(boardId) {
+
+    chrome.storage.local.get(
+        [boardId],
+        function(result) {
+            console.log('Value currently is ' + result.key);
+        }
+    );
+
+}
 
 
 
@@ -276,32 +377,32 @@ var boardSettings = {
     boardName: "The name of the board",
     boardUrl: "The URL of the board",
 
-    boardPresets: [
-        { // Board preset 1
+    boardPresets: {
+        boardId: { // Board preset 1
 
             presetName: "Board preset name",
             isActiveWhenCycling: true,
             
             headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
 
-            listSettings: [
-                { // A list's settings
+            listSettings: {
+                listId: { // A list's settings
                     listId: "DONE,FINISHED,COMPLETE", // It's name
                     matchMethod: "EXACT | CONTAINS",
                     presetId: "The ID of a global preset to apply (optional)",
                     classes: ["CSS name of each class to apply"],
                     customSettings: {} // a place for any customisations if made possible
                 },
-                { // A list's settings
+                listId: { // A list's settings
 
                 }
-            ]
+            }
 
         },
-        { // Board preset 2
+        boardId: { // Board preset 2
         
         }
 
-    ]
+    }
 
 }

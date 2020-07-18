@@ -14334,7 +14334,7 @@ function startPageChangeObserver() {
 
 function immediatePageAdjustments() {
   interpretLists(); // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
-  // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding mulktiple event listeners to them.
+  // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
 
   createListButtons();
 } // Runs a split second after anything on the page changes.
@@ -14343,7 +14343,9 @@ function immediatePageAdjustments() {
 // - Isn't immediately visible (ie, hidden in a menu)
 
 
-function delayedPageChangeAdjustments() {} // Actions that need to be run only once on the page
+function delayedPageChangeAdjustments() {
+  createEventsToRememberUserActions();
+} // Actions that need to be run only once on the page
 // Runs immediately whenever anything on the page changes.
 
 
@@ -14363,7 +14365,6 @@ function immediatePageInitialisation() {
 
 function delayedPageInitialisation() {
   console.log("Delayed page Initialisation");
-  createEventsToRememberUserActions();
   createFocusSwitchButton();
   delayedPageChangeAdjustments();
 } // on page load, start watching for page changes
@@ -14403,7 +14404,7 @@ function userConsoleNote(text) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption */
+/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption, fetchAndStoreBoardSettings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14418,10 +14419,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAndStoreBoardSettings", function() { return fetchAndStoreBoardSettings; });
 /* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
 
 var $activeList;
+var boardSettings;
+var presetId = 0; // Listeners to update variables
+////////////////////////////////
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log("Received an board updated:");
+  console.log(request);
+
+  if (request.url) {
+    boardSetttings.url = request.url;
+    fetchAndStoreBoardSettings(getBoardId(boardSetttings.url));
+  }
+}); ////////////////////////////////
+
 function setActiveList($list) {
+  console.log("SETTING THE ACTIVE LIST: " + getListId($list));
   $activeList = $list;
 }
 function $getActiveList() {
@@ -14555,14 +14572,10 @@ function cycleOptionInList(optionSet, $list) {
   });
   saveListOption({
     $list: $list,
-    newClass: nextOption.class
+    newClass: nextOption.class,
+    oldClass: currentOption.class
   });
 }
-var boardUrl;
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log("URL RECEIVED: " + request.url);
-  if (request.url) boardUrl = request.url;
-});
 
 function getBoardName() {
   return $(".js-board-editing-target").text();
@@ -14570,16 +14583,13 @@ function getBoardName() {
 
 function getBoardId() {
   // remove board name from end of URL so it's consistent if name changes
-  let id = boardUrl.substr(0, boardUrl.lastIndexOf("/"));
+  let id = boardSettings.boardUrl.substr(0, boardSettings.boardUrl.lastIndexOf("/"));
   return id;
 }
 
-function getListId(props) {
-  const {
-    $list
-  } = props; // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
+function getListId($list) {
+  // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
   // Or, compare with position and card number, etc. so that it van be relinked (silently?) here if broken.
-
   return $list.find(".js-list-name-input").text();
 }
 
@@ -14595,42 +14605,86 @@ function visualizeListOption(props) {
 function saveListOption(props) {
   const {
     $list,
-    newClass
-  } = props;
-  let boardName = getBoardName();
-  let boardId = getBoardId();
-  let listName = getListId({
-    $list
-  }); // chrome.storage.sync.set({'value': theValue}, function() {
+    newClass,
+    oldClass
+  } = props; // let boardName = getBoardName();
+  // let boardId = getBoardId();
+  // let listId = getListId($list);
+  // presetId = 0;
+  // let listSettings = getListSettings($list); 
+  // PLANNING
+  // Each function like this should be able to assume that the board settings exist and the current board preset exists.
+  // Just remove the old class from the boardSettings variable (figure it out the old class if not passed in), and then add in the new class.
+  // Then send the boardSettings variable to localStorage without touching anything else.
+  // So this function shouldn't do much different to the visualizeListOption function...
+  // Apart from having to local storage after.
+  // getListSettings will simply return the list settings (assuming anything general already exists but checking the lists settings themselves have been created -creating them if not)
+  // chrome.storage.sync.set({'value': theValue}, function() {
   //     // Notify that we saved.
   //     message('Settings saved');
   // });
 
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Saving '" + listName + "' list in board '" + boardName + "'");
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board ID: " + boardId);
+} // function getListSettings($list) {
+//     let boardPreset = getBoardPreset();
+//     boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
+//     = {
+//         listText: getListName($list), // It's name or part thereof
+//         matchMethod: "EXACT", //"EXACT | CONTAINS",
+//         //presetId: "The ID of a global preset to apply (optional)",
+//         classes: ["CSS name of each class to apply"],
+//         customSettings: {} // a place for any customisations if made possible
+//     },
+// }
+// function getBoardPreset() {
+//     let boardSettings = getBoardSettings();
+//     if(boardSettings.boardPresets == undefined ) {
+//         boardSettings.boardPresets[presetId] = initBoardPreset();
+//     };
+//     return boardSettings.boardPresets[presetId];
+// }
+// function getBoardSettings() {
+//     if(boardSettings == undefined ) {
+//         devWarning("BoardSettings not created. Cannot get List Settings");
+//         return;
+//     };
+//     return boardSettings;
+// }
+
+function fetchAndStoreBoardSettings(boardId) {
+  chrome.storage.local.get([boardId], function (result) {
+    console.log('Value currently is ' + result.key);
+  });
 } // Each board
 
 var boardSettings = {
   boardName: "The name of the board",
   boardUrl: "The URL of the board",
-  boardPresets: [{
-    // Board preset 1
-    presetName: "Board preset name",
-    isActiveWhenCycling: true,
-    headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-    listSettings: [{
-      // A list's settings
-      listId: "DONE,FINISHED,COMPLETE",
-      // It's name
-      matchMethod: "EXACT | CONTAINS",
-      presetId: "The ID of a global preset to apply (optional)",
-      classes: ["CSS name of each class to apply"],
-      customSettings: {} // a place for any customisations if made possible
+  boardPresets: {
+    boardId: {
+      // Board preset 1
+      presetName: "Board preset name",
+      isActiveWhenCycling: true,
+      headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+      listSettings: {
+        listId: {
+          // A list's settings
+          listId: "DONE,FINISHED,COMPLETE",
+          // It's name
+          matchMethod: "EXACT | CONTAINS",
+          presetId: "The ID of a global preset to apply (optional)",
+          classes: ["CSS name of each class to apply"],
+          customSettings: {} // a place for any customisations if made possible
 
-    }, {// A list's settings
-    }]
-  }, {// Board preset 2
-  }]
+        },
+        listId: {// A list's settings
+        }
+      }
+    },
+    boardId: {// Board preset 2
+    }
+  }
 };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

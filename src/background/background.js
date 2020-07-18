@@ -5,97 +5,46 @@
 
 
 
-// Information to store about the current tab for use later
-///////////////////////////////////////////////////////////
-var tabUrl;
 
 
+// TO DO: Even though this has a filter, perhaps only starting it when a trello page is loaded and removing it when the trello page is closed will be better?
+// NOTE: That may create complications when multiple windows of trello are open
+
+chrome.webNavigation.onCompleted.addListener(
+    // This covers the initial load of a new page or if the page was open already and is just being refreshed
+    // It doesn't use onDOMContentLoaded because that fires before the content script listeners are set up
+    
+    function(details) {
+
+        console.log(details.tabId + ":   "+details.url);
+
+        chrome.tabs.sendMessage( details.tabId, {
+            url: details.url
+        } );
 
 
-
-
-
-
-
-
-// chrome.runtime.onMessage.addListener(
-// function(request, sender, sendResponse) {
-
-//     if (request.greeting == "hello")
-//     sendResponse({farewell: "goodbye"});
-
-// });
-
-
-
-
-
-
-chrome.tabs.onUpdated.addListener( (tabId, changeInfo, tab) => {
-    //notifyContent_newUrl();
-
-    if(changeInfo.url) {
-        // specifiy which tab to send it to
-
-        console.log("TAB CREATED: tab:");
-        console.log(tab);
-
-        chrome.tabs.query( query_activeTrelloTab, (tabs) => {
-            // send it
-
-            chrome.tabs.sendMessage( tabs[0].id, {
-                url: tab.url
-            } );
-        });
+    }, {
+        // filter
+        url: [ {urlContains : "trello.com/b/"} ]
     }
-})
+);
 
 
+chrome.webNavigation.onHistoryStateUpdated.addListener( // Board changes within the same tab aren't seen by onCompleted or onCommitted, so this covers those.
+    function(details) {
+
+        console.log(details.tabId + ":   "+details.url);
+
+        chrome.tabs.sendMessage( details.tabId, {
+            url: details.url
+        } );
 
 
-chrome.tabs.onCreated.addListener( (tabId, changeInfo, tab) => {
-    //notifyContent_newUrl();
-
-    if(changeInfo.url) {
-        // specifiy which tab to send it to
-
-        console.log("SENDING TAB UPDATE: url = "+changeInfo.url);
-
-        chrome.tabs.query( query_activeTrelloTab, (tabs) => {
-            // send it
-
-            chrome.tabs.sendMessage( tabs[0].id, {url: changeInfo.url} );
-        });
+    }, {
+        // filter
+        url: [ {urlContains : "trello.com/b/"} ]
     }
-})
-
-
-
-
-
-// since only one tab should be active and in the current window at once
-// the return variable should only have one entry
-// and should be empty if it's not a trello board
-const query_activeTrelloTab = {
-    active: true, // If the tab is active in the window.
-    currentWindow: true, // The window in which the code is executing.
-    url: "https://trello.com/b/*"
-}
-
-
-
-
-// function notifyContent_newUrl() {
-
-//     chrome.tabs.query( query_activeTrelloTab, (tabs) => {
-
-//         tabUrl = tabs[0].url;
-
-        
-
-//     });
-
-// }
+);
 
 
 
