@@ -32,7 +32,9 @@ module.exports = (env, argv) => {
             new MiniCssExtractPlugin({
                 filename: "[name].css"
 			}),
-			new CleanWebpackPlugin()
+			new CleanWebpackPlugin({
+                cleanOnceBeforeBuildPatterns: ['**/*', '!static-files*'],       // This line causes CleanWebPackPlugin to also clean files in the output folder (dist) not put there by Webpack
+            })
 			
 		],
         

@@ -2,7 +2,7 @@ import { userConsoleNote, devWarning } from "./generic-helpers";
 
 
 var $activeList;
-var boardSettings;
+var boardSettings;  // Wipe this for each board
 var presetId = 0;
 
 
@@ -15,13 +15,21 @@ var presetId = 0;
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
 
-        console.log("Received an board updated:");
+        console.log("Received a board updated:");
         console.log(request);
 
         if(request.url) {
 
-            boardSetttings.url = request.url;
-            fetchAndStoreBoardSettings( getBoardId(boardSetttings.url) );
+
+            if(
+                boardSettings == undefined ||
+                boardSettings.boardUrl != request.url
+                )
+            {
+                initBoardSettings( request.url );
+            }
+            
+            loadBoardSettings( boardSettings.url );
 
         }
     }
@@ -239,11 +247,11 @@ function getBoardName() {
     return  $(".js-board-editing-target").text();
 }
 
-function getBoardId() {
+function trimUrl(url) {
 
     // remove board name from end of URL so it's consistent if name changes
-    let id = boardSettings.boardUrl.substr( 0, boardSettings.boardUrl.lastIndexOf("/") );
-    return id;
+    url = url.substr( 0, url.lastIndexOf("/") );
+    return url;
 
 }
 
@@ -262,8 +270,9 @@ function getListId($list) {
 export function visualizeListOption(props) {
     const {$list, newClass, oldClass} = props
 
-    $list.addClass(newClass);
     if(oldClass) $list.removeClass(oldClass);
+    $list.addClass(newClass);
+    
 
 }
 
@@ -274,15 +283,15 @@ export function visualizeListOption(props) {
 export function saveListOption(props) {
     const {$list, newClass, oldClass} = props
 
-    // let boardName = getBoardName();
-    // let boardId = getBoardId();
+    let boardName = getBoardName();
+    let boardId = getBoardId();
 
-    // let listId = getListId($list);
+    let listId = getListId($list);
     
-    // presetId = 0;
+    presetId = 0;
     
 
-    // let listSettings = getListSettings($list); 
+    let listSettings = getListSettings($list); 
     
 
     
@@ -305,104 +314,139 @@ export function saveListOption(props) {
     // });
 
 
-    userConsoleNote( "Saving '" + listName + "' list in board '" + boardName + "'" );
+    userConsoleNote( "Saving '" + listId + "' list in board '" + boardName + "'" );
     userConsoleNote( "Board ID: " + boardId );
+    userConsoleNote( "listSettings:" );
+    console.log(listSettings);
 
 }
 
 
 
 
-// function getListSettings($list) {
+function getListSettings($list) {
 
-//     let boardPreset = getBoardPreset();
+    let boardPreset = getBoardPreset();
 
-//     boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
-//     = {
-//         listText: getListName($list), // It's name or part thereof
-//         matchMethod: "EXACT", //"EXACT | CONTAINS",
-//         //presetId: "The ID of a global preset to apply (optional)",
-//         classes: ["CSS name of each class to apply"],
-//         customSettings: {} // a place for any customisations if made possible
-//     },
+    // boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
+    // = {
+    //     listText: getListName($list), // It's name or part thereof
+    //     matchMethod: "EXACT", //"EXACT | CONTAINS",
+    //     //presetId: "The ID of a global preset to apply (optional)",
+    //     classes: ["CSS name of each class to apply"],
+    //     customSettings: {} // a place for any customisations if made possible
+    // },
 
-// }
-
-
-
-// function getBoardPreset() {
-//     let boardSettings = getBoardSettings();
-
-//     if(boardSettings.boardPresets == undefined ) {
-//         boardSettings.boardPresets[presetId] = initBoardPreset();
-//     };
-
-//     return boardSettings.boardPresets[presetId];
-// }
-
-// function getBoardSettings() {
-
-//     if(boardSettings == undefined ) {
-//         devWarning("BoardSettings not created. Cannot get List Settings");
-//         return;
-//     };
-
-//     return boardSettings;
-
-// }
+}
 
 
+
+function getBoardPreset() {
+    let boardSettings = getBoardSettings();
+
+    if(boardSettings.boardPresets == undefined ) {
+        boardSettings.boardPresets[presetId] = initBoardPreset();
+    };
+
+    return boardSettings.boardPresets[presetId];
+}
+
+function getBoardSettings() {
+
+    if(boardSettings == undefined ) {
+        devWarning("BoardSettings not created. Cannot get List Settings");
+        return;
+    };
+
+    return boardSettings;
+
+}
 
 
 
 
-export function fetchAndStoreBoardSettings(boardId) {
+
+
+export function loadBoardSettings() {
+    const boardId = boardSettings.boardUrl;
 
     chrome.storage.local.get(
         [boardId],
         function(result) {
-            console.log('Value currently is ' + result.key);
+            
+            if(result[boardId] != undefined) {
+
+                // TO DO: This is where it shoul run a function to update the board settings if the version is old.
+                boardSettings = result[boardId];
+
+                userConsoleNote("Board settings for " + boardSettings.boardUrl + " loaded from Chrome memory.")
+
+            }
+            
         }
     );
 
 }
 
 
+export function saveBoardSettings() {
+    const boardId = boardSettings.boardUrl;
+
+    chrome.storage.local.set({[boardId]: boardSettings}, function() {
+        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.")
+    });
+
+}
 
 
 
-// Each board
-var boardSettings = {
 
-    boardName: "The name of the board",
-    boardUrl: "The URL of the board",
 
-    boardPresets: {
-        boardId: { // Board preset 1
 
-            presetName: "Board preset name",
-            isActiveWhenCycling: true,
+function initBoardSettings(url) {
+    console.log("Initialising Board Settings");
+
+    let presetId = 1;
+
+    boardSettings = {
+
+        settingsVersion: "2020.07.27",
+
+        boardName: getBoardName(),
+        boardUrl: trimUrl(url),
+    
+        boardPresets: [
+            { // Board preset 1
+    
+                presetId: presetId,
+                presetName: "Unnamed preset "+presetId,
+                isActiveWhenCycling: true,
+                
+                headerSettings: "DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+    
+                listSettings: [
+                    // { // A list's settings
+                    //     listId: "DONE,FINISHED,COMPLETE", // It's name
+                    //     matchMethod: "EXACT | CONTAINS",
+                    //     presetId: "The ID of a global preset to apply (optional)",
+                    //     classes: ["CSS name of each class to apply"],
+                    //     customSettings: {} // a place for any customisations if made possible
+                    // },
+                    // { // A list's settings
+    
+                    // }
+                ]
+    
+            },
+            //{ // Board preset 2
             
-            headerSettings: "DEFAULT | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+            //}
+    
+        ]
+    
+    };
 
-            listSettings: {
-                listId: { // A list's settings
-                    listId: "DONE,FINISHED,COMPLETE", // It's name
-                    matchMethod: "EXACT | CONTAINS",
-                    presetId: "The ID of a global preset to apply (optional)",
-                    classes: ["CSS name of each class to apply"],
-                    customSettings: {} // a place for any customisations if made possible
-                },
-                listId: { // A list's settings
-
-                }
-            }
-
-        },
-        boardId: { // Board preset 2
-        
-        }
-
-    }
+    console.log("board settings:");
+    console.log(boardSettings);
 
 }

@@ -8,7 +8,7 @@ jQueryBridget( 'masonry', Masonry, $ );
 
 // custom components
 import {Tooltip} from "../components/tooltip";
-import {ListButtons} from "./components/list-buttons"
+import {ListButtons} from "./components/list-buttons";
 
 import "./style.scss";
 import { OPTIONS } from "./user-options";
