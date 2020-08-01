@@ -6,6 +6,7 @@ import Masonry from "masonry-layout"
 jQueryBridget( 'masonry', Masonry, $ );
 
 
+import { MATCH_METHODS } from "./enumerators";
 // custom components
 import {Tooltip} from "../components/tooltip";
 import {ListButtons} from "./components/list-buttons";
@@ -34,14 +35,6 @@ import { setActiveList, fetchAndStoreUrl } from "./helpers";
 
 
 
-// Internal Enumerators
-///////////////////////
-
-
-const MATCH_METHODS = {
-    EXACT: "exact",
-    CONTAINS: "contains"
-}
 
 
 

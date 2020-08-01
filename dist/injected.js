@@ -13991,6 +13991,25 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
 
 /***/ }),
 
+/***/ "./src/injected/enumerators.js":
+/*!*************************************!*\
+  !*** ./src/injected/enumerators.js ***!
+  \*************************************/
+/*! exports provided: MATCH_METHODS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MATCH_METHODS", function() { return MATCH_METHODS; });
+// Internal Enumerators
+///////////////////////
+const MATCH_METHODS = {
+  EXACT: "exact",
+  CONTAINS: "contains"
+};
+
+/***/ }),
+
 /***/ "./src/injected/functionality.js":
 /*!***************************************!*\
   !*** ./src/injected/functionality.js ***!
@@ -14006,19 +14025,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery_bridget__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery_bridget__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! masonry-layout */ "./node_modules/masonry-layout/masonry.js");
 /* harmony import */ var masonry_layout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(masonry_layout__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/tooltip */ "./src/components/tooltip.js");
-/* harmony import */ var _components_list_buttons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/list-buttons */ "./src/injected/components/list-buttons.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-options */ "./src/injected/user-options.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
-/* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers */ "./src/injected/helpers.js");
+/* harmony import */ var _enumerators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./enumerators */ "./src/injected/enumerators.js");
+/* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/tooltip */ "./src/components/tooltip.js");
+/* harmony import */ var _components_list_buttons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/list-buttons */ "./src/injected/components/list-buttons.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./style.scss */ "./src/injected/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user-options */ "./src/injected/user-options.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
+/* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./helpers */ "./src/injected/helpers.js");
 
 
  // make Masonry a jQuery plugin
 
-jquery_bridget__WEBPACK_IMPORTED_MODULE_1___default()('masonry', masonry_layout__WEBPACK_IMPORTED_MODULE_2___default.a, $); // custom components
+jquery_bridget__WEBPACK_IMPORTED_MODULE_1___default()('masonry', masonry_layout__WEBPACK_IMPORTED_MODULE_2___default.a, $);
+ // custom components
 
 
 
@@ -14026,13 +14047,7 @@ jquery_bridget__WEBPACK_IMPORTED_MODULE_1___default()('masonry', masonry_layout_
 
 
 
- // Internal Enumerators
-///////////////////////
-
-const MATCH_METHODS = {
-  EXACT: "exact",
-  CONTAINS: "contains"
-}; // Global variables
+ // Global variables
 //
 
 var pageChangeTimeOutID;
@@ -14111,14 +14126,14 @@ function createListButtons() {
 
   let $listContent = $latestMutations.find(".js-pop-over-content div div").first();
   $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("hr", null));
-  $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_4__["ListButtons"], null));
+  $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_list_buttons__WEBPACK_IMPORTED_MODULE_5__["ListButtons"], null));
 }
 
 function createEventsToRememberUserActions() {
   "use strict"; // add an event to every list menu button
 
   $(".js-open-list-menu").click(e => {
-    Object(_helpers__WEBPACK_IMPORTED_MODULE_9__["setActiveList"])($(e.target).closest(".js-list"));
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["setActiveList"])($(e.target).closest(".js-list"));
   });
 } // Create the main settings button that switches visual layouts
 //
@@ -14129,87 +14144,87 @@ function createFocusSwitchButton() {
 
   let $body = $("body");
   let switchFocusContainer = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    id: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-focus-container"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_unsaved"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_unsaved"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_delete-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_delete-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-trash"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Unsaved Preset")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_active"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_active"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_clear-preset-changes-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-undo-alt"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container"
+    class: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Upcoming Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container"].join(" ")
+    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_clear-preset-changes-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-undo-alt"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_save-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_save-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-save"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container"
+    class: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_delete-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_delete-preset-btn",
     href: "#"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-trash"
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-    className: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Past Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_3__["Tooltip"], {
+  }, "Past Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Setup actions"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_setup-actions-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-actions-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-cog"
-  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_3__["Tooltip"], {
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Switch header"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-header-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
-  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_3__["Tooltip"], {
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Switch focus",
     tag: "a"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-focus-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
   }))));
@@ -14217,15 +14232,15 @@ function createFocusSwitchButton() {
   $body.prepend($switchFocusContainer); // MOUSEOVERS
   /////////////
 
-  $switchFocusContainer.find("." + _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_preset-container").mouseover(addSelected); // LEFT CLICK ACTIONS
+  $switchFocusContainer.find("." + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container").mouseover(addSelected); // LEFT CLICK ACTIONS
   /////////////////////
 
-  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
-  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
   //////////////////////
 
-  $("#" + _metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
-    $switchFocusContainer.toggleClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_open");
+  $("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
+    $switchFocusContainer.toggleClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_open");
     return false; // return false to stop the context menu appearing
   });
 }
@@ -14240,44 +14255,44 @@ function addSelected() {
 
 function switchHeader() {
   function hideCurrentBoardLeftHeader() {
-    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
   }
 
   function hideCurrentBoardWholeHeader() {
-    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse"); // Add padding
+    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Add padding
 
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_header-padding");
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
   }
 
   function hideGeneralTrelloHeader() {
-    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
+    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
   }
 
   function hideAllHeaders() {
     hideCurrentBoardWholeHeader();
     hideGeneralTrelloHeader(); // Add padding
 
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_header-padding");
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
   } // Unhide all headers
   /////////////////////
   // Current board left header
 
 
-  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
+  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
 
-  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
+  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
 
-  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
+  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
 
-  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_7__["plugin"].slug + "_trello-ui_header-padding");
+  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
   headerAppearance++;
   headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
 
@@ -14382,13 +14397,14 @@ $(function () {
 /*!*****************************************!*\
   !*** ./src/injected/generic-helpers.js ***!
   \*****************************************/
-/*! exports provided: devWarning, userConsoleNote */
+/*! exports provided: devWarning, userConsoleNote, debugLog */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "devWarning", function() { return devWarning; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userConsoleNote", function() { return userConsoleNote; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "debugLog", function() { return debugLog; });
 function devWarning(text) {
   // display a warning in the console
   console.log("WARNING: " + text);
@@ -14397,6 +14413,10 @@ function userConsoleNote(text) {
   // display a warning in the console
   console.log("Focus Trello action: " + text);
 }
+function debugLog(input) {
+  // display a warning in the console
+  if (typeof input === "string") console.log("FOCUS: " + input);else console.log(input);
+}
 
 /***/ }),
 
@@ -14404,12 +14424,14 @@ function userConsoleNote(text) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption, loadBoardSettings, saveBoardSettings */
+/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption, saveHeaderOption */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveList", function() { return setActiveList; });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBoardSettings", function() { return loadBoardSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBoardSettings", function() { return saveBoardSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveList", function() { return setActiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$getActiveList", function() { return $getActiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listNameMatchesId", function() { return listNameMatchesId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOptionAfterThis", function() { return getOptionAfterThis; });
@@ -14419,9 +14441,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBoardSettings", function() { return loadBoardSettings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBoardSettings", function() { return saveBoardSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveHeaderOption", function() { return saveHeaderOption; });
 /* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
+/* harmony import */ var _enumerators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enumerators */ "./src/injected/enumerators.js");
+/* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-options */ "./src/injected/user-options.js");
+
+
 
 var $activeList;
 var boardSettings; // Wipe this for each board
@@ -14430,17 +14455,85 @@ var presetId = 0; // Listeners to update variables
 ////////////////////////////////
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log("Received a board updated:");
-  console.log(request);
-
   if (request.url) {
     if (boardSettings == undefined || boardSettings.boardUrl != request.url) {
+      // Initialise the boardSettings object
       initBoardSettings(request.url);
-    }
+    } // Then load in saved settings (will not overide if saved settings don't exist)
+
 
     loadBoardSettings(boardSettings.url);
   }
-}); ////////////////////////////////
+});
+
+function createListSettings(props) {
+  let {
+    listId,
+    matchMethod,
+    presetId,
+    classIds,
+    customSettings
+  } = props;
+  if (listId == undefined) Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("No listId defined in createListSettings");
+  if (matchMethod == undefined) matchMethod = _enumerators__WEBPACK_IMPORTED_MODULE_1__["MATCH_METHODS"].EXACT;
+  if (!presetId) presetId = null;
+  if (!classIds) classIds = new Array();
+  if (!customSettings) customSettings = new Object();
+  return {
+    listId,
+    matchMethod,
+    presetId,
+    classIds,
+    customSettings
+  };
+}
+
+function initBoardSettings(url) {
+  presetId = 0;
+  boardSettings = {
+    settingsVersion: "2020.07.27",
+    boardName: getBoardName(),
+    boardUrl: trimUrl(url),
+    boardPresets: [{
+      // Board preset 1
+      presetId: presetId,
+      presetName: "Unnamed preset " + presetId,
+      isActiveWhenCycling: true,
+      headerSettings: "DEFAULT",
+      // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+      listSettings: [// createListSettings({}),
+        // createListSettings({}),
+      ]
+    } //{ // Board preset 2
+    //}
+    ]
+  };
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Board Settings Initialised");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+}
+
+function loadBoardSettings() {
+  const boardId = boardSettings.boardUrl;
+  chrome.storage.local.get([boardId], function (result) {
+    if (result[boardId] != undefined) {
+      // TO DO: This is where it shoul run a function to update the board settings if the version is old.
+      boardSettings = result[boardId];
+    }
+
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded boardSettings from Chrome memory");
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+  });
+}
+function saveBoardSettings() {
+  const boardId = boardSettings.boardUrl;
+  chrome.storage.local.set({
+    [boardId]: boardSettings
+  }, function () {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
+  });
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Saved boardSettings to Chrome memory");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+} ////////////////////////////////
 
 function setActiveList($list) {
   console.log("SETTING THE ACTIVE LIST: " + getListId($list));
@@ -14450,9 +14543,9 @@ function $getActiveList() {
   return $activeList;
 }
 function listNameMatchesId(listName, listId, matchMethod) {
-  if (matchMethod == MATCH_METHODS.EXACT) {
+  if (matchMethod == _enumerators__WEBPACK_IMPORTED_MODULE_1__["MATCH_METHODS"].EXACT) {
     return listName == listId;
-  } else if (matchMethod == MATCH_METHODS.CONTAINS) {
+  } else if (matchMethod == _enumerators__WEBPACK_IMPORTED_MODULE_1__["MATCH_METHODS"].CONTAINS) {
     return listName.indexOf(listId) >= 0;
   } else {
     Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("The match method defined doesn't exist");
@@ -14582,6 +14675,25 @@ function cycleOptionInList(optionSet, $list) {
   });
 }
 
+function getClassIdSet(classId) {
+  let classIdSet = new Array();
+  let setFound = false;
+
+  for (const optionSetKey in _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS) {
+    classIdSet = new Array();
+    let optionSet = _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS[optionSetKey]; // for all the options in the option set
+
+    for (let optionIndex = 0; optionIndex < optionSet.length; optionIndex++) {
+      // remember the option's class for later
+      classIdSet.push(optionSet[optionIndex].class); // get ready to bail after remembering all the options if it's the right list
+
+      if (optionSet[optionIndex].class == classId) setFound = true;
+    }
+
+    if (setFound) return classIdSet;
+  }
+}
+
 function getBoardName() {
   return $(".js-board-editing-target").text();
 }
@@ -14613,37 +14725,111 @@ function saveListOption(props) {
     newClass,
     oldClass
   } = props;
-  let boardName = getBoardName();
-  let boardId = getBoardId();
-  let listId = getListId($list);
-  presetId = 0;
-  let listSettings = getListSettings($list); // PLANNING
-  // Each function like this should be able to assume that the board settings exist and the current board preset exists.
-  // Just remove the old class from the boardSettings variable (figure it out the old class if not passed in), and then add in the new class.
-  // Then send the boardSettings variable to localStorage without touching anything else.
-  // So this function shouldn't do much different to the visualizeListOption function...
-  // Apart from having to local storage after.
-  // getListSettings will simply return the list settings (assuming anything general already exists but checking the lists settings themselves have been created -creating them if not)
-  // chrome.storage.sync.set({'value': theValue}, function() {
-  //     // Notify that we saved.
-  //     message('Settings saved');
-  // });
+  const listId = getListId($list);
+  changeClassInListInSettings({
+    classId: newClass,
+    listId
+  });
+  saveBoardSettings();
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Saved List Option");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+}
+function saveHeaderOption(props) {
+  const {
+    newId
+  } = props; // TO DO put header setting into boardSettings
 
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Saving '" + listId + "' list in board '" + boardName + "'");
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board ID: " + boardId);
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("listSettings:");
-  console.log(listSettings);
+  saveBoardSettings();
 }
 
-function getListSettings($list) {
-  let boardPreset = getBoardPreset(); // boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
-  // = {
-  //     listText: getListName($list), // It's name or part thereof
-  //     matchMethod: "EXACT", //"EXACT | CONTAINS",
-  //     //presetId: "The ID of a global preset to apply (optional)",
-  //     classes: ["CSS name of each class to apply"],
-  //     customSettings: {} // a place for any customisations if made possible
-  // },
+function removeClassFromListInSettings(props) {
+  const {
+    listId,
+    classId
+  } = props;
+  let listSettings = getListSettingsRef(listId); // if there's no class Ids, there's nothing to remove
+
+  if (listSettings.classIds == undefined) return; // If there is, remove all instances of the classId
+
+  for (let k = listSettings.classIds.length - 1; k >= 0; k--) {
+    if (classId == listSettings.classIds[k]) {
+      listSettings.classIds.splice(k, 1);
+    }
+  }
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Removed classId '" + classId + "' from listId '" + listId + "' in settings");
+}
+
+;
+
+function removeClassIdsFromListInSettings(props) {
+  const {
+    listId,
+    classIds
+  } = props;
+  let listSettings = getListSettingsRef(listId); // if there's no class Ids, there's nothing to remove
+
+  if (listSettings.classIds == undefined) return; // If there is, remove all instances of all classIds passed in
+
+  for (let k = listSettings.classIds.length - 1; k >= 0; k--) {
+    // Check the item in settings against against all classIds passed in
+    for (let classIndex = 0; classIndex < classIds.length; classIndex++) {
+      if (classIds[classIndex] == listSettings.classIds[k]) {
+        listSettings.classIds.splice(k, 1);
+        break; // break out because the array position in listSettings.classIds has now been deleted anyway
+      }
+    }
+  }
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Removed all classes of optionSet in from listId '" + listId + "' in settings");
+}
+
+;
+
+function addClassToListInSettings(props) {
+  const {
+    listId,
+    classId
+  } = props;
+  let listSettings = getListSettingsRef(listId);
+  listSettings.classIds.push(classId);
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Added classId '" + classId + "' from listId '" + listId + "' in settings");
+}
+
+; // removes any classes for a particular option set and adds in only the class passed in
+
+function changeClassInListInSettings(props) {
+  const {
+    listId,
+    classId
+  } = props;
+  const classIds = getClassIdSet(classId);
+  console.log("classIds");
+  console.log(classIds);
+  let listSettings = getListSettingsRef(listId);
+  removeClassIdsFromListInSettings({
+    classIds,
+    listId
+  });
+  listSettings.classIds.push(classId);
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Changed classId '" + classId + "' within listId '" + listId + "' in settings");
+}
+
+;
+
+function getListSettingsRef(listId) {
+  const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+
+  for (let k = 0; k < boardListSettings.length; k++) {
+    if (listId == boardListSettings[k].listId) return boardListSettings[k];
+  }
+
+  console.log("listId: " + listId); // It wasn't found in the settings, so put it there
+
+  boardListSettings.push(createListSettings({
+    listId
+  }));
+  return boardListSettings[boardListSettings.length - 1];
 }
 
 function getBoardPreset() {
@@ -14665,57 +14851,6 @@ function getBoardSettings() {
 
   ;
   return boardSettings;
-}
-
-function loadBoardSettings() {
-  const boardId = boardSettings.boardUrl;
-  chrome.storage.local.get([boardId], function (result) {
-    if (result[boardId] != undefined) {
-      // TO DO: This is where it shoul run a function to update the board settings if the version is old.
-      boardSettings = result[boardId];
-      Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings for " + boardSettings.boardUrl + " loaded from Chrome memory.");
-    }
-  });
-}
-function saveBoardSettings() {
-  const boardId = boardSettings.boardUrl;
-  chrome.storage.local.set({
-    [boardId]: boardSettings
-  }, function () {
-    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
-  });
-}
-
-function initBoardSettings(url) {
-  console.log("Initialising Board Settings");
-  let presetId = 1;
-  boardSettings = {
-    settingsVersion: "2020.07.27",
-    boardName: getBoardName(),
-    boardUrl: trimUrl(url),
-    boardPresets: [{
-      // Board preset 1
-      presetId: presetId,
-      presetName: "Unnamed preset " + presetId,
-      isActiveWhenCycling: true,
-      headerSettings: "DEFAULT",
-      // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-      listSettings: [// { // A list's settings
-        //     listId: "DONE,FINISHED,COMPLETE", // It's name
-        //     matchMethod: "EXACT | CONTAINS",
-        //     presetId: "The ID of a global preset to apply (optional)",
-        //     classes: ["CSS name of each class to apply"],
-        //     customSettings: {} // a place for any customisations if made possible
-        // },
-        // { // A list's settings
-        // }
-      ]
-    } //{ // Board preset 2
-    //}
-    ]
-  };
-  console.log("board settings:");
-  console.log(boardSettings);
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

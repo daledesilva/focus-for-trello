@@ -1,4 +1,6 @@
-import { userConsoleNote, devWarning } from "./generic-helpers";
+import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
+import { MATCH_METHODS } from "./enumerators";
+import { OPTIONS } from "./user-options";
 
 
 var $activeList;
@@ -15,9 +17,6 @@ var presetId = 0;
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
 
-        console.log("Received a board updated:");
-        console.log(request);
-
         if(request.url) {
 
 
@@ -26,14 +25,132 @@ chrome.runtime.onMessage.addListener(
                 boardSettings.boardUrl != request.url
                 )
             {
+                // Initialise the boardSettings object
                 initBoardSettings( request.url );
             }
             
+            // Then load in saved settings (will not overide if saved settings don't exist)
             loadBoardSettings( boardSettings.url );
 
         }
     }
 );
+
+
+
+
+
+
+function createListSettings(props) {
+    
+    let {
+        listId,
+        matchMethod,
+        presetId,
+        classIds,
+        customSettings
+    } = props;
+
+
+    if( listId == undefined )   devWarning("No listId defined in createListSettings");
+
+
+    if( matchMethod == undefined )      matchMethod = MATCH_METHODS.EXACT;
+    if( ! presetId )                    presetId = null;
+    if( ! classIds )                    classIds = new Array();
+    if( ! customSettings )              customSettings = new Object();
+
+
+    return {
+        listId,
+        matchMethod,
+        presetId,
+        classIds,
+        customSettings,
+    }
+
+
+}
+
+
+
+
+
+function initBoardSettings(url) {
+    presetId = 0;
+
+    boardSettings = {
+
+        settingsVersion: "2020.07.27",
+
+        boardName: getBoardName(),
+        boardUrl: trimUrl(url),
+    
+        boardPresets: [
+            { // Board preset 1
+    
+                presetId: presetId,
+                presetName: "Unnamed preset "+presetId,
+                isActiveWhenCycling: true,
+                
+                headerSettings: "DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+    
+                listSettings: [
+                    // createListSettings({}),
+                    // createListSettings({}),
+                    
+                ]
+    
+            },
+            //{ // Board preset 2
+            
+            //}
+    
+        ]
+    
+    };
+
+    debugLog("Board Settings Initialised");
+    debugLog(boardSettings);
+}
+
+
+export function loadBoardSettings() {
+    const boardId = boardSettings.boardUrl;
+
+    chrome.storage.local.get(
+        [boardId],
+        function(result) {
+            
+            if(result[boardId] != undefined) {
+
+                // TO DO: This is where it shoul run a function to update the board settings if the version is old.
+                boardSettings = result[boardId];
+
+            }
+
+            debugLog("Loaded boardSettings from Chrome memory");
+            debugLog(boardSettings);
+            
+        }
+    );
+
+}
+
+
+export function saveBoardSettings() {
+    const boardId = boardSettings.boardUrl;
+
+    chrome.storage.local.set({[boardId]: boardSettings}, function() {
+        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.")
+    });
+
+
+    debugLog("Saved boardSettings to Chrome memory");
+    debugLog(boardSettings);
+}
+
+
 
 
 
@@ -239,6 +356,36 @@ export function cycleOptionInList(optionSet, $list) {
 
 
 
+function getClassIdSet(classId) {
+    let classIdSet = new Array();
+    let setFound = false;
+
+    for(const optionSetKey in  OPTIONS.LISTS) {
+        classIdSet = new Array();
+
+        let optionSet = OPTIONS.LISTS[optionSetKey];
+
+        // for all the options in the option set
+        for(let optionIndex = 0; optionIndex < optionSet.length; optionIndex++) {
+
+            // remember the option's class for later
+            classIdSet.push( optionSet[optionIndex].class );
+
+            // get ready to bail after remembering all the options if it's the right list
+            if( optionSet[optionIndex].class == classId ) setFound = true;
+        }
+
+
+        if( setFound )  return classIdSet;
+
+    }
+}
+
+
+
+
+
+
 
 
 
@@ -267,6 +414,13 @@ function getListId($list) {
 
 
 
+
+
+
+
+
+
+
 export function visualizeListOption(props) {
     const {$list, newClass, oldClass} = props
 
@@ -278,66 +432,169 @@ export function visualizeListOption(props) {
 
 
 
-
-
 export function saveListOption(props) {
     const {$list, newClass, oldClass} = props
+    const listId = getListId($list);
+   
 
-    let boardName = getBoardName();
-    let boardId = getBoardId();
-
-    let listId = getListId($list);
+    changeClassInListInSettings({
+        classId: newClass,
+        listId,
+    });
     
-    presetId = 0;
-    
+    saveBoardSettings();
 
-    let listSettings = getListSettings($list); 
-    
 
-    
-    // PLANNING
-    // Each function like this should be able to assume that the board settings exist and the current board preset exists.
-    // Just remove the old class from the boardSettings variable (figure it out the old class if not passed in), and then add in the new class.
-    // Then send the boardSettings variable to localStorage without touching anything else.
-
-    // So this function shouldn't do much different to the visualizeListOption function...
-    // Apart from having to local storage after.
-    // getListSettings will simply return the list settings (assuming anything general already exists but checking the lists settings themselves have been created -creating them if not)
+    debugLog( "Saved List Option" );
+    debugLog(boardSettings);
+}
 
 
 
 
 
-    // chrome.storage.sync.set({'value': theValue}, function() {
-    //     // Notify that we saved.
-    //     message('Settings saved');
-    // });
+
+export function saveHeaderOption(props) {
+    const {newId} = props
+        
+    // TO DO put header setting into boardSettings
 
 
-    userConsoleNote( "Saving '" + listId + "' list in board '" + boardName + "'" );
-    userConsoleNote( "Board ID: " + boardId );
-    userConsoleNote( "listSettings:" );
-    console.log(listSettings);
+    saveBoardSettings();
 
 }
 
 
 
 
-function getListSettings($list) {
 
-    let boardPreset = getBoardPreset();
 
-    // boardSettings.boardPresets[ presetId ].listSettings[ getListId($list) ];
-    // = {
-    //     listText: getListName($list), // It's name or part thereof
-    //     matchMethod: "EXACT", //"EXACT | CONTAINS",
-    //     //presetId: "The ID of a global preset to apply (optional)",
-    //     classes: ["CSS name of each class to apply"],
-    //     customSettings: {} // a place for any customisations if made possible
-    // },
 
+
+
+
+function removeClassFromListInSettings(props) {
+    const { listId, classId } = props;
+    let listSettings = getListSettingsRef(listId);
+
+    // if there's no class Ids, there's nothing to remove
+    if(listSettings.classIds == undefined)   return;
+
+    // If there is, remove all instances of the classId
+    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
+
+        if(classId == listSettings.classIds[k]) {
+            listSettings.classIds.splice(k, 1);
+        }
+
+    }
+    
+    debugLog("Removed classId '"+ classId +"' from listId '"+ listId +"' in settings");
+};
+
+
+function removeClassIdsFromListInSettings(props) {
+    const { listId, classIds } = props;
+    let listSettings = getListSettingsRef(listId);
+
+    // if there's no class Ids, there's nothing to remove
+    if(listSettings.classIds == undefined)   return;
+
+    // If there is, remove all instances of all classIds passed in
+    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
+
+        // Check the item in settings against against all classIds passed in
+        for(let classIndex = 0; classIndex < classIds.length; classIndex++ ) {
+
+            if(classIds[classIndex] == listSettings.classIds[k]) {
+                listSettings.classIds.splice(k, 1);
+                break;  // break out because the array position in listSettings.classIds has now been deleted anyway
+            }
+
+        }
+
+    }
+    
+    debugLog("Removed all classes of optionSet in from listId '"+ listId +"' in settings");
+};
+
+
+
+
+
+
+
+
+function addClassToListInSettings(props) {
+    const { listId, classId } = props;
+    let listSettings = getListSettingsRef(listId);
+
+    listSettings.classIds.push(classId);
+
+    debugLog("Added classId '"+ classId +"' from listId '"+ listId +"' in settings");
+};
+
+
+
+
+
+// removes any classes for a particular option set and adds in only the class passed in
+function changeClassInListInSettings(props) {
+    const { listId, classId } = props;
+    const classIds = getClassIdSet(classId);
+    console.log("classIds");
+    console.log(classIds);
+    let listSettings = getListSettingsRef(listId);
+
+    removeClassIdsFromListInSettings({
+        classIds,
+        listId
+    });
+    listSettings.classIds.push(classId);
+
+    debugLog("Changed classId '"+ classId +"' within listId '"+ listId +"' in settings");
+};
+
+
+
+
+
+
+
+
+
+function getListSettingsRef(listId) {
+
+    const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+
+    for(let k = 0; k < boardListSettings.length; k++) {
+
+        if (listId == boardListSettings[k].listId)  return boardListSettings[k];
+
+    }
+    
+    console.log("listId: " + listId);
+
+    // It wasn't found in the settings, so put it there
+    boardListSettings.push( createListSettings({
+        listId
+    }))
+
+
+    return boardListSettings[ boardListSettings.length-1 ];
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -367,86 +624,9 @@ function getBoardSettings() {
 
 
 
-export function loadBoardSettings() {
-    const boardId = boardSettings.boardUrl;
-
-    chrome.storage.local.get(
-        [boardId],
-        function(result) {
-            
-            if(result[boardId] != undefined) {
-
-                // TO DO: This is where it shoul run a function to update the board settings if the version is old.
-                boardSettings = result[boardId];
-
-                userConsoleNote("Board settings for " + boardSettings.boardUrl + " loaded from Chrome memory.")
-
-            }
-            
-        }
-    );
-
-}
-
-
-export function saveBoardSettings() {
-    const boardId = boardSettings.boardUrl;
-
-    chrome.storage.local.set({[boardId]: boardSettings}, function() {
-        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.")
-    });
-
-}
 
 
 
 
 
 
-function initBoardSettings(url) {
-    console.log("Initialising Board Settings");
-
-    let presetId = 1;
-
-    boardSettings = {
-
-        settingsVersion: "2020.07.27",
-
-        boardName: getBoardName(),
-        boardUrl: trimUrl(url),
-    
-        boardPresets: [
-            { // Board preset 1
-    
-                presetId: presetId,
-                presetName: "Unnamed preset "+presetId,
-                isActiveWhenCycling: true,
-                
-                headerSettings: "DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-    
-                listSettings: [
-                    // { // A list's settings
-                    //     listId: "DONE,FINISHED,COMPLETE", // It's name
-                    //     matchMethod: "EXACT | CONTAINS",
-                    //     presetId: "The ID of a global preset to apply (optional)",
-                    //     classes: ["CSS name of each class to apply"],
-                    //     customSettings: {} // a place for any customisations if made possible
-                    // },
-                    // { // A list's settings
-    
-                    // }
-                ]
-    
-            },
-            //{ // Board preset 2
-            
-            //}
-    
-        ]
-    
-    };
-
-    console.log("board settings:");
-    console.log(boardSettings);
-
-}

@@ -13,3 +13,10 @@ export function userConsoleNote(text) {
     console.log( "Focus Trello action: " + text );
 }
 
+
+export function debugLog(input) {
+    // display a warning in the console
+
+    if( typeof input === "string" )     console.log( "FOCUS: " + input );
+    else                                console.log( input );
+}
