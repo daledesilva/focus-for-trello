@@ -16,7 +16,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets } from "./helpers";
 
 
 
@@ -114,35 +114,35 @@ function interpretLists() {
         //     $title.closest(".js-list")  .addClass("ft_list-size_wide");
 
         // } else
-        if( titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
-            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_dark")
-                                        .addClass("ft_card-labels_hidden")
-                                        .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden")
+        // if( titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
+        //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+        //                                 .addClass("ft_list-color_dark")
+        //                                 .addClass("ft_card-labels_hidden")
+        //                                 .addClass("ft_card-badges_hidden")
+        //                                 .addClass("ft_card-details_hidden")
 
-        } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
-            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_subtle")
-                                        .addClass("ft_card-labels_hidden")
-                                        .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden")
+        // } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
+        //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+        //                                 .addClass("ft_list-color_subtle")
+        //                                 .addClass("ft_card-labels_hidden")
+        //                                 .addClass("ft_card-badges_hidden")
+        //                                 .addClass("ft_card-details_hidden")
 
-        } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
-            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_dark-and-clear")
-                                        .addClass("ft_card-labels_hidden")
-                                        .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden")
+        // } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
+        //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+        //                                 .addClass("ft_list-color_dark-and-clear")
+        //                                 .addClass("ft_card-labels_hidden")
+        //                                 .addClass("ft_card-badges_hidden")
+        //                                 .addClass("ft_card-details_hidden")
 
-        } else if( titleText.indexOf("DUMP") >= 0 ) {
-            $title.closest(".js-list")  .addClass("ft_list-size_narrow")
-                                        .addClass("ft_list-color_subtle-and-clear")
-                                        .addClass("ft_card-labels_hidden")
-                                        .addClass("ft_card-badges_hidden")
-                                        .addClass("ft_card-details_hidden")
+        // } else if( titleText.indexOf("DUMP") >= 0 ) {
+        //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+        //                                 .addClass("ft_list-color_subtle-and-clear")
+        //                                 .addClass("ft_card-labels_hidden")
+        //                                 .addClass("ft_card-badges_hidden")
+        //                                 .addClass("ft_card-details_hidden")
 
-        }
+        // }
 
 
     });
@@ -412,88 +412,18 @@ function createFocusSwitchButton() {
 
 
 function switchFocus() {
-    console.log("switching focus");
+    cycleBoardPresets();
+}
+
+function switchHeader() {
+    cycleBoardHeader();
 }
 
 function addSelected() {
     console.log("show hover state");
 }
 
-function switchHeader () {
 
-
-    function hideCurrentBoardLeftHeader() {
-        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".js-star-board").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_collapse" );
-    }
-
-    function hideCurrentBoardWholeHeader() {
-        $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
-        // Add padding
-        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
-    }
-
-    function hideGeneralTrelloHeader() {
-        $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_collapse" );
-    }
-
-    function hideAllHeaders() {
-        hideCurrentBoardWholeHeader();
-        hideGeneralTrelloHeader();
-        // Add padding
-        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
-    }
-
-
-
-    // Unhide all headers
-    /////////////////////
-    // Current board left header
-    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_collapse" );
-    // Current board whole header
-    $(".js-board-header").removeClass( plugin.slug + "_trello-ui_collapse" );
-    // General Trello header
-    $("#surface").find("div").first().removeClass( plugin.slug + "_trello-ui_collapse" );
-    // Remove padding
-    $("#board").removeClass( plugin.slug + "_trello-ui_header-padding" );
-    
-    headerAppearance++;
-    headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
-
-    switch(headerAppearance) {
-
-        case 1:     hideCurrentBoardLeftHeader();
-                    break;
-
-        case 2:     hideCurrentBoardLeftHeader();
-                    hideGeneralTrelloHeader();
-                    break;
-                    
-        case 3:     hideAllHeaders();
-                    break;
-
-        case 4:     hideCurrentBoardWholeHeader();
-                    break;
-        
-        default:    break;
-
-    }
-
-    
-
-    
-
-    
-
-
-}
 
 
 

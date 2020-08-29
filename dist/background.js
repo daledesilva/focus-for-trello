@@ -101,7 +101,8 @@
 chrome.webNavigation.onCompleted.addListener( // This covers the initial load of a new page or if the page was open already and is just being refreshed
 // It doesn't use onDOMContentLoaded because that fires before the content script listeners are set up
 function (details) {
-  console.log(details.tabId + ":   " + details.url);
+  console.log(details.tabId + ":   " + details.url); // alert("web nav completed");
+
   chrome.tabs.sendMessage(details.tabId, {
     url: details.url
   });
@@ -113,7 +114,8 @@ function (details) {
 });
 chrome.webNavigation.onHistoryStateUpdated.addListener( // Board changes within the same tab aren't seen by onCompleted or onCommitted, so this covers those.
 function (details) {
-  console.log(details.tabId + ":   " + details.url);
+  console.log(details.tabId + ":   " + details.url); // alert("history updated");
+
   chrome.tabs.sendMessage(details.tabId, {
     url: details.url
   });

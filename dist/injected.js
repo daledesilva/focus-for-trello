@@ -14075,16 +14075,31 @@ function interpretLists() {
     let titleText = $title.text().toUpperCase(); // if( titleText.indexOf("YEAR") >= 0 ) {
     //     $title.closest(".js-list")  .addClass("ft_list-size_wide");
     // } else
-
-    if (titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
-    } else if (titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
-    } else if (titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_dark-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
-    } else if (titleText.indexOf("DUMP") >= 0) {
-      $title.closest(".js-list").addClass("ft_list-size_narrow").addClass("ft_list-color_subtle-and-clear").addClass("ft_card-labels_hidden").addClass("ft_card-badges_hidden").addClass("ft_card-details_hidden");
-    }
+    // if( titleText.indexOf("DONE") >= 0 || titleText.indexOf("FINISHED") >= 0 || titleText.indexOf("COMPLETE") >= 0) {
+    //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+    //                                 .addClass("ft_list-color_dark")
+    //                                 .addClass("ft_card-labels_hidden")
+    //                                 .addClass("ft_card-badges_hidden")
+    //                                 .addClass("ft_card-details_hidden")
+    // } else if( titleText.indexOf("GOAL") >= 0 || titleText.indexOf("FUTURE") >= 0 ) {
+    //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+    //                                 .addClass("ft_list-color_subtle")
+    //                                 .addClass("ft_card-labels_hidden")
+    //                                 .addClass("ft_card-badges_hidden")
+    //                                 .addClass("ft_card-details_hidden")
+    // } else if( titleText.indexOf("DITCH") >= 0 || titleText.indexOf("ABANDON") >= 0 ) {
+    //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+    //                                 .addClass("ft_list-color_dark-and-clear")
+    //                                 .addClass("ft_card-labels_hidden")
+    //                                 .addClass("ft_card-badges_hidden")
+    //                                 .addClass("ft_card-details_hidden")
+    // } else if( titleText.indexOf("DUMP") >= 0 ) {
+    //     $title.closest(".js-list")  .addClass("ft_list-size_narrow")
+    //                                 .addClass("ft_list-color_subtle-and-clear")
+    //                                 .addClass("ft_card-labels_hidden")
+    //                                 .addClass("ft_card-badges_hidden")
+    //                                 .addClass("ft_card-details_hidden")
+    // }
   }); // apply masonry
 
   let requiresMasonry = false;
@@ -14246,77 +14261,15 @@ function createFocusSwitchButton() {
 }
 
 function switchFocus() {
-  console.log("switching focus");
+  Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["cycleBoardPresets"])();
+}
+
+function switchHeader() {
+  Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["cycleBoardHeader"])();
 }
 
 function addSelected() {
   console.log("show hover state");
-}
-
-function switchHeader() {
-  function hideCurrentBoardLeftHeader() {
-    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  }
-
-  function hideCurrentBoardWholeHeader() {
-    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Add padding
-
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
-  }
-
-  function hideGeneralTrelloHeader() {
-    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  }
-
-  function hideAllHeaders() {
-    hideCurrentBoardWholeHeader();
-    hideGeneralTrelloHeader(); // Add padding
-
-    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
-  } // Unhide all headers
-  /////////////////////
-  // Current board left header
-
-
-  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse");
-  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
-
-  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
-
-  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
-
-  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_trello-ui_header-padding");
-  headerAppearance++;
-  headerAppearance %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
-
-  switch (headerAppearance) {
-    case 1:
-      hideCurrentBoardLeftHeader();
-      break;
-
-    case 2:
-      hideCurrentBoardLeftHeader();
-      hideGeneralTrelloHeader();
-      break;
-
-    case 3:
-      hideAllHeaders();
-      break;
-
-    case 4:
-      hideCurrentBoardWholeHeader();
-      break;
-
-    default:
-      break;
-  }
 } // Starts an observer that runs two functions when changes occur on the page
 //
 
@@ -14424,7 +14377,7 @@ function debugLog(input) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, saveHeaderOption */
+/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, cycleBoardPresets, cycleBoardHeader */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14442,10 +14395,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeAllBoardSettings", function() { return visualizeAllBoardSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveHeaderOption", function() { return saveHeaderOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleBoardPresets", function() { return cycleBoardPresets; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleBoardHeader", function() { return cycleBoardHeader; });
 /* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
 /* harmony import */ var _enumerators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enumerators */ "./src/injected/enumerators.js");
 /* harmony import */ var _user_options__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-options */ "./src/injected/user-options.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../metadata */ "./src/metadata.js");
+
 
 
 
@@ -14499,8 +14455,8 @@ function initBoardSettings(url) {
       presetId: 0,
       presetName: "Unnamed preset " + 1,
       isActiveWhenCycling: true,
-      headerSettings: "DEFAULT",
-      // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+      headerSetting: 0,
+      //"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
       listSettings: [// createListSettings({}),
         // createListSettings({}),
       ]
@@ -14755,6 +14711,7 @@ function visualizeAllBoardSettings() {
     }
   }
 
+  visualizeHeaderSetting();
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualized all board settings");
 }
 function visualizeListOption(props) {
@@ -14780,14 +14737,11 @@ function saveListOption(props) {
     listId
   });
   saveBoardSettings();
-}
-function saveHeaderOption(props) {
-  const {
-    newId
-  } = props; // TO DO put header setting into boardSettings
-
-  saveBoardSettings();
-}
+} // export function saveHeaderOption(props) {
+//     const {newId} = props
+//     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting = newId;
+//     saveBoardSettings();
+// }
 
 function removeClassFromListInSettings(props) {
   const {
@@ -14905,6 +14859,88 @@ function getBoardSettings() {
 
   ;
   return boardSettings;
+}
+
+function cycleBoardPresets() {
+  let totalPresets = boardSettings.boardPresets.length;
+  boardSettings.activeBoardPreset++;
+  boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Cycling board presets. New preset: '" + boardSettings.activeBoardPreset + "'");
+  visualizeAllBoardSettings();
+  saveBoardSettings();
+}
+function cycleBoardHeader() {
+  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting++;
+  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Switching headers");
+  visualizeHeaderSetting();
+  saveBoardSettings();
+}
+
+function visualizeHeaderSetting() {
+  function hideCurrentBoardLeftHeader() {
+    $(".js-rename-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-star-board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+    $(".js-board-header-btn-org-wrapper").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btn-divider").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+    $(".board-header-btns.mod-left").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  }
+
+  function hideCurrentBoardWholeHeader() {
+    $(".js-board-header").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse"); // Add padding
+
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_header-padding");
+  }
+
+  function hideGeneralTrelloHeader() {
+    $("#surface").find("div").first().addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  }
+
+  function hideAllHeaders() {
+    hideCurrentBoardWholeHeader();
+    hideGeneralTrelloHeader(); // Add padding
+
+    $("#board").addClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_header-padding");
+  } // Unhide all headers
+  /////////////////////
+  // Current board left header
+
+
+  $(".js-rename-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-star-board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  $(".js-board-header-btn-org-wrapper").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btn-divider").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse");
+  $(".board-header-btns.mod-left").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse"); // Current board whole header
+
+  $(".js-board-header").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse"); // General Trello header
+
+  $("#surface").find("div").first().removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_collapse"); // Remove padding
+
+  $("#board").removeClass(_metadata__WEBPACK_IMPORTED_MODULE_3__["plugin"].slug + "_trello-ui_header-padding");
+
+  switch (boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting) {
+    case 1:
+      hideCurrentBoardLeftHeader();
+      break;
+
+    case 2:
+      hideCurrentBoardLeftHeader();
+      hideGeneralTrelloHeader();
+      break;
+
+    case 3:
+      hideAllHeaders();
+      break;
+
+    case 4:
+      hideCurrentBoardWholeHeader();
+      break;
+
+    default:
+      break;
+  }
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

@@ -17,6 +17,7 @@ chrome.webNavigation.onCompleted.addListener(
     function(details) {
 
         console.log(details.tabId + ":   "+details.url);
+        // alert("web nav completed");
 
         chrome.tabs.sendMessage( details.tabId, {
             url: details.url
@@ -34,6 +35,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener( // Board changes within 
     function(details) {
 
         console.log(details.tabId + ":   "+details.url);
+        // alert("history updated");
 
         chrome.tabs.sendMessage( details.tabId, {
             url: details.url
