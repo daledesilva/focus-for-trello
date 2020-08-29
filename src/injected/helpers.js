@@ -5,7 +5,6 @@ import { OPTIONS } from "./user-options";
 
 var $activeList;
 var boardSettings;  // Wipe this for each board
-var presetId = 0;
 
 
 
@@ -46,7 +45,7 @@ function createListSettings(props) {
     let {
         listId,
         matchMethod,
-        presetId,
+        activeBoardPreset,
         classIds,
         customSettings
     } = props;
@@ -56,7 +55,7 @@ function createListSettings(props) {
 
 
     if( matchMethod == undefined )      matchMethod = MATCH_METHODS.EXACT;
-    if( ! presetId )                    presetId = null;
+    if( ! activeBoardPreset )           activeBoardPreset = 0;
     if( ! classIds )                    classIds = new Array();
     if( ! customSettings )              customSettings = new Object();
 
@@ -64,7 +63,7 @@ function createListSettings(props) {
     return {
         listId,
         matchMethod,
-        presetId,
+        activeBoardPreset,
         classIds,
         customSettings,
     }
@@ -77,7 +76,6 @@ function createListSettings(props) {
 
 
 function initBoardSettings(url) {
-    presetId = 0;
 
     boardSettings = {
 
@@ -86,11 +84,12 @@ function initBoardSettings(url) {
         boardName: getBoardName(),
         boardUrl: trimUrl(url),
     
+        activeBoardPreset: 0,
         boardPresets: [
             { // Board preset 1
     
-                presetId: presetId,
-                presetName: "Unnamed preset "+presetId,
+                presetId: 0,
+                presetName: "Unnamed preset "+1,
                 isActiveWhenCycling: true,
                 
                 headerSettings: "DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
@@ -124,8 +123,17 @@ export function loadBoardSettings() {
             
             if(result[boardId] != undefined) {
 
-                // TO DO: This is where it shoul run a function to update the board settings if the version is old.
+                // TO DO: This is where it should run a function to update the board settings if the settings version number is old.
+
+
+                // Set the boardSettings from those loaded
                 boardSettings = result[boardId];
+
+                // define an activePreset if there wasn't one
+                if(!boardSettings.activeBoardPreset)    boardSettings.activeBoardPreset = 0;
+
+                // Update the board to match the board settings
+                visualizeAllBoardSettings();
 
             }
 
@@ -142,12 +150,14 @@ export function saveBoardSettings() {
     const boardId = boardSettings.boardUrl;
 
     chrome.storage.local.set({[boardId]: boardSettings}, function() {
+        // Asynchronous callback
+
         userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.")
     });
 
-
-    debugLog("Saved boardSettings to Chrome memory");
+    debugLog("Set boardSettings to save in Chrome memory");
     debugLog(boardSettings);
+    
 }
 
 
@@ -410,9 +420,70 @@ function getListId($list) {
     return  $list.find(".js-list-name-input").text();
 }
 
+function getListById(id) {
+
+    let $list;
+
+    $(".js-list").each( function () {
+        let $this = $(this);
+        let curListId = $this.find(".js-list-name-input").text();
+
+        debugLog("Looking for list with id '"+ id + "', seeing '"+curListId)
+
+        if(curListId == id){
+            debugLog("-- MATCH --");
+            $list = $(this);
+            return false; // to exit each loop
+        }
+    })
+
+    if($list) {
+        return $list;
+    } else {
+        // TO DO: What happens if it doesn't find the list?
+        devWarning("No list with id '"+id+"' found.")
+    }
+
+}
 
 
 
+
+
+
+
+
+
+
+
+export function visualizeAllBoardSettings() {
+
+    // get all an array of listSettings for all lists
+    let allListSettings = getListSettingsArray();
+
+    for(let k = 0; k < allListSettings.length; k++) {
+        // Individual list's settings
+        let listSettings = allListSettings[k];
+
+        let $list = getListById(listSettings.listId);
+
+        // visualize each classId in the lists settings
+        for(const classId of listSettings.classIds) {
+
+            visualizeListOption({
+                $list,
+                newClass: classId,
+            });
+
+        }
+        
+
+    }
+
+    debugLog("Visualized all board settings");
+    
+
+}
 
 
 
@@ -422,12 +493,17 @@ function getListId($list) {
 
 
 export function visualizeListOption(props) {
-    const {$list, newClass, oldClass} = props
+    const {
+        $list,
+        newClass,
+        oldClass,
+    } = props
 
     if(oldClass) $list.removeClass(oldClass);
     $list.addClass(newClass);
     
-
+    console.log("$list");
+    console.log($list);
 }
 
 
@@ -444,9 +520,6 @@ export function saveListOption(props) {
     
     saveBoardSettings();
 
-
-    debugLog( "Saved List Option" );
-    debugLog(boardSettings);
 }
 
 
@@ -542,17 +615,18 @@ function addClassToListInSettings(props) {
 function changeClassInListInSettings(props) {
     const { listId, classId } = props;
     const classIds = getClassIdSet(classId);
-    console.log("classIds");
-    console.log(classIds);
     let listSettings = getListSettingsRef(listId);
 
+    // Remove all the classes for this visual setimport { Animate } from '@wordpress/components';
+    // (There should only be one, but if there's somehow more they will all go)
     removeClassIdsFromListInSettings({
         classIds,
         listId
     });
+    // Add back in the one just switched to
     listSettings.classIds.push(classId);
 
-    debugLog("Changed classId '"+ classId +"' within listId '"+ listId +"' in settings");
+    debugLog("Changed to classId '"+ classId +"' within listId '"+ listId +"' in settings");
 };
 
 
@@ -562,10 +636,22 @@ function changeClassInListInSettings(props) {
 
 
 
+// function getBoardPresetRef(presetId) {
+//     const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+
+// }
+
+
+
+function getListSettingsArray() {
+    return boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
+}
+
+
 
 function getListSettingsRef(listId) {
 
-    const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+    const boardListSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
 
     for(let k = 0; k < boardListSettings.length; k++) {
 
@@ -602,10 +688,10 @@ function getBoardPreset() {
     let boardSettings = getBoardSettings();
 
     if(boardSettings.boardPresets == undefined ) {
-        boardSettings.boardPresets[presetId] = initBoardPreset();
+        boardSettings.boardPresets[boardSettings.activeBoardPreset] = initBoardPreset();
     };
 
-    return boardSettings.boardPresets[presetId];
+    return boardSettings.boardPresets[boardSettings.activeBoardPreset];
 }
 
 function getBoardSettings() {

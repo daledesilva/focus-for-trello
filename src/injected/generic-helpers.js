@@ -10,7 +10,7 @@ export function devWarning(text) {
 
 export function userConsoleNote(text) {
     // display a warning in the console
-    console.log( "Focus Trello action: " + text );
+    console.log( "FOCUS FOR TRELLO: " + text );
 }
 
 

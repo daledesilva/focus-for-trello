@@ -14411,7 +14411,7 @@ function devWarning(text) {
 }
 function userConsoleNote(text) {
   // display a warning in the console
-  console.log("Focus Trello action: " + text);
+  console.log("FOCUS FOR TRELLO: " + text);
 }
 function debugLog(input) {
   // display a warning in the console
@@ -14424,7 +14424,7 @@ function debugLog(input) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeListOption, saveListOption, saveHeaderOption */
+/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, saveHeaderOption */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14439,6 +14439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextOptionInSet", function() { return getNextOptionInSet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getContainingList", function() { return getContainingList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeAllBoardSettings", function() { return visualizeAllBoardSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveHeaderOption", function() { return saveHeaderOption; });
@@ -14450,8 +14451,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var $activeList;
 var boardSettings; // Wipe this for each board
-
-var presetId = 0; // Listeners to update variables
+// Listeners to update variables
 ////////////////////////////////
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -14470,34 +14470,34 @@ function createListSettings(props) {
   let {
     listId,
     matchMethod,
-    presetId,
+    activeBoardPreset,
     classIds,
     customSettings
   } = props;
   if (listId == undefined) Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("No listId defined in createListSettings");
   if (matchMethod == undefined) matchMethod = _enumerators__WEBPACK_IMPORTED_MODULE_1__["MATCH_METHODS"].EXACT;
-  if (!presetId) presetId = null;
+  if (!activeBoardPreset) activeBoardPreset = 0;
   if (!classIds) classIds = new Array();
   if (!customSettings) customSettings = new Object();
   return {
     listId,
     matchMethod,
-    presetId,
+    activeBoardPreset,
     classIds,
     customSettings
   };
 }
 
 function initBoardSettings(url) {
-  presetId = 0;
   boardSettings = {
     settingsVersion: "2020.07.27",
     boardName: getBoardName(),
     boardUrl: trimUrl(url),
+    activeBoardPreset: 0,
     boardPresets: [{
       // Board preset 1
-      presetId: presetId,
-      presetName: "Unnamed preset " + presetId,
+      presetId: 0,
+      presetName: "Unnamed preset " + 1,
       isActiveWhenCycling: true,
       headerSettings: "DEFAULT",
       // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
@@ -14516,8 +14516,13 @@ function loadBoardSettings() {
   const boardId = boardSettings.boardUrl;
   chrome.storage.local.get([boardId], function (result) {
     if (result[boardId] != undefined) {
-      // TO DO: This is where it shoul run a function to update the board settings if the version is old.
-      boardSettings = result[boardId];
+      // TO DO: This is where it should run a function to update the board settings if the settings version number is old.
+      // Set the boardSettings from those loaded
+      boardSettings = result[boardId]; // define an activePreset if there wasn't one
+
+      if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0; // Update the board to match the board settings
+
+      visualizeAllBoardSettings();
     }
 
     Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded boardSettings from Chrome memory");
@@ -14529,9 +14534,10 @@ function saveBoardSettings() {
   chrome.storage.local.set({
     [boardId]: boardSettings
   }, function () {
+    // Asynchronous callback
     Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
   });
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Saved boardSettings to Chrome memory");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Set boardSettings to save in Chrome memory");
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
 } ////////////////////////////////
 
@@ -14710,6 +14716,47 @@ function getListId($list) {
   return $list.find(".js-list-name-input").text();
 }
 
+function getListById(id) {
+  let $list;
+  $(".js-list").each(function () {
+    let $this = $(this);
+    let curListId = $this.find(".js-list-name-input").text();
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Looking for list with id '" + id + "', seeing '" + curListId);
+
+    if (curListId == id) {
+      Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("-- MATCH --");
+      $list = $(this);
+      return false; // to exit each loop
+    }
+  });
+
+  if ($list) {
+    return $list;
+  } else {
+    // TO DO: What happens if it doesn't find the list?
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["devWarning"])("No list with id '" + id + "' found.");
+  }
+}
+
+function visualizeAllBoardSettings() {
+  // get all an array of listSettings for all lists
+  let allListSettings = getListSettingsArray();
+
+  for (let k = 0; k < allListSettings.length; k++) {
+    // Individual list's settings
+    let listSettings = allListSettings[k];
+    let $list = getListById(listSettings.listId); // visualize each classId in the lists settings
+
+    for (const classId of listSettings.classIds) {
+      visualizeListOption({
+        $list,
+        newClass: classId
+      });
+    }
+  }
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualized all board settings");
+}
 function visualizeListOption(props) {
   const {
     $list,
@@ -14718,6 +14765,8 @@ function visualizeListOption(props) {
   } = props;
   if (oldClass) $list.removeClass(oldClass);
   $list.addClass(newClass);
+  console.log("$list");
+  console.log($list);
 }
 function saveListOption(props) {
   const {
@@ -14731,8 +14780,6 @@ function saveListOption(props) {
     listId
   });
   saveBoardSettings();
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Saved List Option");
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
 }
 function saveHeaderOption(props) {
   const {
@@ -14804,21 +14851,28 @@ function changeClassInListInSettings(props) {
     classId
   } = props;
   const classIds = getClassIdSet(classId);
-  console.log("classIds");
-  console.log(classIds);
-  let listSettings = getListSettingsRef(listId);
+  let listSettings = getListSettingsRef(listId); // Remove all the classes for this visual setimport { Animate } from '@wordpress/components';
+  // (There should only be one, but if there's somehow more they will all go)
+
   removeClassIdsFromListInSettings({
     classIds,
     listId
-  });
+  }); // Add back in the one just switched to
+
   listSettings.classIds.push(classId);
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Changed classId '" + classId + "' within listId '" + listId + "' in settings");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Changed to classId '" + classId + "' within listId '" + listId + "' in settings");
 }
 
-;
+; // function getBoardPresetRef(presetId) {
+//     const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+// }
+
+function getListSettingsArray() {
+  return boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
+}
 
 function getListSettingsRef(listId) {
-  const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
+  const boardListSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
 
   for (let k = 0; k < boardListSettings.length; k++) {
     if (listId == boardListSettings[k].listId) return boardListSettings[k];
@@ -14836,11 +14890,11 @@ function getBoardPreset() {
   let boardSettings = getBoardSettings();
 
   if (boardSettings.boardPresets == undefined) {
-    boardSettings.boardPresets[presetId] = initBoardPreset();
+    boardSettings.boardPresets[boardSettings.activeBoardPreset] = initBoardPreset();
   }
 
   ;
-  return boardSettings.boardPresets[presetId];
+  return boardSettings.boardPresets[boardSettings.activeBoardPreset];
 }
 
 function getBoardSettings() {
