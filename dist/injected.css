@@ -35,8 +35,20 @@
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-#focus_switch-focus-container #focus_setup-actions-btn {
+#focus_switch-focus-container .focus_presets-group {
   display: none;
+}
+#focus_switch-focus-container .focus_settings-group {
+  display: none;
+}
+#focus_switch-focus-container.focus_open .focus_presets-group {
+  display: block;
+}
+#focus_switch-focus-container.focus_open .focus_settings-group {
+  display: inline-block;
+}
+#focus_switch-focus-container .focus_circle-btn {
+  display: inline-block;
   color: #fff;
   background-color: #000;
   border-radius: 50%;
@@ -45,7 +57,7 @@
   height: 30px;
   position: relative;
 }
-#focus_switch-focus-container #focus_setup-actions-btn i {
+#focus_switch-focus-container .focus_circle-btn i {
   font-size: 20px;
   position: absolute;
   top: 50%;
@@ -53,25 +65,15 @@
   transform: translateX(-50%) translateY(-50%);
 }
 #focus_switch-focus-container #focus_switch-header-btn {
-  display: none;
-  color: #fff;
-  background-color: #000;
-  border-radius: 50%;
   margin-right: 10px;
   width: 50px;
   height: 50px;
-  position: relative;
 }
 #focus_switch-focus-container #focus_switch-header-btn i {
   font-size: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
 }
 #focus_switch-focus-container .focus_preset-container {
   margin: 1em 0;
-  display: none;
 }
 #focus_switch-focus-container .focus_preset-container:last-of-type {
   margin-bottom: 2em;
@@ -99,13 +101,6 @@
 #focus_switch-focus-container .focus_preset-container a:hover {
   color: #000;
   background-color: #fff;
-}
-#focus_switch-focus-container.focus_open #focus_setup-actions-btn,
-#focus_switch-focus-container.focus_open #focus_switch-header-btn {
-  display: inline-block;
-}
-#focus_switch-focus-container.focus_open .focus_preset-container {
-  display: block;
 }
 
 .focus_trello-ui_collapse {

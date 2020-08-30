@@ -16,7 +16,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings } from "./helpers";
 
 
 
@@ -260,109 +260,143 @@ function createFocusSwitchButton() {
 
             {/* Presets */}
 
-            <div class={[
-                plugin.slug + "_preset-container",
-                plugin.slug + "_unsaved"
-            ].join(" ")}>
+            <div className={plugin.slug + "_presets-group"}>
 
-                <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                    <i className="fas fa-trash"></i>
-                </a>
-                <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                    <i className="fas fa-save"></i>
-                </a>
-                <a className={ plugin.slug + "_preset-btn" } href="#">
-                    Unsaved Preset
-                </a>
+                <div className={[
+                    plugin.slug + "_preset-container",
+                    plugin.slug + "_unsaved"
+                ].join(" ")}>
+
+                    <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                        <i className="fas fa-trash"></i>
+                    </a>
+                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                        <i className="fas fa-save"></i>
+                    </a>
+                    <a className={ plugin.slug + "_preset-btn" } href="#">
+                        Unsaved Preset
+                    </a>
+                </div>
+
+                <div className={[
+                    plugin.slug + "_preset-container",
+                    plugin.slug + "_active",
+                ].join(" ")}>
+
+                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                        <i className="fas fa-trash"></i>
+                    </a> */}
+                    {/* Reset replaces trash */}
+                    <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                        <i className="fas fa-undo-alt"></i>
+                    </a>
+                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                        <i className="fas fa-save"></i>
+                    </a>
+                    <a className={ plugin.slug + "_preset-btn" } href="#">
+                        Current Iteration
+                    </a>
+                </div>
+
+                <div className={ plugin.slug + "_preset-container" }>
+                    {/* Delete only shows when hovered over */}
+                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                        <i className="fas fa-trash"></i>
+                    </a>
+                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                        <i className="fas fa-save"></i>
+                    </a> */}
+                    <a className={ plugin.slug + "_preset-btn" } href="#">
+                        Upcoming Iterations
+                    </a>
+                </div>
+
+                <div className={[
+                    plugin.slug + "_preset-container"
+                ].join(" ")}>
+                    {/* Save and reset appear if the preset has been temporarily change */}
+                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                        <i className="fas fa-trash"></i>
+                    </a> */}
+                    {/* Reset replaces trash */}
+                    <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                        <i className="fas fa-undo-alt"></i>
+                    </a>
+                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                        <i className="fas fa-save"></i>
+                    </a>
+                    <a className={ plugin.slug + "_preset-btn" } href="#">
+                        Current Iteration
+                    </a>
+                </div>
+
+                <div className={ plugin.slug + "_preset-container" }>
+                    {/* Delete only shows when hovered over */}
+                    <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                        <i className="fas fa-trash"></i>
+                    </a>
+                    {/* <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                        <i className="fas fa-save"></i>
+                    </a> */}
+                    <a className={ plugin.slug + "_preset-btn" } href="#">
+                        Past Iterations
+                    </a>
+                </div>
+
             </div>
 
-            <div class={[
-                plugin.slug + "_preset-container",
-                plugin.slug + "_active",
-            ].join(" ")}>
 
-                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                    <i className="fas fa-trash"></i>
-                </a> */}
-                {/* Reset replaces trash */}
-                <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                    <i className="fas fa-undo-alt"></i>
-                </a>
-                <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                    <i className="fas fa-save"></i>
-                </a>
-                <a className={ plugin.slug + "_preset-btn" } href="#">
-                    Current Iteration
-                </a>
+
+
+
+            <div className={plugin.slug + "_settings-group"}>
+            
+                {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
+
+                <Tooltip title="Erase preset settings" >
+                    <div
+                        href="#"
+                        id={ plugin.slug + "_setup-nuke-preset-btn" }
+                        className={ plugin.slug + "_circle-btn" }
+                    >
+                        <i className="fas fa-minus-square"/>
+                    </div>
+                </Tooltip>
+
+                <Tooltip title="Erase board settings" >
+                    <div
+                        href="#"
+                        id={ plugin.slug + "_setup-nuke-board-btn" }
+                        className={ plugin.slug + "_circle-btn" }
+                    >
+                        <i className="fas fa-calendar-times"/>
+                    </div>
+                </Tooltip>
+
+
+                {/* Settings and header switch buttons */}
+
+                <Tooltip title="Setup actions" >
+                    <div
+                        href="#"
+                        id={ plugin.slug + "_setup-actions-btn" }
+                        className={ plugin.slug + "_circle-btn" }
+                    >
+                        <i className="fas fa-cog"/>
+                    </div>
+                </Tooltip>
+
+                <Tooltip title="Switch header" >
+                    <div
+                        href="#"
+                        id={ plugin.slug + "_switch-header-btn" }
+                        className={ plugin.slug + "_circle-btn" }
+                    >
+                        <i className="fas fa-sync-alt"/>
+                    </div>
+                </Tooltip>
+
             </div>
-
-            <div class={ plugin.slug + "_preset-container" }>
-                {/* Delete only shows when hovered over */}
-                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                    <i className="fas fa-trash"></i>
-                </a>
-                <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                    <i className="fas fa-save"></i>
-                </a> */}
-                <a className={ plugin.slug + "_preset-btn" } href="#">
-                    Upcoming Iterations
-                </a>
-            </div>
-
-            <div class={[
-                plugin.slug + "_preset-container"
-            ].join(" ")}>
-                {/* Save and reset appear if the preset has been temporarily change */}
-                {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                    <i className="fas fa-trash"></i>
-                </a> */}
-                {/* Reset replaces trash */}
-                <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                    <i className="fas fa-undo-alt"></i>
-                </a>
-                <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                    <i className="fas fa-save"></i>
-                </a>
-                <a className={ plugin.slug + "_preset-btn" } href="#">
-                    Current Iteration
-                </a>
-            </div>
-
-            <div class={ plugin.slug + "_preset-container" }>
-                {/* Delete only shows when hovered over */}
-                <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                    <i className="fas fa-trash"></i>
-                </a>
-                {/* <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                    <i className="fas fa-save"></i>
-                </a> */}
-                <a className={ plugin.slug + "_preset-btn" } href="#">
-                    Past Iterations
-                </a>
-            </div>
-
-
-
-
-            {/* Settings and header switch buttons */}
-
-            <Tooltip title="Setup actions" >
-                <a
-                    href="#"
-                    id={ plugin.slug + "_setup-actions-btn" }
-                >
-                    <i className="fas fa-cog"/>
-                </a>
-            </Tooltip>
-
-            <Tooltip title="Switch header" >
-                <a
-                    href="#"
-                    id={ plugin.slug + "_switch-header-btn" }
-                >
-                    <i className="fas fa-sync-alt"/>
-                </a>
-            </Tooltip>
 
 
 
@@ -398,6 +432,8 @@ function createFocusSwitchButton() {
     /////////////////////
     $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
     $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
+    $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-preset-btn").on("click", nukePresetSettings);
+    $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
     // RIGHT CLICK ACTIONS
     //////////////////////

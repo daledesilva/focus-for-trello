@@ -14161,7 +14161,9 @@ function createFocusSwitchButton() {
   let switchFocusContainer = jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_unsaved"].join(" ")
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_presets-group"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    className: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_unsaved"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_delete-preset-btn",
     href: "#"
@@ -14176,7 +14178,7 @@ function createFocusSwitchButton() {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Unsaved Preset")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_active"].join(" ")
+    className: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container", _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_active"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
@@ -14191,12 +14193,12 @@ function createFocusSwitchButton() {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Upcoming Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"].join(" ")
+    className: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_clear-preset-changes-btn",
     href: "#"
@@ -14211,7 +14213,7 @@ function createFocusSwitchButton() {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
   }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
-    class: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_delete-preset-btn",
     href: "#"
@@ -14220,21 +14222,41 @@ function createFocusSwitchButton() {
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Past Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
-    title: "Setup actions"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+  }, "Past Iterations"))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_settings-group"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
+    title: "Erase preset settings"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-actions-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-nuke-preset-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_circle-btn"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-minus-square"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
+    title: "Erase board settings"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    href: "#",
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-nuke-board-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_circle-btn"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
+    className: "fas fa-calendar-times"
+  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
+    title: "Setup actions"
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+    href: "#",
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-actions-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_circle-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-cog"
   }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Switch header"
-  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
+  }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     href: "#",
-    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn"
+    id: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn",
+    className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_circle-btn"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
-  }))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
+  })))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Switch focus",
     tag: "a"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
@@ -14251,7 +14273,9 @@ function createFocusSwitchButton() {
   /////////////////////
 
   $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-btn").on("click", switchFocus);
-  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn").on("click", switchHeader); // RIGHT CLICK ACTIONS
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-header-btn").on("click", switchHeader);
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-nuke-preset-btn").on("click", _helpers__WEBPACK_IMPORTED_MODULE_10__["nukePresetSettings"]);
+  $switchFocusContainer.find("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_setup-nuke-board-btn").on("click", _helpers__WEBPACK_IMPORTED_MODULE_10__["nukeBoardSettings"]); // RIGHT CLICK ACTIONS
   //////////////////////
 
   $("#" + _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_switch-focus-btn").bind("contextmenu", function (e) {
@@ -14377,13 +14401,15 @@ function debugLog(input) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: loadBoardSettings, saveBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, cycleBoardPresets, cycleBoardHeader */
+/*! exports provided: loadBoardSettings, saveBoardSettings, nukePresetSettings, nukeBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, cycleBoardPresets, cycleBoardHeader */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadBoardSettings", function() { return loadBoardSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBoardSettings", function() { return saveBoardSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nukePresetSettings", function() { return nukePresetSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nukeBoardSettings", function() { return nukeBoardSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveList", function() { return setActiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "$getActiveList", function() { return $getActiveList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listNameMatchesId", function() { return listNameMatchesId; });
@@ -14468,6 +14494,23 @@ function initBoardSettings(url) {
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
 }
 
+function initBoardPreset(id) {
+  // If it already exists, then bail.
+  if (boardSettings.boardPresets[id]) return;
+  boardSettings.boardPresets[id] = {
+    presetId: id,
+    presetName: "Unnamed preset " + 1,
+    isActiveWhenCycling: true,
+    headerSetting: 0,
+    //"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+    listSettings: [// createListSettings({}),
+      // createListSettings({}),
+    ]
+  };
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Board Preset Initialised");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+}
+
 function loadBoardSettings() {
   const boardId = boardSettings.boardUrl;
   chrome.storage.local.get([boardId], function (result) {
@@ -14495,6 +14538,27 @@ function saveBoardSettings() {
   });
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Set boardSettings to save in Chrome memory");
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+}
+function nukePresetSettings() {
+  let presetToDelete = boardSettings.activeBoardPreset;
+  boardSettings.boardPresets.splice(presetToDelete, 1);
+
+  if (presetToDelete > 0) {
+    boardSettings.activeBoardPreset--;
+  } else {
+    boardSettings.activeBoardPreset = boardSettings.boardPresets.length - 1;
+  }
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Preset settings erased, previous remaining preset activated");
+  visualizeAllBoardSettings();
+  saveBoardSettings();
+}
+function nukeBoardSettings() {
+  let url = boardSettings.boardUrl;
+  initBoardSettings(url);
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings erased.");
+  visualizeAllBoardSettings();
+  saveBoardSettings();
 } ////////////////////////////////
 
 function setActiveList($list) {
@@ -14695,9 +14759,20 @@ function getListById(id) {
 }
 
 function visualizeAllBoardSettings() {
-  // get all an array of listSettings for all lists
+  // get an array of listSettings for all lists
   let allListSettings = getListSettingsArray();
+  visualizeAllListOptionsForAllLists();
+  visualizeHeaderSetting();
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualized all board settings");
+}
 
+function visualizeAllListOptionsForAllLists() {
+  // TO DO:
+  // Even if the list isn't in the settings, it needs o be iterated and visualised.
+  // This is because it might still be showing visualisations from before a deletion of settings.
+  // Iterate through all $lists and reset them back to default first
+  // resetListAppearance($list);
+  // Iterate through all save options for lists and update
   for (let k = 0; k < allListSettings.length; k++) {
     // Individual list's settings
     let listSettings = allListSettings[k];
@@ -14710,10 +14785,11 @@ function visualizeAllBoardSettings() {
       });
     }
   }
-
-  visualizeHeaderSetting();
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualized all board settings");
 }
+
+function resetListAppearance($list) {// TO DO: Remove any class defined as a user option from the list.
+}
+
 function visualizeListOption(props) {
   const {
     $list,
@@ -14861,14 +14937,16 @@ function getBoardSettings() {
   return boardSettings;
 }
 
-function cycleBoardPresets() {
-  let totalPresets = boardSettings.boardPresets.length;
-  boardSettings.activeBoardPreset++;
-  boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
-
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Cycling board presets. New preset: '" + boardSettings.activeBoardPreset + "'");
-  visualizeAllBoardSettings();
-  saveBoardSettings();
+function cycleBoardPresets() {// // If it's the first preset, leave it as default
+  // boardSettings.activeBoardPreset ++;
+  // initBoardPreset(boardSettings.activeBoardPreset);
+  // // If it's not the first...
+  // // If it's unchanged, delete it
+  // let totalPresets = boardSettings.boardPresets.length;
+  // boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
+  // debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
+  // visualizeAllBoardSettings();
+  // saveBoardSettings();
 }
 function cycleBoardHeader() {
   boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting++;

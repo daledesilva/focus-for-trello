@@ -116,6 +116,45 @@ function initBoardSettings(url) {
 }
 
 
+
+
+function initBoardPreset(id) {
+
+    // If it already exists, then bail.
+    if(boardSettings.boardPresets[id])  return;
+
+
+
+    boardSettings.boardPresets[id] = {
+    
+        presetId: id,
+        presetName: "Unnamed preset "+1,
+        isActiveWhenCycling: true,
+        
+        headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+
+        listSettings: [
+            // createListSettings({}),
+            // createListSettings({}),
+            
+        ]
+
+    }
+
+
+    debugLog("Board Preset Initialised");
+    debugLog(boardSettings);
+}
+
+
+
+
+
+
+
+
+
+
 export function loadBoardSettings() {
     const boardId = boardSettings.boardUrl;
 
@@ -160,6 +199,36 @@ export function saveBoardSettings() {
     debugLog("Set boardSettings to save in Chrome memory");
     debugLog(boardSettings);
     
+}
+
+
+
+
+export function nukePresetSettings() {
+    let presetToDelete = boardSettings.activeBoardPreset;
+
+    boardSettings.boardPresets.splice(presetToDelete, 1);
+    if(presetToDelete > 0) {
+        boardSettings.activeBoardPreset --;
+    } else {
+        boardSettings.activeBoardPreset = boardSettings.boardPresets.length-1;
+    }
+
+    userConsoleNote("Preset settings erased, previous remaining preset activated");
+
+    visualizeAllBoardSettings();
+    saveBoardSettings();
+
+}
+
+export function nukeBoardSettings() {
+    let url = boardSettings.boardUrl;
+
+    initBoardSettings(url);
+    userConsoleNote("Board settings erased.");
+
+    visualizeAllBoardSettings();
+    saveBoardSettings();
 }
 
 
@@ -460,9 +529,31 @@ function getListById(id) {
 
 export function visualizeAllBoardSettings() {
 
-    // get all an array of listSettings for all lists
+    // get an array of listSettings for all lists
     let allListSettings = getListSettingsArray();
 
+    visualizeAllListOptionsForAllLists();
+    visualizeHeaderSetting();
+
+    debugLog("Visualized all board settings");
+    
+
+}
+
+
+
+function visualizeAllListOptionsForAllLists() {
+
+
+    // TO DO:
+    // Even if the list isn't in the settings, it needs o be iterated and visualised.
+    // This is because it might still be showing visualisations from before a deletion of settings.
+
+    // Iterate through all $lists and reset them back to default first
+    // resetListAppearance($list);
+
+
+    // Iterate through all save options for lists and update
     for(let k = 0; k < allListSettings.length; k++) {
         // Individual list's settings
         let listSettings = allListSettings[k];
@@ -478,20 +569,20 @@ export function visualizeAllBoardSettings() {
             });
 
         }
-        
-
     }
 
-    visualizeHeaderSetting();
 
-    debugLog("Visualized all board settings");
-    
 
 }
 
 
 
 
+function resetListAppearance($list) {
+
+    // TO DO: Remove any class defined as a user option from the list.
+
+}
 
 
 
@@ -716,16 +807,25 @@ function getBoardSettings() {
 
 
 export function cycleBoardPresets() {
-    let totalPresets =  boardSettings.boardPresets.length;
-    boardSettings.activeBoardPreset ++;
-    boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
 
-    debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
+    // // If it's the first preset, leave it as default
+    // boardSettings.activeBoardPreset ++;
+    // initBoardPreset(boardSettings.activeBoardPreset);
+
+    // // If it's not the first...
+    
+    // // If it's unchanged, delete it
+
+    // let totalPresets = boardSettings.boardPresets.length;
+    
+    // boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
 
     
 
-    visualizeAllBoardSettings();
-    saveBoardSettings();
+    // debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
+
+    // visualizeAllBoardSettings();
+    // saveBoardSettings();
 }
 
 

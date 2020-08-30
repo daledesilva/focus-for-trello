@@ -67,10 +67,40 @@ $feature-color: #007acc;
 
 
 
-   ##{$plugin_slug}_setup-actions-btn {
 
-      // start closed
+
+   // Start closed
+   ////
+   .#{$plugin_slug}_presets-group {
       display: none;
+   }
+   .#{$plugin_slug}_settings-group {
+      display: none;
+   }
+
+
+
+   // Show contents when open
+   &.#{$plugin_slug}_open {
+
+      .#{$plugin_slug}_presets-group {
+         display: block;
+      }
+   
+      .#{$plugin_slug}_settings-group {
+         display: inline-block;
+      }
+   
+   }
+
+
+
+
+   // TO DO: Incorporate css of switch focus button too?
+
+   .#{$plugin_slug}_circle-btn {
+
+      display: inline-block;
 
       // STYLING
       //////////
@@ -83,19 +113,8 @@ $feature-color: #007acc;
 
       // SIZING
       /////////
-      // display: inline-block;
       width: 30px;
       height: 30px;
-      @media (max-width: $small-width-breakpoint), (max-height: $small-height-breakpoint) {
-         // if it's below this width OR below this height
-         // width: 30px;
-         // height: 30px;
-      }
-      @media (max-width: $tiny-width-breakpoint), (max-height: $tiny-height-breakpoint) {
-         // if it's below this width OR below this height
-         // width: 50px;
-         // height: 50px;
-      }
 
       position: relative;
 
@@ -106,6 +125,8 @@ $feature-color: #007acc;
          left: 50%;
          transform: translateX(-50%) translateY(-50%);
       }
+
+
    }
 
 
@@ -113,43 +134,17 @@ $feature-color: #007acc;
 
    ##{$plugin_slug}_switch-header-btn {
 
-      // start closed
-      display: none;
-
-      // STYLING
-      //////////
-      color: #fff;
-      background-color: #000;
-      border-radius: 50%;
-
       // SPACING
       margin-right: 10px;
 
       // SIZING
-      /////////
-      // display: inline-block;
       width: 50px;
       height: 50px;
-      @media (max-width: $small-width-breakpoint), (max-height: $small-height-breakpoint) {
-         // if it's below this width OR below this height
-         // width: 30px;
-         // height: 30px;
-      }
-      @media (max-width: $tiny-width-breakpoint), (max-height: $tiny-height-breakpoint) {
-         // if it's below this width OR below this height
-         // width: 50px;
-         // height: 50px;
-      }
-
-      position: relative;
 
       i {
          font-size: 25px;
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translateX(-50%) translateY(-50%);
       }
+      
    }
 
 
@@ -160,9 +155,6 @@ $feature-color: #007acc;
    .#{$plugin_slug}_preset-container {
 
       margin: 1em 0;
-
-      // start closed
-      display: none;
       
       &:last-of-type {
          margin-bottom: 2em;
@@ -208,18 +200,7 @@ $feature-color: #007acc;
    }
 
 
-   &.#{$plugin_slug}_open {
-
-      ##{$plugin_slug}_setup-actions-btn,
-      ##{$plugin_slug}_switch-header-btn {
-         display: inline-block;
-      }
-      .#{$plugin_slug}_preset-container
-      {
-         display: block;
-      }
-
-   }
+   
 
 
   
