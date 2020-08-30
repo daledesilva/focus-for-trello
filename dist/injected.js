@@ -14679,9 +14679,7 @@ function getNextOptionInSet(currentClass, optionSet) {
   return optionSet[nextIndex];
 }
 function getContainingList(id) {
-  console.log(id);
-  console.log($("#" + id).closest(".js-list"));
-  return $("#" + id).closest(".js-list"); //return $element.closest(".js-list");
+  return $("#" + id).closest(".js-list");
 }
 function cycleOptionInList(optionSet, $list) {
   // TO DO: This can all be done more efficiently with indices
@@ -14741,10 +14739,8 @@ function getListById(id) {
   $(".js-list").each(function () {
     let $this = $(this);
     let curListId = $this.find(".js-list-name-input").text();
-    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Looking for list with id '" + id + "', seeing '" + curListId);
 
     if (curListId == id) {
-      Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("-- MATCH --");
       $list = $(this);
       return false; // to exit each loop
     }
@@ -14759,20 +14755,22 @@ function getListById(id) {
 }
 
 function visualizeAllBoardSettings() {
-  // get an array of listSettings for all lists
-  let allListSettings = getListSettingsArray();
   visualizeAllListOptionsForAllLists();
   visualizeHeaderSetting();
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualized all board settings");
 }
 
 function visualizeAllListOptionsForAllLists() {
-  // TO DO:
-  // Even if the list isn't in the settings, it needs o be iterated and visualised.
-  // This is because it might still be showing visualisations from before a deletion of settings.
   // Iterate through all $lists and reset them back to default first
-  // resetListAppearance($list);
-  // Iterate through all save options for lists and update
+  // This is because, even if the list isn't in the settings, it might still be showing visualisations from before a deletion of settings.
+  $(".js-list").each(function () {
+    let $this = $(this);
+    resetListAppearance($this);
+  });
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Reset all list appearances"); // get an array of lists that do have listSettings in the current board preset
+
+  let allListSettings = getListSettingsArray(); // Iterate through all saved settings for lists and update
+
   for (let k = 0; k < allListSettings.length; k++) {
     // Individual list's settings
     let listSettings = allListSettings[k];
@@ -14785,9 +14783,21 @@ function visualizeAllListOptionsForAllLists() {
       });
     }
   }
+
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualize all saved list settings");
 }
 
-function resetListAppearance($list) {// TO DO: Remove any class defined as a user option from the list.
+function resetListAppearance($list) {
+  // TO DO: Remove any class defined as a user option from the list.
+  let listId = getListId($list);
+
+  for (const property in _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS) {
+    visualizeListOption({
+      $list,
+      newClass: _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS[property][0].class // Class of first option (Trello default)
+
+    });
+  }
 }
 
 function visualizeListOption(props) {
@@ -14798,8 +14808,6 @@ function visualizeListOption(props) {
   } = props;
   if (oldClass) $list.removeClass(oldClass);
   $list.addClass(newClass);
-  console.log("$list");
-  console.log($list);
 }
 function saveListOption(props) {
   const {
@@ -14906,9 +14914,8 @@ function getListSettingsRef(listId) {
 
   for (let k = 0; k < boardListSettings.length; k++) {
     if (listId == boardListSettings[k].listId) return boardListSettings[k];
-  }
+  } // It wasn't found in the settings, so put it there
 
-  console.log("listId: " + listId); // It wasn't found in the settings, so put it there
 
   boardListSettings.push(createListSettings({
     listId
@@ -14937,16 +14944,24 @@ function getBoardSettings() {
   return boardSettings;
 }
 
-function cycleBoardPresets() {// // If it's the first preset, leave it as default
-  // boardSettings.activeBoardPreset ++;
-  // initBoardPreset(boardSettings.activeBoardPreset);
-  // // If it's not the first...
-  // // If it's unchanged, delete it
-  // let totalPresets = boardSettings.boardPresets.length;
-  // boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
-  // debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
-  // visualizeAllBoardSettings();
-  // saveBoardSettings();
+function cycleBoardPresets() {
+  // TO DO: This needs to iterate the activeBoardPreset forward, but only one past the current presets.
+  // If iterating again after that, it should loop back to 0.
+  // However, this means there needs to be a way to know if a preset has been changed from default so it can be deleted when cycled past if not.
+  // So that the preset doesn't hang around and with each cycle increase the number of presets.
+  // Instead of initialising presets that shouldn't hang around, a more robust solution should be designed.
+  // Perhaps:
+  // In the boardSettings, preset 0 is reserve for the default Trello appearances.
+  // Whenever this is the activeBoardPreset, the functions which make changes to the settings first jump the activeBoardPreset number to it's length.
+  // This way preset 0 is never touched and always represents Trello default a d because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
+  // TO DO: For now this limits the number of presets to 2. The above should be implemented to make this dynamic.
+  boardSettings.activeBoardPreset++;
+  boardSettings.activeBoardPreset %= 2; // TO DO
+
+  initBoardPreset(boardSettings.activeBoardPreset);
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Cycling board presets. New preset: '" + boardSettings.activeBoardPreset + "'");
+  visualizeAllBoardSettings();
+  saveBoardSettings();
 }
 function cycleBoardHeader() {
   boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting++;

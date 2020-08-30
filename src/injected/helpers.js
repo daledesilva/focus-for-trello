@@ -93,7 +93,7 @@ function initBoardSettings(url) {
                 presetId: 0,
                 presetName: "Unnamed preset "+1,
                 isActiveWhenCycling: true,
-                
+
                 headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
     
                 listSettings: [
@@ -392,12 +392,8 @@ export function getNextOptionInSet(currentClass, optionSet) {
 
 
 
-export function getContainingList(id) {
-    console.log(id);
-    console.log($("#" + id).closest(".js-list"));
-    
+export function getContainingList(id) {    
     return $("#" + id).closest(".js-list");
-    //return $element.closest(".js-list");
 }
 
 
@@ -499,10 +495,7 @@ function getListById(id) {
         let $this = $(this);
         let curListId = $this.find(".js-list-name-input").text();
 
-        debugLog("Looking for list with id '"+ id + "', seeing '"+curListId)
-
         if(curListId == id){
-            debugLog("-- MATCH --");
             $list = $(this);
             return false; // to exit each loop
         }
@@ -529,9 +522,6 @@ function getListById(id) {
 
 export function visualizeAllBoardSettings() {
 
-    // get an array of listSettings for all lists
-    let allListSettings = getListSettingsArray();
-
     visualizeAllListOptionsForAllLists();
     visualizeHeaderSetting();
 
@@ -544,16 +534,20 @@ export function visualizeAllBoardSettings() {
 
 function visualizeAllListOptionsForAllLists() {
 
-
-    // TO DO:
-    // Even if the list isn't in the settings, it needs o be iterated and visualised.
-    // This is because it might still be showing visualisations from before a deletion of settings.
-
     // Iterate through all $lists and reset them back to default first
-    // resetListAppearance($list);
+    // This is because, even if the list isn't in the settings, it might still be showing visualisations from before a deletion of settings.
+    $(".js-list").each( function () {
+        let $this = $(this);
+        resetListAppearance($this);    
+    })
 
+    debugLog("Reset all list appearances");
+    
 
-    // Iterate through all save options for lists and update
+    // get an array of lists that do have listSettings in the current board preset
+    let allListSettings = getListSettingsArray();
+
+    // Iterate through all saved settings for lists and update
     for(let k = 0; k < allListSettings.length; k++) {
         // Individual list's settings
         let listSettings = allListSettings[k];
@@ -571,6 +565,7 @@ function visualizeAllListOptionsForAllLists() {
         }
     }
 
+    debugLog("Visualize all saved list settings");
 
 
 }
@@ -581,6 +576,16 @@ function visualizeAllListOptionsForAllLists() {
 function resetListAppearance($list) {
 
     // TO DO: Remove any class defined as a user option from the list.
+
+    let listId = getListId($list);
+    for(const property in OPTIONS.LISTS) {
+
+        visualizeListOption({
+            $list,
+            newClass: OPTIONS.LISTS[property][0].class, // Class of first option (Trello default)
+        });
+
+    }
 
 }
 
@@ -596,9 +601,6 @@ export function visualizeListOption(props) {
 
     if(oldClass) $list.removeClass(oldClass);
     $list.addClass(newClass);
-    
-    console.log("$list");
-    console.log($list);
 }
 
 
@@ -753,8 +755,6 @@ function getListSettingsRef(listId) {
 
     }
     
-    console.log("listId: " + listId);
-
     // It wasn't found in the settings, so put it there
     boardListSettings.push( createListSettings({
         listId
@@ -808,24 +808,27 @@ function getBoardSettings() {
 
 export function cycleBoardPresets() {
 
-    // // If it's the first preset, leave it as default
-    // boardSettings.activeBoardPreset ++;
-    // initBoardPreset(boardSettings.activeBoardPreset);
+    // TO DO: This needs to iterate the activeBoardPreset forward, but only one past the current presets.
+    // If iterating again after that, it should loop back to 0.
+    // However, this means there needs to be a way to know if a preset has been changed from default so it can be deleted when cycled past if not.
+    // So that the preset doesn't hang around and with each cycle increase the number of presets.
 
-    // // If it's not the first...
-    
-    // // If it's unchanged, delete it
+    // Instead of initialising presets that shouldn't hang around, a more robust solution should be designed.
+    // Perhaps:
+    // In the boardSettings, preset 0 is reserve for the default Trello appearances.
+    // Whenever this is the activeBoardPreset, the functions which make changes to the settings first jump the activeBoardPreset number to it's length.
+    // This way preset 0 is never touched and always represents Trello default a d because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
 
-    // let totalPresets = boardSettings.boardPresets.length;
-    
-    // boardSettings.activeBoardPreset %= totalPresets + 1; // This might cause a blank preset to be left at the start if you switch presets immediately before changing anything.
+    // TO DO: For now this limits the number of presets to 2. The above should be implemented to make this dynamic.
+    boardSettings.activeBoardPreset ++;
+    boardSettings.activeBoardPreset %= 2; // TO DO
 
-    
+    initBoardPreset(boardSettings.activeBoardPreset);
 
-    // debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
+    debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
 
-    // visualizeAllBoardSettings();
-    // saveBoardSettings();
+    visualizeAllBoardSettings();
+    saveBoardSettings();
 }
 
 
