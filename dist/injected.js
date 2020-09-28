@@ -14325,7 +14325,12 @@ function startPageChangeObserver() {
 
 
 function immediatePageAdjustments() {
-  interpretLists(); // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
+  // TO DO: Interpret lists may be superseded by visualizeAllBoardSettings - look into deleting and what might be in there to salvage.
+  // interpretLists();
+  // This is getting run repeatedly - check if the page initialization functions should run more than once
+  // (When a new list is created it should be unstyled anyway - and then you use the menu to style it which visualises the list there).
+  // It will only need to be monitored again when partial name selectors are implemented.
+  Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["visualizeAllBoardSettings"])(); // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
   // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
 
   createListButtons();
@@ -14520,11 +14525,10 @@ function loadBoardSettings() {
       boardSettings = result[boardId]; // define an activePreset if there wasn't one
 
       if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0; // Update the board to match the board settings
-
-      visualizeAllBoardSettings();
+      // visualizeAllBoardSettings();
     }
 
-    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded boardSettings from Chrome memory");
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded boardSettings from Chrome memory ...waiting for Dom to be ready.");
     Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
   });
 }
@@ -14774,7 +14778,10 @@ function visualizeAllListOptionsForAllLists() {
   for (let k = 0; k < allListSettings.length; k++) {
     // Individual list's settings
     let listSettings = allListSettings[k];
-    let $list = getListById(listSettings.listId); // visualize each classId in the lists settings
+    let $list = getListById(listSettings.listId); // skip this loop if the list can't be found
+    // TO DO: This should really try and find it by another means and if all else fails, delete the record
+
+    if ($list == undefined) continue; // visualize each classId in the lists settings
 
     for (const classId of listSettings.classIds) {
       visualizeListOption({

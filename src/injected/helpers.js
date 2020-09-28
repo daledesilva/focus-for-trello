@@ -173,12 +173,15 @@ export function loadBoardSettings() {
                 // define an activePreset if there wasn't one
                 if(!boardSettings.activeBoardPreset)    boardSettings.activeBoardPreset = 0;
 
+
                 // Update the board to match the board settings
-                visualizeAllBoardSettings();
+                // visualizeAllBoardSettings();
+                
+                
 
             }
 
-            debugLog("Loaded boardSettings from Chrome memory");
+            debugLog("Loaded boardSettings from Chrome memory ...waiting for Dom to be ready.");
             debugLog(boardSettings);
             
         }
@@ -553,6 +556,11 @@ function visualizeAllListOptionsForAllLists() {
         let listSettings = allListSettings[k];
 
         let $list = getListById(listSettings.listId);
+
+        // skip this loop if the list can't be found
+        // TO DO: This should really try and find it by another means and if all else fails, delete the record
+        if($list == undefined)  continue;
+
 
         // visualize each classId in the lists settings
         for(const classId of listSettings.classIds) {

@@ -16,7 +16,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings } from "./helpers";
 
 
 
@@ -104,6 +104,9 @@ var headerAppearance = 0;
 //
 function interpretLists() {
     "use strict";
+
+
+
 
     $latestMutations.find(".list-header h2").each( function() {
 
@@ -542,7 +545,14 @@ function startPageChangeObserver() {
 // - Must be re-run any time the page changes.
 // - Is visible immediately and thus will call visual discrepancy if delayed.
 function immediatePageAdjustments() {
-    interpretLists();
+    
+    // TO DO: Interpret lists may be superseded by visualizeAllBoardSettings - look into deleting and what might be in there to salvage.
+    // interpretLists();
+
+    // This is getting run repeatedly - check if the page initialization functions should run more than once
+    // (When a new list is created it should be unstyled anyway - and then you use the menu to style it which visualises the list there).
+    // It will only need to be monitored again when partial name selectors are implemented.
+    visualizeAllBoardSettings();
 
     // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
     // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
