@@ -14192,12 +14192,12 @@ function createFocusSwitchButton() {
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+  }, "Everyday Workflow")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Upcoming Iterations")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+  }, "Short-term Planning Workflow")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     className: [_metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"].join(" ")
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_clear-preset-changes-btn",
@@ -14212,7 +14212,7 @@ function createFocusSwitchButton() {
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Current Iteration")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+  }, "Long-term Planning Workflow")), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-container"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_delete-preset-btn",
@@ -14222,7 +14222,7 @@ function createFocusSwitchButton() {
   })), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_preset-btn",
     href: "#"
-  }, "Past Iterations"))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
+  }, "Retrospective Workflow"))), jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
     className: _metadata__WEBPACK_IMPORTED_MODULE_8__["plugin"].slug + "_settings-group"
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_4__["Tooltip"], {
     title: "Erase preset settings"
@@ -14265,6 +14265,7 @@ function createFocusSwitchButton() {
   }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
     className: "fas fa-sync-alt"
   }))));
+  console.log("Attaching switch buttons");
   let $switchFocusContainer = $(switchFocusContainer);
   $body.prepend($switchFocusContainer); // MOUSEOVERS
   /////////////
@@ -14330,9 +14331,9 @@ function immediatePageAdjustments() {
   // This is getting run repeatedly - check if the page initialization functions should run more than once
   // (When a new list is created it should be unstyled anyway - and then you use the menu to style it which visualises the list there).
   // It will only need to be monitored again when partial name selectors are implemented.
-  Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["visualizeAllBoardSettings"])(); // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
+  //    visualizeAllBoardSettings();
+  // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
   // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
-
   createListButtons();
 } // Runs a split second after anything on the page changes.
 // Put things in here that:
@@ -14342,6 +14343,7 @@ function immediatePageAdjustments() {
 
 function delayedPageChangeAdjustments() {
   createEventsToRememberUserActions();
+  Object(_helpers__WEBPACK_IMPORTED_MODULE_10__["visualizeAllBoardSettings"])();
 } // Actions that need to be run only once on the page
 // Runs immediately whenever anything on the page changes.
 
@@ -14445,7 +14447,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.url) {
     if (boardSettings == undefined || boardSettings.boardUrl != request.url) {
       // Initialise the boardSettings object
-      initBoardSettings(request.url);
+      initBoardSettings({
+        completeUrl: request.url
+      });
     } // Then load in saved settings (will not overide if saved settings don't exist)
 
 
@@ -14475,11 +14479,17 @@ function createListSettings(props) {
   };
 }
 
-function initBoardSettings(url) {
+function initBoardSettings(props) {
+  const {
+    completeUrl,
+    // ie. https://trello.com/b/KNETfkws/general
+    trimmedUrl // ie. https://trello.com/b/KNETfkws
+
+  } = props;
   boardSettings = {
     settingsVersion: "2020.07.27",
     boardName: getBoardName(),
-    boardUrl: trimUrl(url),
+    boardUrl: trimmedUrl || trimUrl(completeUrl),
     activeBoardPreset: 0,
     boardPresets: [{
       // Board preset 1
@@ -14519,31 +14529,32 @@ function initBoardPreset(id) {
 function loadBoardSettings() {
   const boardId = boardSettings.boardUrl;
   chrome.storage.local.get([boardId], function (result) {
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded these boardSettings from Chrome memory:");
+    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+
     if (result[boardId] != undefined) {
       // TO DO: This is where it should run a function to update the board settings if the settings version number is old.
       // Set the boardSettings from those loaded
       boardSettings = result[boardId]; // define an activePreset if there wasn't one
 
-      if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0; // Update the board to match the board settings
-      // visualizeAllBoardSettings();
+      if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0;
+      visualizeAllBoardSettings();
     }
-
-    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Loaded boardSettings from Chrome memory ...waiting for Dom to be ready.");
-    Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
   });
 }
 function saveBoardSettings() {
-  const boardId = boardSettings.boardUrl;
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Sending boardSettings to save in Chrome memory");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
+  const boardId = boardSettings.boardUrl; // Asynchronous callback
+
   chrome.storage.local.set({
     [boardId]: boardSettings
   }, function () {
-    // Asynchronous callback
     Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
   });
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Set boardSettings to save in Chrome memory");
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
 }
 function nukePresetSettings() {
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Erasing current board preset");
   let presetToDelete = boardSettings.activeBoardPreset;
   boardSettings.boardPresets.splice(presetToDelete, 1);
 
@@ -14558,9 +14569,10 @@ function nukePresetSettings() {
   saveBoardSettings();
 }
 function nukeBoardSettings() {
-  let url = boardSettings.boardUrl;
-  initBoardSettings(url);
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Board settings erased.");
+  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Erasing board settings for " + boardSettings.boardUrl);
+  initBoardSettings({
+    trimmedUrl: boardSettings.boardUrl
+  });
   visualizeAllBoardSettings();
   saveBoardSettings();
 } ////////////////////////////////
@@ -14770,8 +14782,8 @@ function visualizeAllListOptionsForAllLists() {
   $(".js-list").each(function () {
     let $this = $(this);
     resetListAppearance($this);
-  });
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Reset all list appearances"); // get an array of lists that do have listSettings in the current board preset
+  }); // debugLog("Reset all list appearances");
+  // get an array of lists that do have listSettings in the current board preset
 
   let allListSettings = getListSettingsArray(); // Iterate through all saved settings for lists and update
 
@@ -14789,9 +14801,8 @@ function visualizeAllListOptionsForAllLists() {
         newClass: classId
       });
     }
-  }
+  } // debugLog("Visualize all saved list settings");
 
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Visualize all saved list settings");
 }
 
 function resetListAppearance($list) {

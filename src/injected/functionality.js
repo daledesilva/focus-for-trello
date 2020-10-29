@@ -297,7 +297,7 @@ function createFocusSwitchButton() {
                         <i className="fas fa-save"></i>
                     </a>
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Current Iteration
+                        Everyday Workflow
                     </a>
                 </div>
 
@@ -310,7 +310,7 @@ function createFocusSwitchButton() {
                         <i className="fas fa-save"></i>
                     </a> */}
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Upcoming Iterations
+                        Short-term Planning Workflow
                     </a>
                 </div>
 
@@ -329,7 +329,7 @@ function createFocusSwitchButton() {
                         <i className="fas fa-save"></i>
                     </a>
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Current Iteration
+                        Long-term Planning Workflow
                     </a>
                 </div>
 
@@ -342,7 +342,7 @@ function createFocusSwitchButton() {
                         <i className="fas fa-save"></i>
                     </a> */}
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Past Iterations
+                        Retrospective Workflow
                     </a>
                 </div>
 
@@ -420,7 +420,7 @@ function createFocusSwitchButton() {
         </div>
     );
 
-
+    console.log("Attaching switch buttons");
 
     let $switchFocusContainer = $(switchFocusContainer);
     $body.prepend($switchFocusContainer);
@@ -552,7 +552,7 @@ function immediatePageAdjustments() {
     // This is getting run repeatedly - check if the page initialization functions should run more than once
     // (When a new list is created it should be unstyled anyway - and then you use the menu to style it which visualises the list there).
     // It will only need to be monitored again when partial name selectors are implemented.
-    visualizeAllBoardSettings();
+//    visualizeAllBoardSettings();
 
     // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
     // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
@@ -566,6 +566,7 @@ function immediatePageAdjustments() {
 function delayedPageChangeAdjustments() {
 
     createEventsToRememberUserActions();
+    visualizeAllBoardSettings();
 
 }
 

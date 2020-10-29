@@ -27,7 +27,9 @@ chrome.runtime.onMessage.addListener(
                 )
             {
                 // Initialise the boardSettings object
-                initBoardSettings( request.url );
+                initBoardSettings({
+                    completeUrl: request.url
+                });
             }
             
             // Then load in saved settings (will not overide if saved settings don't exist)
@@ -77,14 +79,20 @@ function createListSettings(props) {
 
 
 
-function initBoardSettings(url) {
+function initBoardSettings(props) {
+
+    const {
+        completeUrl,            // ie. https://trello.com/b/KNETfkws/general
+        trimmedUrl,             // ie. https://trello.com/b/KNETfkws
+    } = props;
+
 
     boardSettings = {
 
         settingsVersion: "2020.07.27",
 
         boardName: getBoardName(),
-        boardUrl: trimUrl(url),
+        boardUrl: trimmedUrl || trimUrl(completeUrl),
     
         activeBoardPreset: 0,
         boardPresets: [
@@ -161,28 +169,26 @@ export function loadBoardSettings() {
     chrome.storage.local.get(
         [boardId],
         function(result) {
+
+            debugLog("Loaded these boardSettings from Chrome memory:");
+            debugLog(boardSettings);
             
             if(result[boardId] != undefined) {
 
                 // TO DO: This is where it should run a function to update the board settings if the settings version number is old.
 
-
                 // Set the boardSettings from those loaded
                 boardSettings = result[boardId];
-
                 // define an activePreset if there wasn't one
                 if(!boardSettings.activeBoardPreset)    boardSettings.activeBoardPreset = 0;
 
-
-                // Update the board to match the board settings
-                // visualizeAllBoardSettings();
-                
-                
+                // TO DO: This will causes issues whenever teh result is returned before the Dom is ready.
+                // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
+                // However, Dom might take a while, might be best to run on every mutation update?
+                visualizeAllBoardSettings();
 
             }
 
-            debugLog("Loaded boardSettings from Chrome memory ...waiting for Dom to be ready.");
-            debugLog(boardSettings);
             
         }
     );
@@ -191,23 +197,25 @@ export function loadBoardSettings() {
 
 
 export function saveBoardSettings() {
+    debugLog("Sending boardSettings to save in Chrome memory");
+    debugLog(boardSettings);
+
     const boardId = boardSettings.boardUrl;
 
+    // Asynchronous callback
     chrome.storage.local.set({[boardId]: boardSettings}, function() {
-        // Asynchronous callback
+        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
 
-        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.")
     });
 
-    debugLog("Set boardSettings to save in Chrome memory");
-    debugLog(boardSettings);
-    
 }
 
 
 
 
 export function nukePresetSettings() {
+    userConsoleNote("Erasing current board preset");
+
     let presetToDelete = boardSettings.activeBoardPreset;
 
     boardSettings.boardPresets.splice(presetToDelete, 1);
@@ -224,11 +232,14 @@ export function nukePresetSettings() {
 
 }
 
-export function nukeBoardSettings() {
-    let url = boardSettings.boardUrl;
 
-    initBoardSettings(url);
-    userConsoleNote("Board settings erased.");
+
+export function nukeBoardSettings() {
+    userConsoleNote("Erasing board settings for " + boardSettings.boardUrl );
+
+    initBoardSettings({
+        trimmedUrl: boardSettings.boardUrl,
+    });
 
     visualizeAllBoardSettings();
     saveBoardSettings();
@@ -544,7 +555,7 @@ function visualizeAllListOptionsForAllLists() {
         resetListAppearance($this);    
     })
 
-    debugLog("Reset all list appearances");
+    // debugLog("Reset all list appearances");
     
 
     // get an array of lists that do have listSettings in the current board preset
@@ -573,7 +584,7 @@ function visualizeAllListOptionsForAllLists() {
         }
     }
 
-    debugLog("Visualize all saved list settings");
+    // debugLog("Visualize all saved list settings");
 
 
 }

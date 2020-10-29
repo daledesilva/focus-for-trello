@@ -16,7 +16,7 @@ chrome.webNavigation.onCompleted.addListener(
     
     function(details) {
 
-        console.log(details.tabId + ":   "+details.url);
+        // console.log(details.tabId + ":   "+details.url);
         // alert("web nav completed");
 
         chrome.tabs.sendMessage( details.tabId, {
@@ -34,7 +34,7 @@ chrome.webNavigation.onCompleted.addListener(
 chrome.webNavigation.onHistoryStateUpdated.addListener( // Board changes within the same tab aren't seen by onCompleted or onCommitted, so this covers those.
     function(details) {
 
-        console.log(details.tabId + ":   "+details.url);
+        // console.log(details.tabId + ":   "+details.url);
         // alert("history updated");
 
         chrome.tabs.sendMessage( details.tabId, {
