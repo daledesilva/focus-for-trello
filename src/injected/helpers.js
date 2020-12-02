@@ -548,8 +548,7 @@ export function visualizeAllBoardSettings() {
 
 function visualizeAllListOptionsForAllLists() {
 
-    // Iterate through all $lists and reset them back to default first
-    // This is because, even if the list isn't in the settings, it might still be showing visualisations from before a deletion of settings.
+    // Iterate through all $lists and reset any previously applied settings back to default
     $(".js-list").each( function () {
         let $this = $(this);
         resetListAppearance($this);    
@@ -594,14 +593,10 @@ function visualizeAllListOptionsForAllLists() {
 
 function resetListAppearance($list) {
 
-    // TO DO: Remove any class defined as a user option from the list.
+    for(const attr in OPTIONS.LISTS) {
 
-    let listId = getListId($list);
-    for(const property in OPTIONS.LISTS) {
-
-        visualizeListOption({
-            $list,
-            newClass: OPTIONS.LISTS[property][0].class, // Class of first option (Trello default)
+        OPTIONS.LISTS[attr].forEach( style => {
+            $list.removeClass( style.class );
         });
 
     }

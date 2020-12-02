@@ -14537,7 +14537,10 @@ function loadBoardSettings() {
       // Set the boardSettings from those loaded
       boardSettings = result[boardId]; // define an activePreset if there wasn't one
 
-      if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0;
+      if (!boardSettings.activeBoardPreset) boardSettings.activeBoardPreset = 0; // TO DO: This will causes issues whenever teh result is returned before the Dom is ready.
+      // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
+      // However, Dom might take a while, might be best to run on every mutation update?
+
       visualizeAllBoardSettings();
     }
   });
@@ -14777,8 +14780,7 @@ function visualizeAllBoardSettings() {
 }
 
 function visualizeAllListOptionsForAllLists() {
-  // Iterate through all $lists and reset them back to default first
-  // This is because, even if the list isn't in the settings, it might still be showing visualisations from before a deletion of settings.
+  // Iterate through all $lists and reset any previously applied settings back to default
   $(".js-list").each(function () {
     let $this = $(this);
     resetListAppearance($this);
@@ -14806,14 +14808,9 @@ function visualizeAllListOptionsForAllLists() {
 }
 
 function resetListAppearance($list) {
-  // TO DO: Remove any class defined as a user option from the list.
-  let listId = getListId($list);
-
-  for (const property in _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS) {
-    visualizeListOption({
-      $list,
-      newClass: _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS[property][0].class // Class of first option (Trello default)
-
+  for (const attr in _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS) {
+    _user_options__WEBPACK_IMPORTED_MODULE_2__["OPTIONS"].LISTS[attr].forEach(style => {
+      $list.removeClass(style.class);
     });
   }
 }
