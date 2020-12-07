@@ -14960,15 +14960,12 @@ function getBoardSettings() {
 }
 
 function cycleBoardPresets() {
-  // TO DO: This needs to iterate the activeBoardPreset forward, but only one past the current presets.
-  // If iterating again after that, it should loop back to 0.
-  // However, this means there needs to be a way to know if a preset has been changed from default so it can be deleted when cycled past if not.
-  // So that the preset doesn't hang around and with each cycle increase the number of presets.
+  // TO DO:
   // Instead of initialising presets that shouldn't hang around, a more robust solution should be designed.
   // Perhaps:
   // In the boardSettings, preset 0 is reserve for the default Trello appearances.
   // Whenever this is the activeBoardPreset, the functions which make changes to the settings first jump the activeBoardPreset number to it's length.
-  // This way preset 0 is never touched and always represents Trello default a d because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
+  // This way preset 0 is never touched and always represents Trello default - and because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
   // TO DO: For now this limits the number of presets to 2. The above should be implemented to make this dynamic.
   boardSettings.activeBoardPreset++;
   boardSettings.activeBoardPreset %= 2; // TO DO

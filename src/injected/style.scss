@@ -1,5 +1,8 @@
 @use '../metadata.scss' as *;
 
+$ease-in-out-quart: cubic-bezier(0.36, 0, 0.66, -0.56);//cubic-bezier(0.76, 0, 0.24, 1);
+$easy-in-slow-out: cubic-bezier(.52,.01,.13,1.01);//cubic-bezier(.25,.01,.24,1);
+
 $small-width-breakpoint: 1000px;
 $small-height-breakpoint: 900px;
 
@@ -7,6 +10,50 @@ $tiny-width-breakpoint: 500px;
 $tiny-height-breakpoint: 400px;
 
 $feature-color: #007acc;
+
+$transition-duration: 0.2s;
+$transition-timing-function: $easy-in-slow-out;
+$transition-delay: 0;
+
+
+
+
+
+
+
+// @mixin list-transition( $properties: ignore ) {
+//    transition-property: $properties;
+//    transition-duration: $transition-duration;
+//    transition-timing-function: $transition-timing-function;
+//    transition-delay: $transition-delay;
+// }
+
+
+
+// .js-list, .js-list * {
+//    // ANIMATION
+//    $properties: color, background-color, opacity, font-size, line-height, width, height;
+//    @include list-transition($properties);
+// }
+
+
+@for $i from 1 through 100 {
+   
+   .js-list:nth-of-type(#{$i}),
+   .js-list:nth-of-type(#{$i}) * {
+
+      $random: random();
+
+      // $properties: color, background-color, opacity, font-size, line-height, width, height;
+      // @include list-transition($properties);
+
+      transition-property: color, background-color, opacity, font-size, line-height, width, height;
+      transition-duration: $transition-duration;
+      transition-timing-function: $transition-timing-function;
+      transition-delay: random(100)/100 * 0.5 + s;
+   }
+
+}
 
 
 
@@ -125,6 +172,11 @@ $feature-color: #007acc;
          left: 50%;
          transform: translateX(-50%) translateY(-50%);
       }
+
+
+      
+      
+
 
 
    }
@@ -311,6 +363,7 @@ $feature-color: #007acc;
          width: #{$list-width} !important;
          @if $layout-is-masonry { --layout-is-masonry: true; }
 
+         
          // Shrink list title
          .js-list-name-input {
             font-size: #{$font-size};
@@ -334,12 +387,14 @@ $feature-color: #007acc;
                   font-size: #{$font-size};
                   line-height: 1.3em;
                }
+
                // Shrink card labels
                .js-card-labels {
                   overflow: hidden;
                   font-size: #{$font-size};
                   .card-label { font-size: inherit }
                }
+
                // Shrink card badges and due dates
                .badge-text {
                   overflow: hidden;

@@ -1,3 +1,803 @@
+.js-list:nth-of-type(1),
+.js-list:nth-of-type(1) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.355s;
+}
+
+.js-list:nth-of-type(2),
+.js-list:nth-of-type(2) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.45s;
+}
+
+.js-list:nth-of-type(3),
+.js-list:nth-of-type(3) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.16s;
+}
+
+.js-list:nth-of-type(4),
+.js-list:nth-of-type(4) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.49s;
+}
+
+.js-list:nth-of-type(5),
+.js-list:nth-of-type(5) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.03s;
+}
+
+.js-list:nth-of-type(6),
+.js-list:nth-of-type(6) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.05s;
+}
+
+.js-list:nth-of-type(7),
+.js-list:nth-of-type(7) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.465s;
+}
+
+.js-list:nth-of-type(8),
+.js-list:nth-of-type(8) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.055s;
+}
+
+.js-list:nth-of-type(9),
+.js-list:nth-of-type(9) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.43s;
+}
+
+.js-list:nth-of-type(10),
+.js-list:nth-of-type(10) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.135s;
+}
+
+.js-list:nth-of-type(11),
+.js-list:nth-of-type(11) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.33s;
+}
+
+.js-list:nth-of-type(12),
+.js-list:nth-of-type(12) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.345s;
+}
+
+.js-list:nth-of-type(13),
+.js-list:nth-of-type(13) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.4s;
+}
+
+.js-list:nth-of-type(14),
+.js-list:nth-of-type(14) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.04s;
+}
+
+.js-list:nth-of-type(15),
+.js-list:nth-of-type(15) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.265s;
+}
+
+.js-list:nth-of-type(16),
+.js-list:nth-of-type(16) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.49s;
+}
+
+.js-list:nth-of-type(17),
+.js-list:nth-of-type(17) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.49s;
+}
+
+.js-list:nth-of-type(18),
+.js-list:nth-of-type(18) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.085s;
+}
+
+.js-list:nth-of-type(19),
+.js-list:nth-of-type(19) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.42s;
+}
+
+.js-list:nth-of-type(20),
+.js-list:nth-of-type(20) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.3s;
+}
+
+.js-list:nth-of-type(21),
+.js-list:nth-of-type(21) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.23s;
+}
+
+.js-list:nth-of-type(22),
+.js-list:nth-of-type(22) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.445s;
+}
+
+.js-list:nth-of-type(23),
+.js-list:nth-of-type(23) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.46s;
+}
+
+.js-list:nth-of-type(24),
+.js-list:nth-of-type(24) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.37s;
+}
+
+.js-list:nth-of-type(25),
+.js-list:nth-of-type(25) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.37s;
+}
+
+.js-list:nth-of-type(26),
+.js-list:nth-of-type(26) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.495s;
+}
+
+.js-list:nth-of-type(27),
+.js-list:nth-of-type(27) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.055s;
+}
+
+.js-list:nth-of-type(28),
+.js-list:nth-of-type(28) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.08s;
+}
+
+.js-list:nth-of-type(29),
+.js-list:nth-of-type(29) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.165s;
+}
+
+.js-list:nth-of-type(30),
+.js-list:nth-of-type(30) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.365s;
+}
+
+.js-list:nth-of-type(31),
+.js-list:nth-of-type(31) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.485s;
+}
+
+.js-list:nth-of-type(32),
+.js-list:nth-of-type(32) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.195s;
+}
+
+.js-list:nth-of-type(33),
+.js-list:nth-of-type(33) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.28s;
+}
+
+.js-list:nth-of-type(34),
+.js-list:nth-of-type(34) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.4s;
+}
+
+.js-list:nth-of-type(35),
+.js-list:nth-of-type(35) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.045s;
+}
+
+.js-list:nth-of-type(36),
+.js-list:nth-of-type(36) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.385s;
+}
+
+.js-list:nth-of-type(37),
+.js-list:nth-of-type(37) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.105s;
+}
+
+.js-list:nth-of-type(38),
+.js-list:nth-of-type(38) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.415s;
+}
+
+.js-list:nth-of-type(39),
+.js-list:nth-of-type(39) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.23s;
+}
+
+.js-list:nth-of-type(40),
+.js-list:nth-of-type(40) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.41s;
+}
+
+.js-list:nth-of-type(41),
+.js-list:nth-of-type(41) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.4s;
+}
+
+.js-list:nth-of-type(42),
+.js-list:nth-of-type(42) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.425s;
+}
+
+.js-list:nth-of-type(43),
+.js-list:nth-of-type(43) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.015s;
+}
+
+.js-list:nth-of-type(44),
+.js-list:nth-of-type(44) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.255s;
+}
+
+.js-list:nth-of-type(45),
+.js-list:nth-of-type(45) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.07s;
+}
+
+.js-list:nth-of-type(46),
+.js-list:nth-of-type(46) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.31s;
+}
+
+.js-list:nth-of-type(47),
+.js-list:nth-of-type(47) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.39s;
+}
+
+.js-list:nth-of-type(48),
+.js-list:nth-of-type(48) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.095s;
+}
+
+.js-list:nth-of-type(49),
+.js-list:nth-of-type(49) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.135s;
+}
+
+.js-list:nth-of-type(50),
+.js-list:nth-of-type(50) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.01s;
+}
+
+.js-list:nth-of-type(51),
+.js-list:nth-of-type(51) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.035s;
+}
+
+.js-list:nth-of-type(52),
+.js-list:nth-of-type(52) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.125s;
+}
+
+.js-list:nth-of-type(53),
+.js-list:nth-of-type(53) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.49s;
+}
+
+.js-list:nth-of-type(54),
+.js-list:nth-of-type(54) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.125s;
+}
+
+.js-list:nth-of-type(55),
+.js-list:nth-of-type(55) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.405s;
+}
+
+.js-list:nth-of-type(56),
+.js-list:nth-of-type(56) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.48s;
+}
+
+.js-list:nth-of-type(57),
+.js-list:nth-of-type(57) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.12s;
+}
+
+.js-list:nth-of-type(58),
+.js-list:nth-of-type(58) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.02s;
+}
+
+.js-list:nth-of-type(59),
+.js-list:nth-of-type(59) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.065s;
+}
+
+.js-list:nth-of-type(60),
+.js-list:nth-of-type(60) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.29s;
+}
+
+.js-list:nth-of-type(61),
+.js-list:nth-of-type(61) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.385s;
+}
+
+.js-list:nth-of-type(62),
+.js-list:nth-of-type(62) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.275s;
+}
+
+.js-list:nth-of-type(63),
+.js-list:nth-of-type(63) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.38s;
+}
+
+.js-list:nth-of-type(64),
+.js-list:nth-of-type(64) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.415s;
+}
+
+.js-list:nth-of-type(65),
+.js-list:nth-of-type(65) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.485s;
+}
+
+.js-list:nth-of-type(66),
+.js-list:nth-of-type(66) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.395s;
+}
+
+.js-list:nth-of-type(67),
+.js-list:nth-of-type(67) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.08s;
+}
+
+.js-list:nth-of-type(68),
+.js-list:nth-of-type(68) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.215s;
+}
+
+.js-list:nth-of-type(69),
+.js-list:nth-of-type(69) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.405s;
+}
+
+.js-list:nth-of-type(70),
+.js-list:nth-of-type(70) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.365s;
+}
+
+.js-list:nth-of-type(71),
+.js-list:nth-of-type(71) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.245s;
+}
+
+.js-list:nth-of-type(72),
+.js-list:nth-of-type(72) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.005s;
+}
+
+.js-list:nth-of-type(73),
+.js-list:nth-of-type(73) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.325s;
+}
+
+.js-list:nth-of-type(74),
+.js-list:nth-of-type(74) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.36s;
+}
+
+.js-list:nth-of-type(75),
+.js-list:nth-of-type(75) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.02s;
+}
+
+.js-list:nth-of-type(76),
+.js-list:nth-of-type(76) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.09s;
+}
+
+.js-list:nth-of-type(77),
+.js-list:nth-of-type(77) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.035s;
+}
+
+.js-list:nth-of-type(78),
+.js-list:nth-of-type(78) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.365s;
+}
+
+.js-list:nth-of-type(79),
+.js-list:nth-of-type(79) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.205s;
+}
+
+.js-list:nth-of-type(80),
+.js-list:nth-of-type(80) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.03s;
+}
+
+.js-list:nth-of-type(81),
+.js-list:nth-of-type(81) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.415s;
+}
+
+.js-list:nth-of-type(82),
+.js-list:nth-of-type(82) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.395s;
+}
+
+.js-list:nth-of-type(83),
+.js-list:nth-of-type(83) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.035s;
+}
+
+.js-list:nth-of-type(84),
+.js-list:nth-of-type(84) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.465s;
+}
+
+.js-list:nth-of-type(85),
+.js-list:nth-of-type(85) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.33s;
+}
+
+.js-list:nth-of-type(86),
+.js-list:nth-of-type(86) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.47s;
+}
+
+.js-list:nth-of-type(87),
+.js-list:nth-of-type(87) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.245s;
+}
+
+.js-list:nth-of-type(88),
+.js-list:nth-of-type(88) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.095s;
+}
+
+.js-list:nth-of-type(89),
+.js-list:nth-of-type(89) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.06s;
+}
+
+.js-list:nth-of-type(90),
+.js-list:nth-of-type(90) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.42s;
+}
+
+.js-list:nth-of-type(91),
+.js-list:nth-of-type(91) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.06s;
+}
+
+.js-list:nth-of-type(92),
+.js-list:nth-of-type(92) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.035s;
+}
+
+.js-list:nth-of-type(93),
+.js-list:nth-of-type(93) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.075s;
+}
+
+.js-list:nth-of-type(94),
+.js-list:nth-of-type(94) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.295s;
+}
+
+.js-list:nth-of-type(95),
+.js-list:nth-of-type(95) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.175s;
+}
+
+.js-list:nth-of-type(96),
+.js-list:nth-of-type(96) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.205s;
+}
+
+.js-list:nth-of-type(97),
+.js-list:nth-of-type(97) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.28s;
+}
+
+.js-list:nth-of-type(98),
+.js-list:nth-of-type(98) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.03s;
+}
+
+.js-list:nth-of-type(99),
+.js-list:nth-of-type(99) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.435s;
+}
+
+.js-list:nth-of-type(100),
+.js-list:nth-of-type(100) * {
+  transition-property: color, background-color, opacity, font-size, line-height, width, height;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0.13, 1.01);
+  transition-delay: 0.42s;
+}
+
 #focus_switch-focus-container {
   position: absolute;
   right: 0;
