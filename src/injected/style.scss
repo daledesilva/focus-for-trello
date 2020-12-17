@@ -11,7 +11,7 @@ $tiny-height-breakpoint: 400px;
 
 $feature-color: #007acc;
 
-$transition-duration: 0.2s;
+$transition-duration: 0.4s;
 $transition-timing-function: $easy-in-slow-out;
 $transition-delay: 0;
 
@@ -39,21 +39,26 @@ $transition-delay: 0;
 
 @for $i from 1 through 100 {
    
-   .js-list:nth-of-type(#{$i}),
-   .js-list:nth-of-type(#{$i}) * {
+   
+   .js-list:nth-of-type(#{$i}) {
+   // .js-list:nth-of-type(#{$i}) * {
 
-      $random: random();
-
+      
       // $properties: color, background-color, opacity, font-size, line-height, width, height;
       // @include list-transition($properties);
-
-      transition-property: color, background-color, opacity, font-size, line-height, width, height;
-      transition-duration: $transition-duration;
-      transition-timing-function: $transition-timing-function;
-      transition-delay: random(100)/100 * 0.5 + s;
+      
+      // transition-property: color, background-color, opacity, font-size, line-height, width, height;
+      // transition-duration: $transition-duration;
+      // transition-timing-function: $transition-timing-function;
+      $random-delay: random(100)/100 * 0.3 + s;
+      // transition-delay: random(100)/100 * 0.5 + s;
+      --delay: #{$random-delay};
    }
 
 }
+
+
+
 
 
 
@@ -347,6 +352,80 @@ $transition-delay: 0;
 
 
 
+
+
+
+
+@mixin linearTransition($property) {
+   transition-property: $property;
+   transition-duration: $transition-duration;
+   // transition-timing-function: $easy-in-slow-out;
+   transition-delay: var(--delay,0);
+}
+@mixin smoothTransition($property) {
+   transition-property: $property;
+   transition-duration: $transition-duration;
+   transition-timing-function: $easy-in-slow-out;
+   transition-delay: var(--delay,0);
+}
+
+
+
+
+// Set all transitions up as defaults for lists so they animate in AND out
+//////////////////////////////////////////////////////////////////////////
+
+.js-list {
+   @include smoothTransition(width);
+
+   .list-cards {
+      .list-card {
+         @include smoothTransition(width);
+      }
+   }
+
+   .js-list-content {
+      @include linearTransition(background-color);
+   
+      .js-list-header {
+         @include linearTransition(color);
+      }
+   
+      .list-card {
+         @include linearTransition(opacity);
+         @include linearTransition(background-color);
+   
+         .js-card-name {
+            @include linearTransition(color);
+         }
+         .js-badges {
+            @include linearTransition(color);
+         }
+      }
+      
+      .card-composer {
+         .js-composer {
+            @include linearTransition(color);
+            @include linearTransition(background-color);
+         }
+         .cc-controls {
+            @include linearTransition(color);
+         }
+      }
+      .card-composer-container {
+         @include linearTransition(color);
+      }
+   
+   }
+
+}
+
+
+
+
+
+
+
 ////////////
 // LIST SIZE
 ////////////
@@ -501,6 +580,7 @@ $transition-delay: 0;
 
             .js-list-header {
                color: #{$list-fg-color};
+
                .js-list-name-input:not(.is-editing) { color: inherit !important; }
                .list-header-extras {
                   color: inherit !important;
@@ -511,7 +591,7 @@ $transition-delay: 0;
             .list-card {
                opacity: #{$card-opacity};
                background-color: #{$card-bg-color};
-   
+
                .js-card-name {
                   color: #{$card-fg-color};
                }
