@@ -862,19 +862,22 @@ export function cycleBoardHeader() {
 
 function visualizeHeaderSetting() {
 
+    function addBoardPadding() {
+        $("#board").addClass( plugin.slug + "_trello-board_padding" );
+    }
 
     function hideCurrentBoardLeftHeader() {
-        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".js-star-board").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_collapse" );
-        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_collapse" );
+        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_hide" );
+        $(".js-star-board").addClass( plugin.slug + "_trello-ui_hide" );
+        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_hide" );
+        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_hide" );
+        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_hide" );
     }
 
     function hideCurrentBoardWholeHeader() {
         $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
-        // Add padding
-        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
+        hideCurrentBoardLeftHeader(); // prevents it appearing during transitions
+        addBoardPadding();
     }
 
     function hideGeneralTrelloHeader() {
@@ -884,26 +887,40 @@ function visualizeHeaderSetting() {
     function hideAllHeaders() {
         hideCurrentBoardWholeHeader();
         hideGeneralTrelloHeader();
-        // Add padding
-        $("#board").addClass( plugin.slug + "_trello-ui_header-padding" );
+        addBoardPadding();
     }
 
+
+    // Add all anim transitions as seperate class that never gets removed
+    // So it animates both ways
+    //////////////////////////
+    $(".js-rename-board").addClass( plugin.slug + "_trello-ui_transition" );
+    $(".js-star-board").addClass( plugin.slug + "_trello-ui_transition" );
+    $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_transition" );
+    $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_transition" );
+    $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_transition" );
+    // Current board whole header
+    $(".js-board-header").addClass( plugin.slug + "_trello-ui_transition" );
+    // General Trello header
+    $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_transition" );
+    // For padding
+    $("#board").addClass( plugin.slug + "_trello-board_transition" );
 
 
     // Unhide all headers
     /////////////////////
     // Current board left header
-    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_collapse" );
-    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_collapse" );
+    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_hide" );
+    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_hide" );
+    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_hide" );
+    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_hide" );
+    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_hide" );
     // Current board whole header
     $(".js-board-header").removeClass( plugin.slug + "_trello-ui_collapse" );
     // General Trello header
     $("#surface").find("div").first().removeClass( plugin.slug + "_trello-ui_collapse" );
-    // Remove padding
-    $("#board").removeClass( plugin.slug + "_trello-ui_header-padding" );
+    // For board padding
+    $("#board").removeClass( plugin.slug + "_trello-board_padding" );
     
     
 

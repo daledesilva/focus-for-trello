@@ -269,13 +269,24 @@ $transition-delay: 0;
 
 
 
+.#{$plugin_slug}_trello-ui_transition {
+   max-height: 5em;
+}
+
+.#{$plugin_slug}_trello-ui_hide {
+   opacity: 0 !important;
+}
 
 .#{$plugin_slug}_trello-ui_collapse {
-   display: none !important;
+   max-height: 0 !important;
+   min-height: 0 !important;
+   padding-top: 0 !important;
+   padding-bottom: 0 !important;
+   overflow: hidden !important;
 }
 
 // when all headers are hidden
-.#{$plugin_slug}_trello-ui_header-padding {
+.#{$plugin_slug}_trello-board_padding {
    padding-top: 10px;
 }
 
@@ -363,10 +374,10 @@ $transition-delay: 0;
    transition-delay: var(--delay,0);
 }
 @mixin smoothTransition($property) {
-   transition-property: $property;
-   transition-duration: $transition-duration;
-   transition-timing-function: $easy-in-slow-out;
-   transition-delay: var(--delay,0);
+   transition-property: $property !important;
+   transition-duration: $transition-duration !important;
+   transition-timing-function: $easy-in-slow-out !important;
+   transition-delay: var(--delay,0) !important;
 }
 
 
@@ -374,6 +385,12 @@ $transition-delay: 0;
 
 // Set all transitions up as defaults for lists so they animate in AND out
 //////////////////////////////////////////////////////////////////////////
+
+.#{$plugin_slug}_trello-ui_transition,
+.#{$plugin_slug}_trello-board_transition {
+   @include smoothTransition('max-height, padding-top, padding-bottom, opacity');
+}
+
 
 .js-list {
    @include smoothTransition('width, height');
