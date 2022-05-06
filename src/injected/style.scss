@@ -382,6 +382,10 @@ $transition-delay: 0;
       .list-card {
          @include smoothTransition(width);
       }
+      // image previews
+      .list-card-cover.is-covered {
+         @include smoothTransition(height);
+      }
    }
 
    .js-list-content {
