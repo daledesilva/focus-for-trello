@@ -191,28 +191,28 @@ class ListButtons extends JSXComponent {
     // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that"s not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
     // - Copy text based settings string?
     // - Paste text based settings string?
-    jsxArr.push(
-        <Tooltip title="adjust list control" tag="a">
-            <a
-                href="#"
-                id={ plugin.slug + "_label-btn" }
-                className={[    "ft_pop-over-header-btn",
-                                "icon-sm"
-                            ].join(" ")}
+    // jsxArr.push(
+    //     <Tooltip title="adjust list control" tag="a">
+    //         <a
+    //             href="#"
+    //             id={ plugin.slug + "_label-btn" }
+    //             className={[    "ft_pop-over-header-btn",
+    //                             "icon-sm"
+    //                         ].join(" ")}
 
-                ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
-                onClick={ () => {
-                    cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
-                }}
-            >
-                <i className="fas fa-cogs"/>
-            </a>
-        </Tooltip>
+    //             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+    //             onClick={ () => {
+    //                 cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+    //             }}
+    //         >
+    //             <i className="fas fa-cogs"/>
+    //         </a>
+    //     </Tooltip>
 
-        // Popup should contain:
-        // - fade checkbox (or value);
-        // - colour overide
-    );
+    //     // Popup should contain:
+    //     // - fade checkbox (or value);
+    //     // - colour overide
+    // );
 
 
 

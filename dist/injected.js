@@ -13960,25 +13960,27 @@ class ListButtons extends jsx_render_lib_JSXComponent__WEBPACK_IMPORTED_MODULE_1
     // - Change name of list it is looking for - toggle between "match" and "contains" (be warey of if the change it to a word that"s not in any list the settings will be lost - perhaps it saves elsewhere (too?)?)
     // - Copy text based settings string?
     // - Paste text based settings string?
+    // jsxArr.push(
+    //     <Tooltip title="adjust list control" tag="a">
+    //         <a
+    //             href="#"
+    //             id={ plugin.slug + "_label-btn" }
+    //             className={[    "ft_pop-over-header-btn",
+    //                             "icon-sm"
+    //                         ].join(" ")}
+    //             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+    //             onClick={ () => {
+    //                 cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+    //             }}
+    //         >
+    //             <i className="fas fa-cogs"/>
+    //         </a>
+    //     </Tooltip>
+    //     // Popup should contain:
+    //     // - fade checkbox (or value);
+    //     // - colour overide
+    // );
 
-    jsxArr.push(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()(_components_tooltip__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
-      title: "adjust list control",
-      tag: "a"
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("a", {
-      href: "#",
-      id: _metadata__WEBPACK_IMPORTED_MODULE_4__["plugin"].slug + "_label-btn",
-      className: ["ft_pop-over-header-btn", "icon-sm"].join(" "),
-      ref: super.ref // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
-      ,
-      onClick: () => {
-        Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["cycleOptionInList"])(_user_options__WEBPACK_IMPORTED_MODULE_3__["OPTIONS"].LISTS.SIZES, Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["$getActiveList"])());
-      }
-    }, jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("i", {
-      className: "fas fa-cogs"
-    }))) // Popup should contain:
-    // - fade checkbox (or value);
-    // - colour overide
-    );
     return jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("div", {
       className: "ft_list-btn-group"
     }, jsxArr);

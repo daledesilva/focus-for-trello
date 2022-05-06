@@ -376,7 +376,7 @@ $transition-delay: 0;
 //////////////////////////////////////////////////////////////////////////
 
 .js-list {
-   @include smoothTransition(width);
+   @include smoothTransition('width, height');
 
    .list-cards {
       .list-card {
@@ -431,131 +431,131 @@ $transition-delay: 0;
 ////////////
 
 
-      @mixin list-sizing-adjustments(
-         $list-width: ignore,
-         // $card-width: ignore,
-         $font-size: ignore,
-         $layout-is-masonry: false,
-         $number-of-columns: ignore,
-      ) {
-      
-         width: #{$list-width} !important;
-         @if $layout-is-masonry { --layout-is-masonry: true; }
+@mixin list-sizing-adjustments(
+   $list-width: ignore,
+   // $card-width: ignore,
+   $font-size: ignore,
+   $layout-is-masonry: false,
+   $number-of-columns: ignore,
+) {
 
+   width: #{$list-width} !important;
+   @if $layout-is-masonry { --layout-is-masonry: true; }
+
+   
+   // Shrink list title
+   .js-list-name-input {
+      font-size: #{$font-size};
+      height: 1em;
+   }
+
+   .list-cards {
+
+      .list-card {
+         @if $layout-is-masonry {
+            $scrollbar-width: 10px; // scrollbars appearing causes masonry to constantly recalculate
+            $list-padding: 16px;
+            width: ( ($list-width - $scrollbar-width - $list-padding) - ( ($number-of-columns - 1) * 8 ) ) / $number-of-columns;
+         }
+         // else
+         // width: #{$card-width} !important;
          
-         // Shrink list title
-         .js-list-name-input {
+
+         // Shrink card titles
+         .js-card-name {
             font-size: #{$font-size};
-            height: 1em;
+            line-height: 1.3em;
          }
 
-         .list-cards {
-
-            .list-card {
-               @if $layout-is-masonry {
-                  $scrollbar-width: 10px; // scrollbars appearing causes masonry to constantly recalculate
-                  $list-padding: 16px;
-                  width: ( ($list-width - $scrollbar-width - $list-padding) - ( ($number-of-columns - 1) * 8 ) ) / $number-of-columns;
-               }
-               // else
-               // width: #{$card-width} !important;
-               
-
-               // Shrink card titles
-               .js-card-name {
-                  font-size: #{$font-size};
-                  line-height: 1.3em;
-               }
-
-               // Shrink card labels
-               .js-card-labels {
-                  overflow: hidden;
-                  font-size: #{$font-size};
-                  .card-label { font-size: inherit }
-               }
-
-               // Shrink card badges and due dates
-               .badge-text {
-                  overflow: hidden;
-                  font-size: #{$font-size};
-               }   
-
-            }
-
-            .card-composer {
-               font-size: #{$font-size};
-               * { font-size: inherit; }
-            }
-         }
-         // Shrink add new card input
-         .js-open-card-composer {
+         // Shrink card labels
+         .js-card-labels {
+            overflow: hidden;
             font-size: #{$font-size};
+            .card-label { font-size: inherit }
          }
 
+         // Shrink card badges and due dates
+         .badge-text {
+            overflow: hidden;
+            font-size: #{$font-size};
+         }   
+
       }
 
-
-
-
-      // Narrow
-      /////////
-      .ft_list-size_narrow {
-         @include list-sizing-adjustments(
-            $list-width: 150px,
-            $font-size: 0.7em
-         );
+      .card-composer {
+         font-size: #{$font-size};
+         * { font-size: inherit; }
       }
+   }
+   // Shrink add new card input
+   .js-open-card-composer {
+      font-size: #{$font-size};
+   }
+
+}
 
 
-      // Wide 1
-      /////////
-      .ft_list-size_wide-1 {
-         @include list-sizing-adjustments(
-            $list-width: 500px,
-            $layout-is-masonry: true,
-            $number-of-columns: 2,
-         );
 
-         // TO DO: Should this be incorporated in the mixin?
-         // .list-card {
-         //    display: inline-block;
-         //    margin-left: 10px;
-         //    &:first-of-type { margin-left: 0; }
-         // }
-         
-      }
 
-      // Wide 2
-      /////////
-      .ft_list-size_wide-2 {
-         @include list-sizing-adjustments(
-            $list-width: 1000px,
-            $layout-is-masonry: true,
-            $number-of-columns: 5,
-         );
+// Narrow
+/////////
+.ft_list-size_narrow {
+   @include list-sizing-adjustments(
+      $list-width: 150px,
+      $font-size: 0.7em
+   );
+}
 
-         // .list-card {
-         //    display: inline-block;
-         //    margin-left: 10px;
-         //    &:first-of-type { margin-left: 0; }
-         // }
-      }
 
-      // Wide 3
-      /////////
-      .ft_list-size_wide-3 {
-         @include list-sizing-adjustments(
-            $list-width: 1500px,
-            $layout-is-masonry: true,
-            $number-of-columns: 8,
-         );
+// Wide 1
+/////////
+.ft_list-size_wide-1 {
+   @include list-sizing-adjustments(
+      $list-width: 500px,
+      $layout-is-masonry: true,
+      $number-of-columns: 2,
+   );
 
-         // .list-card {
-         //    display: inline-block;
-         //    margin-left: 10px;
-         //    &:first-of-type { margin-left: 0; }
-         // }
-      }
+   // TO DO: Should this be incorporated in the mixin?
+   // .list-card {
+   //    display: inline-block;
+   //    margin-left: 10px;
+   //    &:first-of-type { margin-left: 0; }
+   // }
+   
+}
+
+// Wide 2
+/////////
+.ft_list-size_wide-2 {
+   @include list-sizing-adjustments(
+      $list-width: 1000px,
+      $layout-is-masonry: true,
+      $number-of-columns: 5,
+   );
+
+   // .list-card {
+   //    display: inline-block;
+   //    margin-left: 10px;
+   //    &:first-of-type { margin-left: 0; }
+   // }
+}
+
+// Wide 3
+/////////
+.ft_list-size_wide-3 {
+   @include list-sizing-adjustments(
+      $list-width: 1500px,
+      $layout-is-masonry: true,
+      $number-of-columns: 8,
+   );
+
+   // .list-card {
+   //    display: inline-block;
+   //    margin-left: 10px;
+   //    &:first-of-type { margin-left: 0; }
+   // }
+}
 
 
 
@@ -565,110 +565,138 @@ $transition-delay: 0;
 
 
 
-      @mixin list-color-adjustments(
-         $card-fg-color: ignore,
-         $card-bg-color: ignore,
-         $list-fg-color: ignore,
-         $list-bg-color: ignore,
-         $card-opacity: ignore,
-         $list-is-transparent: false
-      ) {
+@mixin list-color-adjustments(
+   $card-fg-color: ignore,
+   $card-bg-color: ignore,
+   $list-fg-color: ignore,
+   $list-bg-color: ignore,
+   $card-opacity: ignore,
+   $list-is-transparent: false
+) {
 
-         .js-list-content {
-            background-color: #{$list-bg-color};
-            @if $list-is-transparent { background: none; }
+   .js-list-content {
+      background-color: #{$list-bg-color};
+      @if $list-is-transparent { background: none; }
 
-            .js-list-header {
-               color: #{$list-fg-color};
+      .js-list-header {
+         color: #{$list-fg-color};
 
-               .js-list-name-input:not(.is-editing) { color: inherit !important; }
-               .list-header-extras {
-                  color: inherit !important;
-                  * { color: inherit !important; }
-               }
-            }
-
-            .list-card {
-               opacity: #{$card-opacity};
-               background-color: #{$card-bg-color};
-
-               .js-card-name {
-                  color: #{$card-fg-color};
-               }
-               .js-badges {
-                  color: #{$card-fg-color};
-                  * { color: inherit !important; }
-                  .js-due-date-badge { background-color: unset }
-               }
-            }
-            
-            .card-composer {
-               .js-composer {
-                  color: #{$card-fg-color};
-                  background-color: #{$card-bg-color};
-               }
-               .cc-controls {
-                  color: #{$list-fg-color};
-                  .js-cancel { color: inherit !important; }
-                  .js-cc-menu { color: inherit !important; }
-               }
-            }
-            .card-composer-container {
-               color: #{$list-fg-color};
-               * { color: inherit !important; }
-            }
-
+         .js-list-name-input:not(.is-editing) { color: inherit !important; }
+         .list-header-extras {
+            color: inherit !important;
+            * { color: inherit !important; }
          }
-         
       }
 
+      .list-card {
+         opacity: #{$card-opacity};
+         background-color: #{$card-bg-color};
 
-
-
-      // .ft_list-color_subtle {
-      //    @include list-color-adjustments()
-      // }
-
-      // .ft_list-color_subtle-and-clear {
-
-      //    @include list-color-adjustments(
-      //          $list-is-transparent: true,
-      //          $card-opacity: 0.4,
-      //    )
-
-      // }
+         .js-card-name {
+            color: #{$card-fg-color};
+         }
+         .js-badges {
+            color: #{$card-fg-color};
+            * { color: inherit !important; }
+            .js-due-date-badge { background-color: unset }
+         }
+      }
       
-      .ft_list-color_dark {
-         @include list-color-adjustments(
-            $card-fg-color: #ccc,
-            $card-bg-color: rgba(255, 255, 255, 0.1),
-            $list-fg-color: #ddd,
-            $list-bg-color: rgba(70, 70, 70, 0.9),
-         )
+      .card-composer {
+         .js-composer {
+            color: #{$card-fg-color};
+            background-color: #{$card-bg-color};
+         }
+         .cc-controls {
+            color: #{$list-fg-color};
+            .js-cancel { color: inherit !important; }
+            .js-cc-menu { color: inherit !important; }
+         }
+      }
+      .card-composer-container {
+         color: #{$list-fg-color};
+         * { color: inherit !important; }
       }
 
-      
-      .ft_list-color_dark-and-clear {
-         @include list-color-adjustments(
-               $card-fg-color: #ccc,
-               $card-bg-color: rgb(1, 1, 1, 0.3),
-               $list-fg-color: #ddd,
-               $list-is-transparent: true,
-               // $card-opacity: 0.4,
-         )
-      }
-
-      .ft_list-color_default-and-clear {
-         @include list-color-adjustments(
-               $card-fg-color: #000,
-               $card-bg-color: rgb(255, 255, 255, 0.4),
-               $list-fg-color: #ddd,
-               $list-is-transparent: true,
-               // $card-opacity: 0.4,
-         )
-      }
+   }
+   
+}
 
 
+
+
+// .ft_list-color_subtle {
+//    @include list-color-adjustments()
+// }
+
+// .ft_list-color_subtle-and-clear {
+
+//    @include list-color-adjustments(
+//          $list-is-transparent: true,
+//          $card-opacity: 0.4,
+//    )
+
+// }
+
+.ft_list-color_dark {
+   @include list-color-adjustments(
+      $card-fg-color: #ccc,
+      $card-bg-color: rgba(255, 255, 255, 0.1),
+      $list-fg-color: #ddd,
+      $list-bg-color: rgba(70, 70, 70, 0.9),
+   )
+}
+
+
+.ft_list-color_dark-and-clear {
+   @include list-color-adjustments(
+         $card-fg-color: #ccc,
+         $card-bg-color: rgb(1, 1, 1, 0.3),
+         $list-fg-color: #ddd,
+         $list-is-transparent: true,
+         // $card-opacity: 0.4,
+   )
+}
+
+.ft_list-color_default-and-clear {
+   @include list-color-adjustments(
+         $card-fg-color: #000,
+         $card-bg-color: rgb(255, 255, 255, 0.4),
+         $list-fg-color: #ddd,
+         $list-is-transparent: true,
+         // $card-opacity: 0.4,
+   )
+}
+
+
+
+
+
+
+
+//////////////////
+// LIST VISIBILITY
+//////////////////
+
+
+.ft_list-visible_collapsed {
+   height:2.8em !important;
+   .js-open-card-composer,
+   .js-card-templates-button {
+      display: none;
+   }
+}
+
+.ft_list-visible_hidden {
+   // opacity: 0;
+   // zoom: 1% !important;
+   @include list-sizing-adjustments(
+      $list-width: 0px,
+   );
+   overflow: hidden; // So scrollbars don't appear
+   // position: absolute;
+   // transform: scaleX(0);
+}
 
 
 
@@ -680,9 +708,9 @@ $transition-delay: 0;
 ////////////////////////
 
 
-      .ft_card-labels_hidden {
-         .js-card-labels { display: none; }
-      }
+.ft_card-labels_hidden {
+   .js-card-labels { display: none; }
+}
 
 
 
@@ -692,9 +720,9 @@ $transition-delay: 0;
 /////////////////////////////////////
 // Badges and due dates are grouped together because they sit in the same row, therefore, removing only some doesn't make the card any smaller or feel less detailed
 
-      .ft_card-badges_hidden {
-         .badges { display: none; }
-      }
+.ft_card-badges_hidden {
+   .badges { display: none; }
+}
 
 
 
@@ -702,10 +730,10 @@ $transition-delay: 0;
 //////////////////////////
 // CARD DETAILS APPEARANCE
 //////////////////////////
-      
-      .ft_card-details_hidden {
-         .js-list-card-members { display: none; }
-      } 
+
+.ft_card-details_hidden {
+   .js-list-card-members { display: none; }
+} 
 
 
 
@@ -714,14 +742,14 @@ $transition-delay: 0;
 // CARD IMAGES APPEARANCE
 /////////////////////////
 
-      .ft_card-images_minimised {
-         .list-card-cover.is-covered { // .is-covered seems to indicate it is showing an image. Including this means we don't increase the height of a card that wasn't showing an image anyway
-            height: 3px !important;
-         }
-      }
+.ft_card-images_minimised {
+   .list-card-cover.is-covered { // .is-covered seems to indicate it is showing an image. Including this means we don't increase the height of a card that wasn't showing an image anyway
+      height: 3px !important;
+   }
+}
 
-      .ft_card-images_hidden {
-         .list-card-cover {
-            height: 0px !important;
-         }
-      }
+.ft_card-images_hidden {
+   .list-card-cover {
+      height: 0px !important;
+   }
+}
