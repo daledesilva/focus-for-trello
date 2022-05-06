@@ -356,16 +356,6 @@ function createFocusSwitchButton() {
             
                 {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
 
-                <Tooltip title="Erase preset settings" >
-                    <div
-                        href="#"
-                        id={ plugin.slug + "_setup-nuke-preset-btn" }
-                        className={ plugin.slug + "_circle-btn" }
-                    >
-                        <i className="fas fa-minus-square"/>
-                    </div>
-                </Tooltip>
-
                 <Tooltip title="Erase board settings" >
                     <div
                         href="#"
@@ -373,6 +363,16 @@ function createFocusSwitchButton() {
                         className={ plugin.slug + "_circle-btn" }
                     >
                         <i className="fas fa-calendar-times"/>
+                    </div>
+                </Tooltip>
+
+                <Tooltip title="Erase preset settings" >
+                    <div
+                        href="#"
+                        id={ plugin.slug + "_setup-nuke-preset-btn" }
+                        className={ plugin.slug + "_circle-btn" }
+                    >
+                        <i className="fas fa-minus-square"/>
                     </div>
                 </Tooltip>
 
