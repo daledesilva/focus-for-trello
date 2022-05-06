@@ -2,7 +2,7 @@ import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 import { MATCH_METHODS } from "./enumerators";
 import { OPTIONS } from "./user-options";
 
-import {plugin} from "../metadata";
+import { plugin } from "../metadata";
 
 
 var $activeList;
@@ -98,7 +98,7 @@ function initBoardSettings(props) {
         boardPresets: [
             { // Board preset 1
     
-                presetId: 0,
+                // presetId: 0,
                 presetName: "Unnamed preset "+1,
                 isActiveWhenCycling: true,
 
@@ -126,16 +126,15 @@ function initBoardSettings(props) {
 
 
 
-function initBoardPreset(id) {
+function createDefaultPreset(index) {
 
     // If it already exists, then bail.
-    if(boardSettings.boardPresets[id])  return;
+    // if(boardSettings.boardPresets[index])  return;
 
 
-
-    boardSettings.boardPresets[id] = {
+    boardSettings.boardPresets[index] = {
     
-        presetId: id,
+        // presetId: id,
         presetName: "Unnamed preset "+1,
         isActiveWhenCycling: true,
         
@@ -196,6 +195,21 @@ export function loadBoardSettings() {
 }
 
 
+// Used by saveBoardSettings
+function moveActivePresetIfInDefaultSlot() {
+    if(boardSettings.activeBoardPreset == 0) {
+        console.log('Active Preset is 0');
+        console.log('boardSettings.boardPresets',boardSettings.boardPresets);
+        // Move active preset to end of array
+        boardSettings.boardPresets.push(boardSettings.boardPresets[0]);
+        boardSettings.activeBoardPreset = boardSettings.boardPresets.length-1;
+        // Reset the preset at the start
+        createDefaultPreset(0);
+        console.log('boardSettings.boardPresets[0]',boardSettings.boardPresets[0]);
+    }
+}
+
+
 export function saveBoardSettings() {
     debugLog("Sending boardSettings to save in Chrome memory");
     debugLog(boardSettings);
@@ -205,7 +219,6 @@ export function saveBoardSettings() {
     // Asynchronous callback
     chrome.storage.local.set({[boardId]: boardSettings}, function() {
         userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
-
     });
 
 }
@@ -216,13 +229,12 @@ export function saveBoardSettings() {
 export function nukePresetSettings() {
     userConsoleNote("Erasing current board preset");
 
-    let presetToDelete = boardSettings.activeBoardPreset;
+    let presetIndexToDelete = boardSettings.activeBoardPreset;
 
-    boardSettings.boardPresets.splice(presetToDelete, 1);
-    if(presetToDelete > 0) {
+    // Only allow deleting if it's not the default preset
+    if(presetIndexToDelete > 0) {
+        boardSettings.boardPresets.splice(presetIndexToDelete, 1);
         boardSettings.activeBoardPreset --;
-    } else {
-        boardSettings.activeBoardPreset = boardSettings.boardPresets.length-1;
     }
 
     userConsoleNote("Preset settings erased, previous remaining preset activated");
@@ -413,7 +425,7 @@ export function getContainingList(id) {
 
 export function cycleOptionInList(optionSet, $list) {
 
-    // TO DO: This can all be done more efficiently with indices
+    // TODO: This can all be done more efficiently with indices
     let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
     let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
 
@@ -429,7 +441,7 @@ export function cycleOptionInList(optionSet, $list) {
     })
     
 
-    saveListOption({
+    changeAndSaveListOption({
         $list: $list,
         newClass: nextOption.class,
         oldClass: currentOption.class
@@ -619,19 +631,28 @@ export function visualizeListOption(props) {
 
 
 
-export function saveListOption(props) {
+export function changeAndSaveListOption(props) {
     const {$list, newClass, oldClass} = props
     const listId = getListId($list);
-   
 
     changeClassInListInSettings({
         classId: newClass,
         listId,
     });
-    
+
+    moveActivePresetIfInDefaultSlot();
     saveBoardSettings();
 
 }
+
+
+export function iterateAndSaveHeaderSetting(props) {
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
+    moveActivePresetIfInDefaultSlot();
+    saveBoardSettings();
+}
+
 
 
 
@@ -727,8 +748,8 @@ function changeClassInListInSettings(props) {
     const classIds = getClassIdSet(classId);
     let listSettings = getListSettingsRef(listId);
 
-    // Remove all the classes for this visual setimport { Animate } from '@wordpress/components';
-    // (There should only be one, but if there's somehow more they will all go)
+    // Remove all the classes for this styling set
+    // (There should only be one, but if there's somehow more they will all go as a failsafe)
     removeClassIdsFromListInSettings({
         classIds,
         listId
@@ -792,15 +813,15 @@ function getListSettingsRef(listId) {
 
 
 
-function getBoardPreset() {
-    let boardSettings = getBoardSettings();
+// function getBoardPreset() {
+//     let boardSettings = getBoardSettings();
 
-    if(boardSettings.boardPresets == undefined ) {
-        boardSettings.boardPresets[boardSettings.activeBoardPreset] = initBoardPreset();
-    };
+//     if(boardSettings.boardPresets == undefined ) {
+//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = createDefaultPreset();
+//     };
 
-    return boardSettings.boardPresets[boardSettings.activeBoardPreset];
-}
+//     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
+// }
 
 function getBoardSettings() {
 
@@ -822,18 +843,8 @@ function getBoardSettings() {
 
 export function cycleBoardPresets() {
 
-    // TO DO:
-    // Instead of initialising presets that shouldn't hang around, a more robust solution should be designed.
-    // Perhaps:
-    // In the boardSettings, preset 0 is reserve for the default Trello appearances.
-    // Whenever this is the activeBoardPreset, the functions which make changes to the settings first jump the activeBoardPreset number to it's length.
-    // This way preset 0 is never touched and always represents Trello default - and because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
-
-    // TO DO: For now this limits the number of presets to 2. The above should be implemented to make this dynamic.
     boardSettings.activeBoardPreset ++;
-    boardSettings.activeBoardPreset %= 2; // TO DO
-
-    initBoardPreset(boardSettings.activeBoardPreset);
+    boardSettings.activeBoardPreset %= boardSettings.boardPresets.length;
 
     debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
 
@@ -843,13 +854,8 @@ export function cycleBoardPresets() {
 
 
 export function cycleBoardHeader() {
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
-
-    debugLog("Switching headers");
-
+    iterateAndSaveHeaderSetting()
     visualizeHeaderSetting();
-    saveBoardSettings();
 }
 
 

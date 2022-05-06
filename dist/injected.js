@@ -14410,7 +14410,7 @@ function debugLog(input) {
 /*!*********************************!*\
   !*** ./src/injected/helpers.js ***!
   \*********************************/
-/*! exports provided: loadBoardSettings, saveBoardSettings, nukePresetSettings, nukeBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, saveListOption, cycleBoardPresets, cycleBoardHeader */
+/*! exports provided: loadBoardSettings, saveBoardSettings, nukePresetSettings, nukeBoardSettings, setActiveList, $getActiveList, listNameMatchesId, getOptionAfterThis, getListsNextOptionInSet, getNextOptionInSet, getContainingList, cycleOptionInList, visualizeAllBoardSettings, visualizeListOption, changeAndSaveListOption, iterateAndSaveHeaderSetting, cycleBoardPresets, cycleBoardHeader */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14429,7 +14429,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleOptionInList", function() { return cycleOptionInList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeAllBoardSettings", function() { return visualizeAllBoardSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visualizeListOption", function() { return visualizeListOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveListOption", function() { return saveListOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeAndSaveListOption", function() { return changeAndSaveListOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iterateAndSaveHeaderSetting", function() { return iterateAndSaveHeaderSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleBoardPresets", function() { return cycleBoardPresets; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cycleBoardHeader", function() { return cycleBoardHeader; });
 /* harmony import */ var _generic_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generic-helpers */ "./src/injected/generic-helpers.js");
@@ -14495,7 +14496,7 @@ function initBoardSettings(props) {
     activeBoardPreset: 0,
     boardPresets: [{
       // Board preset 1
-      presetId: 0,
+      // presetId: 0,
       presetName: "Unnamed preset " + 1,
       isActiveWhenCycling: true,
       headerSetting: 0,
@@ -14511,11 +14512,11 @@ function initBoardSettings(props) {
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
 }
 
-function initBoardPreset(id) {
+function createDefaultPreset(index) {
   // If it already exists, then bail.
-  if (boardSettings.boardPresets[id]) return;
-  boardSettings.boardPresets[id] = {
-    presetId: id,
+  // if(boardSettings.boardPresets[index])  return;
+  boardSettings.boardPresets[index] = {
+    // presetId: id,
     presetName: "Unnamed preset " + 1,
     isActiveWhenCycling: true,
     headerSetting: 0,
@@ -14546,7 +14547,21 @@ function loadBoardSettings() {
       visualizeAllBoardSettings();
     }
   });
+} // Used by saveBoardSettings
+
+function moveActivePresetIfInDefaultSlot() {
+  if (boardSettings.activeBoardPreset == 0) {
+    console.log('Active Preset is 0');
+    console.log('boardSettings.boardPresets', boardSettings.boardPresets); // Move active preset to end of array
+
+    boardSettings.boardPresets.push(boardSettings.boardPresets[0]);
+    boardSettings.activeBoardPreset = boardSettings.boardPresets.length - 1; // Reset the preset at the start
+
+    createDefaultPreset(0);
+    console.log('boardSettings.boardPresets[0]', boardSettings.boardPresets[0]);
+  }
 }
+
 function saveBoardSettings() {
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Sending boardSettings to save in Chrome memory");
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])(boardSettings);
@@ -14560,13 +14575,11 @@ function saveBoardSettings() {
 }
 function nukePresetSettings() {
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Erasing current board preset");
-  let presetToDelete = boardSettings.activeBoardPreset;
-  boardSettings.boardPresets.splice(presetToDelete, 1);
+  let presetIndexToDelete = boardSettings.activeBoardPreset; // Only allow deleting if it's not the default preset
 
-  if (presetToDelete > 0) {
+  if (presetIndexToDelete > 0) {
+    boardSettings.boardPresets.splice(presetIndexToDelete, 1);
     boardSettings.activeBoardPreset--;
-  } else {
-    boardSettings.activeBoardPreset = boardSettings.boardPresets.length - 1;
   }
 
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["userConsoleNote"])("Preset settings erased, previous remaining preset activated");
@@ -14703,7 +14716,7 @@ function getContainingList(id) {
   return $("#" + id).closest(".js-list");
 }
 function cycleOptionInList(optionSet, $list) {
-  // TO DO: This can all be done more efficiently with indices
+  // TODO: This can all be done more efficiently with indices
   let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
   let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
   let currentOption = optionSet[currentOptionIndex];
@@ -14713,7 +14726,7 @@ function cycleOptionInList(optionSet, $list) {
     newClass: nextOption.class,
     oldClass: currentOption.class
   });
-  saveListOption({
+  changeAndSaveListOption({
     $list: $list,
     newClass: nextOption.class,
     oldClass: currentOption.class
@@ -14826,7 +14839,7 @@ function visualizeListOption(props) {
   if (oldClass) $list.removeClass(oldClass);
   $list.addClass(newClass);
 }
-function saveListOption(props) {
+function changeAndSaveListOption(props) {
   const {
     $list,
     newClass,
@@ -14837,6 +14850,14 @@ function saveListOption(props) {
     classId: newClass,
     listId
   });
+  moveActivePresetIfInDefaultSlot();
+  saveBoardSettings();
+}
+function iterateAndSaveHeaderSetting(props) {
+  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting++;
+  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
+
+  moveActivePresetIfInDefaultSlot();
   saveBoardSettings();
 } // export function saveHeaderOption(props) {
 //     const {newId} = props
@@ -14906,8 +14927,8 @@ function changeClassInListInSettings(props) {
     classId
   } = props;
   const classIds = getClassIdSet(classId);
-  let listSettings = getListSettingsRef(listId); // Remove all the classes for this visual setimport { Animate } from '@wordpress/components';
-  // (There should only be one, but if there's somehow more they will all go)
+  let listSettings = getListSettingsRef(listId); // Remove all the classes for this styling set
+  // (There should only be one, but if there's somehow more they will all go as a failsafe)
 
   removeClassIdsFromListInSettings({
     classIds,
@@ -14938,18 +14959,14 @@ function getListSettingsRef(listId) {
     listId
   }));
   return boardListSettings[boardListSettings.length - 1];
-}
+} // function getBoardPreset() {
+//     let boardSettings = getBoardSettings();
+//     if(boardSettings.boardPresets == undefined ) {
+//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = createDefaultPreset();
+//     };
+//     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
+// }
 
-function getBoardPreset() {
-  let boardSettings = getBoardSettings();
-
-  if (boardSettings.boardPresets == undefined) {
-    boardSettings.boardPresets[boardSettings.activeBoardPreset] = initBoardPreset();
-  }
-
-  ;
-  return boardSettings.boardPresets[boardSettings.activeBoardPreset];
-}
 
 function getBoardSettings() {
   if (boardSettings == undefined) {
@@ -14962,28 +14979,15 @@ function getBoardSettings() {
 }
 
 function cycleBoardPresets() {
-  // TO DO:
-  // Instead of initialising presets that shouldn't hang around, a more robust solution should be designed.
-  // Perhaps:
-  // In the boardSettings, preset 0 is reserve for the default Trello appearances.
-  // Whenever this is the activeBoardPreset, the functions which make changes to the settings first jump the activeBoardPreset number to it's length.
-  // This way preset 0 is never touched and always represents Trello default - and because it will automatically shift to a saveable preset index, it means the user can just change at will and never overwrite it.
-  // TO DO: For now this limits the number of presets to 2. The above should be implemented to make this dynamic.
   boardSettings.activeBoardPreset++;
-  boardSettings.activeBoardPreset %= 2; // TO DO
-
-  initBoardPreset(boardSettings.activeBoardPreset);
+  boardSettings.activeBoardPreset %= boardSettings.boardPresets.length;
   Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Cycling board presets. New preset: '" + boardSettings.activeBoardPreset + "'");
   visualizeAllBoardSettings();
   saveBoardSettings();
 }
 function cycleBoardHeader() {
-  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting++;
-  boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TO DO: Maybe the header options can be abstracted to array of names so this could then be % length
-
-  Object(_generic_helpers__WEBPACK_IMPORTED_MODULE_0__["debugLog"])("Switching headers");
+  iterateAndSaveHeaderSetting();
   visualizeHeaderSetting();
-  saveBoardSettings();
 }
 
 function visualizeHeaderSetting() {
