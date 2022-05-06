@@ -1,65 +1,65 @@
 .js-list:nth-of-type(1) {
-  --delay: 0.096s;
-}
-
-.js-list:nth-of-type(2) {
-  --delay: 0.039s;
-}
-
-.js-list:nth-of-type(3) {
-  --delay: 0.252s;
-}
-
-.js-list:nth-of-type(4) {
-  --delay: 0.177s;
-}
-
-.js-list:nth-of-type(5) {
-  --delay: 0.135s;
-}
-
-.js-list:nth-of-type(6) {
-  --delay: 0.273s;
-}
-
-.js-list:nth-of-type(7) {
-  --delay: 0.123s;
-}
-
-.js-list:nth-of-type(8) {
-  --delay: 0.003s;
-}
-
-.js-list:nth-of-type(9) {
-  --delay: 0.063s;
-}
-
-.js-list:nth-of-type(10) {
   --delay: 0.225s;
 }
 
+.js-list:nth-of-type(2) {
+  --delay: 0.087s;
+}
+
+.js-list:nth-of-type(3) {
+  --delay: 0.222s;
+}
+
+.js-list:nth-of-type(4) {
+  --delay: 0.186s;
+}
+
+.js-list:nth-of-type(5) {
+  --delay: 0.198s;
+}
+
+.js-list:nth-of-type(6) {
+  --delay: 0.012s;
+}
+
+.js-list:nth-of-type(7) {
+  --delay: 0.186s;
+}
+
+.js-list:nth-of-type(8) {
+  --delay: 0.006s;
+}
+
+.js-list:nth-of-type(9) {
+  --delay: 0.246s;
+}
+
+.js-list:nth-of-type(10) {
+  --delay: 0.054s;
+}
+
 .js-list:nth-of-type(11) {
-  --delay: 0.129s;
+  --delay: 0.243s;
 }
 
 .js-list:nth-of-type(12) {
-  --delay: 0.156s;
+  --delay: 0.009s;
 }
 
 .js-list:nth-of-type(13) {
-  --delay: 0.258s;
-}
-
-.js-list:nth-of-type(14) {
   --delay: 0.072s;
 }
 
+.js-list:nth-of-type(14) {
+  --delay: 0.075s;
+}
+
 .js-list:nth-of-type(15) {
-  --delay: 0.18s;
+  --delay: 0.051s;
 }
 
 .js-list:nth-of-type(16) {
-  --delay: 0.21s;
+  --delay: 0.192s;
 }
 
 .js-list:nth-of-type(17) {
@@ -67,295 +67,295 @@
 }
 
 .js-list:nth-of-type(18) {
-  --delay: 0.198s;
+  --delay: 0.126s;
 }
 
 .js-list:nth-of-type(19) {
-  --delay: 0.138s;
+  --delay: 0.087s;
 }
 
 .js-list:nth-of-type(20) {
-  --delay: 0.237s;
-}
-
-.js-list:nth-of-type(21) {
-  --delay: 0.189s;
-}
-
-.js-list:nth-of-type(22) {
-  --delay: 0.195s;
-}
-
-.js-list:nth-of-type(23) {
-  --delay: 0.207s;
-}
-
-.js-list:nth-of-type(24) {
-  --delay: 0.255s;
-}
-
-.js-list:nth-of-type(25) {
-  --delay: 0.27s;
-}
-
-.js-list:nth-of-type(26) {
-  --delay: 0.066s;
-}
-
-.js-list:nth-of-type(27) {
-  --delay: 0.036s;
-}
-
-.js-list:nth-of-type(28) {
-  --delay: 0.129s;
-}
-
-.js-list:nth-of-type(29) {
-  --delay: 0.042s;
-}
-
-.js-list:nth-of-type(30) {
-  --delay: 0.099s;
-}
-
-.js-list:nth-of-type(31) {
-  --delay: 0.021s;
-}
-
-.js-list:nth-of-type(32) {
-  --delay: 0.117s;
-}
-
-.js-list:nth-of-type(33) {
-  --delay: 0.261s;
-}
-
-.js-list:nth-of-type(34) {
-  --delay: 0.174s;
-}
-
-.js-list:nth-of-type(35) {
-  --delay: 0.249s;
-}
-
-.js-list:nth-of-type(36) {
-  --delay: 0.243s;
-}
-
-.js-list:nth-of-type(37) {
-  --delay: 0.267s;
-}
-
-.js-list:nth-of-type(38) {
-  --delay: 0.249s;
-}
-
-.js-list:nth-of-type(39) {
-  --delay: 0.171s;
-}
-
-.js-list:nth-of-type(40) {
   --delay: 0.147s;
 }
 
-.js-list:nth-of-type(41) {
-  --delay: 0.012s;
+.js-list:nth-of-type(21) {
+  --delay: 0.207s;
 }
 
-.js-list:nth-of-type(42) {
-  --delay: 0.015s;
-}
-
-.js-list:nth-of-type(43) {
-  --delay: 0.183s;
-}
-
-.js-list:nth-of-type(44) {
-  --delay: 0.072s;
-}
-
-.js-list:nth-of-type(45) {
-  --delay: 0.051s;
-}
-
-.js-list:nth-of-type(46) {
-  --delay: 0.258s;
-}
-
-.js-list:nth-of-type(47) {
-  --delay: 0.294s;
-}
-
-.js-list:nth-of-type(48) {
-  --delay: 0.057s;
-}
-
-.js-list:nth-of-type(49) {
-  --delay: 0.237s;
-}
-
-.js-list:nth-of-type(50) {
-  --delay: 0.204s;
-}
-
-.js-list:nth-of-type(51) {
-  --delay: 0.051s;
-}
-
-.js-list:nth-of-type(52) {
-  --delay: 0.117s;
-}
-
-.js-list:nth-of-type(53) {
-  --delay: 0.108s;
-}
-
-.js-list:nth-of-type(54) {
-  --delay: 0.027s;
-}
-
-.js-list:nth-of-type(55) {
-  --delay: 0.027s;
-}
-
-.js-list:nth-of-type(56) {
-  --delay: 0.054s;
-}
-
-.js-list:nth-of-type(57) {
-  --delay: 0.081s;
-}
-
-.js-list:nth-of-type(58) {
-  --delay: 0.144s;
-}
-
-.js-list:nth-of-type(59) {
-  --delay: 0.213s;
-}
-
-.js-list:nth-of-type(60) {
-  --delay: 0.078s;
-}
-
-.js-list:nth-of-type(61) {
-  --delay: 0.072s;
-}
-
-.js-list:nth-of-type(62) {
-  --delay: 0.249s;
-}
-
-.js-list:nth-of-type(63) {
-  --delay: 0.06s;
-}
-
-.js-list:nth-of-type(64) {
-  --delay: 0.258s;
-}
-
-.js-list:nth-of-type(65) {
-  --delay: 0.051s;
-}
-
-.js-list:nth-of-type(66) {
-  --delay: 0.225s;
-}
-
-.js-list:nth-of-type(67) {
-  --delay: 0.204s;
-}
-
-.js-list:nth-of-type(68) {
-  --delay: 0.252s;
-}
-
-.js-list:nth-of-type(69) {
-  --delay: 0.219s;
-}
-
-.js-list:nth-of-type(70) {
-  --delay: 0.12s;
-}
-
-.js-list:nth-of-type(71) {
-  --delay: 0.021s;
-}
-
-.js-list:nth-of-type(72) {
-  --delay: 0.186s;
-}
-
-.js-list:nth-of-type(73) {
-  --delay: 0.195s;
-}
-
-.js-list:nth-of-type(74) {
-  --delay: 0.072s;
-}
-
-.js-list:nth-of-type(75) {
-  --delay: 0.111s;
-}
-
-.js-list:nth-of-type(76) {
-  --delay: 0.057s;
-}
-
-.js-list:nth-of-type(77) {
-  --delay: 0.258s;
-}
-
-.js-list:nth-of-type(78) {
-  --delay: 0.003s;
-}
-
-.js-list:nth-of-type(79) {
-  --delay: 0.297s;
-}
-
-.js-list:nth-of-type(80) {
-  --delay: 0.189s;
-}
-
-.js-list:nth-of-type(81) {
+.js-list:nth-of-type(22) {
   --delay: 0.201s;
 }
 
-.js-list:nth-of-type(82) {
-  --delay: 0.096s;
+.js-list:nth-of-type(23) {
+  --delay: 0.159s;
 }
 
-.js-list:nth-of-type(83) {
-  --delay: 0.057s;
+.js-list:nth-of-type(24) {
+  --delay: 0.231s;
 }
 
-.js-list:nth-of-type(84) {
-  --delay: 0.252s;
+.js-list:nth-of-type(25) {
+  --delay: 0.012s;
 }
 
-.js-list:nth-of-type(85) {
-  --delay: 0.006s;
+.js-list:nth-of-type(26) {
+  --delay: 0.243s;
 }
 
-.js-list:nth-of-type(86) {
-  --delay: 0.03s;
+.js-list:nth-of-type(27) {
+  --delay: 0.06s;
 }
 
-.js-list:nth-of-type(87) {
-  --delay: 0.009s;
+.js-list:nth-of-type(28) {
+  --delay: 0.093s;
 }
 
-.js-list:nth-of-type(88) {
-  --delay: 0.171s;
+.js-list:nth-of-type(29) {
+  --delay: 0.078s;
 }
 
-.js-list:nth-of-type(89) {
+.js-list:nth-of-type(30) {
   --delay: 0.153s;
 }
 
-.js-list:nth-of-type(90) {
+.js-list:nth-of-type(31) {
+  --delay: 0.09s;
+}
+
+.js-list:nth-of-type(32) {
+  --delay: 0.24s;
+}
+
+.js-list:nth-of-type(33) {
+  --delay: 0.012s;
+}
+
+.js-list:nth-of-type(34) {
+  --delay: 0.267s;
+}
+
+.js-list:nth-of-type(35) {
+  --delay: 0.051s;
+}
+
+.js-list:nth-of-type(36) {
+  --delay: 0.162s;
+}
+
+.js-list:nth-of-type(37) {
+  --delay: 0.006s;
+}
+
+.js-list:nth-of-type(38) {
+  --delay: 0.084s;
+}
+
+.js-list:nth-of-type(39) {
+  --delay: 0.084s;
+}
+
+.js-list:nth-of-type(40) {
+  --delay: 0.189s;
+}
+
+.js-list:nth-of-type(41) {
+  --delay: 0.162s;
+}
+
+.js-list:nth-of-type(42) {
+  --delay: 0.174s;
+}
+
+.js-list:nth-of-type(43) {
+  --delay: 0.078s;
+}
+
+.js-list:nth-of-type(44) {
+  --delay: 0.066s;
+}
+
+.js-list:nth-of-type(45) {
+  --delay: 0.06s;
+}
+
+.js-list:nth-of-type(46) {
+  --delay: 0.144s;
+}
+
+.js-list:nth-of-type(47) {
+  --delay: 0.165s;
+}
+
+.js-list:nth-of-type(48) {
+  --delay: 0.042s;
+}
+
+.js-list:nth-of-type(49) {
+  --delay: 0.288s;
+}
+
+.js-list:nth-of-type(50) {
+  --delay: 0.117s;
+}
+
+.js-list:nth-of-type(51) {
+  --delay: 0.294s;
+}
+
+.js-list:nth-of-type(52) {
+  --delay: 0.069s;
+}
+
+.js-list:nth-of-type(53) {
+  --delay: 0.207s;
+}
+
+.js-list:nth-of-type(54) {
+  --delay: 0.183s;
+}
+
+.js-list:nth-of-type(55) {
+  --delay: 0.012s;
+}
+
+.js-list:nth-of-type(56) {
+  --delay: 0.171s;
+}
+
+.js-list:nth-of-type(57) {
+  --delay: 0.054s;
+}
+
+.js-list:nth-of-type(58) {
+  --delay: 0.225s;
+}
+
+.js-list:nth-of-type(59) {
+  --delay: 0.171s;
+}
+
+.js-list:nth-of-type(60) {
+  --delay: 0.183s;
+}
+
+.js-list:nth-of-type(61) {
   --delay: 0.105s;
+}
+
+.js-list:nth-of-type(62) {
+  --delay: 0.048s;
+}
+
+.js-list:nth-of-type(63) {
+  --delay: 0.279s;
+}
+
+.js-list:nth-of-type(64) {
+  --delay: 0.267s;
+}
+
+.js-list:nth-of-type(65) {
+  --delay: 0.156s;
+}
+
+.js-list:nth-of-type(66) {
+  --delay: 0.042s;
+}
+
+.js-list:nth-of-type(67) {
+  --delay: 0.186s;
+}
+
+.js-list:nth-of-type(68) {
+  --delay: 0.06s;
+}
+
+.js-list:nth-of-type(69) {
+  --delay: 0.018s;
+}
+
+.js-list:nth-of-type(70) {
+  --delay: 0.291s;
+}
+
+.js-list:nth-of-type(71) {
+  --delay: 0.213s;
+}
+
+.js-list:nth-of-type(72) {
+  --delay: 0.021s;
+}
+
+.js-list:nth-of-type(73) {
+  --delay: 0.12s;
+}
+
+.js-list:nth-of-type(74) {
+  --delay: 0.222s;
+}
+
+.js-list:nth-of-type(75) {
+  --delay: 0.039s;
+}
+
+.js-list:nth-of-type(76) {
+  --delay: 0.015s;
+}
+
+.js-list:nth-of-type(77) {
+  --delay: 0.27s;
+}
+
+.js-list:nth-of-type(78) {
+  --delay: 0.165s;
+}
+
+.js-list:nth-of-type(79) {
+  --delay: 0.207s;
+}
+
+.js-list:nth-of-type(80) {
+  --delay: 0.102s;
+}
+
+.js-list:nth-of-type(81) {
+  --delay: 0.189s;
+}
+
+.js-list:nth-of-type(82) {
+  --delay: 0.066s;
+}
+
+.js-list:nth-of-type(83) {
+  --delay: 0.075s;
+}
+
+.js-list:nth-of-type(84) {
+  --delay: 0.021s;
+}
+
+.js-list:nth-of-type(85) {
+  --delay: 0.243s;
+}
+
+.js-list:nth-of-type(86) {
+  --delay: 0.189s;
+}
+
+.js-list:nth-of-type(87) {
+  --delay: 0.3s;
+}
+
+.js-list:nth-of-type(88) {
+  --delay: 0.195s;
+}
+
+.js-list:nth-of-type(89) {
+  --delay: 0.057s;
+}
+
+.js-list:nth-of-type(90) {
+  --delay: 0.132s;
 }
 
 .js-list:nth-of-type(91) {
@@ -363,39 +363,39 @@
 }
 
 .js-list:nth-of-type(92) {
-  --delay: 0.24s;
+  --delay: 0.036s;
 }
 
 .js-list:nth-of-type(93) {
-  --delay: 0.27s;
+  --delay: 0.027s;
 }
 
 .js-list:nth-of-type(94) {
-  --delay: 0.093s;
+  --delay: 0.105s;
 }
 
 .js-list:nth-of-type(95) {
-  --delay: 0.189s;
+  --delay: 0.255s;
 }
 
 .js-list:nth-of-type(96) {
-  --delay: 0.132s;
+  --delay: 0.12s;
 }
 
 .js-list:nth-of-type(97) {
-  --delay: 0.279s;
+  --delay: 0.291s;
 }
 
 .js-list:nth-of-type(98) {
-  --delay: 0.09s;
+  --delay: 0.228s;
 }
 
 .js-list:nth-of-type(99) {
-  --delay: 0.009s;
+  --delay: 0.195s;
 }
 
 .js-list:nth-of-type(100) {
-  --delay: 0.009s;
+  --delay: 0.063s;
 }
 
 #focus_switch-focus-container {

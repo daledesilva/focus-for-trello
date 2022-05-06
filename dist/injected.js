@@ -14137,7 +14137,7 @@ function createListButtons() {
 
   if ($popoverHeaderTitle.length == 0) return; // Bail if the popover isn't a list settings context menu
 
-  if ($popoverHeaderTitle.text() != "List Actions") return; // add custom Focus buttons to list settings menu
+  if ($popoverHeaderTitle.text().toUpperCase() != "LIST ACTIONS") return; // add custom Focus buttons to list settings menu
 
   let $listContent = $latestMutations.find(".js-pop-over-content div div").first();
   $listContent.append(jsx_render__WEBPACK_IMPORTED_MODULE_0___default()("hr", null));
