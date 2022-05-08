@@ -3,7 +3,7 @@ import jQueryBridget from 'jquery-bridget';
 import Masonry from "masonry-layout"
 import tippy, {createSingleton} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional for styling
-import 'tippy.js/themes/light.css';
+import 'tippy.js/themes/material.css';
 import 'tippy.js/animations/shift-toward-subtle.css';
 import classnames from 'classnames';
 
@@ -226,6 +226,7 @@ function createListButtons() {
     $listContent.append( <hr/> );
     $listContent.append( <ListButtons/> );
 
+    applyTippyInside($listContent);
 }
 
 
@@ -461,24 +462,7 @@ function createFocusSwitchButton() {
 
     // TOOLTIPS
     ///////////
-    let tippyArr = [];
-    $(`.${plugin.slug}_tooltip`).each( (index, el) => {
-        const domEl = $(el)[0];
-        const content = domEl.getAttribute('data-tooltip');
-
-        tippyArr.push(
-            tippy(domEl, {
-                content,
-            })
-        );
-    })
-
-    createSingleton(tippyArr, {
-        theme: 'light',
-        placement: 'top',
-        animation: 'shift-toward-subtle',
-        delay: [750, 100],
-    });
+    applyTippyInside($switchFocusContainer);
     
     // $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
     // $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
@@ -513,7 +497,28 @@ function addSelected() {
 
 
 
+function applyTippyInside($container, props) {
 
+    let tippyArr = [];
+    $container.find(`.${plugin.slug}_tooltip`).each( (index, el) => {
+        const domEl = $(el)[0];
+        const content = domEl.getAttribute('data-tooltip');
+
+        tippyArr.push(
+            tippy(domEl, {
+                content,
+            })
+        );
+    })
+
+    createSingleton(tippyArr, {
+        theme: 'material',
+        placement: 'top',
+        animation: 'shift-toward-subtle',
+        delay: [750, 100],
+        ...props,
+    });
+}
 
 
 
