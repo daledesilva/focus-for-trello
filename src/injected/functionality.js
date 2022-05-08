@@ -1,7 +1,7 @@
 import dom, { Fragment } from "jsx-render";
 import jQueryBridget from 'jquery-bridget';
 import Masonry from "masonry-layout"
-import tippy from 'tippy.js';
+import tippy, {createSingleton} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional for styling
 import 'tippy.js/themes/light.css';
 import 'tippy.js/animations/shift-toward-subtle.css';
@@ -461,19 +461,24 @@ function createFocusSwitchButton() {
 
     // TOOLTIPS
     ///////////
-    let toolTipArr
+    let tippyArr = [];
     $(`.${plugin.slug}_tooltip`).each( (index, el) => {
         const domEl = $(el)[0];
         const content = domEl.getAttribute('data-tooltip');
 
-        tippy(domEl, {
-            placement: 'bottom',
-            animation: 'shift-toward-subtle',
-            theme: 'light',
-            content,
-            delay: [500, 100],
-        });
+        tippyArr.push(
+            tippy(domEl, {
+                content,
+            })
+        );
     })
+
+    createSingleton(tippyArr, {
+        theme: 'light',
+        placement: 'top',
+        animation: 'shift-toward-subtle',
+        delay: [750, 100],
+    });
     
     // $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
     // $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
