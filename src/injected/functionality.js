@@ -1,6 +1,11 @@
 import dom, { Fragment } from "jsx-render";
 import jQueryBridget from 'jquery-bridget';
 import Masonry from "masonry-layout"
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css'; // optional for styling
+import 'tippy.js/themes/light.css';
+import 'tippy.js/animations/shift-toward-subtle.css';
+import classnames from 'classnames';
 
 // make Masonry a jQuery plugin
 jQueryBridget( 'masonry', Masonry, $ );
@@ -356,48 +361,56 @@ function createFocusSwitchButton() {
             
                 {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
 
-                <Tooltip title="Erase board settings" >
-                    <div
-                        href="#"
-                        id={ plugin.slug + "_setup-nuke-board-btn" }
-                        className={ plugin.slug + "_circle-btn" }
-                    >
-                        <i className="fas fa-calendar-times"/>
-                    </div>
-                </Tooltip>
+                <div
+                    href="#"
+                    id={ plugin.slug + "_setup-nuke-board-btn" }
+                    className={classnames(
+                        plugin.slug + "_circle-btn",
+                        `${plugin.slug}_tooltip`,
+                    )}
+                    data-tooltip = "Erase board settings"
+                >
+                    <i className="fas fa-calendar-times"/>
+                </div>
 
-                <Tooltip title="Erase preset settings" >
-                    <div
-                        href="#"
-                        id={ plugin.slug + "_setup-nuke-preset-btn" }
-                        className={ plugin.slug + "_circle-btn" }
-                    >
-                        <i className="fas fa-minus-square"/>
-                    </div>
-                </Tooltip>
+                <div
+                    href="#"
+                    id={ plugin.slug + "_setup-nuke-preset-btn" }
+                    className={classnames(
+                        plugin.slug + "_circle-btn",
+                        `${plugin.slug}_tooltip`,
+                    )}
+                    data-tooltip = "Erase preset settings"
+                >
+                    <i className="fas fa-minus-square"/>
+                </div>
 
 
                 {/* Settings and header switch buttons */}
 
-                <Tooltip title="Setup actions" >
-                    <div
-                        href="#"
-                        id={ plugin.slug + "_setup-actions-btn" }
-                        className={ plugin.slug + "_circle-btn" }
-                    >
-                        <i className="fas fa-cog"/>
-                    </div>
-                </Tooltip>
+                <div
+                    href="#"
+                    id={ plugin.slug + "_setup-actions-btn" }
+                    className={classnames(
+                        plugin.slug + "_circle-btn",
+                        `${plugin.slug}_tooltip`,
+                    )}
+                    data-tooltip = "Setup actions"
+                >
+                    <i className="fas fa-cog"/>
+                </div>
 
-                <Tooltip title="Switch header" >
-                    <div
-                        href="#"
-                        id={ plugin.slug + "_switch-header-btn" }
-                        className={ plugin.slug + "_circle-btn" }
-                    >
-                        <i className="fas fa-sync-alt"/>
-                    </div>
-                </Tooltip>
+                <div
+                    href="#"
+                    id={ plugin.slug + "_switch-header-btn" }
+                    className={classnames(
+                        plugin.slug + "_circle-btn",
+                        `${plugin.slug}_tooltip`,
+                    )}
+                    data-tooltip = "Switch header"
+                >
+                    <i className="fas fa-sync-alt"/>
+                </div>
 
             </div>
 
@@ -407,15 +420,16 @@ function createFocusSwitchButton() {
 
 
             {/* Main button */}
-
-            <Tooltip title="Switch focus" tag="a">
-                <a
-                    href="#"
-                    id={ plugin.slug + "_switch-focus-btn" }
-                >
-                    <i className="fas fa-sync-alt"/>
-                </a>
-            </Tooltip>
+            <a
+                href="#"
+                id={ plugin.slug + "_switch-focus-btn" }
+                className={classnames(
+                    `${plugin.slug}_tooltip`,
+                )}
+                data-tooltip = "Switch focus"
+            >
+                <i className="fas fa-sync-alt"/>
+            </a>
 
         </div>
     );
@@ -444,6 +458,27 @@ function createFocusSwitchButton() {
         $switchFocusContainer.toggleClass( plugin.slug + "_open" );
         return false; // return false to stop the context menu appearing
     });
+
+    // TOOLTIPS
+    ///////////
+    let toolTipArr
+    $(`.${plugin.slug}_tooltip`).each( (index, el) => {
+        const domEl = $(el)[0];
+        const content = domEl.getAttribute('data-tooltip');
+
+        tippy(domEl, {
+            placement: 'bottom',
+            animation: 'shift-toward-subtle',
+            theme: 'light',
+            content,
+            delay: [500, 100],
+        });
+    })
+    
+    // $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
+    // $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
+    // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-preset-btn").on("click", nukePresetSettings);
+    // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
 
 }

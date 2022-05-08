@@ -20,9 +20,11 @@
     "chrome > 60"
   ],
   "dependencies": {
+    "classnames": "^2.3.1",
     "jquery": "^3.5.1",
     "jquery-bridget": "^2.0.1",
-    "masonry-layout": "^4.2.2"
+    "masonry-layout": "^4.2.2",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
