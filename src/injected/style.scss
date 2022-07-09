@@ -9,7 +9,11 @@ $small-height-breakpoint: 900px;
 $tiny-width-breakpoint: 500px;
 $tiny-height-breakpoint: 400px;
 
-$feature-color: #007acc;
+$feature-color: #FFC844;
+$hover-fg-color: #000;
+$hover-bg-color: $feature-color;
+$active-fg-color: #000;
+$active-bg-color: $feature-color;
 
 $transition-duration: 0.4s;
 $transition-timing-function: $easy-in-slow-out;
@@ -78,8 +82,6 @@ $transition-delay: 0;
    z-index: 3000;
 
    text-align: right;
-
-
 
 
    ##{$plugin_slug}_switch-focus-btn {
@@ -212,53 +214,57 @@ $transition-delay: 0;
    .#{$plugin_slug}_preset-container {
 
       margin: 1em 0;
-      
       &:last-of-type {
          margin-bottom: 2em;
       }
 
-      &.#{$plugin_slug}_active {
-
-         a {
-            color: #fff;
-            background-color: $feature-color;
-         }
-         
-      }
-
-      &.#{$plugin_slug}_unsaved {
-         opacity: 0.4;
-      }
-
-
       a {
-         color: inherit;
-         text-decoration: none;
-
          color: #fff;
          background-color: #000;
          border-radius: 1em;
+         text-decoration: none;
 
          padding: 0.3em 1em;
          margin-left: 3px;
 
-         &:active {
-            color: inherit;
-            background-color: inherit;
-         }
-         &:hover {
-            color: #000;
-            background-color: #fff;
+         &:hover, &:active {
+            color: $hover-fg-color;
+            background-color: $hover-bg-color;
          }
 
       }
 
-            
+      &.#{$plugin_slug}_active {
+         a.#{$plugin_slug}_preset-btn {
+            opacity: 1;
+            color: $active-fg-color;
+            background-color: $active-bg-color;
+         }
+         &.#{$plugin_slug}_unsaved {
+            a {
+               opacity: 0.7;
+            }
+         }
+      }
+
+      &.#{$plugin_slug}_unsaved {
+         a {
+            opacity: 0.5;
+            &:hover, &:active {
+               opacity: 0.8;
+            }
+         }
+      }
+
+      &.#{$plugin_slug}_changed {
+         a {
+            background-color: rgba(0, 0, 0, 0);
+            border: 1px $feature-color;
+         }
+      }
+
+      
    }
-
-
-   
-
 
   
 }

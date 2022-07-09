@@ -21,7 +21,8 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings, getBoardPresets } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings, getBoardSettings } from "./helpers";
+import classNames from "classnames";
 
 
 
@@ -52,6 +53,9 @@ import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, n
 //
 var pageChangeTimeOutID;
 var $latestMutations = $("body");
+
+
+var unsavedPresetPrefix = "Unnamed Preset "
 
 
 
@@ -252,25 +256,29 @@ function createEventsToRememberUserActions() {
 
 // Create the main settings button that switches visual layouts
 //
-function createFocusSwitchButton() {
+export function createFocusSwitchButton() {
     "use strict";
 
-    const boardPresets = getBoardPresets();
+    const boardSettings = getBoardSettings();
+    const boardPresets = boardSettings.boardPresets;
 
     let $body = $("body");
 
-    console.log("boardPresets", boardPresets);
 
-    boardPresets.map( (boardPreset,i) => {
-        console.log(i);
-        console.log(boardPreset.presetName);
-    })
-
+    // Remove any previously created versions
+    const existingSetup = $body.find( `#${plugin.slug}_switch-focus-container` );
+    const isOpen = existingSetup.hasClass(`${plugin.slug}_open`);
+    existingSetup.remove();
 
 
 
     let switchFocusContainer = (
-        <div id={ plugin.slug + "_switch-focus-container" }>
+        <div
+            id = { plugin.slug + "_switch-focus-container" }
+            className = {classNames(
+                isOpen && `${plugin.slug}_open`, 
+            )}
+        >
 
 
             {/* Presets */}
@@ -278,27 +286,37 @@ function createFocusSwitchButton() {
             <div className={plugin.slug + "_presets-group"}>
 
 
-                {boardPresets.map( (boardPreset,i) => <div className={[
-                    plugin.slug + "_preset-container",
-                    // plugin.slug + "_unsaved",
-                    plugin.slug + "_active",
-                ].join(" ")}>
+                {boardPresets.map( (boardPreset,index) => <div
+                    className = {classnames(
+                        plugin.slug + "_preset-container",
+                        !boardPreset.isSaved && plugin.slug + "_unsaved",
+                        index == boardSettings.activeBoardPreset && plugin.slug + "_active",
+                    )}
+                >
 
-                    {/* Allow deletion of preset */}
-                    <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                        <i className="fas fa-trash"></i>
-                    </a>
-                    
-                    {/* or, if modified, allow reverting or overwriting changes */}
-                    {/* <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                        <i className="fas fa-undo-alt"></i>
-                    </a>
-                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                        <i className="fas fa-save"></i>
-                    </a> */}
+                    {/* {index != 0 && ( <> */}
+
+                        {/* Allow deletion of preset */}
+                        <a className={ plugin.slug + "_delete-preset-btn" } href="#">
+                            <i className="fas fa-trash"></i>
+                        </a>
+                        
+                        {/* or, if modified, allow reverting or overwriting changes */}
+                        <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                            <i className="fas fa-undo-alt"></i>
+                        </a>
+                        <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                            <i className="fas fa-save"></i>
+                        </a>
+
+                    {/* </> )} */}
 
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        {boardPreset.presetName}
+                        {
+                            index == 0 && "Default" ||
+                            boardPreset.isSaved && boardPreset.presetName ||
+                            !boardPreset.isSaved && unsavedPresetPrefix+index
+                        }
                     </a>
 
                 </div> )}
@@ -387,10 +405,9 @@ function createFocusSwitchButton() {
         </div>
     );
 
-    console.log("Attaching switch buttons");
+
 
     let $switchFocusContainer = $(switchFocusContainer);
-    console.log("switchFocusContainer", switchFocusContainer);
     $body.prepend($switchFocusContainer);
 
     
@@ -429,6 +446,7 @@ function createFocusSwitchButton() {
 
 function switchFocus() {
     cycleBoardPresets();
+    createFocusSwitchButton();
 }
 
 function switchHeader() {

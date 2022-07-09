@@ -1,6 +1,7 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 import { MATCH_METHODS } from "./enumerators";
 import { OPTIONS } from "./user-options";
+import { createFocusSwitchButton } from "./functionality";
 
 import { plugin } from "../metadata";
 
@@ -99,7 +100,8 @@ function initBoardSettings(props) {
             { // Board preset 1
     
                 // presetId: 0,
-                presetName: "Unnamed preset "+1,
+                presetName: null,
+                isSaved: false,
                 isActiveWhenCycling: true,
 
                 headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
@@ -135,7 +137,8 @@ function createDefaultPreset(index) {
     boardSettings.boardPresets[index] = {
     
         // presetId: id,
-        presetName: "Unnamed preset "+1,
+        presetName: null,
+        isSaved: false,
         isActiveWhenCycling: true,
         
         headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
@@ -143,7 +146,6 @@ function createDefaultPreset(index) {
         listSettings: [
             // createListSettings({}),
             // createListSettings({}),
-            
         ]
 
     }
@@ -446,6 +448,10 @@ export function cycleOptionInList(optionSet, $list) {
         newClass: nextOption.class,
         oldClass: currentOption.class
     })
+
+
+    // recreate this so it's updated
+    createFocusSwitchButton();
 
 }
 
@@ -823,7 +829,7 @@ function getListSettingsRef(listId) {
 //     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
 // }
 
-function getBoardSettings() {
+export function getBoardSettings() {
 
     if(boardSettings == undefined ) {
         devWarning("BoardSettings not created. Cannot get List Settings");
