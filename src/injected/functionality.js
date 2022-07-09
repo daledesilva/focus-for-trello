@@ -21,7 +21,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings, getBoardPresets } from "./helpers";
 
 
 
@@ -255,12 +255,18 @@ function createEventsToRememberUserActions() {
 function createFocusSwitchButton() {
     "use strict";
 
-
+    const boardPresets = getBoardPresets();
 
     let $body = $("body");
 
+    console.log("boardPresets", boardPresets);
 
-    
+    boardPresets.map( (boardPreset,i) => {
+        console.log(i);
+        console.log(boardPreset.presetName);
+    })
+
+
 
 
     let switchFocusContainer = (
@@ -271,86 +277,32 @@ function createFocusSwitchButton() {
 
             <div className={plugin.slug + "_presets-group"}>
 
-                <div className={[
-                    plugin.slug + "_preset-container",
-                    plugin.slug + "_unsaved"
-                ].join(" ")}>
 
-                    <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                        <i className="fas fa-trash"></i>
-                    </a>
-                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                        <i className="fas fa-save"></i>
-                    </a>
-                    <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Unsaved Preset
-                    </a>
-                </div>
-
-                <div className={[
+                {boardPresets.map( (boardPreset,i) => <div className={[
                     plugin.slug + "_preset-container",
+                    // plugin.slug + "_unsaved",
                     plugin.slug + "_active",
                 ].join(" ")}>
 
-                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                        <i className="fas fa-trash"></i>
-                    </a> */}
-                    {/* Reset replaces trash */}
-                    <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                        <i className="fas fa-undo-alt"></i>
-                    </a>
-                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                        <i className="fas fa-save"></i>
-                    </a>
-                    <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Everyday Workflow
-                    </a>
-                </div>
-
-                <div className={ plugin.slug + "_preset-container" }>
-                    {/* Delete only shows when hovered over */}
-                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                        <i className="fas fa-trash"></i>
-                    </a>
-                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                        <i className="fas fa-save"></i>
-                    </a> */}
-                    <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Short-term Planning Workflow
-                    </a>
-                </div>
-
-                <div className={[
-                    plugin.slug + "_preset-container"
-                ].join(" ")}>
-                    {/* Save and reset appear if the preset has been temporarily change */}
-                    {/* <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                        <i className="fas fa-trash"></i>
-                    </a> */}
-                    {/* Reset replaces trash */}
-                    <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                        <i className="fas fa-undo-alt"></i>
-                    </a>
-                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                        <i className="fas fa-save"></i>
-                    </a>
-                    <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Long-term Planning Workflow
-                    </a>
-                </div>
-
-                <div className={ plugin.slug + "_preset-container" }>
-                    {/* Delete only shows when hovered over */}
+                    {/* Allow deletion of preset */}
                     <a className={ plugin.slug + "_delete-preset-btn" } href="#">
                         <i className="fas fa-trash"></i>
                     </a>
-                    {/* <a className={ plugin.slug + "_save-preset-btn" } href="#">
+                    
+                    {/* or, if modified, allow reverting or overwriting changes */}
+                    {/* <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+                        <i className="fas fa-undo-alt"></i>
+                    </a>
+                    <a className={ plugin.slug + "_save-preset-btn" } href="#">
                         <i className="fas fa-save"></i>
                     </a> */}
+
                     <a className={ plugin.slug + "_preset-btn" } href="#">
-                        Retrospective Workflow
+                        {boardPreset.presetName}
                     </a>
-                </div>
+
+                </div> )}
+                
 
             </div>
 
@@ -438,6 +390,7 @@ function createFocusSwitchButton() {
     console.log("Attaching switch buttons");
 
     let $switchFocusContainer = $(switchFocusContainer);
+    console.log("switchFocusContainer", switchFocusContainer);
     $body.prepend($switchFocusContainer);
 
     

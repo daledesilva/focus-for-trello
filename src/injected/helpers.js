@@ -834,6 +834,10 @@ function getBoardSettings() {
 
 }
 
+export function getBoardPresets() {
+    return boardSettings.boardPresets;
+}
+
 
 
 

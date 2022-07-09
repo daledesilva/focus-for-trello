@@ -10,9 +10,9 @@
     "homepage_url": "http://www.ublik-om.net",
 
     "permissions": [
-      "activeTab",
-      "declarativeContent",
-      "tabs",
+      // "activeTab",
+      // "declarativeContent",
+      // "tabs",
       "webNavigation",
       "storage"
     ],
