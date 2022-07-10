@@ -228,18 +228,21 @@ export function saveBoardSettings() {
 
 
 
-export function nukePresetSettings() {
+export function nukePresetSettings(presetIndex) {
     userConsoleNote("Erasing current board preset");
 
-    let presetIndexToDelete = boardSettings.activeBoardPreset;
+    const presetIndexToDelete = presetIndex || boardSettings.activeBoardPreset;
+    console.log("presetIndex", presetIndex);
 
     // Only allow deleting if it's not the default preset
     if(presetIndexToDelete > 0) {
         boardSettings.boardPresets.splice(presetIndexToDelete, 1);
         boardSettings.activeBoardPreset --;
+        userConsoleNote(`Preset ${presetIndex} settings erased, previous remaining preset activated`);
+    } else {
+        userConsoleNote(`Default index can't be erased`);
     }
 
-    userConsoleNote("Preset settings erased, previous remaining preset activated");
 
     visualizeAllBoardSettings();
     saveBoardSettings();

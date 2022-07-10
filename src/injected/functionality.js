@@ -15,6 +15,7 @@ import { MATCH_METHODS } from "./enumerators";
 // custom components
 import {Tooltip} from "../components/tooltip";
 import {ListButtons} from "./components/list-buttons";
+import {DeletePresetButton} from "./components/delete-preset-button";
 
 import "./style.scss";
 import { OPTIONS } from "./user-options";
@@ -23,6 +24,8 @@ import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
 import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings, getBoardSettings } from "./helpers";
 import classNames from "classnames";
+import RevertPresetButton from "./components/revert-preset-button";
+import SavePresetButton from "./components/save-preset-button";
 
 
 
@@ -297,17 +300,11 @@ export function createFocusSwitchButton() {
                     {/* {index != 0 && ( <> */}
 
                         {/* Allow deletion of preset */}
-                        <a className={ plugin.slug + "_delete-preset-btn" } href="#">
-                            <i className="fas fa-trash"></i>
-                        </a>
+                        <DeletePresetButton index={index}/>
                         
                         {/* or, if modified, allow reverting or overwriting changes */}
-                        <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
-                            <i className="fas fa-undo-alt"></i>
-                        </a>
-                        <a className={ plugin.slug + "_save-preset-btn" } href="#">
-                            <i className="fas fa-save"></i>
-                        </a>
+                        <RevertPresetButton index={index}/>
+                        <SavePresetButton index={index}/>
 
                     {/* </> )} */}
 
