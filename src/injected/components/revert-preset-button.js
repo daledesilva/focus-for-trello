@@ -18,11 +18,17 @@ class RevertPresetButton extends JSXComponent {
 
   render(props) {
       
-
+    const {
+      index,
+    } = props;
 
 
     return (
-      <a className={ plugin.slug + "_clear-preset-changes-btn" } href="#">
+      <a
+        href = "#"
+        className = {plugin.slug + "_revert-preset-btn"}
+        data-index = {index}
+      >
         <i className="fas fa-undo-alt"></i>
       </a>
     );
@@ -35,8 +41,21 @@ class RevertPresetButton extends JSXComponent {
 
 
 
+const initRevertPresetButtons = () => {
+  let $body = $("body");
+  $body.find("." + plugin.slug + "_revert-preset-btn").on("click", revertPreset);
+}
+
+const revertPreset = (event) => {
+  const index = event.currentTarget.dataset.index;
+  console.log("revert preset button clicked: ", index);
+  // activateBoardPreset(index);
+}
+
+
+
 export default RevertPresetButton;
-export { RevertPresetButton };
+export { RevertPresetButton, initRevertPresetButtons };
 
 
 

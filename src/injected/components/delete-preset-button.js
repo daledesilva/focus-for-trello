@@ -9,8 +9,7 @@ import { OPTIONS } from "../user-options";
 
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
-import { cycleOptionInList, $getActiveList } from "../helpers";
-
+import { nukePresetSettings } from "../helpers";
 
 
 class DeletePresetButton extends JSXComponent {
@@ -18,17 +17,16 @@ class DeletePresetButton extends JSXComponent {
 
   render(props) {
       
-
+    const {
+      index,
+    } = props;
 
 
     return (
         <a
-            className = { plugin.slug + "_delete-preset-btn" }
-            href = "#"
-            onClick = { () => {
-                alert("hello");
-                // nukePresetSettings(index)
-            }}
+          href = "#"
+          className = { plugin.slug + "_delete-preset-btn" }
+          data-index = {index}
         >
             <i className="fas fa-trash"></i>
         </a>
@@ -41,9 +39,20 @@ class DeletePresetButton extends JSXComponent {
 
 
 
+const initDeletePresetButtons = () => {
+  let $body = $("body");
+  $body.find("." + plugin.slug + "_delete-preset-btn").on("click", deletePreset);
+}
+
+const deletePreset = (event) => {
+  const index = event.currentTarget.dataset.index;
+  console.log("delete preset button clicked: ", index);
+  nukePresetSettings(index);
+}
+
 
 export default DeletePresetButton;
-export { DeletePresetButton };
+export { DeletePresetButton, initDeletePresetButtons };
 
 
 

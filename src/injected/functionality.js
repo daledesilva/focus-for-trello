@@ -15,17 +15,17 @@ import { MATCH_METHODS } from "./enumerators";
 // custom components
 import {Tooltip} from "../components/tooltip";
 import {ListButtons} from "./components/list-buttons";
-import {DeletePresetButton} from "./components/delete-preset-button";
 
 import "./style.scss";
 import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukePresetSettings, nukeBoardSettings, visualizeAllBoardSettings, getBoardSettings } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings, visualizeAllBoardSettings, getBoardSettings } from "./helpers";
 import classNames from "classnames";
-import RevertPresetButton from "./components/revert-preset-button";
-import SavePresetButton from "./components/save-preset-button";
+import { DeletePresetButton, initDeletePresetButtons } from "./components/delete-preset-button";
+import { RevertPresetButton, initRevertPresetButtons } from "./components/revert-preset-button";
+import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
 import { PresetButton, initPresetButtons } from "./components/preset-button";
 
 
@@ -339,18 +339,6 @@ export function createFocusSwitchButton() {
                     <i className="fas fa-calendar-times"/>
                 </div>
 
-                <div
-                    href="#"
-                    id={ plugin.slug + "_setup-nuke-preset-btn" }
-                    className={classnames(
-                        plugin.slug + "_circle-btn",
-                        `${plugin.slug}_tooltip`,
-                    )}
-                    data-tooltip = "Erase preset settings"
-                >
-                    <i className="fas fa-minus-square"/>
-                </div>
-
 
                 {/* Settings and header switch buttons */}
 
@@ -415,7 +403,6 @@ export function createFocusSwitchButton() {
     /////////////////////
     $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
     $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
-    $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-preset-btn").on("click", nukePresetSettings);
     $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
     // RIGHT CLICK ACTIONS
@@ -428,16 +415,14 @@ export function createFocusSwitchButton() {
     // TOOLTIPS
     ///////////
     applyTippyInside($switchFocusContainer);
-    
-    // $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
-    // $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
-    // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-preset-btn").on("click", nukePresetSettings);
-    // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
 
     // PRESET ACTIONS
     /////////////////////
     initPresetButtons();
+    initDeletePresetButtons();
+    initRevertPresetButtons();
+    initSavePresetButtons();
     
 
 

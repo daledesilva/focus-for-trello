@@ -18,11 +18,17 @@ class SavePresetButton extends JSXComponent {
 
   render(props) {
       
-
+    const {
+      index,
+    } = props;
 
 
     return (
-      <a className={ plugin.slug + "_save-preset-btn" } href="#">
+      <a
+        href = "#"
+        className = {plugin.slug + "_save-preset-btn"}
+        data-index = {index}
+      >
         <i className="fas fa-save"></i>
       </a>
     );
@@ -33,10 +39,22 @@ class SavePresetButton extends JSXComponent {
 }
 
 
+const initSavePresetButtons = () => {
+  let $body = $("body");
+  $body.find("." + plugin.slug + "_save-preset-btn").on("click", savePreset);
+}
+
+const savePreset = (event) => {
+  const index = event.currentTarget.dataset.index;
+  console.log("save preset button clicked: ", index);
+  // activateBoardPreset(index);
+}
+
+
 
 
 export default SavePresetButton;
-export { SavePresetButton };
+export { SavePresetButton, initSavePresetButtons };
 
 
 

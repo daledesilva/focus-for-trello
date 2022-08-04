@@ -240,13 +240,13 @@ export function nukePresetSettings(presetIndex) {
         boardSettings.activeBoardPreset --;
         userConsoleNote(`Preset ${presetIndex} settings erased, previous remaining preset activated`);
     } else {
-        userConsoleNote(`Default index can't be erased`);
+        userConsoleNote(`Default preset can't be erased`);
     }
 
 
     visualizeAllBoardSettings();
     saveBoardSettings();
-
+    createFocusSwitchButton();
 }
 
 
