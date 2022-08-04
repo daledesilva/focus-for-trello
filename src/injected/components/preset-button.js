@@ -9,7 +9,7 @@ import { OPTIONS } from "../user-options";
 
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
-import { cycleOptionInList, $getActiveList } from "../helpers";
+import { activateBoardPreset } from "../helpers";
 
 
 const unsavedPresetPrefix = "Unnamed Preset ";
@@ -27,9 +27,12 @@ class PresetButton extends JSXComponent {
     } = props;
 
 
-
     return (
-      <a className={ plugin.slug + "_preset-btn" } href="#">
+      <a
+        href = "#"
+        className = {plugin.slug + "_preset-btn"}
+        data-index = {index}
+      >
         {
             index == 0 && defaultPresetName ||
             boardPreset.isSaved && boardPreset.presetName ||
@@ -43,11 +46,22 @@ class PresetButton extends JSXComponent {
 
 }
 
+const initPresetButtons = () => {
+  let $body = $("body");
+  $body.find("." + plugin.slug + "_preset-btn").on("click", activatePreset);
+}
+
+const activatePreset = (event) => {
+  const index = event.target.dataset.index;
+  console.log("button clicked: ", index);
+  activateBoardPreset(index);
+}
+
 
 
 
 export default PresetButton;
-export { PresetButton };
+export { PresetButton, initPresetButtons };
 
 
 

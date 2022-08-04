@@ -865,6 +865,17 @@ export function cycleBoardPresets() {
     saveBoardSettings();
 }
 
+export function activateBoardPreset(index) {
+
+    boardSettings.activeBoardPreset = index;
+
+    debugLog("Activating board preset. New preset: '"+boardSettings.activeBoardPreset+"'");
+
+    visualizeAllBoardSettings();
+    saveBoardSettings();
+    createFocusSwitchButton();
+}
+
 
 export function cycleBoardHeader() {
     iterateAndSaveHeaderSetting()

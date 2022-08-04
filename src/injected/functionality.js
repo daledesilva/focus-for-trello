@@ -26,7 +26,7 @@ import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, n
 import classNames from "classnames";
 import RevertPresetButton from "./components/revert-preset-button";
 import SavePresetButton from "./components/save-preset-button";
-import PresetButton from "./components/preset-button";
+import { PresetButton, initPresetButtons } from "./components/preset-button";
 
 
 
@@ -266,7 +266,7 @@ export function createFocusSwitchButton() {
     const boardSettings = getBoardSettings();
     const boardPresets = boardSettings.boardPresets;
 
-    let $body = $("body");
+    const $body = $("body");
 
 
     // Remove any previously created versions
@@ -433,6 +433,12 @@ export function createFocusSwitchButton() {
     // $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
     // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-preset-btn").on("click", nukePresetSettings);
     // $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
+
+
+    // PRESET ACTIONS
+    /////////////////////
+    initPresetButtons();
+    
 
 
 }
