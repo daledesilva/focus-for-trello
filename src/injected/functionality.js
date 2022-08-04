@@ -26,6 +26,7 @@ import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, n
 import classNames from "classnames";
 import RevertPresetButton from "./components/revert-preset-button";
 import SavePresetButton from "./components/save-preset-button";
+import PresetButton from "./components/preset-button";
 
 
 
@@ -58,7 +59,7 @@ var pageChangeTimeOutID;
 var $latestMutations = $("body");
 
 
-var unsavedPresetPrefix = "Unnamed Preset "
+
 
 
 
@@ -308,13 +309,10 @@ export function createFocusSwitchButton() {
 
                     {/* </> )} */}
 
-                    <a className={ plugin.slug + "_preset-btn" } href="#">
-                        {
-                            index == 0 && "Default" ||
-                            boardPreset.isSaved && boardPreset.presetName ||
-                            !boardPreset.isSaved && unsavedPresetPrefix+index
-                        }
-                    </a>
+                    <PresetButton
+                        index = {index}
+                        boardPreset = {boardPreset}
+                    />
 
                 </div> )}
                 
