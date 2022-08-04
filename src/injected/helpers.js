@@ -863,6 +863,7 @@ export function cycleBoardPresets() {
 
     visualizeAllBoardSettings();
     saveBoardSettings();
+    createFocusSwitchButton();
 }
 
 export function activateBoardPreset(index) {

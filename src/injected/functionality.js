@@ -447,7 +447,6 @@ export function createFocusSwitchButton() {
 
 function switchFocus() {
     cycleBoardPresets();
-    createFocusSwitchButton();
 }
 
 function switchHeader() {
