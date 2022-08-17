@@ -9,7 +9,7 @@ import { OPTIONS } from "../user-options";
 
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
-import { nukePresetSettings } from "../helpers";
+import { deletePresetSettings } from "../helpers";
 
 
 class DeletePresetButton extends JSXComponent {
@@ -47,7 +47,7 @@ const initDeletePresetButtons = () => {
 const deletePreset = (event) => {
   const index = event.currentTarget.dataset.index;
   console.log("delete preset button clicked: ", index);
-  nukePresetSettings(index);
+  deletePresetSettings(index);
 }
 
 

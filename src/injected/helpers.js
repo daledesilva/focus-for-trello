@@ -1,7 +1,7 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 import { MATCH_METHODS } from "./enumerators";
 import { OPTIONS } from "./user-options";
-import { createFocusSwitchButton } from "./functionality";
+import { createOrRefreshInterface } from "./functionality";
 
 import { plugin } from "../metadata";
 
@@ -228,7 +228,7 @@ export function saveBoardSettings() {
 
 
 
-export function nukePresetSettings(presetIndex) {
+export function deletePresetSettings(presetIndex) {
     userConsoleNote("Erasing current board preset");
 
     const presetIndexToDelete = presetIndex || boardSettings.activeBoardPreset;
@@ -246,7 +246,7 @@ export function nukePresetSettings(presetIndex) {
 
     visualizeAllBoardSettings();
     saveBoardSettings();
-    createFocusSwitchButton();
+    createOrRefreshInterface();
 }
 
 
@@ -454,7 +454,7 @@ export function cycleOptionInList(optionSet, $list) {
 
 
     // recreate this so it's updated
-    createFocusSwitchButton();
+    createOrRefreshInterface();
 
 }
 
@@ -863,7 +863,7 @@ export function cycleBoardPresets() {
 
     visualizeAllBoardSettings();
     saveBoardSettings();
-    createFocusSwitchButton();
+    createOrRefreshInterface();
 }
 
 export function activateBoardPreset(index) {
@@ -874,13 +874,14 @@ export function activateBoardPreset(index) {
 
     visualizeAllBoardSettings();
     saveBoardSettings();
-    createFocusSwitchButton();
+    createOrRefreshInterface();
 }
 
 
 export function cycleBoardHeader() {
     iterateAndSaveHeaderSetting()
     visualizeHeaderSetting();
+    createOrRefreshInterface();
 }
 
 

@@ -260,7 +260,7 @@ function createEventsToRememberUserActions() {
 
 // Create the main settings button that switches visual layouts
 //
-export function createFocusSwitchButton() {
+export function createOrRefreshInterface() {
     "use strict";
 
     const boardSettings = getBoardSettings();
@@ -600,7 +600,7 @@ function immediatePageInitialisation() {
 function delayedPageInitialisation() {
     console.log("Delayed page Initialisation");       
 
-    createFocusSwitchButton();
+    createOrRefreshInterface();
     delayedPageChangeAdjustments();
 
 }
