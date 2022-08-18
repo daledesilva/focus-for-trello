@@ -22,7 +22,7 @@ import { OPTIONS } from "./user-options";
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
 import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings, getBoardSettings } from "./helpers";
-import { visualizeAllBoardSettings } from "./render";
+import { renderBoard } from "./render";
 import classNames from "classnames";
 import { DeletePresetButton, initDeletePresetButtons } from "./components/delete-preset-button";
 import { RevertPresetButton, initRevertPresetButtons } from "./components/revert-preset-button";
@@ -548,13 +548,13 @@ function startPageChangeObserver() {
 // - Is visible immediately and thus will call visual discrepancy if delayed.
 function immediatePageAdjustments() {
     
-    // TO DO: Interpret lists may be superseded by visualizeAllBoardSettings - look into deleting and what might be in there to salvage.
+    // TO DO: Interpret lists may be superseded by renderBoard - look into deleting and what might be in there to salvage.
     // interpretLists();
 
     // This is getting run repeatedly - check if the page initialization functions should run more than once
     // (When a new list is created it should be unstyled anyway - and then you use the menu to style it which visualises the list there).
     // It will only need to be monitored again when partial name selectors are implemented.
-//    visualizeAllBoardSettings();
+//    renderBoard();
 
     // TO DO: createListButtons should be delayed, but in delayed it doesn't work the first time for some reason.
     // Perhaps add button actions to list menu button to put these in? - though this would mean monitoring which ones have been done and not adding multiple event listeners to them.
@@ -568,7 +568,7 @@ function immediatePageAdjustments() {
 function delayedPageChangeAdjustments() {
 
     createEventsToRememberUserActions();
-    visualizeAllBoardSettings( getBoardSettings() );
+    renderBoard( getBoardSettings() );
 
 }
 

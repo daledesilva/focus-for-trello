@@ -5,7 +5,7 @@ import { createOrRefreshInterface } from "./functionality";
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
-import { visualizeAllBoardSettings, visualizeListOption, visualizeHeaderSetting } from "./render";
+import { renderBoard, visualizeListOption, renderHeader } from "./render";
 
 
 var $activeList;
@@ -41,7 +41,7 @@ chrome.runtime.onMessage.addListener(
                 // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
                 // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
                 // However, Dom might take a while, might be best to run on every mutation update?
-                visualizeAllBoardSettings(boardSettings);
+                renderBoard(boardSettings);
 
             } );
 
@@ -212,7 +212,7 @@ export function deletePresetSettings(presetIndex) {
     }
 
 
-    visualizeAllBoardSettings(boardSettings);
+    renderBoard(boardSettings);
     saveBoardSettings(boardSettings);
     createOrRefreshInterface();
 }
@@ -226,7 +226,7 @@ export function nukeBoardSettings() {
         trimmedUrl: boardSettings.boardUrl,
     });
 
-    visualizeAllBoardSettings(boardSettings);
+    renderBoard(boardSettings);
     saveBoardSettings(boardSettings);
 }
 
@@ -677,7 +677,7 @@ export function cycleBoardPresets() {
     debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
 
     saveBoardSettings(boardSettings);
-    visualizeAllBoardSettings(boardSettings);
+    renderBoard(boardSettings);
     createOrRefreshInterface();
 }
 
@@ -688,14 +688,14 @@ export function activateBoardPreset(index) {
     debugLog("Activating board preset. New preset: '"+boardSettings.activeBoardPreset+"'");
 
     saveBoardSettings(boardSettings);
-    visualizeAllBoardSettings(boardSettings);
+    renderBoard(boardSettings);
     createOrRefreshInterface();
 }
 
 
 export function cycleBoardHeader() {
     cycleHeaderSetting()
-    visualizeHeaderSetting(boardSettings);
+    renderHeader(boardSettings);
     createOrRefreshInterface();
 }
 

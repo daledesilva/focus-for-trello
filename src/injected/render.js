@@ -10,19 +10,19 @@ import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
 
 
-export function visualizeAllBoardSettings(boardSettings) {
+export function renderBoard(boardSettings) {
 
-    visualizeAllListOptionsForAllLists();
-    visualizeHeaderSetting(boardSettings);
+    renderLists();
+    renderHeader(boardSettings);
 
-    debugLog("Visualized all board settings");
+    debugLog("Rendered all board settings");
     
 
 }
 
 
 
-function visualizeAllListOptionsForAllLists() {
+function renderLists() {
 
     // Iterate through all $lists and reset any previously applied settings back to default
     $(".js-list").each( function () {
@@ -61,7 +61,7 @@ function visualizeAllListOptionsForAllLists() {
         
     }
 
-    debugLog("Visualize all saved list settings");
+    debugLog("Render all saved list settings");
 
 
 }
@@ -146,7 +146,7 @@ function addClassToListInSettings(props) {
 
 
 
-export function visualizeHeaderSetting(boardSettings) {
+export function renderHeader(boardSettings) {
 
     function addBoardPadding() {
         $("#board").addClass( plugin.slug + "_trello-board_padding" );
