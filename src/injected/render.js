@@ -254,24 +254,20 @@ export function renderHeader() {
 
 // Create the main settings button that switches visual layouts
 //
-export function createOrRefreshFocusUi() {
+export function renderFocusUi() {
     
-    debugLog("1");
     const [boardSettings] = useBoardSettings();
     const {boardPresets} = boardSettings;
     
-    debugLog("2");
     const $body = $("body");
     
     
-    debugLog("3");
     // Remove any previously created versions
     const existingSetup = $body.find( `#${plugin.slug}_switch-focus-container` );
     const isOpen = existingSetup.hasClass(`${plugin.slug}_open`);
     existingSetup.remove();
     
     
-    debugLog("4");
     let switchFocusContainer = (
         <div
             id = { plugin.slug + "_switch-focus-container" }
@@ -385,13 +381,11 @@ export function createOrRefreshFocusUi() {
     );
 
 
-    debugLog("5");
     let $switchFocusContainer = $(switchFocusContainer);
     $body.prepend($switchFocusContainer);
     
     
     
-    debugLog("6");
     // MOUSEOVERS
     /////////////
     $switchFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
@@ -409,12 +403,10 @@ export function createOrRefreshFocusUi() {
         return false; // return false to stop the context menu appearing
     });
 
-    debugLog("7");
     // TOOLTIPS
     ///////////
     applyTippyInside($switchFocusContainer);
 
-    debugLog("8");
     // PRESET ACTIONS
     /////////////////////
     initPresetButtons();

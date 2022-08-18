@@ -4,7 +4,7 @@ import { MATCH_METHODS } from "./enumerators";
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
-import { renderBoard, visualizeListOption, renderHeader, createOrRefreshFocusUi } from "./render";
+import { renderBoard, visualizeListOption, renderHeader, renderFocusUi } from "./render";
 import { createListSettings, initBoardSettings, createDefaultPreset, getListSettingsArray, getListSettingsRef, getBoardPresets, useBoardSettings, changeClassInListInSettings } from "./data";
 
 
@@ -20,23 +20,15 @@ var $activeList;
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        const [existingBoardSettings] = useBoardSettings();
 
         // If the chrome plugin says the page URL changed
         if(request.url) {
+            debugLog(request.url);
 
-            if(
-                existingBoardSettings == undefined ||
-                existingBoardSettings.boardUrl != request.url
-                )
-            {
-                // Initialise the boardSettings object
-                initBoardSettings({
-                    completeUrl: request.url
-                });
-            }
-            
-            // TODO: This happens twice and so is very clunky
+            // Initialise this board's settings immediately, incase one doesn't load.
+            initBoardSettings({
+                completeUrl: request.url
+            });            
             const [boardSettings, setBoardSettings] = useBoardSettings();
 
             // Then load in saved settings (will not overide if saved settings don't exist)
@@ -47,7 +39,8 @@ chrome.runtime.onMessage.addListener(
                 // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
                 // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
                 // However, Dom might take a while, might be best to run on every mutation update?
-                renderBoard(newBoardSettings);
+                renderBoard();
+                renderFocusUi();
 
             } );
 
@@ -113,7 +106,7 @@ export function deletePresetSettings(presetIndex) {
     setBoardSettings(boardSettings);
     saveBoardSettings();
     renderBoard();
-    createOrRefreshFocusUi();
+    renderFocusUi();
 }
 
 
@@ -127,7 +120,7 @@ export function nukeBoardSettings() {
 
     saveBoardSettings();
     renderBoard();
-    createOrRefreshFocusUi();
+    renderFocusUi();
 }
 
 
@@ -322,7 +315,7 @@ export function cycleOptionInList(optionSet, $list) {
 
 
     // recreate this so it's updated
-    createOrRefreshFocusUi();
+    renderFocusUi();
 
 }
 
@@ -459,7 +452,7 @@ export function cycleBoardPresets() {
     setBoardSettings(boardSettings);
     saveBoardSettings();
     renderBoard();
-    createOrRefreshFocusUi();
+    renderFocusUi();
 }
 
 export function activateBoardPreset(index) {
@@ -470,7 +463,7 @@ export function activateBoardPreset(index) {
     setBoardSettings(boardSettings);
     saveBoardSettings();
     renderBoard();
-    createOrRefreshFocusUi();
+    renderFocusUi();
 }
 
 
@@ -484,7 +477,7 @@ export function cycleBoardHeader() {
     setBoardSettings(boardSettings);
     saveBoardSettings();
     renderHeader();
-    createOrRefreshFocusUi();
+    renderFocusUi();
 }
 
 

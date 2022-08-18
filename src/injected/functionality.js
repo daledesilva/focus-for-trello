@@ -16,7 +16,7 @@ import { OPTIONS } from "./user-options";
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
 import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings } from "./helpers";
-import { createOrRefreshFocusUi, renderBoard, createListButtons } from "./render";
+import { renderFocusUi, renderBoard, createListButtons } from "./render";
 import { useBoardSettings } from "./data";
 
 
@@ -342,7 +342,7 @@ function immediatePageInitialisation() {
 function delayedPageInitialisation() {
     console.log("Delayed page Initialisation");       
 
-    createOrRefreshFocusUi();
+    renderFocusUi();
     delayedPageChangeAdjustments();
 
 }
