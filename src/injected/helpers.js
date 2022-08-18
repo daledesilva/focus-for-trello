@@ -5,6 +5,7 @@ import { createOrRefreshInterface } from "./functionality";
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
+import { visualizeAllBoardSettings, visualizeListOption, visualizeHeaderSetting } from "./render";
 
 
 var $activeList;
@@ -36,10 +37,11 @@ chrome.runtime.onMessage.addListener(
             // Then load in saved settings (will not overide if saved settings don't exist)
             loadBoardSettings( boardSettings.boardUrl, (newBoardSettings) => {
 
+                boardSettings = newBoardSettings;
                 // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
                 // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
                 // However, Dom might take a while, might be best to run on every mutation update?
-                visualizeAllBoardSettings();
+                visualizeAllBoardSettings(boardSettings);
 
             } );
 
@@ -210,7 +212,7 @@ export function deletePresetSettings(presetIndex) {
     }
 
 
-    visualizeAllBoardSettings();
+    visualizeAllBoardSettings(boardSettings);
     saveBoardSettings(boardSettings);
     createOrRefreshInterface();
 }
@@ -224,7 +226,7 @@ export function nukeBoardSettings() {
         trimmedUrl: boardSettings.boardUrl,
     });
 
-    visualizeAllBoardSettings();
+    visualizeAllBoardSettings(boardSettings);
     saveBoardSettings(boardSettings);
 }
 
@@ -488,7 +490,7 @@ function getListId($list) {
     return  $list.find(".js-list-name-input").text();
 }
 
-function getListById(id) {
+export function getListById(id) {
 
     let $list;
 
@@ -521,88 +523,17 @@ function getListById(id) {
 
 
 
-export function visualizeAllBoardSettings() {
-
-    visualizeAllListOptionsForAllLists();
-    visualizeHeaderSetting();
-
-    debugLog("Visualized all board settings");
-    
-
-}
-
-
-
-function visualizeAllListOptionsForAllLists() {
-
-    // Iterate through all $lists and reset any previously applied settings back to default
-    $(".js-list").each( function () {
-        let $this = $(this);
-        resetListAppearance($this);    
-    })
-
-    // debugLog("Reset all list appearances");
-    
-
-    // get an array of lists that do have listSettings in the current board preset
-    let allListSettings = getListSettingsArray();
-
-    // Iterate through all saved settings for lists and update
-    for(let k = 0; k < allListSettings.length; k++) {
-        // Individual list's settings
-        let listSettings = allListSettings[k];
-
-        let $list = getListById(listSettings.listId);
-
-        // skip this loop if the list can't be found
-        // TO DO: This should really try and find it by another means and if all else fails, delete the record
-        if($list == undefined)  continue;
-
-
-        // visualize each classId in the lists settings
-        for(const classId of listSettings.classIds) {
-
-            visualizeListOption({
-                $list,
-                newClass: classId,
-            });
-
-        }
-    }
-
-    // debugLog("Visualize all saved list settings");
-
-
-}
 
 
 
 
-function resetListAppearance($list) {
-
-    for(const attr in OPTIONS.LISTS) {
-
-        OPTIONS.LISTS[attr].forEach( style => {
-            $list.removeClass( style.class );
-        });
-
-    }
-
-}
 
 
 
 
-export function visualizeListOption(props) {
-    const {
-        $list,
-        newClass,
-        oldClass,
-    } = props
 
-    if(oldClass) $list.removeClass(oldClass);
-    $list.addClass(newClass);
-}
+
+
 
 
 
@@ -621,7 +552,7 @@ export function changeAndSaveListOption(props) {
 }
 
 
-export function iterateAndSaveHeaderSetting(props) {
+export function cycleHeaderSetting(props) {
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
     moveActivePresetIfInDefaultSlot();
@@ -652,88 +583,7 @@ export function iterateAndSaveHeaderSetting(props) {
 
 
 
-function removeClassFromListInSettings(props) {
-    const { listId, classId } = props;
-    let listSettings = getListSettingsRef(listId);
 
-    // if there's no class Ids, there's nothing to remove
-    if(listSettings.classIds == undefined)   return;
-
-    // If there is, remove all instances of the classId
-    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
-
-        if(classId == listSettings.classIds[k]) {
-            listSettings.classIds.splice(k, 1);
-        }
-
-    }
-    
-    debugLog("Removed classId '"+ classId +"' from listId '"+ listId +"' in settings");
-};
-
-
-function removeClassIdsFromListInSettings(props) {
-    const { listId, classIds } = props;
-    let listSettings = getListSettingsRef(listId);
-
-    // if there's no class Ids, there's nothing to remove
-    if(listSettings.classIds == undefined)   return;
-
-    // If there is, remove all instances of all classIds passed in
-    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
-
-        // Check the item in settings against against all classIds passed in
-        for(let classIndex = 0; classIndex < classIds.length; classIndex++ ) {
-
-            if(classIds[classIndex] == listSettings.classIds[k]) {
-                listSettings.classIds.splice(k, 1);
-                break;  // break out because the array position in listSettings.classIds has now been deleted anyway
-            }
-
-        }
-
-    }
-    
-    debugLog("Removed all classes of optionSet in from listId '"+ listId +"' in settings");
-};
-
-
-
-
-
-
-
-
-function addClassToListInSettings(props) {
-    const { listId, classId } = props;
-    let listSettings = getListSettingsRef(listId);
-
-    listSettings.classIds.push(classId);
-
-    debugLog("Added classId '"+ classId +"' from listId '"+ listId +"' in settings");
-};
-
-
-
-
-
-// removes any classes for a particular option set and adds in only the class passed in
-function changeClassInListInSettings(props) {
-    const { listId, classId } = props;
-    const classIds = getClassIdSet(classId);
-    let listSettings = getListSettingsRef(listId);
-
-    // Remove all the classes for this styling set
-    // (There should only be one, but if there's somehow more they will all go as a failsafe)
-    removeClassIdsFromListInSettings({
-        classIds,
-        listId
-    });
-    // Add back in the one just switched to
-    listSettings.classIds.push(classId);
-
-    debugLog("Changed to classId '"+ classId +"' within listId '"+ listId +"' in settings");
-};
 
 
 
@@ -749,7 +599,7 @@ function changeClassInListInSettings(props) {
 
 
 
-function getListSettingsArray() {
+export function getListSettingsArray() {
     return boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
 }
 
@@ -821,14 +671,13 @@ export function getBoardPresets() {
 
 
 export function cycleBoardPresets() {
-
     boardSettings.activeBoardPreset ++;
     boardSettings.activeBoardPreset %= boardSettings.boardPresets.length;
 
     debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
 
     saveBoardSettings(boardSettings);
-    visualizeAllBoardSettings();
+    visualizeAllBoardSettings(boardSettings);
     createOrRefreshInterface();
 }
 
@@ -839,107 +688,62 @@ export function activateBoardPreset(index) {
     debugLog("Activating board preset. New preset: '"+boardSettings.activeBoardPreset+"'");
 
     saveBoardSettings(boardSettings);
-    visualizeAllBoardSettings();
+    visualizeAllBoardSettings(boardSettings);
     createOrRefreshInterface();
 }
 
 
 export function cycleBoardHeader() {
-    iterateAndSaveHeaderSetting()
-    visualizeHeaderSetting();
+    cycleHeaderSetting()
+    visualizeHeaderSetting(boardSettings);
     createOrRefreshInterface();
 }
 
 
 
-function visualizeHeaderSetting() {
 
-    function addBoardPadding() {
-        $("#board").addClass( plugin.slug + "_trello-board_padding" );
+
+// removes any classes for a particular option set and adds in only the class passed in
+export function changeClassInListInSettings(props) {
+    const { listId, classId } = props;
+    const classIds = getClassIdSet(classId);
+    let listSettings = getListSettingsRef(listId);
+
+    // Remove all the classes for this styling set
+    // (There should only be one, but if there's somehow more they will all go as a failsafe)
+    removeClassIdsFromListInSettings({
+        classIds,
+        listId
+    });
+    // Add back in the one just switched to
+    listSettings.classIds.push(classId);
+
+    debugLog("Changed to classId '"+ classId +"' within listId '"+ listId +"' in settings");
+};
+
+
+
+function removeClassIdsFromListInSettings(props) {
+    const { listId, classIds } = props;
+    let listSettings = getListSettingsRef(listId);
+
+    // if there's no class Ids, there's nothing to remove
+    if(listSettings.classIds == undefined)   return;
+
+    // If there is, remove all instances of all classIds passed in
+    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
+
+        // Check the item in settings against against all classIds passed in
+        for(let classIndex = 0; classIndex < classIds.length; classIndex++ ) {
+
+            if(classIds[classIndex] == listSettings.classIds[k]) {
+                listSettings.classIds.splice(k, 1);
+                break;  // break out because the array position in listSettings.classIds has now been deleted anyway
+            }
+
+        }
+
     }
-
-    function hideCurrentBoardLeftHeader() {
-        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".js-star-board").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_hide" );
-    }
-
-    function hideCurrentBoardWholeHeader() {
-        $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
-        hideCurrentBoardLeftHeader(); // prevents it appearing during transitions
-        addBoardPadding();
-    }
-
-    function hideGeneralTrelloHeader() {
-        $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_collapse" );
-    }
-
-    function hideAllHeaders() {
-        hideCurrentBoardWholeHeader();
-        hideGeneralTrelloHeader();
-        addBoardPadding();
-    }
-
-
-    // Add all anim transitions as seperate class that never gets removed
-    // So it animates both ways
-    //////////////////////////
-    $(".js-rename-board").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".js-star-board").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_transition" );
-    // Current board whole header
-    $(".js-board-header").addClass( plugin.slug + "_trello-ui_transition" );
-    // General Trello header
-    $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_transition" );
-    // For padding
-    $("#board").addClass( plugin.slug + "_trello-board_transition" );
-
-
-    // Unhide all headers
-    /////////////////////
-    // Current board left header
-    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_hide" );
-    // Current board whole header
-    $(".js-board-header").removeClass( plugin.slug + "_trello-ui_collapse" );
-    // General Trello header
-    $("#surface").find("div").first().removeClass( plugin.slug + "_trello-ui_collapse" );
-    // For board padding
-    $("#board").removeClass( plugin.slug + "_trello-board_padding" );
     
-    
-
-    switch( boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ) {
-
-        case 1:     hideCurrentBoardLeftHeader();
-                    break;
-
-        case 2:     hideCurrentBoardLeftHeader();
-                    hideGeneralTrelloHeader();
-                    break;
-                    
-        case 3:     hideAllHeaders();
-                    break;
-
-        case 4:     hideCurrentBoardWholeHeader();
-                    break;
-        
-        default:    break;
-
-    }
-
-    
-
-    
-
-    
-
-
-}
+    debugLog("Removed all classes of optionSet in from listId '"+ listId +"' in settings");
+};

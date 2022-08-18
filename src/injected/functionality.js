@@ -21,7 +21,8 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings, visualizeAllBoardSettings, getBoardSettings } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings, getBoardSettings } from "./helpers";
+import { visualizeAllBoardSettings } from "./render";
 import classNames from "classnames";
 import { DeletePresetButton, initDeletePresetButtons } from "./components/delete-preset-button";
 import { RevertPresetButton, initRevertPresetButtons } from "./components/revert-preset-button";
@@ -567,7 +568,7 @@ function immediatePageAdjustments() {
 function delayedPageChangeAdjustments() {
 
     createEventsToRememberUserActions();
-    visualizeAllBoardSettings();
+    visualizeAllBoardSettings( getBoardSettings() );
 
 }
 
