@@ -4,6 +4,7 @@ import { OPTIONS } from "./user-options";
 import { createOrRefreshInterface } from "./functionality";
 
 import { plugin } from "../metadata";
+import { loadBoardSettings, saveBoardSettings } from "./io";
 
 
 var $activeList;
@@ -21,7 +22,6 @@ chrome.runtime.onMessage.addListener(
 
         if(request.url) {
 
-
             if(
                 boardSettings == undefined ||
                 boardSettings.boardUrl != request.url
@@ -34,7 +34,14 @@ chrome.runtime.onMessage.addListener(
             }
             
             // Then load in saved settings (will not overide if saved settings don't exist)
-            loadBoardSettings( boardSettings.url );
+            loadBoardSettings( boardSettings.boardUrl, (newBoardSettings) => {
+
+                // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
+                // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
+                // However, Dom might take a while, might be best to run on every mutation update?
+                visualizeAllBoardSettings();
+
+            } );
 
         }
     }
@@ -164,37 +171,7 @@ function createDefaultPreset(index) {
 
 
 
-export function loadBoardSettings() {
-    const boardId = boardSettings.boardUrl;
 
-    chrome.storage.local.get(
-        [boardId],
-        function(result) {
-
-            debugLog("Loaded these boardSettings from Chrome memory:");
-            debugLog(boardSettings);
-            
-            if(result[boardId] != undefined) {
-
-                // TO DO: This is where it should run a function to update the board settings if the settings version number is old.
-
-                // Set the boardSettings from those loaded
-                boardSettings = result[boardId];
-                // define an activePreset if there wasn't one
-                if(!boardSettings.activeBoardPreset)    boardSettings.activeBoardPreset = 0;
-
-                // TO DO: This will causes issues whenever teh result is returned before the Dom is ready.
-                // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
-                // However, Dom might take a while, might be best to run on every mutation update?
-                visualizeAllBoardSettings();
-
-            }
-
-            
-        }
-    );
-
-}
 
 
 // Used by saveBoardSettings
@@ -212,18 +189,7 @@ function moveActivePresetIfInDefaultSlot() {
 }
 
 
-export function saveBoardSettings() {
-    debugLog("Sending boardSettings to save in Chrome memory");
-    debugLog(boardSettings);
 
-    const boardId = boardSettings.boardUrl;
-
-    // Asynchronous callback
-    chrome.storage.local.set({[boardId]: boardSettings}, function() {
-        userConsoleNote("Board settings for " + boardSettings.boardUrl + " saved to Chrome memory.");
-    });
-
-}
 
 
 
@@ -245,7 +211,7 @@ export function deletePresetSettings(presetIndex) {
 
 
     visualizeAllBoardSettings();
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);
     createOrRefreshInterface();
 }
 
@@ -259,7 +225,7 @@ export function nukeBoardSettings() {
     });
 
     visualizeAllBoardSettings();
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);
 }
 
 
@@ -650,7 +616,7 @@ export function changeAndSaveListOption(props) {
     });
 
     moveActivePresetIfInDefaultSlot();
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);
 
 }
 
@@ -659,7 +625,7 @@ export function iterateAndSaveHeaderSetting(props) {
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
     moveActivePresetIfInDefaultSlot();
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);
 }
 
 
@@ -673,7 +639,7 @@ export function iterateAndSaveHeaderSetting(props) {
         
 //     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting = newId;
 
-//     saveBoardSettings();
+//     saveBoardSettings(boardSettings);
 
 // }
 
@@ -861,8 +827,8 @@ export function cycleBoardPresets() {
 
     debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
 
+    saveBoardSettings(boardSettings);
     visualizeAllBoardSettings();
-    saveBoardSettings();
     createOrRefreshInterface();
 }
 
@@ -872,8 +838,8 @@ export function activateBoardPreset(index) {
 
     debugLog("Activating board preset. New preset: '"+boardSettings.activeBoardPreset+"'");
 
+    saveBoardSettings(boardSettings);
     visualizeAllBoardSettings();
-    saveBoardSettings();
     createOrRefreshInterface();
 }
 
