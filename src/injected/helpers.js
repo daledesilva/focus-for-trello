@@ -1,15 +1,15 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 import { MATCH_METHODS } from "./enumerators";
-import { OPTIONS } from "./user-options";
-import { createOrRefreshInterface } from "./functionality";
+
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
-import { renderBoard, visualizeListOption, renderHeader } from "./render";
+import { renderBoard, visualizeListOption, renderHeader, createOrRefreshFocusUi } from "./render";
+import { createListSettings, initBoardSettings, createDefaultPreset, getListSettingsArray, getListSettingsRef, getBoardPresets, useBoardSettings, changeClassInListInSettings } from "./data";
 
 
 var $activeList;
-var boardSettings;  // Wipe this for each board
+
 
 
 
@@ -20,12 +20,14 @@ var boardSettings;  // Wipe this for each board
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+        const [existingBoardSettings] = useBoardSettings();
 
+        // If the chrome plugin says the page URL changed
         if(request.url) {
 
             if(
-                boardSettings == undefined ||
-                boardSettings.boardUrl != request.url
+                existingBoardSettings == undefined ||
+                existingBoardSettings.boardUrl != request.url
                 )
             {
                 // Initialise the boardSettings object
@@ -34,14 +36,18 @@ chrome.runtime.onMessage.addListener(
                 });
             }
             
+            // TODO: This happens twice and so is very clunky
+            const [boardSettings, setBoardSettings] = useBoardSettings();
+
             // Then load in saved settings (will not overide if saved settings don't exist)
             loadBoardSettings( boardSettings.boardUrl, (newBoardSettings) => {
 
-                boardSettings = newBoardSettings;
+                debugLog("board settings loaded!!!!")
+                setBoardSettings(newBoardSettings);
                 // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
                 // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
                 // However, Dom might take a while, might be best to run on every mutation update?
-                renderBoard(boardSettings);
+                renderBoard(newBoardSettings);
 
             } );
 
@@ -54,115 +60,7 @@ chrome.runtime.onMessage.addListener(
 
 
 
-function createListSettings(props) {
-    
-    let {
-        listId,
-        matchMethod,
-        activeBoardPreset,
-        classIds,
-        customSettings
-    } = props;
 
-
-    if( listId == undefined )   devWarning("No listId defined in createListSettings");
-
-
-    if( matchMethod == undefined )      matchMethod = MATCH_METHODS.EXACT;
-    if( ! activeBoardPreset )           activeBoardPreset = 0;
-    if( ! classIds )                    classIds = new Array();
-    if( ! customSettings )              customSettings = new Object();
-
-
-    return {
-        listId,
-        matchMethod,
-        activeBoardPreset,
-        classIds,
-        customSettings,
-    }
-
-
-}
-
-
-
-
-
-function initBoardSettings(props) {
-
-    const {
-        completeUrl,            // ie. https://trello.com/b/KNETfkws/general
-        trimmedUrl,             // ie. https://trello.com/b/KNETfkws
-    } = props;
-
-
-    boardSettings = {
-
-        settingsVersion: "2020.07.27",
-
-        boardName: getBoardName(),
-        boardUrl: trimmedUrl || trimUrl(completeUrl),
-    
-        activeBoardPreset: 0,
-        boardPresets: [
-            { // Board preset 1
-    
-                // presetId: 0,
-                presetName: null,
-                isSaved: false,
-                isActiveWhenCycling: true,
-
-                headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-    
-                listSettings: [
-                    // createListSettings({}),
-                    // createListSettings({}),
-                    
-                ]
-    
-            },
-            //{ // Board preset 2
-            
-            //}
-    
-        ]
-    
-    };
-
-    debugLog("Board Settings Initialised");
-    debugLog(boardSettings);
-}
-
-
-
-
-function createDefaultPreset(index) {
-
-    // If it already exists, then bail.
-    // if(boardSettings.boardPresets[index])  return;
-
-
-    boardSettings.boardPresets[index] = {
-    
-        // presetId: id,
-        presetName: null,
-        isSaved: false,
-        isActiveWhenCycling: true,
-        
-        headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-
-        listSettings: [
-            // createListSettings({}),
-            // createListSettings({}),
-        ]
-
-    }
-
-
-    debugLog("Board Preset Initialised");
-    debugLog(boardSettings);
-}
 
 
 
@@ -178,16 +76,19 @@ function createDefaultPreset(index) {
 
 // Used by saveBoardSettings
 function moveActivePresetIfInDefaultSlot() {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+
     if(boardSettings.activeBoardPreset == 0) {
-        console.log('Active Preset is 0');
-        console.log('boardSettings.boardPresets',boardSettings.boardPresets);
+
         // Move active preset to end of array
         boardSettings.boardPresets.push(boardSettings.boardPresets[0]);
         boardSettings.activeBoardPreset = boardSettings.boardPresets.length-1;
+
         // Reset the preset at the start
         createDefaultPreset(0);
-        console.log('boardSettings.boardPresets[0]',boardSettings.boardPresets[0]);
+
     }
+    setBoardSettings(boardSettings);
 }
 
 
@@ -197,10 +98,8 @@ function moveActivePresetIfInDefaultSlot() {
 
 
 export function deletePresetSettings(presetIndex) {
-    userConsoleNote("Erasing current board preset");
-
+    const [boardSettings, setBoardSettings] = useBoardSettings();
     const presetIndexToDelete = presetIndex || boardSettings.activeBoardPreset;
-    console.log("presetIndex", presetIndex);
 
     // Only allow deleting if it's not the default preset
     if(presetIndexToDelete > 0) {
@@ -211,23 +110,24 @@ export function deletePresetSettings(presetIndex) {
         userConsoleNote(`Default preset can't be erased`);
     }
 
-
-    renderBoard(boardSettings);
-    saveBoardSettings(boardSettings);
-    createOrRefreshInterface();
+    setBoardSettings(boardSettings);
+    saveBoardSettings();
+    renderBoard();
+    createOrRefreshFocusUi();
 }
 
 
 
 export function nukeBoardSettings() {
-    userConsoleNote("Erasing board settings for " + boardSettings.boardUrl );
+    const [boardSettings] = useBoardSettings();
 
     initBoardSettings({
         trimmedUrl: boardSettings.boardUrl,
     });
 
-    renderBoard(boardSettings);
-    saveBoardSettings(boardSettings);
+    saveBoardSettings();
+    renderBoard();
+    createOrRefreshFocusUi();
 }
 
 
@@ -422,7 +322,7 @@ export function cycleOptionInList(optionSet, $list) {
 
 
     // recreate this so it's updated
-    createOrRefreshInterface();
+    createOrRefreshFocusUi();
 
 }
 
@@ -436,30 +336,6 @@ export function cycleOptionInList(optionSet, $list) {
 
 
 
-function getClassIdSet(classId) {
-    let classIdSet = new Array();
-    let setFound = false;
-
-    for(const optionSetKey in  OPTIONS.LISTS) {
-        classIdSet = new Array();
-
-        let optionSet = OPTIONS.LISTS[optionSetKey];
-
-        // for all the options in the option set
-        for(let optionIndex = 0; optionIndex < optionSet.length; optionIndex++) {
-
-            // remember the option's class for later
-            classIdSet.push( optionSet[optionIndex].class );
-
-            // get ready to bail after remembering all the options if it's the right list
-            if( optionSet[optionIndex].class == classId ) setFound = true;
-        }
-
-
-        if( setFound )  return classIdSet;
-
-    }
-}
 
 
 
@@ -470,11 +346,12 @@ function getClassIdSet(classId) {
 
 
 
-function getBoardName() {
+
+export function getBoardName() {
     return  $(".js-board-editing-target").text();
 }
 
-function trimUrl(url) {
+export function trimUrl(url) {
 
     // remove board name from end of URL so it's consistent if name changes
     url = url.substr( 0, url.lastIndexOf("/") );
@@ -482,7 +359,7 @@ function trimUrl(url) {
 
 }
 
-function getListId($list) {
+export function getListId($list) {
 
     // TO DO: THe list Id is currently just the list name, but maybe there's another id somewherer to use that will stay the same even if the name changes?
     // Or, compare with position and card number, etc. so that it van be relinked (silently?) here if broken.
@@ -547,17 +424,10 @@ export function changeAndSaveListOption(props) {
     });
 
     moveActivePresetIfInDefaultSlot();
-    saveBoardSettings(boardSettings);
+    saveBoardSettings();
 
 }
 
-
-export function cycleHeaderSetting(props) {
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
-    moveActivePresetIfInDefaultSlot();
-    saveBoardSettings(boardSettings);
-}
 
 
 
@@ -580,170 +450,44 @@ export function cycleHeaderSetting(props) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// function getBoardPresetRef(presetId) {
-//     const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
-
-// }
-
-
-
-export function getListSettingsArray() {
-    return boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
-}
-
-
-
-function getListSettingsRef(listId) {
-
-    const boardListSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
-
-    for(let k = 0; k < boardListSettings.length; k++) {
-
-        if (listId == boardListSettings[k].listId)  return boardListSettings[k];
-
-    }
-    
-    // It wasn't found in the settings, so put it there
-    boardListSettings.push( createListSettings({
-        listId
-    }))
-
-
-    return boardListSettings[ boardListSettings.length-1 ];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function getBoardPreset() {
-//     let boardSettings = getBoardSettings();
-
-//     if(boardSettings.boardPresets == undefined ) {
-//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = createDefaultPreset();
-//     };
-
-//     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
-// }
-
-export function getBoardSettings() {
-
-    if(boardSettings == undefined ) {
-        devWarning("BoardSettings not created. Cannot get List Settings");
-        return;
-    };
-
-    return boardSettings;
-
-}
-
-export function getBoardPresets() {
-    return boardSettings.boardPresets;
-}
-
-
-
-
-
-
-
-
 export function cycleBoardPresets() {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+
     boardSettings.activeBoardPreset ++;
     boardSettings.activeBoardPreset %= boardSettings.boardPresets.length;
 
-    debugLog("Cycling board presets. New preset: '"+boardSettings.activeBoardPreset+"'");
-
-    saveBoardSettings(boardSettings);
-    renderBoard(boardSettings);
-    createOrRefreshInterface();
+    setBoardSettings(boardSettings);
+    saveBoardSettings();
+    renderBoard();
+    createOrRefreshFocusUi();
 }
 
 export function activateBoardPreset(index) {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
 
     boardSettings.activeBoardPreset = index;
 
-    debugLog("Activating board preset. New preset: '"+boardSettings.activeBoardPreset+"'");
-
-    saveBoardSettings(boardSettings);
-    renderBoard(boardSettings);
-    createOrRefreshInterface();
+    setBoardSettings(boardSettings);
+    saveBoardSettings();
+    renderBoard();
+    createOrRefreshFocusUi();
 }
 
 
 export function cycleBoardHeader() {
-    cycleHeaderSetting()
-    renderHeader(boardSettings);
-    createOrRefreshInterface();
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+    
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
+    moveActivePresetIfInDefaultSlot();
+
+    setBoardSettings(boardSettings);
+    saveBoardSettings();
+    renderHeader();
+    createOrRefreshFocusUi();
 }
 
 
 
 
 
-// removes any classes for a particular option set and adds in only the class passed in
-export function changeClassInListInSettings(props) {
-    const { listId, classId } = props;
-    const classIds = getClassIdSet(classId);
-    let listSettings = getListSettingsRef(listId);
-
-    // Remove all the classes for this styling set
-    // (There should only be one, but if there's somehow more they will all go as a failsafe)
-    removeClassIdsFromListInSettings({
-        classIds,
-        listId
-    });
-    // Add back in the one just switched to
-    listSettings.classIds.push(classId);
-
-    debugLog("Changed to classId '"+ classId +"' within listId '"+ listId +"' in settings");
-};
-
-
-
-function removeClassIdsFromListInSettings(props) {
-    const { listId, classIds } = props;
-    let listSettings = getListSettingsRef(listId);
-
-    // if there's no class Ids, there's nothing to remove
-    if(listSettings.classIds == undefined)   return;
-
-    // If there is, remove all instances of all classIds passed in
-    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
-
-        // Check the item in settings against against all classIds passed in
-        for(let classIndex = 0; classIndex < classIds.length; classIndex++ ) {
-
-            if(classIds[classIndex] == listSettings.classIds[k]) {
-                listSettings.classIds.splice(k, 1);
-                break;  // break out because the array position in listSettings.classIds has now been deleted anyway
-            }
-
-        }
-
-    }
-    
-    debugLog("Removed all classes of optionSet in from listId '"+ listId +"' in settings");
-};
