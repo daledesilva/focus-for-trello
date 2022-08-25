@@ -55,7 +55,17 @@ export function initBoardSettings(props) {
         trimmedUrl,             // ie. https://trello.com/b/KNETfkws
     } = props;
 
+    // If board settings are passed in (ie. they've been loaded)
+    ////////////////////
+    if(props.boardSettings) {
+        boardSettings = props.boardSettings;
+        debugLog("Existing board settings initialised");
+        debugLog(boardSettings);
+        return;
+    }
 
+    // If not, create a new settings object
+    ////////////////////
     boardSettings = {
 
         settingsVersion: "2020.07.27",
@@ -89,7 +99,7 @@ export function initBoardSettings(props) {
     
     };
 
-    debugLog("Board Settings Initialised");
+    debugLog("New board settings Initialised");
     debugLog(boardSettings);
 }
 

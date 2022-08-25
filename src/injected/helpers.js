@@ -29,13 +29,14 @@ chrome.runtime.onMessage.addListener(
             initBoardSettings({
                 completeUrl: request.url
             });            
-            const [boardSettings, setBoardSettings] = useBoardSettings();
+            const [boardSettings] = useBoardSettings();
 
             // Then load in saved settings (will not overide if saved settings don't exist)
             loadBoardSettings( boardSettings.boardUrl, (newBoardSettings) => {
 
-                debugLog("board settings loaded!!!!")
-                setBoardSettings(newBoardSettings);
+                initBoardSettings({
+                    boardSettings: newBoardSettings
+                });   
                 // TO DO: This will causes issues whenever the result is returned before the Dom is ready.
                 // There needs to be a check to visualise as immediately if dom is already ready or initialise when it is.
                 // However, Dom might take a while, might be best to run on every mutation update?
