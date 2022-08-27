@@ -165,17 +165,8 @@ export function renderHeader() {
         $("#board").addClass( plugin.slug + "_trello-board_padding" );
     }
 
-    function hideCurrentBoardLeftHeader() {
-        $(".js-rename-board").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".js-star-board").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_hide" );
-        $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_hide" );
-    }
-
     function hideCurrentBoardWholeHeader() {
         $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
-        hideCurrentBoardLeftHeader(); // prevents it appearing during transitions
         addBoardPadding();
     }
 
@@ -225,17 +216,13 @@ export function renderHeader() {
 
     switch( boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ) {
 
-        case 1:     hideCurrentBoardLeftHeader();
-                    break;
-
-        case 2:     hideCurrentBoardLeftHeader();
-                    hideGeneralTrelloHeader();
+        case 1:     hideGeneralTrelloHeader();
                     break;
                     
-        case 3:     hideAllHeaders();
+        case 2:     hideAllHeaders();
                     break;
 
-        case 4:     hideCurrentBoardWholeHeader();
+        case 3:     hideCurrentBoardWholeHeader();
                     break;
         
         default:    break;

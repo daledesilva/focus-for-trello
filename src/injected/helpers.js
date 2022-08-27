@@ -310,7 +310,7 @@ export function cycleBoardHeader() {
     let newBoardSettings = boardSettings;
     
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 4; // TODO: The header options should be abstracted to array of names so this could then be %= length
 
     newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
     setBoardSettings(newBoardSettings);
