@@ -12,7 +12,7 @@ import {devWarning} from "../generic-helpers";
 import { activateBoardPreset } from "../helpers";
 
 
-const unsavedPresetPrefix = "Unnamed Preset ";
+const unsavedPresetPrefix = "Preset ";
 const defaultPresetName = "Default";
 
 
