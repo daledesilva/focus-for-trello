@@ -182,7 +182,8 @@ function getCurrentListOptionIndex($list, optionSet) {
     
     let currentIndex;
 
-    // Find the current item in the optionSet
+    // Find option in optionSet that the list has
+    // This is don like this because the settings object stores the option class names in one array rather than indexes for each option so that future additions or subtractions don't need a restructuring of the settings object.
     for(let index = 0; index < optionSet.length; index++) {
         let option = optionSet[index];
 
@@ -281,7 +282,7 @@ export function getContainingList(id) {
 export function cycleListOption($list, optionSet) {
     const [boardSettings, setBoardSettings] = useBoardSettings();
     let newBoardSettings = _.cloneDeep(boardSettings);
-    
+
     const currentOption = getCurrentListOption($list, optionSet);
     const nextOption = getNextListOption($list, optionSet);
 
