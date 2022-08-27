@@ -305,6 +305,21 @@ export function cycleOptionInList(optionSet, $list) {
 }
 
 
+export function cycleBoardHeader() {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+    let newBoardSettings = boardSettings;
+    
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
+    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
+
+    newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
+    setBoardSettings(newBoardSettings);
+    saveBoardSettings(newBoardSettings);   // TODO: This needs to save the activePresetIndex, but it shouldn't really be saving all other settings as well.
+    renderHeader();
+    renderFocusUi();
+}
+
+
 
 
 
@@ -494,16 +509,7 @@ export function activateBoardPreset(index) {
 }
 
 
-export function cycleBoardHeader() {
-    const [boardSettings, setBoardSettings] = useBoardSettings();
-    
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
 
-    setBoardSettings(boardSettings);
-    renderHeader();
-    renderFocusUi();
-}
 
 
 

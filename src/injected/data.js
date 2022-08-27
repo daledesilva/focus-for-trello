@@ -155,7 +155,10 @@ export function useBoardSettings() {
         boardSettings = newBoardSettings;
     }
 
-    return [_.cloneDeep(boardSettings), setBoardSettings];
+    return [
+        _.cloneDeep(boardSettings),
+        setBoardSettings
+    ];
 }
 
 
