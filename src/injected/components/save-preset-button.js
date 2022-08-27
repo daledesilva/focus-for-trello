@@ -9,7 +9,6 @@ import { OPTIONS } from "../user-options";
 
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
-import { cycleOptionInList, $getActiveList } from "../helpers";
 
 
 

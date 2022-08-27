@@ -64,7 +64,7 @@ function renderLists(boardSettings) {
         // visualize each classId in the lists settings
         for(const classId of listSettings.classIds) {
             
-            visualizeListOption({
+            renderListOption({
                 $list,
                 newClass: classId,
             });
@@ -95,7 +95,7 @@ function resetListAppearance($list) {
 
 
 
-export function visualizeListOption(props) {
+export function renderListOption(props) {
     const {
         $list,
         newClass,

@@ -4,7 +4,7 @@ import { MATCH_METHODS } from "./enumerators";
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
-import { renderBoard, visualizeListOption, renderHeader, renderFocusUi } from "./render";
+import { renderFocusUi, renderBoard, renderHeader, renderListOption } from "./render";
 import { createListSettings, initBoardSettings, createDefaultPreset, getListSettingsArray, getListSettingsRef, getBoardPresets, useBoardSettings, changeClassInListInSettings } from "./data";
 
 
@@ -124,7 +124,6 @@ export function nukeBoardSettings() {
 
 
 export function setActiveList($list) {
-    console.log("SETTING THE ACTIVE LIST: " + getListId($list) );
     $activeList = $list;
 }
 
@@ -179,7 +178,7 @@ export function getOptionAfterThis(currentOptionId, optionSet) {
 
 
 
-function getListsCurrentOptionInSetAsIndex($list, optionSet) {
+function getCurrentListOptionIndex($list, optionSet) {
     
     let currentIndex;
 
@@ -203,8 +202,13 @@ function getListsCurrentOptionInSetAsIndex($list, optionSet) {
 }
 
 
-function getNextOptionIndex(currentOptionIndex, optionSet) {
-    return (currentOptionIndex + 1) % optionSet.length;
+function getCurrentListOption($list, optionSet) {
+    return optionSet[ getCurrentListOptionIndex($list, optionSet) ];
+}
+function getNextListOption($list, optionSet) {
+    const curIndex = getCurrentListOptionIndex($list, optionSet);
+    const nextIndex = (curIndex + 1) % optionSet.length;
+    return optionSet[nextIndex];
 }
 
 
@@ -274,34 +278,29 @@ export function getContainingList(id) {
 }
 
 
-export function cycleOptionInList(optionSet, $list) {
-
-    // TODO: This can all be done more efficiently with indices
-    let currentOptionIndex = getListsCurrentOptionInSetAsIndex($list, optionSet);
-    let nextOptionIndex = getNextOptionIndex(currentOptionIndex, optionSet);
-
-    let currentOption = optionSet[ currentOptionIndex ]
-    let nextOption = optionSet[ nextOptionIndex ];
-
+export function cycleListOption($list, optionSet) {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+    let newBoardSettings = _.cloneDeep(boardSettings);
     
+    const currentOption = getCurrentListOption($list, optionSet);
+    const nextOption = getNextListOption($list, optionSet);
 
-    visualizeListOption({
-        $list: $list,
-        newClass: nextOption.class,
-        oldClass: currentOption.class
-    })
-    
-
-    changeAndSaveListOption({
+    newBoardSettings = changeListOption({
+        curBoardSettings: newBoardSettings,
         $list: $list,
         newClass: nextOption.class,
         oldClass: currentOption.class
     })
 
-
-    // recreate this so it's updated
+    newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
+    setBoardSettings(newBoardSettings);
+    saveBoardSettings(newBoardSettings);
+    renderListOption({
+        $list: $list,
+        newClass: nextOption.class,
+        oldClass: currentOption.class
+    })
     renderFocusUi();
-
 }
 
 
@@ -445,10 +444,9 @@ function resetDefaultPreset(curBoardSettings) {
 
 
 
-function changeAndSaveListOption(props) {
-    const [boardSettings, setBoardSettings] = useBoardSettings();
-    let newBoardSettings = _.cloneDeep(boardSettings);
-    const {$list, newClass, oldClass} = props
+function changeListOption(props) {
+    const {curBoardSettings, $list, newClass, oldClass} = props
+    let newBoardSettings = _.cloneDeep(curBoardSettings);
     const listId = getListId($list);
 
     newBoardSettings = changeClassInListInSettings({
@@ -457,10 +455,7 @@ function changeAndSaveListOption(props) {
         listId,
     });
     
-    newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
-    setBoardSettings(newBoardSettings);
-    saveBoardSettings(newBoardSettings);
-
+    return newBoardSettings;
 }
 
 

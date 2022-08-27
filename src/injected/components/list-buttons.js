@@ -9,7 +9,7 @@ import { OPTIONS } from "../user-options";
 
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
-import { cycleOptionInList, $getActiveList } from "../helpers";
+import { cycleListOption, $getActiveList } from "../helpers";
 
 
 
@@ -44,7 +44,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.LABELS, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.LABELS );
             }}
         >
             <i className="fas fa-tag"/>
@@ -71,7 +71,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.BADGES, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.BADGES );
             }}
         >
             <i className="fas fa-window-maximize fa-rotate-180"/> {/* fa-clock */}
@@ -93,7 +93,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.DETAILS, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.DETAILS );
             }}
         >
             <i className="fas fa-user-circle"/>
@@ -115,7 +115,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.IMAGES, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.IMAGES );
             }}
         >
             <i className="fas fa-image"/>
@@ -141,7 +141,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.SIZES );
             }}
         >
             <i className="fas fa-expand-alt"/>
@@ -166,7 +166,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.COLORS, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.COLORS );
             }}
         >
             <i className="fas fa-fill-drip"/>
@@ -189,7 +189,7 @@ class ListButtons extends JSXComponent {
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
-                cycleOptionInList( OPTIONS.LISTS.VISIBILITY, $getActiveList() );
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.VISIBILITY );
             }}
         >
             <i className="fas fa-low-vision"/>
@@ -216,7 +216,7 @@ class ListButtons extends JSXComponent {
 
     //         ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
     //         onClick={ () => {
-    //             cycleOptionInList( OPTIONS.LISTS.SIZES, $getActiveList() );
+    //             cycleListOption( $getActiveList(), OPTIONS.LISTS.SIZES );
     //         }}
     //     >
     //         <i className="fas fa-cogs"/>
