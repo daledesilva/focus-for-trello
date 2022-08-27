@@ -68,22 +68,7 @@ chrome.runtime.onMessage.addListener(
 
 
 
-// Used by saveBoardSettings
-function moveActivePresetIfInDefaultSlot() {
-    const [boardSettings, setBoardSettings] = useBoardSettings();
 
-    if(boardSettings.activeBoardPreset == 0) {
-
-        // Move active preset to end of array
-        boardSettings.boardPresets.push(boardSettings.boardPresets[0]);
-        boardSettings.activeBoardPreset = boardSettings.boardPresets.length-1;
-
-        // Reset the preset at the start
-        createDefaultPreset(0);
-
-    }
-    setBoardSettings(boardSettings);
-}
 
 
 
@@ -105,7 +90,7 @@ export function deletePresetSettings(presetIndex) {
     }
 
     setBoardSettings(boardSettings);
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);
     renderBoard();
     renderFocusUi();
 }
@@ -119,7 +104,6 @@ export function nukeBoardSettings() {
         trimmedUrl: boardSettings.boardUrl,
     });
 
-    saveBoardSettings();
     renderBoard();
     renderFocusUi();
 }
@@ -209,9 +193,9 @@ function getListsCurrentOptionInSetAsIndex($list, optionSet) {
         }
     };
 
+    // If no option set yet, start at index 0
     if(currentIndex == undefined) {
-        devWarning("Can't iterate to next option because the current option's class isn't found. Jumping to first custom option instead.");
-        currentIndex = 0; // setting to default option first, then increment
+        currentIndex = 0;
     }
 
     return currentIndex;
@@ -393,6 +377,49 @@ export function getListById(id) {
 
 
 
+function moveActivePresetIfInDefaultSlot(curBoardSettings) {
+    let newBoardSettings = _.cloneDeep(curBoardSettings);
+
+    if(newBoardSettings.activeBoardPreset == 0) {
+
+        // Move active preset to end of array
+        newBoardSettings.boardPresets.push(newBoardSettings.boardPresets[0]);
+        newBoardSettings.activeBoardPreset = newBoardSettings.boardPresets.length-1;
+
+        // Reset the preset at the start
+        newBoardSettings = resetDefaultPreset(newBoardSettings);
+
+    }
+
+    return newBoardSettings;
+}
+
+
+
+function resetDefaultPreset(curBoardSettings) {
+    let newBoardSettings = _.cloneDeep(curBoardSettings);
+    const defaultPresetIndex = 0;
+
+
+    // TODO: Is there an init preset function somewhere that can be used instead of this?
+    newBoardSettings.boardPresets[defaultPresetIndex] = {
+    
+        // presetId: id,
+        presetName: null,
+        isSaved: false,
+        isActiveWhenCycling: true,
+        
+        headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+
+        listSettings: [
+            // createListSettings({}),
+            // createListSettings({}),
+        ]
+
+    }
+
+    return newBoardSettings;
+}
 
 
 
@@ -403,22 +430,21 @@ export function getListById(id) {
 
 
 
-
-
-
-
-
-export function changeAndSaveListOption(props) {
+function changeAndSaveListOption(props) {
+    const [boardSettings, setBoardSettings] = useBoardSettings();
+    let newBoardSettings = _.cloneDeep(boardSettings);
     const {$list, newClass, oldClass} = props
     const listId = getListId($list);
 
-    changeClassInListInSettings({
+    newBoardSettings = changeClassInListInSettings({
+        curBoardSettings: newBoardSettings,
         classId: newClass,
         listId,
     });
-
-    moveActivePresetIfInDefaultSlot();
-    saveBoardSettings();
+    
+    newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
+    setBoardSettings(newBoardSettings);
+    saveBoardSettings(newBoardSettings);
 
 }
 
@@ -431,10 +457,11 @@ export function changeAndSaveListOption(props) {
 
 // export function saveHeaderOption(props) {
 //     const {newId} = props
+//     const [boardSettings, setBoardSettings] = useBoardSettings();
         
 //     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting = newId;
 
-//     saveBoardSettings(boardSettings);
+//     setBoardSettings(boardSettings);
 
 // }
 
@@ -451,7 +478,7 @@ export function cycleBoardPresets() {
     boardSettings.activeBoardPreset %= boardSettings.boardPresets.length;
 
     setBoardSettings(boardSettings);
-    saveBoardSettings();
+    saveBoardSettings(boardSettings);   // TODO: This needs to save the activePresetIndex, but it shouldn't really be saving all other settings as well.
     renderBoard();
     renderFocusUi();
 }
@@ -462,7 +489,6 @@ export function activateBoardPreset(index) {
     boardSettings.activeBoardPreset = index;
 
     setBoardSettings(boardSettings);
-    saveBoardSettings();
     renderBoard();
     renderFocusUi();
 }
@@ -473,10 +499,8 @@ export function cycleBoardHeader() {
     
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
     boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 5; // TODO: The header options should be abstracted to array of names so this could then be %= length
-    moveActivePresetIfInDefaultSlot();
 
     setBoardSettings(boardSettings);
-    saveBoardSettings();
     renderHeader();
     renderFocusUi();
 }

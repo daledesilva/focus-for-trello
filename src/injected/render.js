@@ -29,7 +29,7 @@ import { PresetButton, initPresetButtons } from "./components/preset-button";
 export function renderBoard() {
     const [boardSettings] = useBoardSettings();
 
-    renderLists();
+    renderLists(boardSettings);
     renderHeader(boardSettings);
 
     debugLog("Rendered all board settings");
@@ -37,19 +37,16 @@ export function renderBoard() {
 
 
 
-function renderLists() {
+function renderLists(boardSettings) {
 
     // Iterate through all $lists and reset any previously applied settings back to default
     $(".js-list").each( function () {
         let $this = $(this);
-        resetListAppearance($this);    
+        resetListAppearance($this); 
     })
 
-    debugLog("Reset all list appearances");
-    
-
     // get an array of lists that do have listSettings in the current board preset
-    let allListSettings = getListSettingsArray();
+    let allListSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
 
     // Iterate through all saved settings for lists and update
     for(let k = 0; k < allListSettings.length; k++) {

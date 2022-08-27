@@ -1,8 +1,10 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
+import { loadBoardSettings, saveBoardSettings } from "./io";
 import { getBoardName, trimUrl } from "./helpers";
 import { OPTIONS } from "./user-options";
 import { MATCH_METHODS } from "./enumerators";
+import _ from "lodash";
 
 
 
@@ -106,58 +108,23 @@ export function initBoardSettings(props) {
 
 
 
-export function createDefaultPreset(index) {
-
-    // If it already exists, then bail.
-    // if(boardSettings.boardPresets[index])  return;
-
-
-    boardSettings.boardPresets[index] = {
-    
-        // presetId: id,
-        presetName: null,
-        isSaved: false,
-        isActiveWhenCycling: true,
-        
-        headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
-
-        listSettings: [
-            // createListSettings({}),
-            // createListSettings({}),
-        ]
-
-    }
-
-
-    debugLog("Board Preset Initialised");
-    debugLog(boardSettings);
-}
 
 
 
 
 
-// function getBoardPresetRef(presetId) {
-//     const boardListSettings = boardSettings.boardPresets[presetId].listSettings;
-
-// }
 
 
 
-export function getListSettingsArray() {
-    return boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
-}
 
 
+export function getListSettingsRef(props) {
+    const {curBoardSettings, listId} = props;
 
-export function getListSettingsRef(listId) {
-
-    const boardListSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
+    const boardListSettings = curBoardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
 
     for(let k = 0; k < boardListSettings.length; k++) {
-
         if (listId == boardListSettings[k].listId)  return boardListSettings[k];
-
     }
     
     // It wasn't found in the settings, so put it there
@@ -176,7 +143,7 @@ export function getListSettingsRef(listId) {
 //     let boardSettings = getBoardSettings();
 
 //     if(boardSettings.boardPresets == undefined ) {
-//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = createDefaultPreset();
+//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = resetDefaultPreset();
 //     };
 
 //     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
@@ -188,7 +155,7 @@ export function useBoardSettings() {
         boardSettings = newBoardSettings;
     }
 
-    return [boardSettings, setBoardSettings];
+    return [_.cloneDeep(boardSettings), setBoardSettings];
 }
 
 
@@ -196,6 +163,10 @@ export function useBoardSettings() {
 export function getBoardPresets() {
     return boardSettings.boardPresets;
 }
+
+
+
+
 
 
 
@@ -231,39 +202,51 @@ function getClassIdSet(classId) {
 
 // removes any classes for a particular option set and adds in only the class passed in
 export function changeClassInListInSettings(props) {
-    const { listId, classId } = props;
+    const { listId, classId, curBoardSettings } = props;
+    let newBoardSettings = _.cloneDeep(curBoardSettings);
     const classIds = getClassIdSet(classId);
-    let listSettings = getListSettingsRef(listId);
+    let listSettingsRef = getListSettingsRef({
+        curBoardSettings: newBoardSettings,
+        listId
+    });
 
     // Remove all the classes for this styling set
     // (There should only be one, but if there's somehow more they will all go as a failsafe)
-    removeClassIdsFromListInSettings({
+    // TODO: This can just take in listSettingsRef? - That would go against immutibility though
+    newBoardSettings = removeClassIdsFromListInSettings({
+        curBoardSettings: newBoardSettings,
         classIds,
         listId
     });
+
     // Add back in the one just switched to
-    listSettings.classIds.push(classId);
+    listSettingsRef.classIds.push(classId);
 
     debugLog("Changed to classId '"+ classId +"' within listId '"+ listId +"' in settings");
+    return newBoardSettings;
 };
 
 
 
 function removeClassIdsFromListInSettings(props) {
-    const { listId, classIds } = props;
-    let listSettings = getListSettingsRef(listId);
+    const { listId, classIds, curBoardSettings } = props;
+    let newBoardSettings = curBoardSettings;
+    let listSettingsRef = getListSettingsRef({
+        curBoardSettings: newBoardSettings,
+        listId
+    });
 
     // if there's no class Ids, there's nothing to remove
-    if(listSettings.classIds == undefined)   return;
+    if(listSettingsRef.classIds == undefined)   return;
 
     // If there is, remove all instances of all classIds passed in
-    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
+    for( let k = listSettingsRef.classIds.length-1; k >= 0; k-- ) {
 
         // Check the item in settings against against all classIds passed in
         for(let classIndex = 0; classIndex < classIds.length; classIndex++ ) {
 
-            if(classIds[classIndex] == listSettings.classIds[k]) {
-                listSettings.classIds.splice(k, 1);
+            if(classIds[classIndex] == listSettingsRef.classIds[k]) {
+                listSettingsRef.classIds.splice(k, 1);
                 break;  // break out because the array position in listSettings.classIds has now been deleted anyway
             }
 
@@ -272,4 +255,5 @@ function removeClassIdsFromListInSettings(props) {
     }
     
     debugLog("Removed all classes of optionSet in from listId '"+ listId +"' in settings");
+    return newBoardSettings;
 };

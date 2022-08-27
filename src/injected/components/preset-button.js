@@ -53,7 +53,6 @@ const initPresetButtons = () => {
 
 const activatePreset = (event) => {
   const index = event.currentTarget.dataset.index;
-  console.log("button clicked: ", index);
   activateBoardPreset(index);
 }
 

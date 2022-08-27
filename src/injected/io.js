@@ -1,4 +1,3 @@
-import { useBoardSettings } from "./data";
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
 
@@ -38,8 +37,7 @@ export function loadBoardSettings(boardUrl, onLoad) {
 
 
 
-export function saveBoardSettings() {
-    const [boardSettings] = useBoardSettings();
+export function saveBoardSettings(boardSettings) {
 
     debugLog("Sending boardSettings to save in Chrome memory");
     debugLog(boardSettings);
