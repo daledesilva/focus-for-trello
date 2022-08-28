@@ -1,7 +1,7 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
 // getListSettingsArray is because board data is loaded into helpers.js. But it should probably be in a data.js or something and grabbed by everything? or just rename helpers?
-import { cycleBoardHeader, cycleBoardPresets, getListById, nukeBoardSettings } from "./helpers";
+import { cycleInterface, cycleBoardPresets, getListById, nukeBoardSettings } from "./helpers";
 
 import { OPTIONS } from "./user-options";
 import { plugin } from "../metadata";
@@ -30,9 +30,7 @@ export function renderBoard() {
     const [boardSettings] = useBoardSettings();
 
     renderLists(boardSettings);
-    renderHeader(boardSettings);
-
-    debugLog("Rendered all board settings");
+    renderInterface(boardSettings);
 }
 
 
@@ -72,10 +70,6 @@ function renderLists(boardSettings) {
         }
         
     }
-
-    debugLog("Render all saved list settings");
-
-
 }
 
 
@@ -84,8 +78,8 @@ function resetListAppearance($list) {
 
     for(const attr in OPTIONS.LISTS) {
 
-        OPTIONS.LISTS[attr].forEach( style => {
-            $list.removeClass( style.class );
+        OPTIONS.LISTS[attr].forEach( styleOption => {
+            $list.removeClass( styleOption.class );
         });
 
     }
@@ -153,83 +147,21 @@ function addClassToListInSettings(props) {
 
 
 
+export function resetInterfaceAppearance($surface) {
+    OPTIONS.INTERFACE.forEach( styleOption => {
+        $surface.removeClass( styleOption.classname );
+    });
+}
 
 
 
 
-
-export function renderHeader() {
-    const [boardSettings] = useBoardSettings();
-
-    function addBoardPadding() {
-        $("#board").addClass( plugin.slug + "_trello-board_padding" );
-    }
-
-    function hideCurrentBoardWholeHeader() {
-        $(".js-board-header").addClass( plugin.slug + "_trello-ui_collapse" );
-        addBoardPadding();
-    }
-
-    function hideGeneralTrelloHeader() {
-        $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_collapse" );
-    }
-
-    function hideAllHeaders() {
-        hideCurrentBoardWholeHeader();
-        hideGeneralTrelloHeader();
-        addBoardPadding();
-    }
-
-
-    // Add all anim transitions as seperate class that never gets removed
-    // So it animates both ways
-    //////////////////////////
-    $(".js-rename-board").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".js-star-board").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".js-board-header-btn-org-wrapper").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".board-header-btn-divider").addClass( plugin.slug + "_trello-ui_transition" );
-    $(".board-header-btns.mod-left").addClass( plugin.slug + "_trello-ui_transition" );
-    // Current board whole header
-    $(".js-board-header").addClass( plugin.slug + "_trello-ui_transition" );
-    // General Trello header
-    $("#surface").find("div").first().addClass( plugin.slug + "_trello-ui_transition" );
-    // For padding
-    $("#board").addClass( plugin.slug + "_trello-board_transition" );
-
-
-    // Unhide all headers
-    /////////////////////
-    // Current board left header
-    $(".js-rename-board").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".js-star-board").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".js-board-header-btn-org-wrapper").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".board-header-btn-divider").removeClass( plugin.slug + "_trello-ui_hide" );
-    $(".board-header-btns.mod-left").removeClass( plugin.slug + "_trello-ui_hide" );
-    // Current board whole header
-    $(".js-board-header").removeClass( plugin.slug + "_trello-ui_collapse" );
-    // General Trello header
-    $("#surface").find("div").first().removeClass( plugin.slug + "_trello-ui_collapse" );
-    // For board padding
-    $("#board").removeClass( plugin.slug + "_trello-board_padding" );
+export function renderInterface(boardSettings) {
+    const $surface = $("#surface");
+    const interfaceSettings = boardSettings.boardPresets[boardSettings.activeBoardPreset].interfaceSettings;
     
-    
-
-    switch( boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ) {
-
-        case 1:     hideGeneralTrelloHeader();
-                    break;
-                    
-        case 2:     hideAllHeaders();
-                    break;
-
-        case 3:     hideCurrentBoardWholeHeader();
-                    break;
-        
-        default:    break;
-
-    }
-
-
+    resetInterfaceAppearance($surface);
+    $surface.addClass(interfaceSettings.classname);
 }
 
 
@@ -238,6 +170,7 @@ export function renderHeader() {
 
 // Create the main settings button that switches visual layouts
 //
+// TODO: pass in boardSettings like everything else
 export function renderFocusUi() {
     
     const [boardSettings] = useBoardSettings();
@@ -403,12 +336,15 @@ export function renderFocusUi() {
 
 
 
+
+// TODO: Why are these actions in the render file?
+
 function switchFocus() {
     cycleBoardPresets();
 }
 
 function switchHeader() {
-    cycleBoardHeader();
+    cycleInterface();
 }
 
 function addSelected() {

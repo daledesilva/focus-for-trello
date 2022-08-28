@@ -15,7 +15,7 @@ import { OPTIONS } from "./user-options";
 
 import {plugin} from "../metadata";
 import {devWarning} from "./generic-helpers";
-import { setActiveList, fetchAndStoreUrl, cycleBoardHeader, cycleBoardPresets, nukeBoardSettings } from "./helpers";
+import { setActiveList, fetchAndStoreUrl, cycleInterface, cycleBoardPresets, nukeBoardSettings } from "./helpers";
 import { renderFocusUi, renderBoard, createListButtons } from "./render";
 import { useBoardSettings } from "./data";
 

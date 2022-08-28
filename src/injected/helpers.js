@@ -4,8 +4,9 @@ import { MATCH_METHODS } from "./enumerators";
 
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
-import { renderFocusUi, renderBoard, renderHeader, renderListOption } from "./render";
+import { renderFocusUi, renderBoard, renderInterface, renderListOption } from "./render";
 import { createListSettings, initBoardSettings, createDefaultPreset, getListSettingsArray, getListSettingsRef, getBoardPresets, useBoardSettings, changeClassInListInSettings } from "./data";
+import { OPTIONS } from "./user-options";
 
 
 var $activeList;
@@ -100,10 +101,12 @@ export function deletePresetSettings(presetIndex) {
 export function nukeBoardSettings() {
     const [boardSettings] = useBoardSettings();
 
-    initBoardSettings({
+    // TODO: Convert this to not set the boardSettings itself and work like everything else.
+    let newBoardSettings = initBoardSettings({
         trimmedUrl: boardSettings.boardUrl,
     });
 
+    saveBoardSettings(newBoardSettings);
     renderBoard();
     renderFocusUi();
 }
@@ -216,6 +219,12 @@ function getNextListOption($list, optionSet) {
 
 
 
+
+
+
+
+
+
 // for when you don't know the class the represents the current option but you know the list
 export function getListsNextOptionInSet($list, optionSet) {
     
@@ -283,6 +292,7 @@ export function cycleListOption($list, optionSet) {
     const [boardSettings, setBoardSettings] = useBoardSettings();
     let newBoardSettings = _.cloneDeep(boardSettings);
 
+    // TODO: Why does this use the dom rather than check the settings?
     const currentOption = getCurrentListOption($list, optionSet);
     const nextOption = getNextListOption($list, optionSet);
 
@@ -305,17 +315,23 @@ export function cycleListOption($list, optionSet) {
 }
 
 
-export function cycleBoardHeader() {
+export function cycleInterface() {
     const [boardSettings, setBoardSettings] = useBoardSettings();
-    let newBoardSettings = boardSettings;
+    let newBoardSettings = _.cloneDeep(boardSettings);
+    let newInterfaceSettingsRef = newBoardSettings.boardPresets[newBoardSettings.activeBoardPreset].interfaceSettings;
     
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting ++;
-    boardSettings.boardPresets[boardSettings.activeBoardPreset].headerSetting %= 4; // TODO: The header options should be abstracted to array of names so this could then be %= length
-
+    // TODO: turn this into a function? - get next options classname
+    const curOptionIndex = OPTIONS.INTERFACE.findIndex( (option) => option.classname == newInterfaceSettingsRef.classname );
+    let newOptionIndex = curOptionIndex + 1;
+    newOptionIndex %= OPTIONS.INTERFACE.length;
+    const nextOptionsClassname = OPTIONS.INTERFACE[newOptionIndex].classname;
+    
+    newInterfaceSettingsRef.classname = nextOptionsClassname;
+    
     newBoardSettings = moveActivePresetIfInDefaultSlot(newBoardSettings);
     setBoardSettings(newBoardSettings);
-    saveBoardSettings(newBoardSettings);   // TODO: This needs to save the activePresetIndex, but it shouldn't really be saving all other settings as well.
-    renderHeader();
+    saveBoardSettings(newBoardSettings);
+    renderInterface(newBoardSettings);
     renderFocusUi();
 }
 
@@ -424,7 +440,9 @@ function resetDefaultPreset(curBoardSettings) {
         isSaved: false,
         isActiveWhenCycling: true,
         
-        headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+        interfaceSettings: {
+            classname: "ft_interface_default",
+        },
 
         listSettings: [
             // createListSettings({}),

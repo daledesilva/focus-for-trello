@@ -6,31 +6,26 @@
 
 export const OPTIONS = {
 
-    HEADER: [
+    INTERFACE: [
 
         {
             name: "Trello default",
-            class: "ft_header-hide_none",
+            classname: "ft_interface_default",
             isActiveWhenCycling: true
         },
         {
-            name: "Hide left side of board header",
-            class: "ft_header-hide_left-board-side",
+            name: "Hide global header",
+            classname: "ft_interface_hide-global-header",
             isActiveWhenCycling: true
         },
         {
-            name: "Hide all but right side of board header",
-            class: "ft_header-hide_all-but-right-board-side",
+            name: "Hide all headers",
+            classname: "ft_interface_hide-all-headers",
             isActiveWhenCycling: true
         },
         {
-            name: "Hide all",
-            class: "ft_header_all",
-            isActiveWhenCycling: true
-        },
-        {
-            name: "Hide all but trello header",
-            class: "ft_header_all-but-trello",
+            name: "Hide board header",
+            classname: "ft_interface_hide-board-header",
             isActiveWhenCycling: true
         },
 

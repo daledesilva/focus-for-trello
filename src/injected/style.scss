@@ -22,6 +22,21 @@ $transition-delay: 0;
 
 
 
+@mixin linearTransition($property) {
+   transition-property: $property;
+   transition-duration: $transition-duration;
+   // transition-timing-function: $easy-in-slow-out;
+   transition-delay: var(--delay,0);
+}
+@mixin smoothTransition($property) {
+   transition-property: $property !important;
+   transition-duration: $transition-duration !important;
+   transition-timing-function: $easy-in-slow-out !important;
+   transition-delay: var(--delay,0) !important;
+}
+
+
+
 
 
 
@@ -275,26 +290,53 @@ $transition-delay: 0;
 
 
 
-.#{$plugin_slug}_trello-ui_transition {
-   max-height: 5em;
+
+.ft_interface_hide-global-header {
+   > div:first-of-type {
+      max-height: 0 !important;
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      overflow: hidden !important;
+   }   
 }
 
-.#{$plugin_slug}_trello-ui_hide {
-   opacity: 0 !important;
+.ft_interface_hide-board-header {
+   .js-board-header {
+      max-height: 0 !important;
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      overflow: hidden !important;
+   }
+   #board {
+      padding-top: 10px;
+   }
 }
 
-.#{$plugin_slug}_trello-ui_collapse {
-   max-height: 0 !important;
-   min-height: 0 !important;
-   padding-top: 0 !important;
-   padding-bottom: 0 !important;
-   overflow: hidden !important;
+.ft_interface_hide-all-headers {
+   > div:first-of-type {
+      max-height: 0 !important;
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      overflow: hidden !important;
+   }   
+   .js-board-header {
+      max-height: 0 !important;
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      overflow: hidden !important;
+   }
+   #board {
+      padding-top: 10px;
+   }
 }
 
-// when all headers are hidden
-.#{$plugin_slug}_trello-board_padding {
-   padding-top: 10px;
-}
+
+
+
 
 
 
@@ -373,18 +415,7 @@ $transition-delay: 0;
 
 
 
-@mixin linearTransition($property) {
-   transition-property: $property;
-   transition-duration: $transition-duration;
-   // transition-timing-function: $easy-in-slow-out;
-   transition-delay: var(--delay,0);
-}
-@mixin smoothTransition($property) {
-   transition-property: $property !important;
-   transition-duration: $transition-duration !important;
-   transition-timing-function: $easy-in-slow-out !important;
-   transition-delay: var(--delay,0) !important;
-}
+
 
 
 
@@ -392,10 +423,21 @@ $transition-delay: 0;
 // Set all transitions up as defaults for lists so they animate in AND out
 //////////////////////////////////////////////////////////////////////////
 
-.#{$plugin_slug}_trello-ui_transition,
-.#{$plugin_slug}_trello-board_transition {
-   @include smoothTransition('max-height, padding-top, padding-bottom, opacity');
+
+#surface {
+   > div:first-of-type {
+      @include smoothTransition('max-height, padding-top, padding-bottom, opacity');
+   }
+   .js-board-header {
+      max-height: 5em; // Trello default doesn't have one set, so it jumps without it
+      @include smoothTransition('max-height, padding-top, padding-bottom');
+   }
+   #board {
+      @include smoothTransition('padding-top');
+   }
 }
+
+
 
 
 .js-list {

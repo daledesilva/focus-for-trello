@@ -84,7 +84,9 @@ export function initBoardSettings(props) {
                 isSaved: false,
                 isActiveWhenCycling: true,
 
-                headerSetting: 0,//"DEFAULT", // | HIDE_LEFT_BOARD_HEADER | SHOW_RIGHT_BOARD_HEADER | HIDE_ALL | SHOW_TRELLO_HEADER",
+                interfaceSettings: {
+                    classname: "ft_interface_default",
+                },
     
                 listSettings: [
                     // createListSettings({}),
@@ -103,6 +105,8 @@ export function initBoardSettings(props) {
 
     debugLog("New board settings Initialised");
     debugLog(boardSettings);
+    
+    return boardSettings;
 }
 
 
