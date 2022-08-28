@@ -9,7 +9,7 @@ import _ from "lodash";
 
 
 
-var boardSettings;  // Wipe this for each board
+var _boardSettings;  // Wipe this for each board
 
 
 
@@ -60,15 +60,15 @@ export function initBoardSettings(props) {
     // If board settings are passed in (ie. they've been loaded)
     ////////////////////
     if(props.boardSettings) {
-        boardSettings = props.boardSettings;
+        _boardSettings = props.boardSettings;
         debugLog("Existing board settings initialised");
-        debugLog(boardSettings);
+        debugLog(_boardSettings);
         return;
     }
 
     // If not, create a new settings object
     ////////////////////
-    boardSettings = {
+    _boardSettings = {
 
         settingsVersion: "2020.07.27",
 
@@ -104,9 +104,9 @@ export function initBoardSettings(props) {
     };
 
     debugLog("New board settings Initialised");
-    debugLog(boardSettings);
+    debugLog(_boardSettings);
     
-    return boardSettings;
+    return _boardSettings;
 }
 
 
@@ -123,44 +123,34 @@ export function initBoardSettings(props) {
 
 
 export function getListSettingsRef(props) {
-    const {curBoardSettings, listId} = props;
+    const { listId } = props;
+    const listSettingsRef = props.boardSettings.boardPresets[props.boardSettings.activeBoardPreset].listSettings;
 
-    const boardListSettings = curBoardSettings.boardPresets[boardSettings.activeBoardPreset].listSettings;
-
-    for(let k = 0; k < boardListSettings.length; k++) {
-        if (listId == boardListSettings[k].listId)  return boardListSettings[k];
+    for(let k = 0; k < listSettingsRef.length; k++) {
+        if (listId == listSettingsRef[k].listId)  return listSettingsRef[k];
     }
     
     // It wasn't found in the settings, so put it there
-    boardListSettings.push( createListSettings({
+    listSettingsRef.push( createListSettings({
         listId
     }))
 
 
-    return boardListSettings[ boardListSettings.length-1 ];
+    return listSettingsRef[ listSettingsRef.length-1 ];
 }
 
 
 
 
-// function getBoardPreset() {
-//     let boardSettings = getBoardSettings();
-
-//     if(boardSettings.boardPresets == undefined ) {
-//         boardSettings.boardPresets[boardSettings.activeBoardPreset] = resetDefaultPreset();
-//     };
-
-//     return boardSettings.boardPresets[boardSettings.activeBoardPreset];
-// }
 
 export function useBoardSettings() {
 
     function setBoardSettings(newBoardSettings) {
-        boardSettings = newBoardSettings;
+        _boardSettings = newBoardSettings;
     }
 
     return [
-        _.cloneDeep(boardSettings),
+        _.cloneDeep(_boardSettings),
         setBoardSettings
     ];
 }
@@ -168,7 +158,7 @@ export function useBoardSettings() {
 
 
 export function getBoardPresets() {
-    return boardSettings.boardPresets;
+    return _boardSettings.boardPresets;
 }
 
 
@@ -209,19 +199,20 @@ function getClassIdSet(classId) {
 
 // removes any classes for a particular option set and adds in only the class passed in
 export function changeClassInListInSettings(props) {
-    const { listId, classId, curBoardSettings } = props;
-    let newBoardSettings = _.cloneDeep(curBoardSettings);
-    const classIds = getClassIdSet(classId);
+    const { listId, classId } = props;
+    let newBoardSettings = _.cloneDeep(props.boardSettings);
     let listSettingsRef = getListSettingsRef({
-        curBoardSettings: newBoardSettings,
+        boardSettings: newBoardSettings,
         listId
     });
+    const classIds = getClassIdSet(classId);
+    
 
     // Remove all the classes for this styling set
     // (There should only be one, but if there's somehow more they will all go as a failsafe)
     // TODO: This can just take in listSettingsRef? - That would go against immutibility though
     newBoardSettings = removeClassIdsFromListInSettings({
-        curBoardSettings: newBoardSettings,
+        boardSettings: newBoardSettings,
         classIds,
         listId
     });
@@ -236,10 +227,10 @@ export function changeClassInListInSettings(props) {
 
 
 function removeClassIdsFromListInSettings(props) {
-    const { listId, classIds, curBoardSettings } = props;
-    let newBoardSettings = curBoardSettings;
+    const { listId, classIds } = props;
+    let newBoardSettings = props.boardSettings;
     let listSettingsRef = getListSettingsRef({
-        curBoardSettings: newBoardSettings,
+        boardSettings: newBoardSettings,
         listId
     });
 

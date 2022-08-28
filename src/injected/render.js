@@ -104,24 +104,24 @@ export function renderListOption(props) {
 
 
 
-function removeClassFromListInSettings(props) {
-    const { listId, classId } = props;
-    let listSettings = getListSettingsRef(listId);
+// function removeClassFromListInSettings(props) {
+//     const { listId, classId } = props;
+//     let listSettings = getListSettingsRef(listId);
 
-    // if there's no class Ids, there's nothing to remove
-    if(listSettings.classIds == undefined)   return;
+//     // if there's no class Ids, there's nothing to remove
+//     if(listSettings.classIds == undefined)   return;
 
-    // If there is, remove all instances of the classId
-    for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
+//     // If there is, remove all instances of the classId
+//     for( let k = listSettings.classIds.length-1; k >= 0; k-- ) {
 
-        if(classId == listSettings.classIds[k]) {
-            listSettings.classIds.splice(k, 1);
-        }
+//         if(classId == listSettings.classIds[k]) {
+//             listSettings.classIds.splice(k, 1);
+//         }
 
-    }
+//     }
     
-    debugLog("Removed classId '"+ classId +"' from listId '"+ listId +"' in settings");
-};
+//     debugLog("Removed classId '"+ classId +"' from listId '"+ listId +"' in settings");
+// };
 
 
 
@@ -133,14 +133,14 @@ function removeClassFromListInSettings(props) {
 
 
 
-function addClassToListInSettings(props) {
-    const { listId, classId } = props;
-    let listSettings = getListSettingsRef(listId);
+// function addClassToListInSettings(props) {
+//     const { listId, classId } = props;
+//     let listSettings = getListSettingsRef(listId);
 
-    listSettings.classIds.push(classId);
+//     listSettings.classIds.push(classId);
 
-    debugLog("Added classId '"+ classId +"' from listId '"+ listId +"' in settings");
-};
+//     debugLog("Added classId '"+ classId +"' from listId '"+ listId +"' in settings");
+// };
 
 
 

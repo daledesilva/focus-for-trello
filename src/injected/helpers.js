@@ -5,7 +5,7 @@ import { MATCH_METHODS } from "./enumerators";
 import { plugin } from "../metadata";
 import { loadBoardSettings, saveBoardSettings } from "./io";
 import { renderFocusUi, renderBoard, renderInterface, renderListOption } from "./render";
-import { createListSettings, initBoardSettings, createDefaultPreset, getListSettingsArray, getListSettingsRef, getBoardPresets, useBoardSettings, changeClassInListInSettings } from "./data";
+import { initBoardSettings, useBoardSettings, changeClassInListInSettings } from "./data";
 import { OPTIONS } from "./user-options";
 
 
@@ -469,7 +469,7 @@ function changeListOption(props) {
     const listId = getListId($list);
 
     newBoardSettings = changeClassInListInSettings({
-        curBoardSettings: newBoardSettings,
+        boardSettings: newBoardSettings,
         classId: newClass,
         listId,
     });
