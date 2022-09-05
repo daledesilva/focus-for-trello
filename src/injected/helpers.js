@@ -15,7 +15,6 @@ var $activeList;
 
 
 
-
 // Listeners to update variables
 ////////////////////////////////
 

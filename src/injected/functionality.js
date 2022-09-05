@@ -25,9 +25,6 @@ import { useBoardSettings } from "./data";
 
 
 
-
-
-
 // Global variables
 //
 var pageChangeTimeOutID;
@@ -149,7 +146,7 @@ function interpretLists() {
 
         // TO DO: This runs too often, how can I limit it?
 
-        var $masonryListFlag = $(this).css("--layout-is-masonry");
+        var $masonryListFlag = $(this).css("--layout-is-masonry");  // TODO: using css() can violate CSP, see if this can be converted to addClass
 
         if ( $masonryListFlag && $masonryListFlag.indexOf("true") >= 0 ) {
 
