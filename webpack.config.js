@@ -42,6 +42,13 @@ module.exports = (env, argv) => {
 
         module: {
 			rules: [
+                {
+                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    loader: 'file-loader',
+                    options: {
+                        name: 'assets/[name].[ext]',
+                    },
+                },
 				{
 					test: /\.js$/,
 					exclude: /node_modules/,

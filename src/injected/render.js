@@ -23,7 +23,10 @@ import { RevertPresetButton, initRevertPresetButtons } from "./components/revert
 import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
 import { PresetButton, initPresetButtons } from "./components/preset-button";
 
-
+import FlipFocusIcon from '../assets/icon_flip-focus.js';
+import FlipHeaderIcon from '../assets/icon_flip-header.js';
+import EraseBoardSettingsIcon from '../assets/icon_erase-board-settings';
+import SettingsIcon from '../assets/icon_settings';
 
 
 export function renderBoard() {
@@ -245,7 +248,7 @@ export function renderFocusUi() {
                     )}
                     data-tooltip = "Erase board settings"
                 >
-                    <i className="fas fa-calendar-times"/>
+                    <EraseBoardSettingsIcon/>
                 </div>
 
 
@@ -260,7 +263,7 @@ export function renderFocusUi() {
                     )}
                     data-tooltip = "Setup actions"
                 >
-                    <i className="fas fa-cog"/>
+                    <SettingsIcon/>
                 </div>
 
                 <div
@@ -270,9 +273,9 @@ export function renderFocusUi() {
                         plugin.slug + "_circle-btn",
                         `${plugin.slug}_tooltip`,
                     )}
-                    data-tooltip = "Switch header"
+                    data-tooltip = "Flip header"
                 >
-                    <i className="fas fa-sync-alt"/>
+                    <FlipHeaderIcon/>
                 </div>
 
             </div>
@@ -289,9 +292,9 @@ export function renderFocusUi() {
                 className={classnames(
                     `${plugin.slug}_tooltip`,
                 )}
-                data-tooltip = "Switch focus"
+                data-tooltip = "Flip focus"
             >
-                <i className="fas fa-sync-alt"/>
+                <FlipFocusIcon/>
             </a>
 
         </div>

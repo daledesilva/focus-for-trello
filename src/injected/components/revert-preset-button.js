@@ -10,6 +10,7 @@ import { OPTIONS } from "../user-options";
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 
+import Icon from '../../assets/icon_revert.js';
 
 
 class RevertPresetButton extends JSXComponent {
@@ -25,10 +26,13 @@ class RevertPresetButton extends JSXComponent {
     return (
       <a
         href = "#"
-        className = {plugin.slug + "_revert-preset-btn"}
+        className = {classnames(
+          `${plugin.slug}_revert-preset-btn`,
+          `${plugin.slug}_preset-side-btn`,
+        )}
         data-index = {index}
       >
-        <i className="fas fa-undo-alt"></i>
+        <Icon/>
       </a>
     );
 

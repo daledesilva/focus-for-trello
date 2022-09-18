@@ -125,12 +125,14 @@ $transition-delay: 0;
 
       position: relative;
 
-      i {
-         font-size: 40px;
+      svg {
          position: absolute;
          top: 50%;
          left: 50%;
          transform: translateX(-50%) translateY(-50%);
+         path {
+            fill: white;
+         }
       }
    }
 
@@ -165,6 +167,35 @@ $transition-delay: 0;
 
 
 
+
+   .#{$plugin_slug}_preset-side-btn {
+
+      // STYLING
+      //////////
+      color: #fff;
+      svg * { fill: #FFF; }
+      background-color: #000;
+      border-radius: 50%;
+
+      display: block;
+      position: relative;
+      height: 1.5em;
+      width: 1.5em;
+
+      svg {
+         height: 100% !important;
+         width: auto !important;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translateX(-50%) translateY(-50%);
+      }
+
+
+   }
+
+
+
    // TO DO: Incorporate css of switch focus button too?
 
    .#{$plugin_slug}_circle-btn {
@@ -174,6 +205,7 @@ $transition-delay: 0;
       // STYLING
       //////////
       color: #fff;
+      svg * { fill: #FFF; }
       background-color: #000;
       border-radius: 50%;
 
@@ -182,23 +214,17 @@ $transition-delay: 0;
 
       // SIZING
       /////////
-      width: 30px;
-      height: 30px;
+      width: 2em;
+      height: 2em;
 
       position: relative;
 
-      i {
-         font-size: 20px;
+      svg {
          position: absolute;
          top: 50%;
          left: 50%;
          transform: translateX(-50%) translateY(-50%);
       }
-
-
-      
-      
-
 
 
    }
@@ -215,8 +241,14 @@ $transition-delay: 0;
       width: 50px;
       height: 50px;
 
-      i {
-         font-size: 25px;
+      svg {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translateX(-50%) translateY(-50%);
+         path {
+            fill: white;
+         }
       }
       
    }
@@ -228,10 +260,15 @@ $transition-delay: 0;
 
    .#{$plugin_slug}_preset-container {
 
-      margin: 1em 0;
+      margin: 0.5em 0;
       &:last-of-type {
          margin-bottom: 2em;
       }
+
+      display: flex;
+      justify-content: flex-end;
+      gap: 3px;
+      align-items: center;
 
       a {
          color: #fff;
@@ -239,8 +276,9 @@ $transition-delay: 0;
          border-radius: 1em;
          text-decoration: none;
 
-         padding: 0.3em 1em;
-         margin-left: 3px;
+         &.#{$plugin_slug}_preset-btn {
+            padding: 0.3em 1em;
+         }
 
          &:hover, &:active {
             color: $hover-fg-color;

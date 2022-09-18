@@ -323,14 +323,8 @@ function delayedPageChangeAdjustments() {
 function immediatePageInitialisation() {
     console.log("Immediate page Initialisation");
 
-    // load icons
-    let iconJsx = <script src="https://kit.fontawesome.com/c0535646a5.js" crossorigin="anonymous"></script>
-    $("head").append(iconJsx);
-
     startPageChangeObserver();
-
     immediatePageAdjustments();
-
 }
 
 

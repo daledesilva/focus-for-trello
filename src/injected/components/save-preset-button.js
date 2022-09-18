@@ -10,6 +10,7 @@ import { OPTIONS } from "../user-options";
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 
+import Icon from '../../assets/icon_save.js';
 
 
 class SavePresetButton extends JSXComponent {
@@ -25,10 +26,13 @@ class SavePresetButton extends JSXComponent {
     return (
       <a
         href = "#"
-        className = {plugin.slug + "_save-preset-btn"}
+        className = {classnames(
+          `${plugin.slug}_save-preset-btn`,
+          `${plugin.slug}_preset-side-btn`,
+        )}
         data-index = {index}
       >
-        <i className="fas fa-save"></i>
+        <Icon/>
       </a>
     );
 

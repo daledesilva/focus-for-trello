@@ -11,6 +11,8 @@ import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 import { deletePresetSettings } from "../helpers";
 
+import Icon from '../../assets/icon_delete.js';
+
 
 class DeletePresetButton extends JSXComponent {
 
@@ -25,10 +27,13 @@ class DeletePresetButton extends JSXComponent {
     return (
         <a
           href = "#"
-          className = { plugin.slug + "_delete-preset-btn" }
+          className = {classnames(
+            `${plugin.slug}_delete-preset-btn`,
+            `${plugin.slug}_preset-side-btn`,
+          )}
           data-index = {index}
         >
-            <i className="fas fa-trash"></i>
+          <Icon/>
         </a>
     );
 
