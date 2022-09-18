@@ -27,6 +27,12 @@ class PresetButton extends JSXComponent {
     } = props;
 
 
+    let isDefaultPreset = false;
+    if(index === 0) {
+      isDefaultPreset = true;
+    }
+
+
     return (
       <a
         href = "#"
@@ -34,7 +40,7 @@ class PresetButton extends JSXComponent {
         data-index = {index}
       >
         {
-            index == 0 && defaultPresetName ||
+            isDefaultPreset && defaultPresetName ||
             boardPreset.isSaved && boardPreset.presetName ||
             !boardPreset.isSaved && unsavedPresetPrefix+index
         }

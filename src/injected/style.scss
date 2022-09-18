@@ -281,33 +281,38 @@ $transition-delay: 0;
          }
 
          &:hover, &:active {
-            color: $hover-fg-color;
-            background-color: $hover-bg-color;
+            // color: $hover-fg-color;
+            // background-color: $hover-bg-color;
          }
 
       }
 
-      &.#{$plugin_slug}_active {
-         a.#{$plugin_slug}_preset-btn {
-            opacity: 1;
-            color: $active-fg-color;
-            background-color: $active-bg-color;
-         }
-         &.#{$plugin_slug}_unsaved {
-            a {
-               opacity: 0.7;
+      &.#{$plugin_slug}_default {
+         a {
+            opacity: 0.9;
+            &:hover, &:active {
+               opacity: 1;
             }
          }
       }
 
       &.#{$plugin_slug}_unsaved {
          a {
-            opacity: 0.5;
+            opacity: 0.7;
             &:hover, &:active {
-               opacity: 0.8;
+               opacity: 1;
             }
          }
       }
+
+      &.#{$plugin_slug}_active {
+         a.#{$plugin_slug}_preset-btn {
+            color: $active-fg-color;
+            background-color: $active-bg-color;
+         }
+      }
+
+      
 
       &.#{$plugin_slug}_changed {
          a {

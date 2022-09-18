@@ -205,12 +205,12 @@ export function renderFocusUi() {
                 {boardPresets.map( (boardPreset,index) => <div
                     className = {classnames(
                         plugin.slug + "_preset-container",
-                        !boardPreset.isSaved && plugin.slug + "_unsaved",
+                        index === 0 && plugin.slug + "_default" || !boardPreset.isSaved && plugin.slug + "_unsaved",
                         index == boardSettings.activeBoardPreset && plugin.slug + "_active",
                     )}
                 >
 
-                    {/* {index != 0 && ( <> */}
+                    {index != 0 && ( <Fragment>
 
                         {/* Allow deletion of preset */}
                         <DeletePresetButton index={index}/>
@@ -219,7 +219,7 @@ export function renderFocusUi() {
                         <RevertPresetButton index={index}/>
                         <SavePresetButton index={index}/>
 
-                    {/* </> )} */}
+                    </Fragment> )}
 
                     <PresetButton
                         index = {index}
