@@ -14,6 +14,7 @@ import { cycleListOption, $getActiveList } from "../helpers";
 import ListColorIcon from "../../assets/list-icon_color";
 import ListDatesIcon from "../../assets/list-icon_dates";
 import ListDetailsIcon from "../../assets/list-icon_details";
+import ListCommentsIcon from "../../assets/list-icon_comments";
 import ListImagesIcon from "../../assets/list-icon_images";
 import ListLabelsIcon from "../../assets/list-icon_labels";
 import ListSizeIcon from "../../assets/list-icon_size";
@@ -42,13 +43,10 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_labels-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
-                // "left-most",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
-            data-tooltip = "Cycle label appearance"
+            data-tooltip = "Cycle labels visibility"
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
@@ -71,12 +69,10 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_dates-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
-            data-tooltip = "Cycle due date appearance"
+            data-tooltip = "Cycle due date visibility"
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
@@ -94,12 +90,10 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_details-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
-            data-tooltip = "Cycle details appearance"
+            data-tooltip = "Cycle details visibility"
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
@@ -107,6 +101,27 @@ class ListButtons extends JSXComponent {
             }}
         >
             <ListDetailsIcon/>
+        </a>
+    );
+
+
+    // COMMENTS TOGGLE
+    jsxArr.push(
+        <a
+            href="#"
+            id={ plugin.slug + "_comments-btn" }
+            className={classnames(
+                `${plugin.slug}_list-btn`,
+                `${plugin.slug}_tooltip`,
+            )}
+            data-tooltip = "Cycle comments visibility"
+
+            ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+            onClick={ () => {
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.COMMENTS );
+            }}
+        >
+            <ListCommentsIcon/>
         </a>
     );
     
@@ -117,8 +132,6 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_images-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
@@ -144,8 +157,6 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_size-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
@@ -169,8 +180,6 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_size-btn" }
             className={classnames(
-                // "ft_pop-over-header-btn",
-                // "icon-sm",
                 `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}

@@ -896,6 +896,19 @@ $transition-delay: 0;
 
 
 
+//////////////////////////
+// CARD DETAILS APPEARANCE
+//////////////////////////
+
+.ft_card-comments_hidden {
+   .js-badges {
+      :nth-child(3) { display: none; }
+   }
+} 
+
+
+
+
 
 
 /////////////////////////

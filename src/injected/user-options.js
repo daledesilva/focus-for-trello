@@ -72,6 +72,19 @@ export const OPTIONS = {
             },
         ],
 
+        COMMENTS: [
+            {
+                name: "Trello default",
+                class: "ft_card-comments_default",
+                isActiveWhenCycling: true
+            },
+            {
+                name: "Hide card comments",
+                class: "ft_card-comments_hidden",
+                isActiveWhenCycling: true
+            },
+        ],
+
         IMAGES: [
             {
                 name: "Trello default",
