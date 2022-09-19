@@ -536,8 +536,8 @@ $transition-delay: 0;
          @include smoothTransition(width);
       }
       // image previews
-      .list-card-cover.is-covered {
-         @include smoothTransition(height);
+      .list-card-cover {
+         @include smoothTransition('height, max-height');
       }
    }
 
@@ -866,19 +866,18 @@ $transition-delay: 0;
 
 
 .ft_card-labels_hidden {
-   .js-card-labels { display: none; }
+   .js-list-card-front-labels-container { display: none; }
 }
 
 
 
 
-/////////////////////////////////////
-// CARD BADGES & DUE DATES APPEARANCE
-/////////////////////////////////////
-// Badges and due dates are grouped together because they sit in the same row, therefore, removing only some doesn't make the card any smaller or feel less detailed
+////////////////////////////
+// CARD DUE DATES APPEARANCE
+////////////////////////////
 
-.ft_card-badges_hidden {
-   .badges { display: none; }
+.ft_card-dates_hidden {
+   .js-due-date-badge { display: none; }
 }
 
 
@@ -889,8 +888,12 @@ $transition-delay: 0;
 //////////////////////////
 
 .ft_card-details_hidden {
-   .js-list-card-members { display: none; }
+   .js-badges {
+      :nth-child(2) { display: none; }
+   }
 } 
+
+
 
 
 
@@ -899,14 +902,15 @@ $transition-delay: 0;
 // CARD IMAGES APPEARANCE
 /////////////////////////
 
+
 .ft_card-images_minimised {
-   .list-card-cover.is-covered { // .is-covered seems to indicate it is showing an image. Including this means we don't increase the height of a card that wasn't showing an image anyway
+   .list-card.is-covered .list-card-cover { // Including ".is-covered" means we don't increase the height of a card that wasn't showing an image anyway
       height: 3px !important;
    }
 }
 
 .ft_card-images_hidden {
-   .list-card-cover {
+   .list-card.is-covered .list-card-cover {
       height: 0px !important;
    }
 }

@@ -49,12 +49,12 @@ export const OPTIONS = {
         BADGES: [
             {
                 name: "Trello default",
-                class: "ft_card-badges_default",
+                class: "ft_card-dates_default",
                 isActiveWhenCycling: true
             },
             {
                 name: "Hide card badges",
-                class: "ft_card-badges_hidden",
+                class: "ft_card-dates_hidden",
                 isActiveWhenCycling: true
             },
         ],
