@@ -10,7 +10,7 @@ import { OPTIONS } from "../user-options";
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 
-import Icon from '../../assets/icon_revert.js';
+import Icon from '../../assets/preset-icon_revert.js';
 
 
 class RevertPresetButton extends JSXComponent {

@@ -11,7 +11,7 @@ import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 import { deletePresetSettings } from "../helpers";
 
-import Icon from '../../assets/icon_delete.js';
+import Icon from '../../assets/preset-icon_delete.js';
 
 
 class DeletePresetButton extends JSXComponent {

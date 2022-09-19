@@ -11,6 +11,14 @@ import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 import { cycleListOption, $getActiveList } from "../helpers";
 
+import ListColorIcon from "../../assets/list-icon_color";
+import ListDatesIcon from "../../assets/list-icon_dates";
+import ListDetailsIcon from "../../assets/list-icon_details";
+import ListImagesIcon from "../../assets/list-icon_images";
+import ListLabelsIcon from "../../assets/list-icon_labels";
+import ListSizeIcon from "../../assets/list-icon_size";
+import ListVisibilityIcon from "../../assets/list-icon_visibility";
+
 
 
 class ListButtons extends JSXComponent {
@@ -34,10 +42,10 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_labels-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
-                "left-most",
-                plugin.slug + "_circle-btn",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                // "left-most",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle label appearance"
@@ -47,7 +55,7 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.LABELS );
             }}
         >
-            <i className="fas fa-tag"/>
+            <ListLabelsIcon/>
         </a>
     );
 
@@ -63,8 +71,9 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_dates-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle due date appearance"
@@ -74,7 +83,7 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.BADGES );
             }}
         >
-            <i className="fas fa-window-maximize fa-rotate-180"/> {/* fa-clock */}
+            <ListDatesIcon/>
         </a>
     );
 
@@ -85,8 +94,9 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_details-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle details appearance"
@@ -96,7 +106,7 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.DETAILS );
             }}
         >
-            <i className="fas fa-user-circle"/>
+            <ListDetailsIcon/>
         </a>
     );
     
@@ -107,8 +117,9 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_images-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle images appearance"
@@ -118,7 +129,7 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.IMAGES );
             }}
         >
-            <i className="fas fa-image"/>
+            <ListImagesIcon/>
         </a>
     );
 
@@ -133,19 +144,19 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_size-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
-            data-tooltip = "Erase board settings"
+            data-tooltip = "Cycle list size"
 
             ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
             onClick={ () => {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.SIZES );
             }}
         >
-            <i className="fas fa-expand-alt"/>
-            {/* fa-poll fa-rotate-180 */}
+            <ListSizeIcon/>
         </a>
     );
 
@@ -158,8 +169,9 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_size-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle list colour"
@@ -169,7 +181,7 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.COLORS );
             }}
         >
-            <i className="fas fa-fill-drip"/>
+            <ListColorIcon/>
         </a>
     );
 
@@ -181,8 +193,9 @@ class ListButtons extends JSXComponent {
             href="#"
             id={ plugin.slug + "_visibility-btn" }
             className={classnames(
-                "ft_pop-over-header-btn",
-                "icon-sm",
+                // "ft_pop-over-header-btn",
+                // "icon-sm",
+                `${plugin.slug}_list-btn`,
                 `${plugin.slug}_tooltip`,
             )}
             data-tooltip = "Cycle list visibility"
@@ -192,10 +205,9 @@ class ListButtons extends JSXComponent {
                 cycleListOption( $getActiveList(), OPTIONS.LISTS.VISIBILITY );
             }}
         >
-            <i className="fas fa-low-vision"/>
+            <ListVisibilityIcon/>
         </a>
     );
-    // eye-slash
 
 
     // LIST SETTINGS BUTTON

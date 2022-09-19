@@ -83,6 +83,45 @@ $transition-delay: 0;
 
 
 
+.#{$plugin_slug}_list-btn {
+
+   display: inline-block;
+
+   // STYLING
+   //////////
+   // color: #fff;
+   // svg * { fill: #FFF; }
+   background-color: #000;
+   border-radius: 50%;
+
+   // SPACING
+   margin-right: 5px;
+
+   // SIZING
+   /////////
+   width: 2em;
+   height: 2em;
+
+   position: relative;
+
+   svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100%;
+      width: 100%;
+      transform: translateX(-50%) translateY(-50%);
+   }
+
+
+}
+
+
+
+
+
+
+
 
 ##{$plugin_slug}_switch-focus-container {
   
@@ -193,6 +232,12 @@ $transition-delay: 0;
 
 
    }
+
+
+
+
+
+   
 
 
 

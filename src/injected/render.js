@@ -23,10 +23,10 @@ import { RevertPresetButton, initRevertPresetButtons } from "./components/revert
 import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
 import { PresetButton, initPresetButtons } from "./components/preset-button";
 
-import FlipFocusIcon from '../assets/icon_flip-focus.js';
-import FlipHeaderIcon from '../assets/icon_flip-header.js';
-import EraseBoardSettingsIcon from '../assets/icon_erase-board-settings';
-import SettingsIcon from '../assets/icon_settings';
+import FlipFocusIcon from '../assets/board-icon_flip-focus.js';
+import FlipHeaderIcon from '../assets/board-icon_flip-header.js';
+import EraseBoardSettingsIcon from '../assets/board-icon_erase-settings';
+import SettingsIcon from '../assets/icon_more';
 
 
 export function renderBoard() {

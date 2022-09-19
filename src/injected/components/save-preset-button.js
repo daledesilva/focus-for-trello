@@ -10,7 +10,7 @@ import { OPTIONS } from "../user-options";
 import {plugin} from "../../metadata";
 import {devWarning} from "../generic-helpers";
 
-import Icon from '../../assets/icon_save.js';
+import Icon from '../../assets/preset-icon_save.js';
 
 
 class SavePresetButton extends JSXComponent {
