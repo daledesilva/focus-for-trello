@@ -15,6 +15,7 @@ import ListColorIcon from "../../assets/list-icon_color";
 import ListDatesIcon from "../../assets/list-icon_dates";
 import ListDetailsIcon from "../../assets/list-icon_details";
 import ListCommentsIcon from "../../assets/list-icon_comments";
+import ListAttachmentsIcon from "../../assets/list-icon_attachments";
 import ListImagesIcon from "../../assets/list-icon_images";
 import ListLabelsIcon from "../../assets/list-icon_labels";
 import ListSizeIcon from "../../assets/list-icon_size";
@@ -122,6 +123,27 @@ class ListButtons extends JSXComponent {
             }}
         >
             <ListCommentsIcon/>
+        </a>
+    );
+
+
+    // ATTACHMENTS TOGGLE
+    jsxArr.push(
+        <a
+            href="#"
+            id={ plugin.slug + "_attachments-btn" }
+            className={classnames(
+                `${plugin.slug}_list-btn`,
+                `${plugin.slug}_tooltip`,
+            )}
+            data-tooltip = "Cycle attachments visibility"
+
+            ref={super.ref}  // ref is needed for jsx-render to have the context to run any code *inside* an event when running it later.
+            onClick={ () => {
+                cycleListOption( $getActiveList(), OPTIONS.LISTS.ATTACHMENTS );
+            }}
+        >
+            <ListAttachmentsIcon/>
         </a>
     );
     

@@ -85,6 +85,19 @@ export const OPTIONS = {
             },
         ],
 
+        ATTACHMENTS: [
+            {
+                name: "Trello default",
+                class: "ft_card-attachments_default",
+                isActiveWhenCycling: true
+            },
+            {
+                name: "Hide card attachments",
+                class: "ft_card-attachments_hidden",
+                isActiveWhenCycling: true
+            },
+        ],
+
         IMAGES: [
             {
                 name: "Trello default",

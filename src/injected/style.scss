@@ -911,6 +911,19 @@ $transition-delay: 0;
 
 
 
+//////////////////////////////
+// CARD ATTACHMENTS APPEARANCE
+//////////////////////////////
+
+.ft_card-attachments_hidden {
+   .badge:has(.icon-attachment) {
+      display: none;
+   }
+} 
+
+
+
+
 
 
 /////////////////////////
