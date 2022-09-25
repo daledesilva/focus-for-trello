@@ -866,7 +866,7 @@ $transition-delay: 0;
 
 
 .ft_card-labels_hidden {
-   .js-list-card-front-labels-container { display: none; }
+   .list-card-front-labels-container { display: none; }
 }
 
 
@@ -877,7 +877,9 @@ $transition-delay: 0;
 ////////////////////////////
 
 .ft_card-dates_hidden {
-   .js-due-date-badge { display: none; }
+   .js-due-date-badge {
+      display: none;
+   }
 }
 
 
@@ -888,21 +890,21 @@ $transition-delay: 0;
 //////////////////////////
 
 .ft_card-details_hidden {
-   .js-badges {
-      :nth-child(2) { display: none; }
+   .badge:has(.icon-description) {
+      display: none;
    }
 } 
 
 
 
 
-//////////////////////////
-// CARD DETAILS APPEARANCE
-//////////////////////////
+///////////////////////////
+// CARD COMMENTS APPEARANCE
+///////////////////////////
 
 .ft_card-comments_hidden {
-   .js-badges {
-      :nth-child(3) { display: none; }
+   .badge:has(.icon-comment) {
+      display: none;
    }
 } 
 
