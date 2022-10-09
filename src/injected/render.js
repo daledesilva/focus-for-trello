@@ -22,11 +22,11 @@ import { DeletePresetButton, initDeletePresetButtons } from "./components/delete
 import { RevertPresetButton, initRevertPresetButtons } from "./components/revert-preset-button";
 import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
 import { PresetButton, initPresetButtons } from "./components/preset-button";
+import { SettingsButton, initSettingsButton } from "./components/settings-button";
 
 import FlipFocusIcon from '../assets/board-icon_flip-focus.js';
 import FlipHeaderIcon from '../assets/board-icon_flip-header.js';
 import EraseBoardSettingsIcon from '../assets/board-icon_erase-settings';
-import SettingsIcon from '../assets/icon_more';
 
 
 export function renderBoard() {
@@ -253,18 +253,7 @@ export function renderFocusUi() {
 
 
                 {/* Settings and header switch buttons */}
-
-                <div
-                    href="#"
-                    id={ plugin.slug + "_setup-actions-btn" }
-                    className={classnames(
-                        plugin.slug + "_circle-btn",
-                        `${plugin.slug}_tooltip`,
-                    )}
-                    data-tooltip = "Setup actions"
-                >
-                    <SettingsIcon/>
-                </div>
+                <SettingsButton/>
 
                 <div
                     href="#"
@@ -329,6 +318,7 @@ export function renderFocusUi() {
 
     // PRESET ACTIONS
     /////////////////////
+    initSettingsButton();
     initPresetButtons();
     initDeletePresetButtons();
     initRevertPresetButtons();
