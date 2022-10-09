@@ -48,10 +48,25 @@ const initFlipFocusButton = () => {
     // RIGHT CLICK ACTIONS
     $flipFocusBtn.bind("contextmenu", function(e) {
         $flipFocusContainer.toggleClass( plugin.slug + "_open" );
-        return false; // return false to stop the context menu appearing
+
+        document.addEventListener('pointerdown',function(event) { 
+            var $target = $(event.target);
+            if( !$target.closest(`#${plugin.slug }_flip-focus-container`).length &&
+                $flipFocusContainer.hasClass( plugin.slug + "_open" ) ) {
+                $flipFocusContainer.toggleClass( plugin.slug + "_open" );
+                // document.removeEventListener('click', outsideClickListener);
+            }  
+        });
+        // return false to stop the context menu appearing
+        return false;
     });
 
 }
+
+
+
+
+
 
 
 export default FlipFocusButton;
