@@ -38,6 +38,17 @@ class FlipFocusButton extends JSXComponent {
 
 }
 
+const listenForOutsideClick = (event) => {
+    var $target = $(event.target);
+    let $flipFocusContainer = $(`#${plugin.slug }_flip-focus-container`);
+    
+    if( !$target.closest(`#${plugin.slug }_flip-focus-container`).length &&
+        $flipFocusContainer.hasClass( plugin.slug + "_open" ) ) {
+        $flipFocusContainer.toggleClass( plugin.slug + "_open" );
+        // document.removeEventListener('click', outsideClickListener);
+    }
+}
+
 const initFlipFocusButton = () => {
     let $flipFocusContainer = $(`#${plugin.slug }_flip-focus-container`);
     let $flipFocusBtn = $flipFocusContainer.find("#" + plugin.slug + "_flip-focus-btn" );
@@ -46,18 +57,18 @@ const initFlipFocusButton = () => {
     $flipFocusBtn.on("click", cycleBoardPresets);
     
     // RIGHT CLICK ACTIONS
-    $flipFocusBtn.bind("contextmenu", function(e) {
-        $flipFocusContainer.toggleClass( plugin.slug + "_open" );
+    $flipFocusBtn.on("contextmenu", () => {
+        const menuIsClosed = !$flipFocusContainer.hasClass( plugin.slug + "_open" );
 
-        document.addEventListener('pointerdown',function(event) { 
-            var $target = $(event.target);
-            if( !$target.closest(`#${plugin.slug }_flip-focus-container`).length &&
-                $flipFocusContainer.hasClass( plugin.slug + "_open" ) ) {
-                $flipFocusContainer.toggleClass( plugin.slug + "_open" );
-                // document.removeEventListener('click', outsideClickListener);
-            }  
-        });
-        // return false to stop the context menu appearing
+        if(menuIsClosed) {
+            $flipFocusContainer.addClass( plugin.slug + "_open" );
+            document.addEventListener('pointerdown', listenForOutsideClick);
+        } else {
+            $flipFocusContainer.removeClass( plugin.slug + "_open" );
+            document.removeEventListener('pointerdown', listenForOutsideClick);
+        }
+        
+        // Stop the standard context menu appearing
         return false;
     });
 
