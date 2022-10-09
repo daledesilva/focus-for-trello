@@ -23,10 +23,10 @@ import { RevertPresetButton, initRevertPresetButtons } from "./components/revert
 import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
 import { PresetButton, initPresetButtons } from "./components/preset-button";
 import { SettingsButton, initSettingsButton } from "./components/settings-button";
+import { EraseBoardSettingsButton, initEraseBoardSettingsButton } from "./components/erase-board-settings-button";
 
 import FlipFocusIcon from '../assets/board-icon_flip-focus.js';
 import FlipHeaderIcon from '../assets/board-icon_flip-header.js';
-import EraseBoardSettingsIcon from '../assets/board-icon_erase-settings';
 
 
 export function renderBoard() {
@@ -238,18 +238,7 @@ export function renderFocusUi() {
             <div className={plugin.slug + "_settings-group"}>
             
                 {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
-
-                <div
-                    href="#"
-                    id={ plugin.slug + "_setup-nuke-board-btn" }
-                    className={classnames(
-                        plugin.slug + "_circle-btn",
-                        `${plugin.slug}_tooltip`,
-                    )}
-                    data-tooltip = "Erase board settings"
-                >
-                    <EraseBoardSettingsIcon/>
-                </div>
+                <EraseBoardSettingsButton/>
 
 
                 {/* Settings and header switch buttons */}
@@ -303,7 +292,6 @@ export function renderFocusUi() {
     /////////////////////
     $flipFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", flipFocus);
     $flipFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", flipHeader);
-    $flipFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
     // RIGHT CLICK ACTIONS
     //////////////////////
@@ -319,6 +307,7 @@ export function renderFocusUi() {
     // PRESET ACTIONS
     /////////////////////
     initSettingsButton();
+    initEraseBoardSettingsButton();
     initPresetButtons();
     initDeletePresetButtons();
     initRevertPresetButtons();
