@@ -1,7 +1,7 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
 // getListSettingsArray is because board data is loaded into helpers.js. But it should probably be in a data.js or something and grabbed by everything? or just rename helpers?
-import { cycleInterface, cycleBoardPresets, getListById, nukeBoardSettings } from "./helpers";
+import { cycleBoardPresets, getListById } from "./helpers";
 
 import { OPTIONS } from "./user-options";
 import { plugin } from "../metadata";
@@ -24,9 +24,10 @@ import { SavePresetButton, initSavePresetButtons } from "./components/save-prese
 import { PresetButton, initPresetButtons } from "./components/preset-button";
 import { SettingsButton, initSettingsButton } from "./components/settings-button";
 import { EraseBoardSettingsButton, initEraseBoardSettingsButton } from "./components/erase-board-settings-button";
+import { CycleHeaderButton, initCycleHeaderButton } from "./components/cycle-header-button";
 
 import FlipFocusIcon from '../assets/board-icon_flip-focus.js';
-import FlipHeaderIcon from '../assets/board-icon_flip-header.js';
+
 
 
 export function renderBoard() {
@@ -240,21 +241,8 @@ export function renderFocusUi() {
                 {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
                 <EraseBoardSettingsButton/>
 
-
-                {/* Settings and header switch buttons */}
                 <SettingsButton/>
-
-                <div
-                    href="#"
-                    id={ plugin.slug + "_switch-header-btn" }
-                    className={classnames(
-                        plugin.slug + "_circle-btn",
-                        `${plugin.slug}_tooltip`,
-                    )}
-                    data-tooltip = "Flip header"
-                >
-                    <FlipHeaderIcon/>
-                </div>
+                <CycleHeaderButton/>
 
             </div>
 
@@ -291,8 +279,7 @@ export function renderFocusUi() {
     // LEFT CLICK ACTIONS
     /////////////////////
     $flipFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", flipFocus);
-    $flipFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", flipHeader);
-
+    
     // RIGHT CLICK ACTIONS
     //////////////////////
     $("#" + plugin.slug + "_switch-focus-btn" ).bind("contextmenu", function(e) {
@@ -308,6 +295,7 @@ export function renderFocusUi() {
     /////////////////////
     initSettingsButton();
     initEraseBoardSettingsButton();
+    initCycleHeaderButton();
     initPresetButtons();
     initDeletePresetButtons();
     initRevertPresetButtons();
@@ -325,9 +313,6 @@ function flipFocus() {
     cycleBoardPresets();
 }
 
-function flipHeader() {
-    cycleInterface();
-}
 
 function addSelected() {
     console.log("show hover state");
