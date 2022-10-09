@@ -196,37 +196,37 @@ export function renderFocusUi() {
             )}
         >
 
-
             {/* Presets */}
 
             <div className={plugin.slug + "_presets-group"}>
 
+                {boardPresets.map( (boardPreset,index) => (
+                    <div
+                        className = {classnames(
+                            plugin.slug + "_preset-container",
+                            index === 0 && plugin.slug + "_default" || !boardPreset.isSaved && plugin.slug + "_unsaved",
+                            index == boardSettings.activeBoardPreset && plugin.slug + "_active",
+                        )}
+                    >
 
-                {boardPresets.map( (boardPreset,index) => <div
-                    className = {classnames(
-                        plugin.slug + "_preset-container",
-                        index === 0 && plugin.slug + "_default" || !boardPreset.isSaved && plugin.slug + "_unsaved",
-                        index == boardSettings.activeBoardPreset && plugin.slug + "_active",
-                    )}
-                >
+                        {index != 0 && ( <Fragment>
 
-                    {index != 0 && ( <Fragment>
+                            {/* Allow deletion of preset */}
+                            <DeletePresetButton index={index}/>
+                            
+                            {/* or, if modified, allow reverting or overwriting changes */}
+                            <RevertPresetButton index={index}/>
+                            <SavePresetButton index={index}/>
 
-                        {/* Allow deletion of preset */}
-                        <DeletePresetButton index={index}/>
-                        
-                        {/* or, if modified, allow reverting or overwriting changes */}
-                        <RevertPresetButton index={index}/>
-                        <SavePresetButton index={index}/>
+                        </Fragment> )}
 
-                    </Fragment> )}
+                        <PresetButton
+                            index = {index}
+                            boardPreset = {boardPreset}
+                        />
 
-                    <PresetButton
-                        index = {index}
-                        boardPreset = {boardPreset}
-                    />
-
-                </div> )}
+                    </div>
+                ))}
                 
 
             </div>
@@ -237,10 +237,8 @@ export function renderFocusUi() {
 
             <div className={plugin.slug + "_settings-group"}>
             
-                {/* Temproary reset data buttons - If kept, these should move into the settings butotn below as a dropdown */}
-                <EraseBoardSettingsButton/>
-
-                <SettingsButton/>
+                <EraseBoardSettingsButton/> {/* NOTE: If kept, this should move into the settings button as a dropdown */}
+                {/* <SettingsButton/> */}
                 <CycleHeaderButton/>
 
             </div>
