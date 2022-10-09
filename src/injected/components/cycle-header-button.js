@@ -40,11 +40,7 @@ class CycleHeaderButton extends JSXComponent {
 }
 
 const initCycleHeaderButton = () => {
-    $("#" + plugin.slug + "_cycle-header-btn").on("click", cycleHeader);
-}
-
-const cycleHeader = (event) => {
-    cycleInterface();
+    $("#" + plugin.slug + "_cycle-header-btn").on("click", cycleInterface);
 }
 
 

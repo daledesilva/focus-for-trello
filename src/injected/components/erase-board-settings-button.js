@@ -40,11 +40,7 @@ class EraseBoardSettingsButton extends JSXComponent {
 }
 
 const initEraseBoardSettingsButton = () => {
-    $("#" + plugin.slug + "_erase-board-settings-btn").on("click", eraseBoardSettings);
-}
-
-const eraseBoardSettings = (event) => {
-    nukeBoardSettings();
+    $("#" + plugin.slug + "_erase-board-settings-btn").on("click", nukeBoardSettings);
 }
 
 
