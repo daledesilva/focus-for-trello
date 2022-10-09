@@ -52,4 +52,3 @@ export default EraseBoardSettingsButton;
 export { EraseBoardSettingsButton, initEraseBoardSettingsButton };
 
 
-
