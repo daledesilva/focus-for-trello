@@ -1,7 +1,7 @@
 import { userConsoleNote, devWarning, debugLog } from "./generic-helpers";
 
 // getListSettingsArray is because board data is loaded into helpers.js. But it should probably be in a data.js or something and grabbed by everything? or just rename helpers?
-import { cycleBoardPresets, getListById } from "./helpers";
+import { getListById } from "./helpers";
 
 import { OPTIONS } from "./user-options";
 import { plugin } from "../metadata";
@@ -25,8 +25,7 @@ import { PresetButton, initPresetButtons } from "./components/preset-button";
 import { SettingsButton, initSettingsButton } from "./components/settings-button";
 import { EraseBoardSettingsButton, initEraseBoardSettingsButton } from "./components/erase-board-settings-button";
 import { CycleHeaderButton, initCycleHeaderButton } from "./components/cycle-header-button";
-
-import FlipFocusIcon from '../assets/board-icon_flip-focus.js';
+import { FlipFocusButton, initFlipFocusButton } from "./components/flip-focus-button";
 
 
 
@@ -184,14 +183,14 @@ export function renderFocusUi() {
     
     
     // Remove any previously created versions
-    const existingSetup = $body.find( `#${plugin.slug}_switch-focus-container` );
+    const existingSetup = $body.find( `#${plugin.slug}_flip-focus-container` );
     const isOpen = existingSetup.hasClass(`${plugin.slug}_open`);
     existingSetup.remove();
     
     
     let flipFocusContainer = (
         <div
-            id = { plugin.slug + "_switch-focus-container" }
+            id = { plugin.slug + "_flip-focus-container" }
             className = {classnames(
                 isOpen && `${plugin.slug}_open`, 
             )}
@@ -247,21 +246,7 @@ export function renderFocusUi() {
             </div>
 
 
-
-
-
-
-            {/* Main button */}
-            <a
-                href="#"
-                id={ plugin.slug + "_switch-focus-btn" }
-                className={classnames(
-                    `${plugin.slug}_tooltip`,
-                )}
-                data-tooltip = "Flip focus"
-            >
-                <FlipFocusIcon/>
-            </a>
+            <FlipFocusButton/>
 
         </div>
     );
@@ -276,26 +261,19 @@ export function renderFocusUi() {
     /////////////
     $flipFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
 
-    // LEFT CLICK ACTIONS
-    /////////////////////
-    $flipFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", flipFocus);
     
-    // RIGHT CLICK ACTIONS
-    //////////////////////
-    $("#" + plugin.slug + "_switch-focus-btn" ).bind("contextmenu", function(e) {
-        $flipFocusContainer.toggleClass( plugin.slug + "_open" );
-        return false; // return false to stop the context menu appearing
-    });
 
     // TOOLTIPS
     ///////////
     applyTippyInside($flipFocusContainer);
 
-    // PRESET ACTIONS
-    /////////////////////
+    // PRIMARY BUTTONS
+    initFlipFocusButton();
+    initCycleHeaderButton();
     initSettingsButton();
     initEraseBoardSettingsButton();
-    initCycleHeaderButton();
+
+    // PRESET COMPONENTS
     initPresetButtons();
     initDeletePresetButtons();
     initRevertPresetButtons();
@@ -308,10 +286,6 @@ export function renderFocusUi() {
 
 
 // TODO: Why are these actions in the render file?
-
-function flipFocus() {
-    cycleBoardPresets();
-}
 
 
 function addSelected() {
