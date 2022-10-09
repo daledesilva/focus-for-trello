@@ -188,7 +188,7 @@ export function renderFocusUi() {
     existingSetup.remove();
     
     
-    let switchFocusContainer = (
+    let flipFocusContainer = (
         <div
             id = { plugin.slug + "_switch-focus-container" }
             className = {classnames(
@@ -301,31 +301,31 @@ export function renderFocusUi() {
     );
 
 
-    let $switchFocusContainer = $(switchFocusContainer);
-    $body.prepend($switchFocusContainer);
+    let $flipFocusContainer = $(flipFocusContainer);
+    $body.prepend($flipFocusContainer);
     
     
     
     // MOUSEOVERS
     /////////////
-    $switchFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
+    $flipFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
 
     // LEFT CLICK ACTIONS
     /////////////////////
-    $switchFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", switchFocus);
-    $switchFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", switchHeader);
-    $switchFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
+    $flipFocusContainer.find("#" + plugin.slug + "_switch-focus-btn").on("click", flipFocus);
+    $flipFocusContainer.find("#" + plugin.slug + "_switch-header-btn").on("click", flipHeader);
+    $flipFocusContainer.find("#" + plugin.slug + "_setup-nuke-board-btn").on("click", nukeBoardSettings);
 
     // RIGHT CLICK ACTIONS
     //////////////////////
     $("#" + plugin.slug + "_switch-focus-btn" ).bind("contextmenu", function(e) {
-        $switchFocusContainer.toggleClass( plugin.slug + "_open" );
+        $flipFocusContainer.toggleClass( plugin.slug + "_open" );
         return false; // return false to stop the context menu appearing
     });
 
     // TOOLTIPS
     ///////////
-    applyTippyInside($switchFocusContainer);
+    applyTippyInside($flipFocusContainer);
 
     // PRESET ACTIONS
     /////////////////////
@@ -342,11 +342,11 @@ export function renderFocusUi() {
 
 // TODO: Why are these actions in the render file?
 
-function switchFocus() {
+function flipFocus() {
     cycleBoardPresets();
 }
 
-function switchHeader() {
+function flipHeader() {
     cycleInterface();
 }
 
