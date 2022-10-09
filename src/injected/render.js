@@ -176,13 +176,10 @@ export function renderFocusUi() {
     const [boardSettings] = useBoardSettings();
     const {boardPresets} = boardSettings;
     
-    const $body = $("body");
-    
-    
     // Remove any previously created versions
-    const existingSetup = $body.find( `#${plugin.slug}_flip-focus-container` );
-    const isOpen = existingSetup.hasClass(`${plugin.slug}_open`);
-    existingSetup.remove();
+    const $existingSetup = $( `#${plugin.slug}_flip-focus-container` );
+    const isOpen = $existingSetup.hasClass(`${plugin.slug}_open`);
+    $existingSetup.remove();
     
     
     let flipFocusContainer = (
@@ -194,14 +191,12 @@ export function renderFocusUi() {
         >
 
             <div className={plugin.slug + "_presets-group"}>
-
                 {boardPresets.map( (boardPreset,index) => (
                     <PresetContainer
                         boardPreset = {boardPreset}
                         index = {index}
                     />
                 ))}
-
             </div>
 
             <div className={plugin.slug + "_settings-group"}>
@@ -215,13 +210,10 @@ export function renderFocusUi() {
         </div>
     );
 
-
+    // Add to DOM
     let $flipFocusContainer = $(flipFocusContainer);
-    $body.prepend($flipFocusContainer);    
+    $('body').prepend($flipFocusContainer);    
     
-    // TOOLTIPS
-    applyTippyInside($flipFocusContainer);
-
     // PRIMARY BUTTONS
     initFlipFocusButton();
     initCycleHeaderButton();
@@ -231,16 +223,10 @@ export function renderFocusUi() {
     // PRESET COMPONENTS
     initPresetContainer();
     
+    // TOOLTIPS
+    applyTippyInside($flipFocusContainer);
 
 }
-
-
-
-
-
-
-
-
 
 
 
