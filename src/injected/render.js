@@ -18,14 +18,11 @@ import classnames from 'classnames';
 import {Tooltip} from "../components/tooltip";
 import {ListButtons} from "./components/list-buttons";
 
-import { DeletePresetButton, initDeletePresetButtons } from "./components/delete-preset-button";
-import { RevertPresetButton, initRevertPresetButtons } from "./components/revert-preset-button";
-import { SavePresetButton, initSavePresetButtons } from "./components/save-preset-button";
-import { PresetButton, initPresetButtons } from "./components/preset-button";
 import { SettingsButton, initSettingsButton } from "./components/settings-button";
 import { EraseBoardSettingsButton, initEraseBoardSettingsButton } from "./components/erase-board-settings-button";
 import { CycleHeaderButton, initCycleHeaderButton } from "./components/cycle-header-button";
 import { FlipFocusButton, initFlipFocusButton } from "./components/flip-focus-button";
+import PresetContainer, { initPresetContainer } from "./components/preset-container";
 
 
 
@@ -196,53 +193,22 @@ export function renderFocusUi() {
             )}
         >
 
-            {/* Presets */}
-
             <div className={plugin.slug + "_presets-group"}>
 
                 {boardPresets.map( (boardPreset,index) => (
-                    <div
-                        className = {classnames(
-                            plugin.slug + "_preset-container",
-                            index === 0 && plugin.slug + "_default" || !boardPreset.isSaved && plugin.slug + "_unsaved",
-                            index == boardSettings.activeBoardPreset && plugin.slug + "_active",
-                        )}
-                    >
-
-                        {index != 0 && ( <Fragment>
-
-                            {/* Allow deletion of preset */}
-                            <DeletePresetButton index={index}/>
-                            
-                            {/* or, if modified, allow reverting or overwriting changes */}
-                            <RevertPresetButton index={index}/>
-                            <SavePresetButton index={index}/>
-
-                        </Fragment> )}
-
-                        <PresetButton
-                            index = {index}
-                            boardPreset = {boardPreset}
-                        />
-
-                    </div>
+                    <PresetContainer
+                        boardPreset = {boardPreset}
+                        index = {index}
+                    />
                 ))}
-                
 
             </div>
 
-
-
-
-
             <div className={plugin.slug + "_settings-group"}>
-            
                 <EraseBoardSettingsButton/> {/* NOTE: If kept, this should move into the settings button as a dropdown */}
                 {/* <SettingsButton/> */}
                 <CycleHeaderButton/>
-
             </div>
-
 
             <FlipFocusButton/>
 
@@ -251,18 +217,9 @@ export function renderFocusUi() {
 
 
     let $flipFocusContainer = $(flipFocusContainer);
-    $body.prepend($flipFocusContainer);
+    $body.prepend($flipFocusContainer);    
     
-    
-    
-    // MOUSEOVERS
-    /////////////
-    $flipFocusContainer.find("." + plugin.slug + "_preset-container").mouseover(addSelected);
-
-    
-
     // TOOLTIPS
-    ///////////
     applyTippyInside($flipFocusContainer);
 
     // PRIMARY BUTTONS
@@ -272,23 +229,11 @@ export function renderFocusUi() {
     initEraseBoardSettingsButton();
 
     // PRESET COMPONENTS
-    initPresetButtons();
-    initDeletePresetButtons();
-    initRevertPresetButtons();
-    initSavePresetButtons();
+    initPresetContainer();
     
 
 }
 
-
-
-
-// TODO: Why are these actions in the render file?
-
-
-function addSelected() {
-    console.log("show hover state");
-}
 
 
 
