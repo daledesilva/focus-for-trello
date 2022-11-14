@@ -404,13 +404,24 @@ $transition-delay: 0;
             background-color: $active-bg-color;
          }
       }
-
       
 
       &.#{$plugin_slug}_changed {
          a {
             background-color: rgba(0, 0, 0, 0);
             border: 1px $feature-color;
+         }
+      }
+
+
+
+      // Hide options inside until container is right clicked
+      a.#{$plugin_slug}_preset-side-btn {
+         display: none;
+      }
+      &.#{$plugin_slug}_open {
+         a.#{$plugin_slug}_preset-side-btn {
+            display: block;
          }
       }
 

@@ -44,8 +44,7 @@ class PresetContainer extends JSXComponent {
 
                 {/* Allow deletion of preset */}
                 <DeletePresetButton index={index}/>
-                
-                {/* or, if modified, allow reverting or overwriting changes */}
+                {/* Hide these unless the preset is modified */}
                 <RevertPresetButton index={index}/>
                 <SavePresetButton index={index}/>
 
@@ -69,7 +68,28 @@ const initPresetContainer = () => {
     initDeletePresetButtons();
     initRevertPresetButtons();
     initSavePresetButtons();
+
+    let $containers = $(`.${plugin.slug}_preset-container`);
+  
+
+    // RIGHT CLICK ACTIONS
+    $containers.on("contextmenu", (e) => {
+        const $clickedContainer = $(e.currentTarget)
+        const menuIsClosed = !$clickedContainer.hasClass( plugin.slug + "_open" );
+
+        $containers.removeClass( plugin.slug + "_open" );   // close all containers
+        if(menuIsClosed) {
+            $clickedContainer.addClass( plugin.slug + "_open" );    // reopen the one that's supposed to be open
+        }
+        
+        // Stop the standard context menu appearing
+        return false;
+    });
 }
+
+
+
+
 
 export default PresetContainer;
 export { PresetContainer, initPresetContainer };

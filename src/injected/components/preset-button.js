@@ -53,14 +53,21 @@ class PresetButton extends JSXComponent {
 }
 
 const initPresetButtons = () => {
-  let $body = $("body");
-  $body.find("." + plugin.slug + "_preset-btn").on("click", activatePreset);
+  let $btn = $(`.${plugin.slug}_preset-btn`);
+  
+  // LEFT CLICK ACTION
+  $btn.on("click", activatePreset);
+
+
 }
 
 const activatePreset = (event) => {
   const index = event.currentTarget.dataset.index;
   activateBoardPreset(index);
 }
+
+
+
 
 
 
