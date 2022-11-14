@@ -12,6 +12,7 @@ import { devWarning } from "../generic-helpers";
 import { cycleBoardPresets } from "../helpers";
 
 import FlipFocusIcon from '../../assets/board-icon_flip-focus.js';
+import { useBoardSettings } from "../data";
 
 
 
@@ -19,6 +20,8 @@ class FlipFocusButton extends JSXComponent {
 
 
   render(props) {
+
+    const [boardSettings] = useBoardSettings();
 
     return (
         <a

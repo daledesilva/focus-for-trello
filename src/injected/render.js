@@ -207,6 +207,10 @@ export function renderFocusUi() {
 
             <FlipFocusButton/>
 
+            <div className={`${plugin.slug}_toast`}>
+                {boardSettings.boardPresets[boardSettings.activeBoardPreset].presetName + boardSettings.activeBoardPreset}
+            </div>
+
         </div>
     );
 
@@ -277,3 +281,23 @@ export function createListButtons($latestMutations) {
 
     applyTippyInside($listContent);
 }
+
+
+
+// export function createPresetToasts($latestMutations) {
+//     "use strict";
+
+//     // The mutation won't include ".pop-over" or be it, so we have to check for something inside
+//     let $popoverHeaderTitle = $latestMutations.find(".pop-over-header-title").first();
+//     // Bail if a list settings popup isn"t present
+//     if($popoverHeaderTitle.length == 0)   return;
+//     // Bail if the popover isn't a list settings context menu
+//     if( $popoverHeaderTitle.text().toUpperCase() != "LIST ACTIONS" )   return;
+
+//     // add custom Focus buttons to list settings menu
+//     let $listContent = $latestMutations.find(".js-pop-over-content div div").first();
+//     $listContent.append( <hr/> );
+//     $listContent.append( <ListButtons/> );
+
+//     applyTippyInside($listContent);
+// }

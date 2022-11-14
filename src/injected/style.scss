@@ -180,7 +180,7 @@ $transition-delay: 0;
 
 
    // Start closed
-   ////
+   ///////////////
    .#{$plugin_slug}_presets-group {
       display: none;
    }
@@ -188,18 +188,66 @@ $transition-delay: 0;
       display: none;
    }
 
+   // Start open
+   /////////////
+   .#{$plugin_slug}_toast {
+      background-color: #555;
+      color: #FFF;
+      border-radius: 3px;
+      padding: 0.5em;
+      display: block;
+      position: absolute;
+      bottom: 50%;
+      right: 110%;
+      transform: translateY(50%);
+      // Animation
+      // TODO: Fade in is creating discrepancy when page first loads. Should delay or remove on first page load.
+      animation-name: appearAndFadeOut;
+      animation-duration: 2s;
+      animation-fill-mode: both;
+   }
 
 
-   // Show contents when open
+   @keyframes appearAndFadeOut {
+      from {
+        opacity: 0;
+      }
+
+      10% {
+         opacity: 1;
+      }
+
+      70% {
+         opacity: 1;
+      }
+    
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+
+
+   // When right click menu is open
+   ////////////////////////////////
    &.#{$plugin_slug}_open {
 
+      // Show this content
+      ////////////////////
       .#{$plugin_slug}_presets-group {
          display: block;
       }
-   
       .#{$plugin_slug}_settings-group {
          display: inline-block;
       }
+
+      // Hide this content
+      ////////////////////
+      .#{$plugin_slug}_toast {
+         display: none;
+      }
+      
    
    }
 
@@ -371,6 +419,10 @@ $transition-delay: 0;
 
   
 }
+
+
+
+
 
 
 
