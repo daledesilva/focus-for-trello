@@ -45,14 +45,12 @@ class DeletePresetButton extends JSXComponent {
 
 
 const initDeletePresetButtons = () => {
-  let $body = $("body");
-  $body.find("." + plugin.slug + "_delete-preset-btn").on("click", deletePreset);
+  $("." + plugin.slug + "_delete-preset-btn").on("click", showDeleteConfirmation);
 }
 
-const deletePreset = (event) => {
-  const index = event.currentTarget.dataset.index;
-  console.log("delete preset button clicked: ", index);
-  deletePresetSettings(index);
+const showDeleteConfirmation = (event) => {
+  let $presetContainer = $(event.currentTarget).closest("." + plugin.slug + "_preset-container");
+  $presetContainer.addClass(`${plugin.slug}_delete-confirmation-active`);
 }
 
 

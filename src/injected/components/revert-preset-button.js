@@ -45,14 +45,12 @@ class RevertPresetButton extends JSXComponent {
 
 
 const initRevertPresetButtons = () => {
-  let $body = $("body");
-  $body.find("." + plugin.slug + "_revert-preset-btn").on("click", revertPreset);
+  $("." + plugin.slug + "_revert-preset-btn").on("click", revertPreset);
 }
 
 const revertPreset = (event) => {
-  const index = event.currentTarget.dataset.index;
-  console.log("revert preset button clicked: ", index);
-  // activateBoardPreset(index);
+  let $presetContainer = $(event.currentTarget).closest("." + plugin.slug + "_preset-container");
+  $presetContainer.addClass(`${plugin.slug}_revert-confirmation-active`);
 }
 
 

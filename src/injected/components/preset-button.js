@@ -58,7 +58,6 @@ const initPresetButtons = () => {
   // LEFT CLICK ACTION
   $btn.on("click", activatePreset);
 
-
 }
 
 const activatePreset = (event) => {

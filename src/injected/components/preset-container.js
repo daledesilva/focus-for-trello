@@ -17,6 +17,10 @@ import RevertPresetButton, { initRevertPresetButtons } from "./revert-preset-but
 import SavePresetButton, { initSavePresetButtons } from "./save-preset-button";
 import PresetButton, { initPresetButtons } from "./preset-button";
 
+import DeletePresetConfirmation, { initDeletePresetConfirmation } from "./delete-preset-confirmation";
+import RevertPresetConfirmation, { initRevertPresetConfirmation } from "./revert-preset-confirmation";
+import SavePresetConfirmation, { initSavePresetConfirmation } from "./save-preset-confirmation";
+
 
 
 class PresetContainer extends JSXComponent {
@@ -31,7 +35,8 @@ class PresetContainer extends JSXComponent {
 
     const [boardSettings] = useBoardSettings();
 
-    return (
+    return ( <Fragment>
+
         <div
             className = {classnames(
                 plugin.slug + "_preset-container",
@@ -40,7 +45,8 @@ class PresetContainer extends JSXComponent {
             )}
         >
 
-            {index != 0 && ( <Fragment>
+            {index != 0 && (
+            <div className = {`${plugin.slug}_edit-buttons`}>
 
                 {/* Allow deletion of preset */}
                 <DeletePresetButton index={index}/>
@@ -48,15 +54,24 @@ class PresetContainer extends JSXComponent {
                 <RevertPresetButton index={index}/>
                 <SavePresetButton index={index}/>
 
-            </Fragment> )}
+            </div> )}
 
             <PresetButton
                 index = {index}
                 boardPreset = {boardPreset}
             />
 
+            {index != 0 && ( <Fragment>
+                <DeletePresetConfirmation/>
+                <RevertPresetConfirmation/>
+                <SavePresetConfirmation/>
+            </Fragment> )}
+
         </div>
-    );
+
+        
+
+    </Fragment> );
 
 
   }
@@ -68,6 +83,9 @@ const initPresetContainer = () => {
     initDeletePresetButtons();
     initRevertPresetButtons();
     initSavePresetButtons();
+    initDeletePresetConfirmation();
+    initRevertPresetConfirmation();
+    initSavePresetConfirmation();
 
     let $containers = $(`.${plugin.slug}_preset-container`);
   

@@ -432,10 +432,65 @@ $transition-delay: 0;
 }
 
 
+.#{$plugin_slug}_edit-buttons {
+   display: flex;
+   justify-content: flex-end;
+   gap: 3px;
+   align-items: center;
+}
+
+
+.#{$plugin_slug}_confirmation {
+
+   margin: 0.5em 0;
+   &:last-of-type {
+      margin-bottom: 2em;
+   }
+
+   display: flex;
+   justify-content: flex-end;
+   gap: 3px;
+   align-items: center;
+
+   display: none;
+
+}
 
 
 
+a.#{$plugin_slug}_cancel-btn,
+a.#{$plugin_slug}_action-btn {
+   color: #fff;
+   background-color: #000;
+   border-radius: 1em;
+   text-decoration: none;
+   padding: 0.3em 1em;
 
+   &:hover, &:active {
+      color: $hover-fg-color;
+      background-color: $hover-bg-color;
+   }
+}
+
+
+
+.#{$plugin_slug}_confirmation { display: none; }
+
+.#{$plugin_slug}_delete-confirmation-active {
+   .#{$plugin_slug}_edit-buttons { display: none; }
+   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_delete-confirmation { display: flex; }
+}
+.#{$plugin_slug}_revert-confirmation-active {
+   .#{$plugin_slug}_edit-buttons { display: none; }
+   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_revert-confirmation { display: flex; }
+}
+.#{$plugin_slug}_save-confirmation-active {
+   .#{$plugin_slug}_edit-buttons { display: none; }
+   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_save-confirmation { display: flex; }
+}
 
 
 

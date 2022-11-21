@@ -43,14 +43,13 @@ class SavePresetButton extends JSXComponent {
 
 
 const initSavePresetButtons = () => {
-  let $body = $("body");
-  $body.find("." + plugin.slug + "_save-preset-btn").on("click", savePreset);
+  $("." + plugin.slug + "_save-preset-btn").on("click", savePreset);
 }
 
 const savePreset = (event) => {
-  const index = event.currentTarget.dataset.index;
-  console.log("save preset button clicked: ", index);
-  // activateBoardPreset(index);
+  let $presetContainer = $(event.currentTarget).closest("." + plugin.slug + "_preset-container");
+  $presetContainer.addClass(`${plugin.slug}_save-confirmation-active`);
+  console.log($presetContainer);
 }
 
 
