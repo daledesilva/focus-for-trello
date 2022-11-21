@@ -50,6 +50,7 @@ const initRevertPresetButtons = () => {
 
 const revertPreset = (event) => {
   let $presetContainer = $(event.currentTarget).closest("." + plugin.slug + "_preset-container");
+  $presetContainer.removeClass(`${plugin.slug}_edit-buttons-active`);
   $presetContainer.addClass(`${plugin.slug}_revert-confirmation-active`);
 }
 

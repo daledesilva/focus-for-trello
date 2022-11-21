@@ -416,12 +416,12 @@ $transition-delay: 0;
 
 
       // Hide options inside until container is right clicked
-      a.#{$plugin_slug}_preset-side-btn {
+      .#{$plugin_slug}_edit-buttons {
          display: none;
       }
-      &.#{$plugin_slug}_open {
-         a.#{$plugin_slug}_preset-side-btn {
-            display: block;
+      &.#{$plugin_slug}_edit-buttons-active {
+         .#{$plugin_slug}_edit-buttons {
+            display: flex;
          }
       }
 
@@ -477,18 +477,18 @@ a.#{$plugin_slug}_action-btn {
 .#{$plugin_slug}_confirmation { display: none; }
 
 .#{$plugin_slug}_delete-confirmation-active {
-   .#{$plugin_slug}_edit-buttons { display: none; }
-   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_edit-buttons { display: none !important; }
+   .#{$plugin_slug}_preset-btn { display: none !important; }
    .#{$plugin_slug}_delete-confirmation { display: flex; }
 }
 .#{$plugin_slug}_revert-confirmation-active {
-   .#{$plugin_slug}_edit-buttons { display: none; }
-   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_edit-buttons { display: none !important; }
+   .#{$plugin_slug}_preset-btn { display: none !important; }
    .#{$plugin_slug}_revert-confirmation { display: flex; }
 }
 .#{$plugin_slug}_save-confirmation-active {
-   .#{$plugin_slug}_edit-buttons { display: none; }
-   .#{$plugin_slug}_preset-btn { display: none; }
+   .#{$plugin_slug}_edit-buttons { display: none !important; }
+   .#{$plugin_slug}_preset-btn { display: none !important; }
    .#{$plugin_slug}_save-confirmation { display: flex; }
 }
 

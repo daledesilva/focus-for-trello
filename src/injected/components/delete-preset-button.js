@@ -50,6 +50,7 @@ const initDeletePresetButtons = () => {
 
 const showDeleteConfirmation = (event) => {
   let $presetContainer = $(event.currentTarget).closest("." + plugin.slug + "_preset-container");
+  $presetContainer.removeClass(`${plugin.slug}_edit-buttons-active`);
   $presetContainer.addClass(`${plugin.slug}_delete-confirmation-active`);
 }
 

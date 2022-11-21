@@ -95,9 +95,9 @@ const initPresetContainer = () => {
         const $clickedContainer = $(e.currentTarget)
         const menuIsClosed = !$clickedContainer.hasClass( plugin.slug + "_open" );
 
-        $containers.removeClass( plugin.slug + "_open" );   // close all containers
+        $containers.removeClass( plugin.slug + "_edit-buttons-active" );   // close all containers
         if(menuIsClosed) {
-            $clickedContainer.addClass( plugin.slug + "_open" );    // reopen the one that's supposed to be open
+            $clickedContainer.addClass( plugin.slug + "_edit-buttons-active" );    // reopen the one that's supposed to be open
         }
         
         // Stop the standard context menu appearing
