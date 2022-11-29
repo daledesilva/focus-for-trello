@@ -442,11 +442,6 @@ $transition-delay: 0;
 
 .#{$plugin_slug}_confirmation {
 
-   margin: 0.5em 0;
-   &:last-of-type {
-      margin-bottom: 2em;
-   }
-
    display: flex;
    justify-content: flex-end;
    gap: 3px;
