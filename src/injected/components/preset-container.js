@@ -20,6 +20,7 @@ import PresetButton, { initPresetButtons } from "./preset-button";
 import DeletePresetConfirmation, { initDeletePresetConfirmation } from "./delete-preset-confirmation";
 import RevertPresetConfirmation, { initRevertPresetConfirmation } from "./revert-preset-confirmation";
 import SavePresetConfirmation, { initSavePresetConfirmation } from "./save-preset-confirmation";
+import RenamePresetButton from "./rename-preset-button";
 
 
 
@@ -51,6 +52,7 @@ class PresetContainer extends JSXComponent {
                 {/* Allow deletion of preset */}
                 <DeletePresetButton index={index}/>
                 {/* Hide these unless the preset is modified */}
+                <RenamePresetButton index={index}/>
                 <RevertPresetButton index={index}/>
                 <SavePresetButton index={index}/>
 
